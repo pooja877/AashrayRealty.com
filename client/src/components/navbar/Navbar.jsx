@@ -16,13 +16,13 @@ function Navbar()
                 </p> 
             </a>
             <a href="/">Home</a> 
-            <a href="/About">About us</a>
+            <a href="/about">About us</a>
             <a href="/">Contact us</a>
             <a href="/">News</a>
        </div>
        {/* right side */}
         <div className="right">
-        <a href="/" className='register'>Sign Up</a>
+        <a href="/signin" className='register'>Sign in</a>
         {/* max-width is small */}
         <div className="menuIcon">
           <img
@@ -32,11 +32,11 @@ function Navbar()
           />
         </div>
         <div className={open ? "menu active" : "menu"}>
-          <a href="/Home">Home</a>
-          <a href="/About">About</a>
+          <a href="/home">Home</a>
+          <a href="/about">About</a>
           <a href="/">Contact</a>
           <a href="/">News</a>
-          <a href="/">Sign up</a>
+          <a href="/signin">Sign in</a>
         </div>
         </div>
        </nav>
