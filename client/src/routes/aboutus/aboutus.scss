@@ -1,0 +1,149 @@
+/* Variables */
+$font-family: 'Arial', sans-serif;
+$primary-color: #2980b9;
+$secondary-color: #34495e;
+$text-color: #333;
+$muted-color: #7f8c8d;
+$background-color: #f9f9f9;
+$cta-background: #eaf2f8;
+
+/* General Styling */
+.about-us {
+  font-family: $font-family;
+  line-height: 1.6;
+  color: $text-color;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: $background-color;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+
+  /* Header Section */
+  &-header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    h1 {
+      font-size: 2.8em;
+      color: $secondary-color;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: $muted-color;
+    }
+  }
+
+  /* Section Styling */
+  &-section {
+    margin-bottom: 30px;
+    padding: 10px 20px;
+
+    h2 {
+      font-size: 2em;
+      color: $secondary-color;
+      margin-bottom: 15px;
+      border-left: 5px solid $primary-color;
+      padding-left: 10px;
+    }
+
+    p {
+      font-size: 1em;
+      color: $text-color;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      padding-left: 10px;
+
+      li {
+        font-size: 1em;
+        color: $text-color;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  /* Call-to-Action Section */
+  &-cta {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: $cta-background;
+    border-radius: 8px;
+
+    h2 {
+      font-size: 2.5em;
+      color: $primary-color;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.1em;
+      color: $muted-color;
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-us {
+    padding: 15px;
+
+    &-header {
+      h1 {
+        font-size: 2.2em;
+      }
+    }
+
+    &-section {
+      h2 {
+        font-size: 1.6em;
+      }
+    }
+
+    &-cta {
+      h2 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us {
+    &-header {
+      h1 {
+        font-size: 1.8em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+    }
+
+    &-section {
+      h2 {
+        font-size: 1.4em;
+      }
+    }
+
+    &-cta {
+      h2 {
+        font-size: 1.8em;
+      }
+
+      p {
+        font-size: 0.9em;
+      }
+    }
+  }
+}
