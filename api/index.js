@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO).then(()=>{
 
 const app=express();
 app.listen(3000,()=>{
-    console.log("server is run!!!");
+    console.log("server is run!!!!");
 })
 
 app.use("/api/user",userRouter);

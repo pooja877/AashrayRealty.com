@@ -22,8 +22,7 @@ function Navbar()
        </div>
        {/* right side */}
         <div className="right">
-        <a href="/">Sign in</a>
-        <a href="/" className='register'>Sign Up </a>
+        <a href="/" className='register'>Sign Up</a>
         {/* max-width is small */}
         <div className="menuIcon">
           <img
@@ -33,11 +32,10 @@ function Navbar()
           />
         </div>
         <div className={open ? "menu active" : "menu"}>
-          <a href="/">Home</a>
-          <a href="/">About</a>
+          <a href="/Home">Home</a>
+          <a href="/About">About</a>
           <a href="/">Contact</a>
           <a href="/">News</a>
-          <a href="/">Sign in</a>
           <a href="/">Sign up</a>
         </div>
         </div>
