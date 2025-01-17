@@ -6,8 +6,8 @@ function Signin()
        <div className="signIn">
         <h1>Sign in</h1>
         <form >
-            <input type="text" placeholder="email" id='email'/>
-            <input type="password" placeholder="password" id='password'/>
+            <input type="text" placeholder="Email" id='email'/>
+            <input type="password" placeholder="Password" id='password'/>
             <button>SIGN In</button>
         </form>
         <div className="msg">

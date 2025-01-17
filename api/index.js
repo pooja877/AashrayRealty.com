@@ -19,7 +19,7 @@ const app=express();
 app.use(express.json());
 
 app.listen(3000,()=>{
-    console.log("server is run!!!!");
+    console.log("server is run 3000!!!!");
 });
 
  app.use("/api/user", userRouter);

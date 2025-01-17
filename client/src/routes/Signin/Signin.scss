@@ -29,12 +29,13 @@
         width:18rem;
     }
     button{
-        background-color: #42679f;
+        background-color:rgb(5, 40, 75);
         color:#ffffff;
         padding: 0.75rem;
         border-radius: 0.5rem;
         opacity: 0.8;
         cursor: pointer ;
+        text-transform: uppercase;
     }
     .msg{
         display: flex;
