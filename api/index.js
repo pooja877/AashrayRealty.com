@@ -5,28 +5,32 @@ import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
 dotenv.config();
 
-mongoose.connect(process.env.MONGO).then(()=>{
-    console.log("Connect to MongoDB!!!");
+mongoose
+    .connect(process.env.MONGO)
+    .then(()=>{
+     console.log("Connect to MongoDB!!!");
 })
-.catch((err)=>{
-    console.log("Not Connect!!"+err);
+    .catch((err)=>{
+     console.log("Not Connect!!"+err);
 });
 
 const app=express();
+
 app.use(express.json());
+
 app.listen(3000,()=>{
     console.log("server is run!!!!");
-})
+});
 
-app.use("/api/user",userRouter);
-app.use("/api/auth",authRouter);
+ app.use("/api/user", userRouter);
+ app.use("/api/auth", authRouter);
 
-app.use((err,req,resizeBy,next)=>{
+app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;
     const message=err.message||'Internal Server Error';
-    return resizeBy.status(statusCode).json({
+    return res.status(statusCode).json({
         success: false,
         statusCode,
         message
-})
-})
+});
+});
