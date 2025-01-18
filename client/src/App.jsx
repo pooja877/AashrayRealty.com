@@ -5,6 +5,8 @@ import Homepage from "./routes/homepage/Homepage"
 import { BrowserRouter, Routes,Route } from "react-router-dom";
 import SignUp from "./routes/Signup/Signup";
 import Signin from "./routes/Signin/Signin";
+import Profile from "./routes/profile/Profile";
+import PrivateRoute from "./components/privateRoute/PrivateRoute";
 
 function App() {
   return ( 
@@ -16,6 +18,9 @@ function App() {
       <Route path="/About" element={<AboutUs/>}/>
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/signin" element={<Signin/>}/>
+      <Route element={<PrivateRoute/>}>
+      <Route path="/profile" element={<Profile/>}/>
+      </Route>
     </Routes>
     </BrowserRouter>
   )

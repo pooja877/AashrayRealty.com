@@ -1,8 +1,10 @@
 import {  useState } from "react";
-//import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import './navbar.scss';
+import {useSelector} from 'react-redux';
 function Navbar()
-{
+{   
+  const { currentUser } = useSelector((state) => state.user);
     const [open, setOpen] = useState(false);
     return(
         <>
@@ -20,9 +22,14 @@ function Navbar()
             <a href="/">Contact us</a>
             <a href="/">News</a>
        </div>
+
        {/* right side */}
         <div className="right">
-        <a href="/signin" className='register'>Sign in</a>
+          <Link to="/profile">      
+              {currentUser? (<img src={currentUser.avatar} className="profile" />):(<p  className='register'>Sign in</p>)}
+              {/* <p className="register">Sign in</p> */}
+          </Link>
+
         {/* max-width is small */}
         <div className="menuIcon">
           <img

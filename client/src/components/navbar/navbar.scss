@@ -55,6 +55,7 @@ nav {
     }
   }
   .right {
+
     flex: 2;
     display: flex;
     align-items: center;
@@ -64,56 +65,17 @@ nav {
     @include md {
       background-color: transparent;
     }
-
-    a {
+      .profile{
+        border-radius: 50%;
+        height:40px;
+        width:40px;
+       margin-right: 30px;
+        object-fit: cover;
+      }
+    p {
       padding: 12px 24px;
       margin: 20px;
     }
-
-    // profile
-    .user{
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-
-      img{
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 20px;
-      }
-
-      span{
-        @include sm{
-          display: none;
-        }
-      }
-
-      .profile{
-        padding: 12px 24px;
-        background-color: #fece51;
-        cursor: pointer;
-        border: none;
-        position: relative;
-        
-        .notification{
-          position: absolute;
-          top: -8px;
-          right: -8px;
-          background-color: red;
-          color: white;
-          border-radius: 50%;
-          width: 26px;
-          height: 26px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-      }
-    }
-    //menu
     .register {
       background-color: #fece51;
     }
