@@ -3,6 +3,7 @@ import { useState } from "react";
 import {Link,useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import { signInStart ,signInFailure,signInSuccess} from "../../redux/user/userSlice";
+import OAuth from "../../components/google/OAuth";
 
 function SignIn()
 {   
@@ -23,7 +24,7 @@ function SignIn()
         try{
             dispatch(signInStart());
 
-        const res=await fetch('/api/auth/signin',
+            const res=await fetch('/api/auth/signin',
             {
             method:'POST',
             headers:{
@@ -52,12 +53,13 @@ function SignIn()
         <form onSubmit={handleSubmit}>
             <input type="text" placeholder="Email" id='email'onChange={handleChange}/>
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
-            <button disabled={loading}>
+            <button disabled={loading} className="signin_btn">
                 {loading?'Loading...':'Sign In'}
             </button>
+            <OAuth/>
         </form>
         <div className="msg">
-            <p>Already have an account?</p>
+            <p>Do not have an Account?</p>
             <Link to={"/signup"}>
             <span>Sign Up</span>
             </Link>

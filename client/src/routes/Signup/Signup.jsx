@@ -1,12 +1,15 @@
 import "./signup.scss"
 import { useState } from "react";
 import {Link,useNavigate} from 'react-router-dom';
+import OAuth from "../../components/google/OAuth";
+import {useDispatch, useSelector} from 'react-redux';
+import { signInStart ,signInFailure,signInSuccess} from "../../redux/user/userSlice";
 
 
 function SignUp()
 {   const [formData,setFormData]=useState({});
-    const [error,setError]=useState(null);
-    const [loading,setLoading]=useState(false);
+    const {loading,error} =useSelector((state)=>state.user);
+    const dispatch=useDispatch();
     const navigate=useNavigate();
     const handleChange=(e)=>{
 
@@ -19,8 +22,7 @@ function SignUp()
     const handleSubmit= async (e)=>{
         e.preventDefault();
         try{
-            setLoading(true);
-
+            dispatch(signInStart());
         const res=await fetch('/api/auth/signup',
             {
             method:'POST',
@@ -33,18 +35,15 @@ function SignUp()
         const data=await res.json();
         if(data.success===false){
            
-            setLoading(false);
-            setError(data.message);
+            dispatch(signInFailure(data.message));
             return;
         }
-        setLoading(false);
-        setError(null);
+        dispatch(signInSuccess(data));
         navigate('/signin');
         }
         catch(error)
         {
-            setLoading(false);
-            setError(error.message);
+            dispatch(signInFailure(error.message));
         }
         
     }
@@ -55,9 +54,10 @@ function SignUp()
             <input type="text" placeholder="Username" id='username'onChange={handleChange}/>
             <input type="text" placeholder="Email" id='email'onChange={handleChange}/>
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
-            <button disabled={loading}>
+            <button disabled={loading} className="signup_btn">
                 {loading?'Loading...':'Sign Up'}
             </button>
+            <OAuth/>
         </form>
         <div className="msg">
             <p>Already have an account?</p>
