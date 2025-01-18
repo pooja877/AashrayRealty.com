@@ -9,10 +9,9 @@ export default function OAuth() {
     const dispatch=useDispatch();
     const navigate=useNavigate();
     const handleGoogleClick=async()=>{
-        try{
+         try{    
                 const provider=new GoogleAuthProvider();
                 const auth=getAuth(app);
-
                  const result=await signInWithPopup(auth,provider);
                 const res=await fetch('/api/auth/google',{
                     method:'POST',
@@ -32,8 +31,8 @@ export default function OAuth() {
         }
     }
   return (     
-        <button className="google_btn" onClick={handleGoogleClick}>
-            <img src="google_logo.jpg" alt="Gooogle_logo" />
+        <button className="google_btn" >
+            <img src="google_logo.jpg" alt="Gooogle_logo" onClick={handleGoogleClick} />
           <p>  Continue with Google</p>
         </button>
   );
