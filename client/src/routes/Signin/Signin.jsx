@@ -56,7 +56,7 @@ function SignIn()
             <button disabled={loading} className="signin_btn">
                 {loading?'Loading...':'Sign In'}
             </button>
-            <OAuth/>
+            <OAuth />
         </form>
         <div className="msg">
             <p>Do not have an Account?</p>

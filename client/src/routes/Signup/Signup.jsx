@@ -1,15 +1,12 @@
 import "./signup.scss"
 import { useState } from "react";
 import {Link,useNavigate} from 'react-router-dom';
-import OAuth from "../../components/google/OAuth";
-import {useDispatch, useSelector} from 'react-redux';
-import { signInStart ,signInFailure,signInSuccess} from "../../redux/user/userSlice";
 
 
 function SignUp()
 {   const [formData,setFormData]=useState({});
-    const {loading,error} =useSelector((state)=>state.user);
-    const dispatch=useDispatch();
+    const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
     const navigate=useNavigate();
     const handleChange=(e)=>{
 
@@ -22,7 +19,7 @@ function SignUp()
     const handleSubmit= async (e)=>{
         e.preventDefault();
         try{
-            dispatch(signInStart());
+            setLoading(true);
         const res=await fetch('/api/auth/signup',
             {
             method:'POST',
@@ -35,15 +32,18 @@ function SignUp()
         const data=await res.json();
         if(data.success===false){
            
-            dispatch(signInFailure(data.message));
+            setLoading(false);
+            setError(data.message);
             return;
         }
-        dispatch(signInSuccess(data));
+        setLoading(false);
+        setError(null);
         navigate('/signin');
         }
         catch(error)
         {
-            dispatch(signInFailure(error.message));
+            setLoading(false);
+            setError(error.message);
         }
         
     }
@@ -57,7 +57,6 @@ function SignUp()
             <button disabled={loading} className="signup_btn">
                 {loading?'Loading...':'Sign Up'}
             </button>
-            <OAuth/>
         </form>
         <div className="msg">
             <p>Already have an account?</p>
