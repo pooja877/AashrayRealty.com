@@ -52,7 +52,7 @@ function SignUp()
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
             <input type="text" placeholder="Username" id='username'onChange={handleChange}/>
-            <input type="text" placeholder="Email" id='email'onChange={handleChange}/>
+            <input type="email" placeholder="Email" id='email'onChange={handleChange}/>
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
             <button disabled={loading} className="signup_btn">
                 {loading?'Loading...':'Sign Up'}

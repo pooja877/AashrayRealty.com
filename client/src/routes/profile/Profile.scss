@@ -1,0 +1,59 @@
+.infoContainer{
+    background-color: #f4f8fd;
+    height: 100vh;
+    padding: 3rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1rem;
+    h1{
+        font-weight: bold;
+        text-align: center;
+    }
+    form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap:0.5rem;
+
+    img{
+        border-radius: 50%;
+        height: 6rem;
+        width:6rem;
+        object-fit: cover;
+        cursor: pointer;
+        align-self: center;
+        margin-top: 0.5rem;
+    }
+    input{
+        border: 1px solid #c8d3e4;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        width:20rem;
+    }
+    .btnUpdate{
+        background-color: rgb(5, 40, 75);
+        color:white;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        text-transform: uppercase;
+        cursor: pointer;
+        width:20rem;
+        &:hover{
+            opacity: 0.95;
+        }
+    }
+  }
+  .setting{
+    width:20rem;
+    display: flex;
+    justify-content: space-between;
+    span{
+        color:red;
+        cursor: pointer;
+    }
+  }
+
+}

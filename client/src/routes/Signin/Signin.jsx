@@ -51,7 +51,7 @@ function SignIn()
        <div className="signIn">
         <h1>Sign in</h1>
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Email" id='email'onChange={handleChange}/>
+            <input type="email" placeholder="Email" id='email'onChange={handleChange}/>
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
             <button disabled={loading} className="signin_btn">
                 {loading?'Loading...':'Sign In'}
