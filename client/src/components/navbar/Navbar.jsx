@@ -27,7 +27,6 @@ function Navbar()
         <div className="right">
           <Link to="/profile">      
               {currentUser? (<img src={currentUser.avatar} className="profile" />):(<p  className='register'>Sign in</p>)}
-              {/* <p className="register">Sign in</p> */}
           </Link>
 
         {/* max-width is small */}

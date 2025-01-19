@@ -1,25 +1,50 @@
 import './Profile.scss';
 import { useSelector } from 'react-redux';
-import {useRef} from 'react';
+import {Link} from "react-router-dom";
 export default function Profile() {
-    const fileRef=useRef(null);
     const {currentUser}=useSelector((state)=>state.user);
      return (
-    <div className='infoContainer'>
-        <h1>Profile</h1>
-        <form action="">
-            <input type='file' ref={fileRef} hidden accept='image/*'/>
-            <img src={currentUser.avatar} onClick={()=>fileRef.current.click()}/>
-            <input type="text" placeholder='Username' id="username"/>
-            <input type="email" placeholder='Email' id='email' />
-            <input type="password" placeholder='Password' id='password' />
-            <button className='btnUpdate'>Update</button>
-        </form>
-        <div className="setting">
-            <span>Delete Account</span>
-            <span>Sign Out</span>
+      
+    <div className='infocontainer'>
+      {/*  user info */}
+           <div className="containerDetails">
+           <img className="profile"src={currentUser.avatar}/>
+           <div className="info">
+           <h2 id="username">{currentUser.username}</h2>
+           <p id='email'>{currentUser.email}</p>
+           </div>
+            <Link to="/edit">
+            <button className='btnEdit'>Edit</button>
+            </Link>
+           </div>
+           <hr/>
+        {/* My Activity */}
+           <h2>My Activity</h2>
+          <div className="myActivity">
+         
+            <div className="activity">
+              <img className="image"src="./house-heart-fill_1.png" />
+              <p>Saved Properties</p>
+              <span>00</span>
+            </div>
+            <div className="activity">
+              <img className="image" src="./house-circle-check_1.png" />
+              <p>Seen Properties</p>
+              <span>00</span>
+            </div>
+          </div>
+     {/* Account Setting */}
+        <div className="account_setting">
+         <img className="image"src="./profile_setting.png" alt="" />
+         <p>Account Settings</p>
+         <Link to="/setting"> <img  className="image"src="./arrow-circle-right_2.png" alt=""  /></Link>
         </div>
-
-    </div>
+        {/* Logout */}
+        
+            <button className='btnlogOut'>
+            <img className="image"src="logout_1.png" alt="" />
+            Log Out
+            </button>
+      </div>
   )
 }

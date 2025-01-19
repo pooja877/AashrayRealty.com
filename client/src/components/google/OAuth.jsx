@@ -1,4 +1,4 @@
-import { app } from '../../firebase';
+import {app} from '../../firebase.js';
 import './OAuth.scss'
 import {useDispatch} from 'react-redux';
 import {signInSuccess} from "../../redux/user/userSlice.js";
@@ -32,8 +32,8 @@ export default function OAuth() {
         }
     }
   return (     
-        <button className="google_btn" >
-            <img src="google_logo.jpg" alt="Gooogle_logo" onClick={handleGoogleClick} />
+        <button className="google_btn" onClick={handleGoogleClick}>
+            <img src="google_logo.jpg" alt="Gooogle_logo"  />
           <p>  Continue with Google</p>
         </button>
   );

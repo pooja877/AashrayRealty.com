@@ -7,6 +7,8 @@ import SignUp from "./routes/Signup/Signup";
 import Signin from "./routes/Signin/Signin";
 import Profile from "./routes/profile/Profile";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
+import Edit from "./components/edit/Edit";
+import Setting from "./components/setting/Setting";
 
 function App() {
   return ( 
@@ -20,6 +22,8 @@ function App() {
       <Route path="/signin" element={<Signin/>}/>
       <Route element={<PrivateRoute/>}>
       <Route path="/profile" element={<Profile/>}/>
+      <Route path="/edit" element={<Edit/>}/>
+      <Route path="/setting" element={<Setting/>}/>
       </Route>
     </Routes>
     </BrowserRouter>

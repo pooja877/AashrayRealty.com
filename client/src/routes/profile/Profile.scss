@@ -1,59 +1,144 @@
-.infoContainer{
+@import '../../res.scss';
+.infocontainer{
     background-color: #f4f8fd;
     height: 100vh;
     padding: 3rem;
     margin: auto;
     display: flex;
+    width:30rem;
     flex-direction: column;
-    align-items: center;
-    gap:1rem;
-    h1{
-        font-weight: bold;
-        text-align: center;
+    //justify-content: center;
+    //align-items: center;
+    overflow: auto;
+     gap:1rem;
+
+
+     @include sm{
+       width:20rem;
     }
-    form{
+    
+    .containerDetails
+    {
         display: flex;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
-        gap:0.5rem;
-
-    img{
+        gap:1rem;
+        @include sm{
+            flex-direction: column;
+        }
+     .profile{
         border-radius: 50%;
         height: 6rem;
         width:6rem;
         object-fit: cover;
         cursor: pointer;
-        align-self: center;
+        //align-self: center;
         margin-top: 0.5rem;
+     }
+    
+    .info{
+
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            //margin-left:1rem;
+            gap:0.5rem;
     }
-    input{
-        border: 1px solid #c8d3e4;
-        padding: 0.75rem;
-        border-radius: 0.5rem;
-        width:20rem;
-    }
-    .btnUpdate{
+  
+    
+    .btnEdit{
         background-color: rgb(5, 40, 75);
         color:white;
         border-radius: 0.5rem;
         padding: 0.75rem;
         text-transform: uppercase;
         cursor: pointer;
-        width:20rem;
+        text-align: center;
+        width:5rem;
+        height: 3rem;
         &:hover{
             opacity: 0.95;
         }
-    }
+       }
   }
-  .setting{
-    width:20rem;
+  .image{
+    height: 2rem;
+    width:2rem;
+    object-fit: cover;
+    cursor: pointer;
+    mix-blend-mode:multiply;
+  }
+  // my activity
+  .myActivity{
     display: flex;
-    justify-content: space-between;
-    span{
-        color:red;
-        cursor: pointer;
+    flex-direction: row;
+    justify-content: space-around;
+    gap:1px;
+    .activity{
+      height:6rem;
+      width:6rem;
+      box-shadow: 1px 0px 1px 1px grey;
+      text-align: center;
+      cursor: pointer;
+      padding: 3px;
+      gap:2px;
+      
+      &:hover{
+        border:1px solid rgb(107, 107, 143);
+        border-bottom: 0px;
+        box-shadow: 2px 0px 2px 2px rgb(107, 107, 143);
+      }
+      
+      span{
+        background-color:rgb(224, 219, 219);
+        border-radius: 10%;
+        padding-left: 2px;
+        padding-right: 2px;
+        border: none;
+        &:hover{
+          border: none;
+        }
+      }
+
     }
   }
+    .account_setting
+    {
+      display: flex;
+      // justify-content: center;
+      gap:0.5rem;
+      
+      p{
+        
+      //  text-align: center;
+       margin-right: 10rem;
+       font-weight: bold;
+       padding-top: 0.2rem;
+      }
+     
+      &:hover{
+        background-color: #d9dde4;
+        cursor: pointer;
+        border-radius: 0.5rem;
+      }
+    }
+      .btnlogOut{
+        border-radius: 0.5rem;
+        width:25rem;
+        display: flex;
+        flex-direction: row;
+        background-color: transparent;
+        font-size: 1rem;
+        gap:1rem;
+     padding: 0.2rem;
+     border: 1px solid gray;
+     align-items: center;
 
+        
+      
+    }
+
+  
 }
+
