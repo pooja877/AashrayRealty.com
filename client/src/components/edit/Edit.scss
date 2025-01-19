@@ -45,25 +45,26 @@
                   }
                 }
             }
-           
-        .btnChanges{
-            color:white;
-            background-color: rgb(5, 40, 75);
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            width:20rem;
-            height: 3rem;
-            &:hover{
-                opacity: 0.95;
-            }
-            @include sm{
-                width:10rem;
-
+            button{
+              color:white;
+              background-color: rgb(5, 40, 75);
+              border-radius: 0.5rem;
+              margin-bottom: 1rem;
+              text-transform: uppercase;
+              cursor: pointer;
+              width:20rem;
+              height: 3rem;
+              &:hover{
+                  opacity: 0.95;
               }
-            
-        }
+              @include sm{
+                  width:10rem;
+  
+                }
+              
+          }
+           
+        
     }
 
 }

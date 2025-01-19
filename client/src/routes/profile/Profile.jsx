@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import {Link} from "react-router-dom";
 export default function Profile() {
     const {currentUser}=useSelector((state)=>state.user);
+    
      return (
       
     <div className='infocontainer'>
