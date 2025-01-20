@@ -45,7 +45,7 @@ export default function Profile() {
 
           {showTool && <div className="tools_">
             <div className="tool">
-              <img  className="image"src="book-reader_3.png" alt="guid" />
+              <img className="image"src="./book-reader_3.png" alt="guid" />
               <p>Buying Guide</p>
             </div>
             <div className="tool">
@@ -53,7 +53,7 @@ export default function Profile() {
             <p>EMI Calculator</p>
             </div>
             <div className="tool">
-            <img className="image"src="./eligibility.png" alt="Aligibility" />
+            <img className="image" src="./eligibility.png" alt="eligibility" />
             <p>Eligibility Calculator</p>
             </div>
           </div>

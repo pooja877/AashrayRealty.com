@@ -7,19 +7,20 @@
     display: flex;
     width:30rem;
     flex-direction: column;
-    //justify-content: center;
+    justify-content: center;
     //align-items: center;
     overflow: auto;
      gap:1rem;
 
 
      @include sm{
-       width:20rem;
+       width:25rem;
     }
     
     .containerDetails
     {
         display: flex;
+        //if required then make it column
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -117,6 +118,9 @@
        margin-right: 12rem;
        font-weight: bold;
        padding-top: 0.2rem;
+       @include sm{
+        margin-right: 4rem;
+      }
       }
      
       &:hover{
@@ -160,6 +164,9 @@
        margin-right: 10rem;
        font-weight: bold;
        padding-top: 0.2rem;
+       @include sm{
+        margin-right: 3rem;
+      }
       }
      
       &:hover{
@@ -167,6 +174,7 @@
         cursor: pointer;
         border-radius: 0.5rem;
       }
+    
     }
 
     //logout
@@ -183,7 +191,9 @@
        align-items: center;
        cursor: pointer;
  
-        
+        @include sm{
+          width:13rem;
+        }
       
     } 
     
