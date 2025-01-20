@@ -40,7 +40,7 @@ export default function Profile() {
             <h2>Tools & Advices</h2>
             <img src="" alt="" />
           </div>
-     {/* Account Setting */}
+     {/* Account Setting delete account */}
         <div className="account_setting">
          <img className="image"src="./user-delete_1.png" alt="delete" />
          <p>Delete my account</p>
