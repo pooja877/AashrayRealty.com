@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import './Profile.scss';
 import { useSelector } from 'react-redux';
 import {Link} from "react-router-dom";
 export default function Profile() {
     const {currentUser} = useSelector((state)=>state.user);
-    
+    const [showTool,setShowTool]=useState(false);
      return (
       
     <div className='infocontainer'>
@@ -35,17 +36,38 @@ export default function Profile() {
             </div>
           </div>
           {/* tools & advices */}
-          <div className="tools">
-            <img src="" alt="" />
-            <h2>Tools & Advices</h2>
-            <img src="" alt="" />
+
+          <div className="tools" onClick={()=>setShowTool(!showTool)} >
+            <img className="image" src="./cal.jpg" alt="" />
+            <p>Tools & Advices</p>
+            <img className="image" src="./arrow-down-circle_1.png" alt="" />
           </div>
+
+          {showTool && <div className="tools_">
+            <div className="tool">
+              <img  className="image"src="book-reader_3.png" alt="guid" />
+              <p>Buying Guide</p>
+            </div>
+            <div className="tool">
+            <img className="image"src="./emi.png" alt="EMI" />
+            <p>EMI Calculator</p>
+            </div>
+            <div className="tool">
+            <img className="image"src="./eligibility.png" alt="Aligibility" />
+            <p>Eligibility Calculator</p>
+            </div>
+          </div>
+         }
+
      {/* Account Setting delete account */}
+     <Link to="/setting">
         <div className="account_setting">
          <img className="image"src="./user-delete_1.png" alt="delete" />
          <p>Delete my account</p>
           <img  className="image"src="./arrow-circle-right_2.png" alt="arrow"/>
         </div>
+        </Link>
+
         {/* Logout */}
             <button className='btnlogOut'>
             <img className="image"src="logout_1.png" alt="" />

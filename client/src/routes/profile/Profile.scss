@@ -56,7 +56,7 @@
         cursor: pointer;
         text-align: center;
         width:5rem;
-        height: 3rem;
+        height:3rem;
         &:hover{
             opacity: 0.95;
         }
@@ -103,6 +103,51 @@
 
     }
   }
+
+  //tools & service
+  .tools{
+    display: flex;
+      // justify-content: center;
+      gap:0.5rem;
+      
+      p{
+        
+      //  text-align: center;
+      display: inline-block;
+       margin-right: 12rem;
+       font-weight: bold;
+       padding-top: 0.2rem;
+      }
+     
+      &:hover{
+        background-color: #d9dde4;
+        cursor: pointer;
+        border-radius: 0.5rem;
+      }
+  }
+  .tools_
+  { 
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        gap:1px;
+        .tool{
+          height:6rem;
+          width:6rem;
+          box-shadow: 1px 0px 1px 1px grey;
+          text-align: center;
+          cursor: pointer;
+          padding: 3px;
+          gap:2px;
+          
+          &:hover{
+            border:1px solid rgb(107, 107, 143);
+            border-bottom: 0px;
+            box-shadow: 2px 0px 2px 2px rgb(107, 107, 143);
+          }
+    }
+  }
+  //account setting and delete
     .account_setting
     {
       display: flex;
@@ -123,9 +168,11 @@
         border-radius: 0.5rem;
       }
     }
+
+    //logout
       .btnlogOut{
         border-radius: 0.5rem;
-        width:25rem;
+        width:23rem;
         display: flex;
         flex-direction: row;
         background-color: transparent;
@@ -138,8 +185,6 @@
  
         
       
-    }
-
-  
+    } 
+    
 }
-
