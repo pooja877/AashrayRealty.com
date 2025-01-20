@@ -1,18 +1,21 @@
 import './Edit.scss'
-import { useSelector } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import {  useState } from 'react';
 import { updateUserStart ,updateUserSuccess,updateUserFailure} from '../../redux/user/userSlice.js';
-import { useDispatch } from 'react-redux';
 export default function Edit() {
 
     const {currentUser, loading}=useSelector((state)=>state.user);
     const [formData, setFormData] = useState({});
    // const [updateSuccess, setUpdateSuccess] = useState(false);
     const dispatch=useDispatch();
-    console.log(formData);
+   
     const handleChange = (e) => {
-      setFormData({ ...formData, [e.target.id]: e.target.value });
+      setFormData({ ...formData, 
+        [e.target.id]: e.target.value });
     };
+
+
+    console.log(formData);
 
     const handleSubmit=async (e)=>{
       e.preventDefault();

@@ -2,7 +2,7 @@ import './Profile.scss';
 import { useSelector } from 'react-redux';
 import {Link} from "react-router-dom";
 export default function Profile() {
-    const {currentUser}=useSelector((state)=>state.user);
+    const {currentUser} = useSelector((state)=>state.user);
     
      return (
       
@@ -34,14 +34,19 @@ export default function Profile() {
               <span>00</span>
             </div>
           </div>
+          {/* tools & advices */}
+          <div className="tools">
+            <img src="" alt="" />
+            <h2>Tools & Advices</h2>
+            <img src="" alt="" />
+          </div>
      {/* Account Setting */}
         <div className="account_setting">
-         <img className="image"src="./profile_setting.png" alt="" />
-         <p>Account Settings</p>
-         <Link to="/setting"> <img  className="image"src="./arrow-circle-right_2.png" alt=""  /></Link>
+         <img className="image"src="./user-delete_1.png" alt="delete" />
+         <p>Delete my account</p>
+          <img  className="image"src="./arrow-circle-right_2.png" alt="arrow"/>
         </div>
         {/* Logout */}
-        
             <button className='btnlogOut'>
             <img className="image"src="logout_1.png" alt="" />
             Log Out
