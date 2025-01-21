@@ -1,4 +1,3 @@
-//import { useState } from 'react';
 import './Profile.scss';
 import {useSelector,useDispatch } from 'react-redux';
 import {Link} from "react-router-dom";
@@ -9,7 +8,6 @@ import Tools from '../../components/Tools&advice/Tools.jsx';
 
 export default function Profile() {
     const {currentUser} = useSelector((state)=>state.user);
-    // const [showTool,setShowTool]=useState(false);
     const dispatch=useDispatch();
    
     const handleLogOut=async ()=>{
