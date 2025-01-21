@@ -1,13 +1,15 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import './Profile.scss';
 import {useSelector,useDispatch } from 'react-redux';
 import {Link} from "react-router-dom";
 import { logoutUserStart ,logoutUserSuccess,logoutUserFailure} from '../../redux/user/userSlice.js';
+import Activity from '../../components/Activity/Activity.jsx';
+import Tools from '../../components/Tools&advice/Tools.jsx';
 
 
 export default function Profile() {
     const {currentUser} = useSelector((state)=>state.user);
-    const [showTool,setShowTool]=useState(false);
+    // const [showTool,setShowTool]=useState(false);
     const dispatch=useDispatch();
    
     const handleLogOut=async ()=>{
@@ -43,44 +45,9 @@ export default function Profile() {
            </div>
            <hr/>
         {/* My Activity */}
-           <h2>My Activity</h2>
-          <div className="myActivity">
-         
-            <div className="activity">
-              <img className="image"src="./house-heart-fill_1.png" />
-              <p>Saved Properties</p>
-              <span>00</span>
-            </div>
-            <div className="activity">
-              <img className="image" src="./house-circle-check_1.png" />
-              <p>Seen Properties</p>
-              <span>00</span>
-            </div>
-          </div>
+          <Activity/>
           {/* tools & advices */}
-
-          <div className="tools" onClick={()=>setShowTool(!showTool)} >
-            <img className="image" src="./cal.jpg" alt="" />
-            <p>Tools & Advices</p>
-            <img className="image" src="./arrow-down-circle_1.png" alt="" />
-          </div>
-
-          {showTool && <div className="tools_">
-            <div className="tool">
-              <img className="image"src="./book-reader_3.png" alt="guid" />
-              <p>Buying Guide</p>
-            </div>
-            <div className="tool">
-            <img className="image"src="./emi.png" alt="EMI" />
-            <p>EMI Calculator</p>
-            </div>
-            <div className="tool">
-            <img className="image" src="./eligibility.png" alt="eligibility" />
-            <p>Eligibility Calculator</p>
-            </div>
-          </div>
-         }
-
+          <Tools/>
      {/* Account Setting delete account */}
      <Link to="/setting">
         <div className="account_setting" >

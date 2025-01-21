@@ -1,0 +1,33 @@
+.myActivity{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap:1px;
+    .activity{
+      height:6rem;
+      width:6rem;
+      box-shadow: 1px 0px 1px 1px grey;
+      text-align: center;
+      cursor: pointer;
+      padding: 3px;
+      gap:2px;
+      
+      &:hover{
+        border:1px solid rgb(107, 107, 143);
+        border-bottom: 0px;
+        box-shadow: 2px 0px 2px 2px rgb(107, 107, 143);
+      }
+      
+      span{
+        background-color:rgb(224, 219, 219);
+        border-radius: 10%;
+        padding-left: 2px;
+        padding-right: 2px;
+        border: none;
+        &:hover{
+          border: none;
+        }
+      }
+
+    }
+  }
