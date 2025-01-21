@@ -37,7 +37,8 @@ function Navbar()
             onClick={() => setOpen((prev) => !prev)}
           />
         </div>
-        <div className={open ? "menu active" : "menu"}>
+        <div className={open ? "menu active" : "menu"}>  
+         
           <a href="/home">Home</a>
           <a href="/about">About</a>
           <a href="/">Contact</a>

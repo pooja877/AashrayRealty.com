@@ -2,11 +2,11 @@ import './Edit.scss'
 import { useDispatch,useSelector } from 'react-redux';
 import {  useState } from 'react';
 import { updateUserStart ,updateUserSuccess,updateUserFailure} from '../../redux/user/userSlice.js';
+
 export default function Edit() {
 
     const {currentUser, loading}=useSelector((state)=>state.user);
     const [formData, setFormData] = useState({});
-   // const [updateSuccess, setUpdateSuccess] = useState(false);
     const dispatch=useDispatch();
    
     const handleChange = (e) => {
@@ -14,8 +14,6 @@ export default function Edit() {
         [e.target.id]: e.target.value });
     };
 
-
-    console.log(formData);
 
     const handleSubmit=async (e)=>{
       e.preventDefault();
@@ -34,7 +32,6 @@ export default function Edit() {
           return;
         }
         dispatch(updateUserSuccess(data));
-       // setUpdateSuccess(true);
       }
       catch(error)
       {
@@ -52,10 +49,7 @@ export default function Edit() {
            <button  disabled={loading}>
            {loading ? 'Loading...' : 'Save Changes'}
            </button>
-         </form>
-        
-        
-       
+         </form> 
         </div>
      </div>
   )

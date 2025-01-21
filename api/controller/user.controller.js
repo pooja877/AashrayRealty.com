@@ -8,7 +8,7 @@ export const test=(req,res)=>{
 }
 export const updateUser=async (req,res,next) =>{
 
-    if(req.user.id!==req.params.id)
+    if(req.user.id !== req.params.id)
     {
         return next(errorHandler(401,"You can only update your own account!"));
     }
@@ -27,6 +27,21 @@ export const updateUser=async (req,res,next) =>{
 
         const {password,...rest}=updateUser._doc;
         res.status(200).json(rest);
+    }
+    catch(error)
+    {
+        next(error);
+    }
+}
+
+export const deleteUser=async(req,res,next)=>{
+    if(req.user.id !== req.params.id)
+        {
+            return next(errorHandler(401,"You can only delete your own account!"));
+        }
+    try{
+        await User.findByIdAndDelete(req.params.id);
+        res.status(200).json('user has been delete');
     }
     catch(error)
     {

@@ -96,7 +96,7 @@ nav {
     }
 
     .menu {
-      position: absolute;
+      position:absolute;
       top: 0;
       right: -40%;
       overflow: auto;
@@ -117,12 +117,11 @@ nav {
       }
 
       @include sm {
-        a {
+      
+         a{
           display: initial;  
         }
-
-
-        
+       
       }
     }
   }

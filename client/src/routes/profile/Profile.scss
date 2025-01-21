@@ -21,13 +21,11 @@
     {
         display: flex;
         //if required then make it column
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         gap:1rem;
-        @include sm{
-            flex-direction: column;
-        }
+       
      .profile{
         border-radius: 50%;
         height: 6rem;

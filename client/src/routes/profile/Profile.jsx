@@ -1,10 +1,32 @@
 import { useState } from 'react';
 import './Profile.scss';
-import { useSelector } from 'react-redux';
+import {useSelector,useDispatch } from 'react-redux';
 import {Link} from "react-router-dom";
+import { logoutUserStart ,logoutUserSuccess,logoutUserFailure} from '../../redux/user/userSlice.js';
+
+
 export default function Profile() {
     const {currentUser} = useSelector((state)=>state.user);
     const [showTool,setShowTool]=useState(false);
+    const dispatch=useDispatch();
+   
+    const handleLogOut=async ()=>{
+      try{
+        dispatch(logoutUserStart());
+          const res=await fetch('/api/auth/logout');
+          const data=res.json();
+          if(data.success===false)
+          {
+            dispatch(logoutUserFailure(data.message));
+            return;
+          }
+          dispatch(logoutUserSuccess(data));
+      }catch(error)
+      {
+          dispatch(logoutUserFailure(error.message));
+      }
+
+    }
      return (
       
     <div className='infocontainer'>
@@ -61,7 +83,7 @@ export default function Profile() {
 
      {/* Account Setting delete account */}
      <Link to="/setting">
-        <div className="account_setting">
+        <div className="account_setting" >
          <img className="image"src="./user-delete_1.png" alt="delete" />
          <p>Delete my account</p>
           <img  className="image"src="./arrow-circle-right_2.png" alt="arrow"/>
@@ -69,7 +91,7 @@ export default function Profile() {
         </Link>
 
         {/* Logout */}
-            <button className='btnlogOut'>
+            <button onClick={handleLogOut} className='btnlogOut'>
             <img className="image"src="logout_1.png" alt="" />
             Log Out
             </button>
