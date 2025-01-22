@@ -1,9 +1,10 @@
 import "./signin.scss"
-import { useState } from "react";
+import { useState  } from "react";
 import {Link,useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import { signInStart ,signInFailure,signInSuccess} from "../../redux/user/userSlice";
 import OAuth from "../../components/google/OAuth";
+
 
 function SignIn()
 {   
@@ -11,6 +12,7 @@ function SignIn()
     const {loading,error} =useSelector((state)=>state.user);
     const navigate=useNavigate();
     const dispatch=useDispatch();
+
     const handleChange=(e)=>{
 
         setFormData({
@@ -18,6 +20,7 @@ function SignIn()
             [e.target.id]: e.target.value
         });
     }
+   
 
     const handleSubmit= async (e)=>{
         e.preventDefault();
@@ -53,7 +56,9 @@ function SignIn()
             <input type="email" placeholder="Email" id='email'onChange={handleChange}/>
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
             
-            <Link to="/Otp"><p className="forget">Forget password?</p></Link>
+            <Link to="/Otp">
+            <p className="forget" >Forget password?</p>
+            </Link>
             <button disabled={loading} className="signin_btn">
                 {loading?'Loading...':'Sign In'}
             </button>   
