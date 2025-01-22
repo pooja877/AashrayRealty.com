@@ -20,10 +20,7 @@ export default function Tools() {
             <img className="image"src="./emi.png" alt="EMI" />
             <p>EMI Calculator</p>
             </div>
-            <div className="tool">
-            <img className="image" src="./eligibility.png" alt="eligibility" />
-            <p>Eligibility Calculator</p>
-            </div>
+            
           </div>
          }
          </>

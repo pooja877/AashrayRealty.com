@@ -52,9 +52,12 @@ function SignIn()
         <form onSubmit={handleSubmit}>
             <input type="email" placeholder="Email" id='email'onChange={handleChange}/>
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
+            
+            <Link to="/Otp"><p className="forget">Forget password?</p></Link>
             <button disabled={loading} className="signin_btn">
                 {loading?'Loading...':'Sign In'}
-            </button>
+            </button>   
+            <p className="or">OR</p>
             <OAuth />
         </form>
         <div className="msg">

@@ -4,7 +4,11 @@ import {Link,useNavigate} from 'react-router-dom';
 
 
 function SignUp()
-{   const [formData,setFormData]=useState({});
+{   const [formData,setFormData]=useState({
+    email:"",
+    password:"",
+    confirm:""
+});
     const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
     const navigate=useNavigate();
@@ -18,7 +22,14 @@ function SignUp()
 
     const handleSubmit= async (e)=>{
         e.preventDefault();
+        if(formData.password !== formData.confirm)
+            {
+                setError("Password do not match");
+                return;
+            } 
+      
         try{
+           
             setLoading(true);
         const res=await fetch('/api/auth/signup',
             {
@@ -45,15 +56,17 @@ function SignUp()
             setLoading(false);
             setError(error.message);
         }
+      
         
     }
     return(
        <div className="signUp">
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Username" id='username'onChange={handleChange}/>
+            <input type="text" placeholder="Username" id='username' onChange={handleChange}/>
             <input type="email" placeholder="Email" id='email'onChange={handleChange}/>
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
+            <input type="password" placeholder="Confirm Password" id='confirm'onChange={handleChange}/>
             <button disabled={loading} className="signup_btn">
                 {loading?'Loading...':'Sign Up'}
             </button>
