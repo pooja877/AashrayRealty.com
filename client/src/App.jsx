@@ -9,7 +9,7 @@ import Profile from "./routes/profile/Profile";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import Edit from "./components/edit/Edit";
 import Setting from "./components/setting/Setting";
-import Otp from "./components/OTP/Otp";
+ import Otp from "./components/OTP/Otp";
 import Reset from "./components/Reset/Reset";
 
 function App() {

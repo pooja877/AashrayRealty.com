@@ -49,18 +49,21 @@ function SignIn()
         }
         
     }
+   
+
     return(
        <div className="signIn">
         <h1>Sign in</h1>
         <form onSubmit={handleSubmit}>
-            <input type="email" placeholder="Email" id='email'onChange={handleChange}/>
+            <input type="email" placeholder="Email" id='email' onChange={handleChange}
+                required />
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
             
             <Link to="/Otp">
-            <p className="forget" >Forget password?</p>
+            <p  className="forget">Forget password?</p>
             </Link>
             <button disabled={loading} className="signin_btn">
-                {loading?'Loading...':'Sign In'}
+                {loading ?'Loading...':'Sign In'}
             </button>   
             <p className="or">OR</p>
             <OAuth />

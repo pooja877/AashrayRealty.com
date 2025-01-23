@@ -1,9 +1,11 @@
 import './Otp.scss'
-import  { useRef } from "react";
+import  {  useRef } from "react";
 import {Link} from "react-router-dom";
 export default function Otp() {
+
+
     const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
-  
+    
     const handleInputChange = (e, index) => {
       const value = e.target.value;
   
@@ -34,13 +36,14 @@ export default function Otp() {
               type="text"
               maxLength="1"
               ref={inputRef}
-              onChange={(e) => handleInputChange(e, index)}
+              onChange={(e)=>handleInputChange(e,index)}
               onKeyDown={(e) => handleKeyDown(e, index)}
+              required 
             />
           ))}
       </div>
       <Link to="/reset">
-      <button >Verify Account</button>
+      <button  >Verify Account</button>
       </Link>
       
       <p className='reset'>Did not recieve code? <span>Resend OTP</span></p>

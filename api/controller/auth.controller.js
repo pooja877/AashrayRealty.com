@@ -84,6 +84,9 @@ export const google=async(req,res,next)=>{
     next(error);
   }
 }
+
+
+
 export const logout=async (req,res,next)=>{
 
   try{
