@@ -56,10 +56,10 @@ export default function Reset() {
     <h2>Change Password</h2>
     <form action="" onSubmit={handleResetPassword} >
       
-      Password:<input type="text" id="password" placeholder='Enter new Password' ref={passwordRef}
+      Password:<input type="password" id="password" placeholder='Enter new Password' ref={passwordRef}
                 required onChange={handleChange}/>
      
-     Confirm Password: <input type="text"  id="confirmPassword" ref={confirmPasswordRef} placeholder='Confirm new Password' onChange={handleChange} required />
+     Confirm Password: <input type="password"  id="confirmPassword" ref={confirmPasswordRef} placeholder='Confirm new Password' onChange={handleChange} required />
       <button > 
             Save Changes
            </button>
