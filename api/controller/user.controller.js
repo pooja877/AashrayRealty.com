@@ -48,3 +48,33 @@ export const deleteUser=async(req,res,next)=>{
         next(error);
     }
 }
+
+
+// export const password=async (req,res,next) =>{
+
+//     if(req.body.password!== req.body.confirmPassword)
+//            {
+//             return res.status(400).json({error:'Password do not match !!'});
+//            }
+//     try{
+//         if(req.body.password)
+//         {
+//             req.body.password=bcryptjs.hashSync(req.body.password,10);
+//         }
+//         const updatePassword=await User.findByIdAndUpdate(req.params.id,{
+//             $set:{
+//                 password:req.body.password
+//             }
+//         },{new:true});
+
+//         const {password,...rest}=updatePassword._doc;
+//         res.status(200).json(rest);
+//     }
+//     catch(error)
+//     {
+//         next(error);
+//     }
+// }
+
+
+

@@ -1,60 +1,68 @@
-import './Reset.scss';
-import { useState } from 'react';
-import { useNavigate,useParams } from "react-router-dom";
 
+import './Reset.scss'
+import { useNavigate } from 'react-router-dom';
+import {  useState ,useRef} from 'react';
 export default function Reset() {
-  const [ formData,setFormData] = useState('');
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
-  const {token} =useParams();
-  const navigate=useNavigate();
-
-  const handleChange=(e)=>{
-    setFormData({
-        ...formData,
-        [e.target.id]: e.target.value
-    });
+   const passwordRef = useRef(null);
+   const confirmPasswordRef = useRef(null);
+    const [formData, setFormData] = useState({});
+    const navigate=useNavigate();
+   
+    const handleChange=(e)=>{
+      setFormData({
+          ...formData,
+          [e.target.id]: e.target.value
+      });
   }
 
+    const validatePasswords = () => {
+      if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+        alert('Passwords do not match');
+        return false;
+      }
+      return true;
+    };
+   
 
-const handleResetPassword = async (e) => {
-  e.preventDefault();
-  try {
-    formData.set('token',token);
+    const handleResetPassword=async (e)=>{
+      e.preventDefault();
+      if (!validatePasswords()) return;
+  
+      try {
+        const response = await fetch('/api/auth/resetPassword', {
+          method: 'POST',
+          body: JSON.stringify(formData),
+        });
+        
+        
 
-    const response = await fetch("/api/auth/resetPassword", {
-      method: "POST",
-      headers:{
-        'Content-Type':'application/json',
-    },
-    body:formData, 
-  });
+        const result = await response.json();
+        if (response.ok) {
+          alert('Password reset successful');
+          navigate('/signin'); // Navigate to sign-in page
+        } else {
+          alert('error',result.message);
+        }
 
-    const data = await response.json();
-    if (!response.ok) {throw new Error(data.error || "Failed to reset password");}
-    else {
-          setMessage('Password reset successful. you can now sign in.');
-          setTimeout(()=>navigate('/signin'),3000);
-    }
-
-  } catch (err) {
-    setError('Something went wrong!!',err);
-  }
-};
-
+      } catch (error) {
+        
+        alert('Something went wrong. Please try again.',error);
+      }
+}
+ 
   return (
     <div className='reset'>
     <div className="container">
     <h2>Change Password</h2>
     <form action="" onSubmit={handleResetPassword} >
-      <label htmlFor='password'>New Password </label>
-      <input type="password" id="password" placeholder='Enter new Password'
+      
+      Password:<input type="text" id="password" placeholder='Enter new Password' ref={passwordRef}
                 required onChange={handleChange}/>
-      <label htmlFor='confirmPassword' >Confirm Password </label>
-      <input type="password" id="confirmPassword"placeholder='Confirm new Password' onChange={handleChange} required />
-           <button >Reset Password</button>
-         { message && <p>{message}</p>}
-          {error && <p>{error}</p>}
+     
+     Confirm Password: <input type="text"  id="confirmPassword" ref={confirmPasswordRef} placeholder='Confirm new Password' onChange={handleChange} required />
+      <button > 
+            Save Changes
+           </button>
      </form>
     </div>
    </div>

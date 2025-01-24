@@ -106,26 +106,11 @@ export const logout=async (req,res,next)=>{
 export const forgetPassword=async (req,res)=>{
   const { email } = req.body;
   const user = await User.findOne({ email });
-  if (!email) {
-    return res.status(400).send('Email is required');
-}
-
   if (!user) return res.status(404).json({ message: "User not found" });
 
-  // Generate token and set expiry (1 hour)
-  // const resetToken = crypto.randomBytes(32).toString('hex');
-  // const hashedToken = await bcryptjs.hashSync(resetToken, 10); // Hash token before storing
-
-  //   user.resetToken = hashedToken;
-  // const resetTokenExpiry = Date.now() + 3600000;
-  // user.resetTokenExpiry = resetTokenExpiry;
-  // await user.save();
-
-  // // Send reset link via email
-  // const resetLink = `${process.env.URL}/resetPassword?token=${encodeURIComponent(resetToken)}`;
-
-  const token=jwt.sign({id:user._id},JWT_SECRET,{expiresIn:'1h'});
-  const resetLink = `http://localhost:5173/resetPassword/${token}`;
+  // const secret=process.env.JWT_SECRET+user.password;
+  const token=jwt.sign({id:user._id,email:user.email},process.env.JWT_SECRET,{expiresIn:'10m'});
+  const resetLink = `http://localhost:5173/resetPassword?${token}`;
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -138,7 +123,7 @@ export const forgetPassword=async (req,res)=>{
     from: process.env.EMAIL_USER,
     to: email,
     subject: 'Password Reset',
-    text:`Click the link below to reset your password:\n\n${resetLink}\n\nThe link will expire in 1 hour.`,
+    text:`Click the link below to reset your password:\n\n${resetLink}\n\nThe link will expire in 10 minutes.`,
     //  html: `<p>Click <a href="${resetLink}">here</a> to reset your password.</p>`
   };
 
@@ -153,29 +138,20 @@ export const forgetPassword=async (req,res)=>{
  
 };
 
-
 export const resetPassword=async (req,res)=>{
+   console.log(req.body.password)
+  try{
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    const hashedPassword = await bcryptjs.hashSync(req.body.password, 10);
+    await User.findByIdAndUpdate(userId, { password: hashedPassword })
+    res.status(200).json({ message: 'Password reset successful' });
   
-    const { token, password,confirmPassword } = req.body;
-   
-
-   if(password!== confirmPassword)
-   {
-    return res.status(400).json({error:'Password do not match !!'});
-   }
-
-    try{
-    // Hash new password and update user
-   const decode=jwt.verify(token,JWT_SECRET);
-   const hashedPassword=await bcryptjs.hashSync(password,10);
-   await User.findByIdAndUpdate(decode.id,{password:hashedPassword});
-
-    res.status(200).json({ message: "Password reset successfully" });
   } catch (error) {
     res.status(500).json({ error: "Something went wrong! invalid or expired!" });
   }
+ 
 
 }
-
-
-

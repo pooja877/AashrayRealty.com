@@ -45,7 +45,7 @@ export default function Edit() {
         <img src={currentUser.avatar} action=""/>
          <form onSubmit={handleSubmit}>
            Username: <input type="text" placeholder={currentUser.username} id="username"onChange={handleChange}/>
-           Email: <input type="email" placeholder={currentUser.email} id='email' onChange={handleChange}/> 
+           Email: <input type="email" placeholder={currentUser.email} id='email' onChange={handleChange}/>  
            <button  disabled={loading}>
            {loading ? 'Loading...' : 'Save Changes'}
            </button>

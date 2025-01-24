@@ -12,7 +12,7 @@ function SignIn()
     const [formData,setFormData]=useState({});
     const {loading} =useSelector((state)=>state.user);
     const dispatch=useDispatch();
-    const [message, setmessage] = useState('');
+    //const [message, setmessage] = useState('');
     const [error, seterror] = useState('');
     const navigate = useNavigate();
 
@@ -27,26 +27,39 @@ function SignIn()
     
         const handleLogin = async (e) => {
             e.preventDefault();
-            try {
-             
-              const response = await fetch("/api/auth/forgetPassword", {
-                method: "POST",
-                headers:{
-                    'Content-Type':'application/json',
-                },
-                body:formData,
-                
-              });
-        
-              const data = await response.json();
-              if (!response.ok) throw new Error(data.error  || "Failed to send reset link");
-        
-              setmessage('Password reset link sent. Check your email !!');
-              
-            } catch (err) {
-                seterror("something went wrong ,Please try again !!",err);
+            if(!formData.email)
+            {
+                alert('please enter email');
+                return;
             }
+                try{
+                    const res=await fetch('/api/auth/forgetPassword',
+                        {
+                        method:'POST',
+                        headers:{
+                            'Content-Type':'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    
+                  });
+                  console.log(res);
+                  const data = await res.json();
+                  console.log(data);
+                  if(res.success)
+                  {
+                    alert('Password reset link sent. Check your email !!');
+                  }
+    
+                 else
+                 {alert(data.error,"Failed to send reset link");} 
+                }
+                catch(err)
+                {
+                    seterror(err);
+                }
         }
+            
+        
         
 
     const handleSubmit= async (e)=>{
@@ -101,7 +114,7 @@ function SignIn()
             <span>Sign Up</span>
             </Link>
         </div>
-        {message && <p>{message}</p>}
+        
         {error && <p className="errormsg">{error}</p>}
        </div>
     )

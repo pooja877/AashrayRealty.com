@@ -1,5 +1,5 @@
 import './Setting.scss';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector,useDispatch ,} from 'react-redux';
 import { deleteUserStart ,deleteUserSuccess,deleteUserFailure} from '../../redux/user/userSlice.js';
 export default function Setting() {
 
@@ -19,6 +19,7 @@ export default function Setting() {
                return;
              }
              dispatch(deleteUserSuccess(data));
+             
 
     }catch(error){
         dispatch(deleteUserFailure(error.message));
