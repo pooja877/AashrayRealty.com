@@ -8,19 +8,46 @@ import OAuth from "../../components/google/OAuth";
 
 function SignIn()
 {   
+    
     const [formData,setFormData]=useState({});
-    const {loading,error} =useSelector((state)=>state.user);
-    const navigate=useNavigate();
+    const {loading} =useSelector((state)=>state.user);
     const dispatch=useDispatch();
+    const [message, setmessage] = useState('');
+    const [error, seterror] = useState('');
+    const navigate = useNavigate();
 
     const handleChange=(e)=>{
-
         setFormData({
             ...formData,
             [e.target.id]: e.target.value
         });
     }
    
+       
+    
+        const handleLogin = async (e) => {
+            e.preventDefault();
+            try {
+             
+              const response = await fetch("/api/auth/forgetPassword", {
+                method: "POST",
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body:formData,
+                
+              });
+        
+              const data = await response.json();
+              if (!response.ok) throw new Error(data.error  || "Failed to send reset link");
+        
+              setmessage('Password reset link sent. Check your email !!');
+              
+            } catch (err) {
+                seterror("something went wrong ,Please try again !!",err);
+            }
+        }
+        
 
     const handleSubmit= async (e)=>{
         e.preventDefault();
@@ -43,9 +70,9 @@ function SignIn()
         dispatch(signInSuccess(data));
         navigate('/');
         }
-        catch(error)
+        catch(err)
         {
-            dispatch(signInFailure(error.message));
+            dispatch(signInFailure(err.message));
         }
         
     }
@@ -59,9 +86,9 @@ function SignIn()
                 required />
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
             
-            <Link to="/Otp">
-            <p  className="forget">Forget password?</p>
-            </Link>
+            {/* <Link to="/Otp"> */}
+            <p  onClick={handleLogin} className="forget">Forget password?</p>
+            {/* </Link> */}
             <button disabled={loading} className="signin_btn">
                 {loading ?'Loading...':'Sign In'}
             </button>   
@@ -74,8 +101,11 @@ function SignIn()
             <span>Sign Up</span>
             </Link>
         </div>
+        {message && <p>{message}</p>}
         {error && <p className="errormsg">{error}</p>}
        </div>
     )
 }
+
+    
 export default SignIn;

@@ -9,7 +9,7 @@ import Profile from "./routes/profile/Profile";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import Edit from "./components/edit/Edit";
 import Setting from "./components/setting/Setting";
- import Otp from "./components/OTP/Otp";
+//  import Otp from "./components/OTP/Otp";
 import Reset from "./components/Reset/Reset";
 
 function App() {
@@ -27,8 +27,7 @@ function App() {
       <Route path="/edit" element={<Edit/>}/>
       <Route path="/setting" element={<Setting/>}/>
       </Route>
-      <Route path="/Otp" element={<Otp/>}/>
-      <Route path="/reset" element={<Reset/>}/>
+      <Route path="/resetPassword/:token" element={<Reset/>}/>
     </Routes>
     </BrowserRouter>
   )
