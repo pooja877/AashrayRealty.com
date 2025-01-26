@@ -42,10 +42,10 @@ function SignIn()
                         body: JSON.stringify(formData),
                     
                   });
-                  console.log(res);
+                  
                   const data = await res.json();
-                  console.log(data);
-                  if(res.success)
+               
+                  if(res.ok)
                   {
                     alert('Password reset link sent. Check your email !!');
                   }
@@ -99,9 +99,12 @@ function SignIn()
                 required />
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
             
-            {/* <Link to="/Otp"> */}
+       
             <p  onClick={handleLogin} className="forget">Forget password?</p>
-            {/* </Link> */}
+          
+            {/* <Link to="/Otp">
+            <p  className="forget">Forget password?</p>
+            </Link> */}
             <button disabled={loading} className="signin_btn">
                 {loading ?'Loading...':'Sign In'}
             </button>   

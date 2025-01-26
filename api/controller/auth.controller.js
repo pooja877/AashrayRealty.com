@@ -139,14 +139,20 @@ export const forgetPassword=async (req,res)=>{
 };
 
 export const resetPassword=async (req,res)=>{
-   console.log(req.body.password)
+  const {token,passwordRef}=req.body;
   try{
-    const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decoded.id;
+    const user=await User.findOne({_id:decoded.id,resetToken:token});
 
-    const hashedPassword = await bcryptjs.hashSync(req.body.password, 10);
-    await User.findByIdAndUpdate(userId, { password: hashedPassword })
+    if(!user||user.resetTokenExpiry<Date.now()){
+      res.status(200).json({ message: 'invalid' });
+    }
+
+    const hashedPassword = await bcryptjs.hashSync(passwordRef, 10);
+    user.password=hashedPassword;
+    user.resetToken='';
+    user.resetTokenExpiry=null;
+    await user.save();
     res.status(200).json({ message: 'Password reset successful' });
   
   } catch (error) {

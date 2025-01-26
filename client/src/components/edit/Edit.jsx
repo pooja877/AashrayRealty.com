@@ -46,6 +46,7 @@ export default function Edit() {
          <form onSubmit={handleSubmit}>
            Username: <input type="text" placeholder={currentUser.username} id="username"onChange={handleChange}/>
            Email: <input type="email" placeholder={currentUser.email} id='email' onChange={handleChange}/>  
+           Password: <input type="Password" placeholder={currentUser.password} id='password' onChange={handleChange}/>  
            <button  disabled={loading}>
            {loading ? 'Loading...' : 'Save Changes'}
            </button>

@@ -7,6 +7,8 @@ export default function Reset() {
    const confirmPasswordRef = useRef(null);
     const [formData, setFormData] = useState({});
     const navigate=useNavigate();
+
+   
    
     const handleChange=(e)=>{
       setFormData({
@@ -27,21 +29,26 @@ export default function Reset() {
     const handleResetPassword=async (e)=>{
       e.preventDefault();
       if (!validatePasswords()) return;
+
+      const urlParams =new URLSearchParams(window.location.search);
+      const token=urlParams.get('token');
   
       try {
         const response = await fetch('/api/auth/resetPassword', {
           method: 'POST',
-          body: JSON.stringify(formData),
+          body: JSON.stringify({
+            token,
+            password:passwordRef.current.value
+          }),
         });
         
-        
-
         const result = await response.json();
-        if (response.ok) {
-          alert('Password reset successful');
+        if(result.ok){
+          alert('Password reset successful!!',result.message);
           navigate('/signin'); // Navigate to sign-in page
-        } else {
-          alert('error',result.message);
+        }
+        else{
+          alert('not reset!!');
         }
 
       } catch (error) {
