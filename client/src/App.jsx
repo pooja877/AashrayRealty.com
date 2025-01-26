@@ -9,11 +9,12 @@ import Profile from "./routes/profile/Profile";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import Edit from "./components/edit/Edit";
 import Setting from "./components/setting/Setting";
-import Reset from "./components/Reset/Reset";
 import AdminLogin from "./routes/admin/login/Login";
 import AdminDashboard from "./routes/admin/dashboard/Dashboard";
 import { Privateadmin } from "./components/privateAdmin/Privateadmin";
-//  import Otp from "./components/OTP/Otp";
+import ForgotPassword from "./components/OTP/ForgotPassword";
+import ResetPassword from "./components/Reset/Reset";
+
 
 
 function App() {
@@ -32,9 +33,8 @@ function App() {
       <Route path="/edit" element={<Edit/>}/>
       <Route path="/setting" element={<Setting/>}/>
       </Route>
-      
-      <Route path="/resetPassword" element={<Reset/>}/>
-      {/* <Route path="/Otp" element={<Otp/>}/> */}
+      <Route path="/resetPassword/:token" element={<ResetPassword/>}/>
+      <Route path="/forgotPassword" element={<ForgotPassword/>}/>
 
       <Route element={<Privateadmin/>}>
           <Route path="/admin/dashboard" element={<AdminDashboard/>} />

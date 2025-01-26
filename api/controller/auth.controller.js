@@ -105,12 +105,13 @@ export const logout=async (req,res,next)=>{
 
 export const forgetPassword=async (req,res)=>{
   const { email } = req.body;
+  try{
   const user = await User.findOne({ email });
   if (!user) return res.status(404).json({ message: "User not found" });
 
   // const secret=process.env.JWT_SECRET+user.password;
-  const token=jwt.sign({id:user._id,email:user.email},process.env.JWT_SECRET,{expiresIn:'10m'});
-  const resetLink = `http://localhost:5173/resetPassword?${token}`;
+  const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'10m'});
+  const resetLink = `http://localhost:5173/resetPassword/${token}`;
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -128,31 +129,26 @@ export const forgetPassword=async (req,res)=>{
   };
 
    await transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-        console.error(err);
-        return res.status(500).send('Error sending email');
-    }
-    res.send('Password reset link has been sent to your email');
-});
+    
+       
+    res.status(200).json({message:'Password reset link has been sent to your email'});
+  });
+  }
+  catch(error)
+  {
+    res.status(500).json({message:`Error sending email ${error}`});
+  }
 
- 
 };
 
-export const resetPassword=async (req,res)=>{
-  const {token,passwordRef}=req.body;
+export const reset=async (req,res)=>{
+  const {token,password}=req.body;
   try{
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user=await User.findOne({_id:decoded.id,resetToken:token});
 
-    if(!user||user.resetTokenExpiry<Date.now()){
-      res.status(200).json({ message: 'invalid' });
-    }
-
-    const hashedPassword = await bcryptjs.hashSync(passwordRef, 10);
-    user.password=hashedPassword;
-    user.resetToken='';
-    user.resetTokenExpiry=null;
-    await user.save();
+    const hashedPassword = await bcryptjs.hashSync(password, 10);
+    await User.findByIdAndUpdate(decoded.id,{password:hashedPassword});
+   
     res.status(200).json({ message: 'Password reset successful' });
   
   } catch (error) {

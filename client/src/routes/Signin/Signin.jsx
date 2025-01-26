@@ -13,7 +13,7 @@ function SignIn()
     const {loading} =useSelector((state)=>state.user);
     const dispatch=useDispatch();
     //const [message, setmessage] = useState('');
-    const [error, seterror] = useState('');
+    const [error] = useState('');
     const navigate = useNavigate();
 
     const handleChange=(e)=>{
@@ -25,39 +25,40 @@ function SignIn()
    
        
     
-        const handleLogin = async (e) => {
-            e.preventDefault();
-            if(!formData.email)
-            {
-                alert('please enter email');
-                return;
-            }
-                try{
-                    const res=await fetch('/api/auth/forgetPassword',
-                        {
-                        method:'POST',
-                        headers:{
-                            'Content-Type':'application/json',
-                        },
-                        body: JSON.stringify(formData),
+        // const handleLogin = async (e) => {
+        //     e.preventDefault();
+        //     if(!formData.email)
+        //     {
+        //         alert('please enter email');
+        //         return;
+        //     }
+        //         try{
+        //             const res=await fetch('/api/auth/forgetPassword',
+        //                 {
+        //                 method:'POST',
+        //                 headers:{
+        //                     'Content-Type':'application/json',
+        //                 },
+        //                 body: JSON.stringify(formData),
                     
-                  });
+        //           });
+        //           console.log(res);
                   
-                  const data = await res.json();
-               
-                  if(res.ok)
-                  {
-                    alert('Password reset link sent. Check your email !!');
-                  }
-    
-                 else
-                 {alert(data.error,"Failed to send reset link");} 
-                }
-                catch(err)
-                {
-                    seterror(err);
-                }
-        }
+        //           const data = await res.json();
+
+        //           console.log(res);
+        //           if(res.success==false)
+        //           {
+        //             alert(data.error,"Failed to send reset link");
+        //           }
+
+        //         //   alert('Password reset link sent. Check your email !!');
+        //         }
+        //         catch(err)
+        //         {
+        //             seterror(err);
+        //         }
+        // }
             
         
         
@@ -100,11 +101,11 @@ function SignIn()
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
             
        
-            <p  onClick={handleLogin} className="forget">Forget password?</p>
           
-            {/* <Link to="/Otp">
+          
+            <Link to="/forgotPassword">
             <p  className="forget">Forget password?</p>
-            </Link> */}
+            </Link>
             <button disabled={loading} className="signin_btn">
                 {loading ?'Loading...':'Sign In'}
             </button>   

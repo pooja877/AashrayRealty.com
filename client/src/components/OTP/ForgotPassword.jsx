@@ -1,0 +1,50 @@
+import { useState } from "react";
+import './Forgot.scss'
+const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+
+  const handleChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/auth/forgetPassword", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      if (response.success===true) {
+        alert("Password reset link sent to your email.");
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
+
+  return (
+    <div className="forgot">
+      <h2>Forgot Password</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Send Reset Link</button>
+      </form>
+    </div>
+  );
+};
+
+export default ForgotPassword;
