@@ -21,14 +21,17 @@ export const adminLogin=async (req,res,next)=>{
             return res.json({ token });
         }
     }
-    if (email === process.env.ADMIN_EMAIL1 ) {
+     if (email === process.env.ADMIN_EMAIL1 ) {
       const isMatch = await bcryptjs.compare(password, ADMIN_PASSWORD_HASH1);
       if (isMatch) {
           const token = jwt.sign({ role: 'admin' },JWT_SECRET);
           return res.json({ token });
       }
   }
-    
+  if(email!==process.env.ADMIN_EMAIL1&& email!==ADMIN_EMAIL)
+  {
+      return res.status(400).json({message:'login email and password is not Provided!!'})
+  }
   }
   catch(error)
   {

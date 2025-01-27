@@ -9,13 +9,13 @@ import Profile from "./routes/profile/Profile";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import Edit from "./components/edit/Edit";
 import Setting from "./components/setting/Setting";
-import AdminLogin from "./routes/admin/login/Login";
-import AdminDashboard from "./routes/admin/dashboard/Dashboard";
+import AdminLogin from "./components/admin/login/Login";
 import { Privateadmin } from "./components/privateAdmin/Privateadmin";
 import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/Reset/Reset";
-
-
+import AdminDashboard from "./components/admin/dashboard/Dashboard";
+import AdminNavbar from "./components/admin/adminNavbar/AdminNavbar";
+import Property from "./components/admin/Property/Property";
 
 function App() {
   return ( 
@@ -38,8 +38,10 @@ function App() {
       {/* for open admin panel admin can login and open it */}
       <Route element={<Privateadmin/>}>
             <Route path="/admin/dashboard" element={<AdminDashboard/>} />
-        </Route>
-        <Route path="/admin/login" element={<AdminLogin />} />
+      </Route>
+        <Route path="/admin/login" element={<AdminLogin/>} />
+        <Route path="/admin/navbar" element={<AdminNavbar/>} />
+        <Route path="admin/property" element={<Property/>}/>
     </Routes>
     </BrowserRouter> 
     </>
@@ -48,7 +50,7 @@ function App() {
 
  const ConditionalNavbar=()=>{
   const location=useLocation();
-  const hideNavbarRoutes=["/admin/login","/admin/dashboard"];
+  const hideNavbarRoutes=["/admin/login","/admin/dashboard","/admin/property"];
   return !hideNavbarRoutes.includes(location.pathname)?<Navbar/>:null;
  }
 export default App
