@@ -1,4 +1,3 @@
-@import "../../res.scss";
 .boxes{
     height:100px;
     width:100%;
@@ -7,7 +6,7 @@
     align-items: center;
     margin-top: 40px;
     
-    @include sm {
+    @media(max-width: 700px) {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -16,7 +15,7 @@
         gap: 10px;
         margin-left: 40px;
     }
-    @include md {
+    @media(max-width: 1026px) {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -38,7 +37,7 @@
             border:3px solid white;
             scale: 1.05;
           }
-          @include sm {
+          @media(max-width: 700px){
             font-size: 40px;
             color: black;
             
@@ -51,11 +50,11 @@
 }
 .searchbar{
     width:100%;
-    height: 30px;
+    height: 40px;
     display: flex;
      justify-content: center;
     align-items: center;
-    @include sm{
+    @media(max-width: 700px){
             width:100%;
             height: 50px;
             gap: 10px;
@@ -63,8 +62,9 @@
             flex-direction: column;
     }
     input{
+        
         background-color: transparent;
-        font-size: 20px;
+        font-size: 25px;
         color:white;
         border:2px solid rgb(249, 244, 244);
         margin-right: 30px;
@@ -72,11 +72,12 @@
         outline: none;
         border-radius: 5px;
         box-sizing: border-box;
-        @include sm {  
+        @media(max-width: 700px){  
             font-size: 20px;
             color:rgb(14, 14, 14);
             border:1.5px solid rgb(7, 7, 7);
             margin-right: 10px;
+            width:30px;
         }
         
     }
@@ -84,9 +85,9 @@
         
         color:white;
         opacity: 1;
-        font-size: 15px;
-        @include sm {
-            font-size: 20px;
+        font-size: 20px;
+        @media(max-width: 700px){
+            font-size: 17px;
             color: black;
         }
     }
@@ -99,15 +100,19 @@
         border: none;
         cursor: pointer;
         border-radius: 3px;
+        text-align: center;
         &:hover {
-            scale: 1.05;
+            scale: 1.02;
           }
 
-          @include sm {
+          @media(max-width: 700px) {
             background-color: #fece51;
             display: flex;
+            text-align: center;
+            padding-left: 6px;
             flex-direction: column;
             font-size: 20px;
+            border-radius: 3px;
             height:25px;
             width:80px;
             color: black;

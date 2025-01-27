@@ -22,47 +22,6 @@ function SignIn()
             [e.target.id]: e.target.value
         });
     }
-   
-       
-    
-        // const handleLogin = async (e) => {
-        //     e.preventDefault();
-        //     if(!formData.email)
-        //     {
-        //         alert('please enter email');
-        //         return;
-        //     }
-        //         try{
-        //             const res=await fetch('/api/auth/forgetPassword',
-        //                 {
-        //                 method:'POST',
-        //                 headers:{
-        //                     'Content-Type':'application/json',
-        //                 },
-        //                 body: JSON.stringify(formData),
-                    
-        //           });
-        //           console.log(res);
-                  
-        //           const data = await res.json();
-
-        //           console.log(res);
-        //           if(res.success==false)
-        //           {
-        //             alert(data.error,"Failed to send reset link");
-        //           }
-
-        //         //   alert('Password reset link sent. Check your email !!');
-        //         }
-        //         catch(err)
-        //         {
-        //             seterror(err);
-        //         }
-        // }
-            
-        
-        
-
     const handleSubmit= async (e)=>{
         e.preventDefault();
         try{
@@ -99,10 +58,6 @@ function SignIn()
             <input type="email" placeholder="Email" id='email' onChange={handleChange}
                 required />
             <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
-            
-       
-          
-          
             <Link to="/forgotPassword">
             <p  className="forget">Forget password?</p>
             </Link>

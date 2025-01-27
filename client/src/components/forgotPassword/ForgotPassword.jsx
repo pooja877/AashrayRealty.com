@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './Forgot.scss'
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
 
+  const navigate=useNavigate();
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
@@ -24,6 +26,7 @@ const ForgotPassword = () => {
       } else {
         alert(data.message);
       }
+      navigate("/signin");
     } catch (error) {
       console.error("Error:", error);
       alert("Something went wrong. Please try again.");

@@ -11,8 +11,7 @@ function Searchbar() {
    {/* search  */}
    <div className="searchbar">
     <form action="">
-     <input type="text" name="search" placeholder="🔍Search..."/>
-    
+     <input type="search" name="search" placeholder="🔍Search..."/>
     </form>
     <button className='btnSearch'>Search</button>
    </div>

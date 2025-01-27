@@ -1,4 +1,3 @@
-@import "../../res.scss";
 nav {
   background-color: rgb(247, 249, 250);
   height: 60px;
@@ -9,8 +8,7 @@ nav {
   margin-right:20PX;
   a {
     transition: all 0.4s ease;
-
-    @include sm {
+    @media(max-width: 700px) {
       display: none;
     }
 
@@ -40,15 +38,12 @@ nav {
         margin-left: 0px;
       }
       #realty{
+        font-size:20px ;
         color:rgb(167, 167, 248);
       }
 
       span {
-        @include md {
-          display: none;
-        }
-
-        @include sm {
+        @media(max-width:700px) {
           display: initial;
         }
       }
@@ -62,7 +57,7 @@ nav {
     justify-content: flex-end;
     height: 100%;
 
-    @include md {
+    @media(max-width: 1026px){
       background-color: transparent;
     }
       .profile{
@@ -86,11 +81,11 @@ nav {
 
       img {
         width: 36px;
-        height: 36px;
+        height:36px;
         cursor: pointer;
       }
 
-      @include sm {
+      @media(max-width: 700px){
         display: inline;
       }
     }
@@ -98,28 +93,30 @@ nav {
     .menu {
       position:absolute;
       top: 0;
-      right: -40%;
+      right: -30%;
       overflow: auto;
       background-color: black;
       color: white;
-      height: 100vh;
-      width: 40%;
+      height: 35%;
+      width: 30%;
       transition: all 1s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-around;
-      font-size: 24px;
+      justify-content: center;
+     line-height: 23px;
+      font-size: 15px;
       
 
       &.active {
         right: 0;
       }
 
-      @include sm {
+      @media(max-width: 738px){
       
          a{
-          display: initial;  
+          display:block;  
+          cursor: pointer;
         }
        
       }

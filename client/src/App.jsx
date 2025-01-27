@@ -2,7 +2,7 @@ import "./layout.scss"
 import Navbar from "./components/navbar/Navbar"
 import AboutUs from "./routes/aboutus/Aboutus"
 import Homepage from "./routes/homepage/Homepage"
-import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { BrowserRouter,Routes,Route, useLocation } from "react-router-dom";
 import SignUp from "./routes/Signup/Signup";
 import Signin from "./routes/Signin/Signin";
 import Profile from "./routes/profile/Profile";
@@ -12,16 +12,16 @@ import Setting from "./components/setting/Setting";
 import AdminLogin from "./routes/admin/login/Login";
 import AdminDashboard from "./routes/admin/dashboard/Dashboard";
 import { Privateadmin } from "./components/privateAdmin/Privateadmin";
-import ForgotPassword from "./components/OTP/ForgotPassword";
+import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/Reset/Reset";
 
 
 
 function App() {
   return ( 
-    
+    <>
     <BrowserRouter>
-    <Navbar/>
+    <ConditionalNavbar/>
     <Routes>
       <Route path="/" element={<Homepage/>}/>
       <Route path="/About" element={<AboutUs/>}/>
@@ -35,14 +35,20 @@ function App() {
       </Route>
       <Route path="/resetPassword/:token" element={<ResetPassword/>}/>
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
-
+      {/* for open admin panel admin can login and open it */}
       <Route element={<Privateadmin/>}>
-          <Route path="/admin/dashboard" element={<AdminDashboard/>} />
-      </Route>
-      <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard/>} />
+        </Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
     </Routes>
-    </BrowserRouter>
+    </BrowserRouter> 
+    </>
   )
+ };
 
+ const ConditionalNavbar=()=>{
+  const location=useLocation();
+  const hideNavbarRoutes=["/admin/login","/admin/dashboard"];
+  return !hideNavbarRoutes.includes(location.pathname)?<Navbar/>:null;
  }
 export default App

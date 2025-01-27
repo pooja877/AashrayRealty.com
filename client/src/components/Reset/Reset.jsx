@@ -1,80 +1,6 @@
 
 import './Reset.scss'
 // import { useNavigate } from 'react-router-dom';
-// import {  useState ,useRef} from 'react';
-// export default function Reset() {
-//    const passwordRef = useRef(null);
-//    const confirmPasswordRef = useRef(null);
-//     const [formData, setFormData] = useState({});
-//     const navigate=useNavigate();
-
-   
-   
-//     const handleChange=(e)=>{
-//       setFormData({
-//           ...formData,
-//           [e.target.id]: e.target.value
-//       });
-//   }
-
-//     const validatePasswords = () => {
-//       if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-//         alert('Passwords do not match');
-//         return false;
-//       }
-//       return true;
-//     };
-   
-
-//     const handleResetPassword=async (e)=>{
-//       e.preventDefault();
-//       if (!validatePasswords()) return;
-
-//       const urlParams =new URLSearchParams(window.location.search);
-//       const token=urlParams.get('token');
-  
-//       try {
-//         const response = await fetch('/api/auth/reset', {
-//           method: 'POST',
-//           body: JSON.stringify({
-//             token,
-//             password:passwordRef.current.value
-//           }),
-//         });
-        
-//         const result = await response.json();
-//         if(result.ok){
-//           alert('Password reset successful!!',result.message);
-//           navigate('/signin'); // Navigate to sign-in page
-//         }
-//         else{
-//           alert('not reset!!');
-//         }
-
-//       } catch (error) {
-        
-//         alert('Something went wrong. Please try again.',error);
-//       }
-// }
- 
-//   return (
-//     <div className='reset'>
-//     <div className="container">
-//     <h2>Change Password</h2>
-//     <form action="" onSubmit={handleResetPassword} >
-      
-//       Password:<input type="password" id="password" placeholder='Enter new Password' ref={passwordRef}
-//                 required onChange={handleChange}/>
-     
-//      Confirm Password: <input type="password"  id="confirmPassword" ref={confirmPasswordRef} placeholder='Confirm new Password' onChange={handleChange} required />
-//       <button type="submit"> 
-//             Save Changes
-//            </button>
-//      </form>
-//     </div>
-//    </div>
-//   )
-// }
 
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -84,6 +10,8 @@ const ResetPassword = () => {
   const { token } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [message,setmessage]=useState('');
+
 
   useEffect(()=>{
     console.log(token);
@@ -105,13 +33,12 @@ const ResetPassword = () => {
         },
         body: JSON.stringify({ token, password }),
       });
-      console.log(response);
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
-        alert("Password reset successful!");
+        setmessage("Password reset successful !!");
+       
       } else {
-        alert("not updated",data.message);
+        alert("not updated Password there is a some problem!!",data.message);
       }
     } catch (error) {
       
@@ -139,7 +66,7 @@ const ResetPassword = () => {
         />
         <button type="submit">Reset Password</button>
       </form>
-      
+      <p>{message}</p>
     </div>
   );
 };

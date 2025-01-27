@@ -1,4 +1,3 @@
-@import '../../res.scss';
 .tools{
     display: flex;
       // justify-content: center;
@@ -11,8 +10,8 @@
        margin-right: 12rem;
        font-weight: bold;
        padding-top: 0.2rem;
-       @include sm{
-        margin-right: 4rem;
+       @media(max-width: 700px){
+        margin-right: 3rem;
       }
       }
      
@@ -20,6 +19,11 @@
         background-color: #d9dde4;
         cursor: pointer;
         border-radius: 0.5rem;
+        
+      }
+      @media(max-width: 700px){
+         margin-right: 3rem;
+        width:13rem;
       }
   }
   .tools_
@@ -41,6 +45,11 @@
             border:1px solid rgb(107, 107, 143);
             border-bottom: 0px;
             box-shadow: 2px 0px 2px 2px rgb(107, 107, 143);
+          }
+          @media(max-width: 700px){
+           width:5rem;
+           height:5rem;
+           
           }
     }
   }

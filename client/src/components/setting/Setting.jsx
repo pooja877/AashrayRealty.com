@@ -30,8 +30,9 @@ export default function Setting() {
     <div className='main-container'>
     <div className="container">
       <h2>Delete my account</h2>
-       <p>Username:  {currentUser.username} </p>
-       <p>Email:{currentUser.email} </p>
+       <p>Username: <span>{currentUser.username}</span>  </p>
+       <p>Email: <span> {currentUser.email} </span></p>
+       
        <button onClick={handleDeleteUser} >
        Confirm
        </button>
