@@ -1,4 +1,4 @@
-import './Setting.scss';
+import './Setting.css';
 import { useSelector,useDispatch ,} from 'react-redux';
 import { deleteUserStart ,deleteUserSuccess,deleteUserFailure} from '../../redux/user/userSlice.js';
 export default function Setting() {
