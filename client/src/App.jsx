@@ -15,7 +15,7 @@ import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/Reset/Reset";
 import AdminDashboard from "./components/admin/dashboard/Dashboard";
 import AdminNavbar from "./components/admin/adminNavbar/AdminNavbar";
-import Property from "./components/admin/Property/Property";
+import AdminProperty from "./components/admin/Property/Property";
 
 function App() {
   return ( 
@@ -41,7 +41,7 @@ function App() {
       </Route>
         <Route path="/admin/login" element={<AdminLogin/>} />
         <Route path="/admin/navbar" element={<AdminNavbar/>} />
-        <Route path="admin/property" element={<Property/>}/>
+        <Route path="admin/property" element={<AdminProperty/>}/>
     </Routes>
     </BrowserRouter> 
     </>
