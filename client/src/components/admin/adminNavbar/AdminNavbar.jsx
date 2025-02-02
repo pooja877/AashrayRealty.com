@@ -17,15 +17,6 @@ export default function AdminNavbar() {
                 <span id="realty">Realty</span> 
                 </p> 
             </a>
-              <div className="right">
-              <input type="search" placeholder='🔍Search...' />
-              <img src="/user-add_2.png" alt="" />
-              <img src="/setting_1.png" alt="" />
-              <img src="/notification_7.png" alt="" />
-              </div>
-    </div>
-    {/* column items */}
-    <div className='navbar'>
       <div className="item">
       <img src="/dashboard_21.png" alt="" />
       <span>Dashboard</span>
@@ -39,6 +30,7 @@ export default function AdminNavbar() {
        </div>
        <button onClick={handleLogout}>Logout</button>
     </div>
+    
     </>
   )
 }

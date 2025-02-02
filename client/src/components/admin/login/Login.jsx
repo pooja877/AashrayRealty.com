@@ -9,7 +9,7 @@ function AdminLogin () {
     const [error, setError] = useState('');
 
     const handleLogin = async (e) => {
-        e.preventDefault();
+         e.preventDefault();
         try {
             const response = await fetch('/api/admin/adminLogin', {
                 method: 'POST',
