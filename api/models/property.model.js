@@ -13,10 +13,6 @@ const propertySchema = new mongoose.Schema({
       type:String,
       required:true
      },
-   status:{
-    type:String,
-    required:true
-   },
    areaSqft:{
     type:Number,
     required:true
@@ -69,10 +65,6 @@ const propertySchema = new mongoose.Schema({
     type:String,
     required:true
    },
-   userRef:{
-    type:String,
-    required:true
-   }
 
 },
 {timestamps:true});
