@@ -1,11 +1,16 @@
 
 .header{
     margin: 0 1rem 0 1rem;
-    height: 20%;
+    /* height: 3rem; */
     display: flex;
+    position: fixed;
+    height:60px;
+    z-index: 1000;
+    width:100%;
+    padding-right: 3rem;
+    top:0;
     flex-direction: row;
     align-items: center;
-        justify-content: space-between;
     background-color: rgb(247, 249, 250);
     .logo {
         font-weight: bold;
@@ -33,13 +38,18 @@
         }
       }
       
-  .item
+  .right{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap:2rem;
+    .item
   { justify-content: center;
     display: flex;
     flex-direction: column;
     img{
-        height:2rem;
-        width:2rem;
+        height:1.5rem;
+        width:1.5rem;
         align-self: center;
         cursor: pointer;
         
@@ -50,7 +60,7 @@
     }
   }
   button{
-    height:4rem;
+    height:2rem;
     width:4rem;
     text-align: center;
     background-color:rgb(5, 40, 75) ;
@@ -59,5 +69,6 @@
     border-radius: 0.5rem;
     font-size: 1rem;
 
+  }
   }
 }

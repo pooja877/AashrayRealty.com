@@ -1,11 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+ import { useNavigate } from 'react-router-dom';
 import './Add.css';
+import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
 import { useRef, useState } from 'react';
 export default function Add() {
   const fileRef=useRef(null);
   const selectRef=useRef();
   const [files,setfiles]=useState([]);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     imageUrls: [],
     propertyName: '',
@@ -24,13 +25,11 @@ export default function Add() {
     area:'',
     city:'',
   });
-  const navigate=useNavigate();
   const [imageUploadError, setImageUploadError] = useState(false);
-   const [uploading] = useState(false);
+   const [uploading,setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log(formData);
-  console.log(files);
+  
 
   // const convertToBase64 = (file) => {
   //   return new Promise((resolve, reject) => {
@@ -48,44 +47,38 @@ export default function Add() {
   // };
   
 
-  // const handleImageUpload = async () => {
+  const handleImageUpload = async () => {
+    if (files.length < 1) {
+      return setError('You must upload at least one image');
+    }
+    setUploading(true);
+    setImageUploadError(false);
+  
+    try {
+      files.forEach((file) => {
+        formData.append("images", file);
+      });
+      
+  
+      setUploading(false);
+    } catch (error) {
+      setImageUploadError('Image processing failed',error);
+      setUploading(false);
+    }
+  };
+  // const handleImageUpload = () => {
   //   if (files.length === 0) {
   //     setImageUploadError('Please select images to upload');
   //     return;
   //   }
-    
-  //   setUploading(true);
+  
   //   setImageUploadError(false);
-  
-  //   try {
-  //     const imageBase64Array = await Promise.all(
-  //       Array.from(files).map((file) => convertToBase64(file))
-  //     );
-  
-  //     setFormData((prev) => ({
-  //       ...prev,
-  //       imageUrls: [...prev.imageUrls, ...imageBase64Array], // Store images as Base64
-  //     }));
-  
-  //     setUploading(false);
-  //   } catch (error) {
-  //     setImageUploadError('Image processing failed',error);
-  //     setUploading(false);
-  //   }
-  // };
-  const handleImageUpload = () => {
-    if (files.length === 0) {
-      setImageUploadError('Please select images to upload');
-      return;
-    }
-  
-    setImageUploadError(false);
     
-    setFormData((prev) => ({
-      ...prev,
-      imageUrls: [...prev.imageUrls, ...Array.from(files)], // Store files directly
-    }));
-  };
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     imageUrls: [...prev.imageUrls, ...Array.from(files)], // Store files directly
+  //   }));
+  // };
   
 
   const handleChange = (e) => {
@@ -106,10 +99,7 @@ export default function Add() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const formDataToSend = new FormData();
-      formData.imageUrls.forEach((file) => {
-        formDataToSend.append(`images`, file);
-      });
+     
       const res = await fetch('/api/property/add', {
         method: 'POST',
         headers: {
@@ -124,15 +114,18 @@ export default function Add() {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate('/admin/dashboard');
+      alert('Property added successfully!!');
+      navigate('/property');
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
+  
   };
   
   return (
     <>
+    <AdminNavbar/>
     <div className="maincontainer">
         <div className="left">
             <h2>Add Property</h2>
@@ -162,10 +155,10 @@ export default function Add() {
                 <textarea id='desc' onChange={handleChange} placeholder='Enter details of the property' name="desc"required />
                 {/* bedrooms */}
                 <label>Bedrooms <span>*</span> </label>
-                <input id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms"required />
+                <input min='1'id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms"required />
                {/* bathrooms */}
                 <label>Bathrooms <span>*</span> </label>
-                <input id='bathrooms' onChange={handleChange} type="number" placeholder='Enter number of bathrooms' name="bathrooms"required />
+                <input min='1' id='bathrooms' onChange={handleChange} type="number" placeholder='Enter number of bathrooms' name="bathrooms"required />
                 {/* Amenities */}
                 <label>Amenities </label>
                 <input id='amenities' onChange={handleChange} type="text" placeholder='Enter Amenities' name="amenities"required />
@@ -173,12 +166,12 @@ export default function Add() {
                 <label>Price <span>*</span> </label>
                 <input id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' name="price"required />
                 {formData.transactionType === 'Rent' && (
-                    <span>(Rs / month)</span>
+                    <span>(₹ / month)</span>
                   )}
                 <label>Discounted Price <span>*</span> </label>
                 <input id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice"required />
                 {formData.transactionType === 'Rent' && (
-                    <span>(Rs / month)</span>
+                    <span>(₹ / month)</span>
                   )}
                 {/* image */}
                 <label >Property Images <span>*</span></label>
@@ -204,34 +197,56 @@ export default function Add() {
           <input  type="text" id='area' onChange={handleChange} placeholder='Enter name of area ' name="area"required />
           <label>City <span>*</span></label>
           <input  type="text" id='city' onChange={handleChange} placeholder='Enter name of city' name="city"required />
-          <button   disabled={loading}className='btnSubmit'> {loading ? 'Adding...' : 'Add Property'}</button>
+          <button   disabled={loading} className='btnSubmit'> {loading ? 'Adding...' : 'Add Property'}</button>
+          {error && <p>{error}</p>}
             </form>
-            {error && <p>{error}</p>}
+           
 
         </div>
 
         <div className="right">
           <h2>Quick Preview</h2>
           <div className="contain">
-          <div className="image">
-            <img src="" alt="" />
-            </div>
-            <h4>The White House</h4>
+            <div className="info-contain">
+            <h3>{formData.propertyName}</h3>
             <div className="loc">
-              <img src="" alt="" />
-              <p>content</p>
+              <img className='locicon' src="/location_20.png" alt="" />
+              <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area},{formData.city}</p>
             </div>
             <div className="price">
-              <p>$100</p>
+              <p>₹ {formData.price}</p>
             </div>
+            <div className="bedbath">
             <div className="bed">
-              <img src="" alt="" />
-              <p>2 <span>Bedrooms</span></p>
+              <img className='bedicon' src="/bed_8.png" alt="" />
+              <p>{formData.bedrooms} <span>Bedrooms</span></p>
             </div>
             <div className="bath">
-              <img src="" alt="" />
-              <p>2 <span>Bathrooms</span></p>
+              <img className='bathicon' src="/bathroom_2.png" alt="" />
+              <p>{formData.bathrooms} <span>Bathrooms</span></p>
             </div>
+            </div>
+            </div>
+          
+          
+         <div className="imagecontain">
+         {formData.imageUrls.length > 0 &&
+            formData.imageUrls.map((url) => (
+              <div
+                key={url}
+                className="imageProperty"
+              >
+                <img
+                  className='listimage'
+                  src={url}
+                  alt='listing image'
+                />
+                <button>Delete</button>
+               
+              </div>
+            ))}
+         </div>
+            
           </div>
           </div>
     </div>

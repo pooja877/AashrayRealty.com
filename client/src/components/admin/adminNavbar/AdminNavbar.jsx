@@ -17,19 +17,30 @@ export default function AdminNavbar() {
                 <span id="realty">Realty</span> 
                 </p> 
             </a>
-      <div className="item">
+    <div className="right">
+    <div className="item">
       <img src="/dashboard_21.png" alt="" />
       <span>Dashboard</span>
       </div>
        <div className="item">
         <Link to="/admin/property">
+            <img src="/projects_1.png" alt="" />
+            </Link>
+
+       <span>Projects</span>
+       </div>
+       <div className="item">
+        <Link to="/admin/property/add">
             <img src="/home_1.png" alt="" />
             </Link>
 
        <span>Property</span>
        </div>
+
        <button onClick={handleLogout}>Logout</button>
     </div>
+    </div>
+   
     
     </>
   )
