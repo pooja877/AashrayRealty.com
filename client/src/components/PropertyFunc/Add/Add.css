@@ -14,9 +14,8 @@
         margin-left: 1.5rem;
         width:60%;
         height:100vh;
-        overflow-y:scroll;
         padding-top: 60px;
-
+        overflow-y:scroll;
         @media(max-width: 700px)
         {
                 width:90%;
@@ -114,13 +113,13 @@
 
     .right
     {  
-        padding-top: 60px;
        margin: 0rem 2rem 1rem 1rem;
        width:30%;
        height: 100vh;
        overflow-y: scroll;
       flex-direction: column;
       justify-content: flex-start;
+      padding-top: 60px;
      
       h2{
         margin-top: 1.5rem;

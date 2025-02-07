@@ -1,31 +1,42 @@
-import multer from 'multer'
-import cloudinary from 'cloudinary'
 import Property from "../models/property.model.js";
 
-cloudinary.config({
-    cloud_name: "your_cloud_name",
-    api_key: "your_api_key",
-    api_secret: "your_api_secret",
-  });
+import cloudinary from 'cloudinary'
+// Upload Property Images to Cloudinary
+export const uploadImage=async (req, res) => {
+  try {
+    const imageUrls = [];
 
-  // Multer Storage (Temporary)
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+    for (const file of req.files) {
+      const result = await new Promise((resolve, reject) => {
+        cloudinary
+        .uploader.upload_stream(
+          { folder: "aashray_images" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        ).end(file.buffer);
+      });
+
+      imageUrls.push(result.secure_url);
+    }
+
+    res.json({ urls: imageUrls });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
 
 export const addProperty=async (req,res,next)=>{
     try{
-        upload.array('images');
-         // Upload images to Cloudinary and get URLs
-    const imageUploadPromises = req.files.map((file) =>
-        cloudinary.uploader.upload_stream({ folder: "listings" }, (error, result) => {
-          if (error) throw new Error("Cloudinary upload failed");
-          return result.secure_url;
-        }).end(file.buffer)
-      );
-  
-      const imageUrls = await Promise.all(imageUploadPromises);
-        const property=await Property.create(...req.body,imageUrls);
-        return res.status(201).json(property);
+        
+        const newProperty = new Property(...req.body );
+        await newProperty.save();
+    
+        // const property=await Property.create(...req.body);
+        return res.status(201).json(newProperty);
     }
     catch(error)
     {

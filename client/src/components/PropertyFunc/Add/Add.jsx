@@ -1,14 +1,17 @@
- import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './Add.css';
 import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
 import { useRef, useState } from 'react';
+
 export default function Add() {
   const fileRef=useRef(null);
   const selectRef=useRef();
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [files,setfiles]=useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  //const [imageUrls, setImageUrls] = useState([]);
   const [formData, setFormData] = useState({
-    imageUrls: [],
+    imageUrls:[],
     propertyName: '',
     propertyType: '',
     transactionType: '',
@@ -25,60 +28,36 @@ export default function Add() {
     area:'',
     city:'',
   });
-  const [imageUploadError, setImageUploadError] = useState(false);
-   const [uploading,setUploading] = useState(false);
+  // const [imageUploadError, setImageUploadError] = useState(false);
+  //  const [uploading,setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   
 
-  // const convertToBase64 = (file) => {
-  //   return new Promise((resolve, reject) => {
-  //     if (!file) {
-  //       reject(new Error("No file provided"));
-  //       return;
-  //     }
   
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  
-  //     reader.onload = () => resolve(reader.result); // Convert to Base64
-  //     reader.onerror = (error) => reject(new Error("Error converting file: " + error.message));
-  //   });
-  // };
-  
+  const handleImageUpload =async () => {
+    if (!files.length) return;
 
-  const handleImageUpload = async () => {
-    if (files.length < 1) {
-      return setError('You must upload at least one image');
+    const formData = new FormData();
+    for (let file of files) {
+      formData.append("images", file);
     }
-    setUploading(true);
-    setImageUploadError(false);
-  
-    try {
-      files.forEach((file) => {
-        formData.append("images", file);
-      });
-      
-  
-      setUploading(false);
-    } catch (error) {
-      setImageUploadError('Image processing failed',error);
-      setUploading(false);
+
+    const response = await fetch("/api/property/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      setUploadedImages([...uploadedImages, ...data.urls]);
+    } else {
+      console.error("Upload failed:", data.error);
     }
+  
   };
-  // const handleImageUpload = () => {
-  //   if (files.length === 0) {
-  //     setImageUploadError('Please select images to upload');
-  //     return;
-  //   }
-  
-  //   setImageUploadError(false);
-    
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     imageUrls: [...prev.imageUrls, ...Array.from(files)], // Store files directly
-  //   }));
-  // };
+
+
   
 
   const handleChange = (e) => {
@@ -99,6 +78,7 @@ export default function Add() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
+      // Send imageUrls array
      
       const res = await fetch('/api/property/add', {
         method: 'POST',
@@ -106,7 +86,7 @@ export default function Add() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...formData
+          formData
         }),
       });
       const data = await res.json();
@@ -115,12 +95,10 @@ export default function Add() {
         setError(data.message);
       }
       alert('Property added successfully!!');
-      navigate('/property');
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
-  
   };
   
   return (
@@ -175,13 +153,15 @@ export default function Add() {
                   )}
                 {/* image */}
                 <label >Property Images <span>*</span></label>
-                <input  onChange={(e)=>setfiles(e.target.files)} type="file" name='imageUrls' ref={fileRef} hidden accept='image/*' multiple required />
+                 <input  onChange={(e)=>setfiles(e.target.files)} type="file" name='imageUrls' ref={fileRef} hidden accept='image/*' multiple required />
                 <div className="image" onClick={()=>fileRef.current.click()}>
                   + Upload an image
-                </div>
-                <button type='button'  disabled={uploading} onClick={handleImageUpload} className='btnUpload'>  {uploading ? 'Uploading...' : 'Upload'}</button>
+                </div> 
+                <button type='button' onClick={handleImageUpload} className='btnUpload'> Upload</button>
+                
+        
                 <p>
-                {imageUploadError }
+                {/* {imageUploadError } */}
                 </p>
                 {/* location */}
                 <h3>Property Location</h3>

@@ -23,14 +23,14 @@ export default function AdminNavbar() {
       <span>Dashboard</span>
       </div>
        <div className="item">
-        <Link to="/admin/property">
+        <Link to="/admin/projects">
             <img src="/projects_1.png" alt="" />
             </Link>
 
        <span>Projects</span>
        </div>
        <div className="item">
-        <Link to="/admin/property/add">
+        <Link to="/admin/addProperty">
             <img src="/home_1.png" alt="" />
             </Link>
 

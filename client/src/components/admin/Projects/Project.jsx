@@ -1,12 +1,12 @@
   import AdminNavbar from "../adminNavbar/AdminNavbar"
 // import { Link } from 'react-router-dom'
-import './Property.css'
-export default function AdminProperty() {
+import './Project.css'
+export default function Project() {
   return (
      <>
      <AdminNavbar/>
       <div >
-        properties
+        projects
       </div>
       </>
   )
