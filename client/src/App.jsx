@@ -38,7 +38,7 @@ function App() {
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
       {/* for open admin panel admin can login and open it */}
       <Route element={<Privateadmin/>}>
-            <Route path="/admin" element={<AdminDashboard/>} />
+            <Route path="/admin/dashboard" element={<AdminDashboard/>} />
             <Route path="/admin/navbar" element={<AdminNavbar/>} />
             <Route path="/admin/projects" element={<Project/>}/>
             <Route path="/admin/addProperty" element={<Add/>} />

@@ -4,12 +4,9 @@ import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
 import { useRef, useState } from 'react';
 
 export default function Add() {
-  const fileRef=useRef(null);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const selectRef=useRef();
-  const [uploadedImages, setUploadedImages] = useState([]);
-  const [files,setfiles]=useState([]);
-  // const navigate = useNavigate();
-  //const [imageUrls, setImageUrls] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls:[],
     propertyName: '',
@@ -28,45 +25,46 @@ export default function Add() {
     area:'',
     city:'',
   });
-  // const [imageUploadError, setImageUploadError] = useState(false);
-  //  const [uploading,setUploading] = useState(false);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
   
-
   
-  const handleImageUpload =async () => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  
+};
+  
+  const handleImageUpload =async (e) => {
+    const files = e.target.files;
     if (!files.length) return;
 
-    const formData = new FormData();
+    const form = new FormData();
     for (let file of files) {
-      formData.append("images", file);
+      form.append("images", file);
     }
+
+    try{
 
     const response = await fetch("/api/property/upload", {
       method: "POST",
-      body: formData,
+      body: form,
     });
 
     const data = await response.json();
     if (response.ok) {
-      setUploadedImages([...uploadedImages, ...data.urls]);
+      setFormData((prev) => ({ ...prev, imageUrls: [...prev.imageUrls, ...data.urls] }));
     } else {
       console.error("Upload failed:", data.error);
     }
-  
+  }
+    catch (error) {
+      console.error("Error uploading images:", error);
+    }
   };
 
 
-  
-
-  const handleChange = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
-    
-  };
+ 
   
 
   const handleSubmit = async (e) => {
@@ -78,7 +76,7 @@ export default function Add() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      // Send imageUrls array
+      
      
       const res = await fetch('/api/property/add', {
         method: 'POST',
@@ -152,12 +150,9 @@ export default function Add() {
                     <span>(₹ / month)</span>
                   )}
                 {/* image */}
-                <label >Property Images <span>*</span></label>
-                 <input  onChange={(e)=>setfiles(e.target.files)} type="file" name='imageUrls' ref={fileRef} hidden accept='image/*' multiple required />
-                <div className="image" onClick={()=>fileRef.current.click()}>
-                  + Upload an image
-                </div> 
-                <button type='button' onClick={handleImageUpload} className='btnUpload'> Upload</button>
+                <label className='image'>Property Images <span>*</span></label>
+                <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
+               
                 
         
                 <p>
