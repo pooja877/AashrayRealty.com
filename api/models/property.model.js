@@ -33,10 +33,14 @@ const propertySchema = new mongoose.Schema({
     type:Number,
     required:true
    },
-   imageUrls:{
-      type:Array,
-      required:true,
-   },
+   // imageUrls:{
+   //    type:Array,
+   //    required:true,
+   // },
+   images:[{
+      url:String,
+      publicId:String
+   }],
    price:{
     type:Number,
     required:true

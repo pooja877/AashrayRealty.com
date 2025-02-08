@@ -2,13 +2,15 @@
 import './Add.css';
 import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Add() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const selectRef=useRef();
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
-    imageUrls:[],
+    images:[],
     propertyName: '',
     propertyType: '',
     transactionType: '',
@@ -55,7 +57,13 @@ export default function Add() {
     const data = await response.json();
   
     if (response.ok) {
-      setFormData((prev) => ({ ...prev, imageUrls: [...prev.imageUrls, ...data.urls] }));
+     // setFormData((prev) => ({ ...prev, imageUrls: [...prev.imageUrls, ...data.urls] }));
+       // Store both URL & public_id
+      
+      setFormData((prev) => ({
+        ...prev,
+        images: [...prev.images, ...data.images],
+      }));
       
     } else {
       console.error("Upload failed:", data.error);
@@ -73,7 +81,7 @@ export default function Add() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (formData.imageUrls.length < 1)
+      if (formData.images.length < 1)
         return setError('You must upload at least one image');
       if (+formData.price < +formData.discountPrice)
         return setError('Discount price must be lower than regular price');
@@ -98,12 +106,36 @@ export default function Add() {
       }
       else{
         alert('Property added successfully!!');
+        navigate('/admin/dashboard');
       }
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   };
+  const handledeleteImage=async (publicId)=>{
+    try {
+      const res = await fetch('/api/property/delete', {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify( {publicId} ),
+      });
+  
+      const result = await res.json();
+      
+      if (res.ok) {
+        // Remove the deleted image from state
+        setFormData((prev) => ({
+          ...prev,
+          images: prev.images.filter((img) => img.publicId !== publicId),
+        }));
+      } else {
+        console.error("Failed to delete image:", result.error);
+      }
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
+  }
   
   return (
     <>
@@ -211,18 +243,18 @@ export default function Add() {
           
           
          <div className="imagecontain">
-         {formData.imageUrls.length > 0 &&
-            formData.imageUrls.map((url) => (
+         {formData.images.length > 0 &&
+            formData.images.map((img,index) => (
               <div
-                key={url}
+                key={index}
                 className="imageProperty"
               >
                 <img
                   className='listimage'
-                  src={url}
+                  src={img.url}
                   alt='listing image'
                 />
-                <button>Delete</button>
+                <button onClick={()=>handledeleteImage(img.publicId)}>Delete</button>
                
               </div>
             ))}

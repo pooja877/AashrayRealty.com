@@ -5,8 +5,9 @@ export default function Project() {
   return (
      <>
      <AdminNavbar/>
-      <div >
-        projects
+      <div className="main-container">
+        <div className="left">left</div>
+        <div className="right">right</div>
       </div>
       </>
   )

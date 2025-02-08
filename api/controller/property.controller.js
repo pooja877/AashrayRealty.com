@@ -3,7 +3,7 @@ import cloudinary from "../cloudinary.js";
 // Upload Property Images to Cloudinary
 export const uploadImage=async (req, res) => {
   try {
-    const imageUrls = [];
+    const uploadedImages = [];
     
     for (const file of req.files) {
       const result = await new Promise((resolve, reject) => {
@@ -16,20 +16,41 @@ export const uploadImage=async (req, res) => {
         );
         stream.end(file.buffer);
       });
-      imageUrls.push(result.secure_url);
+      uploadedImages.push({url:result.secure_url,
+            publicId:result.public_id,
+      });
     }
-    res.json({ urls: imageUrls });
+    res.json({ images: uploadedImages });
     
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
+export const deleteImage=async (req,res)=>{
+  try {
+    const { publicId } = req.body;
 
+    if (!publicId) {
+      return res.status(400).json({ error: "Public ID is required" });
+    }
+
+    const result = await cloudinary.uploader.destroy(publicId);
+
+    if (result.result !== "ok") {
+      return res.status(400).json({ error: "Failed to delete image" });
+    }
+
+    res.json({ message: "Image deleted successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+}
 
 export const addProperty=async (req,res,next)=>{
  
-  const {imageUrls,
+  const {images,
     propertyName,
     propertyType,
     transactionType,
@@ -48,7 +69,7 @@ export const addProperty=async (req,res,next)=>{
 
   try{
     
-      const newProperty = new Property({ imageUrls,
+      const newProperty = new Property({ images,
     propertyName,
     propertyType,
     transactionType,
