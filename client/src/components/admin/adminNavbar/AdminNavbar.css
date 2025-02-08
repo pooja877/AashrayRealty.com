@@ -6,8 +6,9 @@
     position: fixed;
     height:60px;
     z-index: 1000;
-    width:100%;
-    padding-right: 3rem;
+    width:97%;
+    padding-right: 1rem;
+    
     top:0;
     flex-direction: row;
     align-items: center;
@@ -20,7 +21,8 @@
         gap: 10px;
         margin-right: 0px;
         img {
-          width: 70px;
+          width: 60px;
+          height:60px;
         }
         p{
           gap:0px;
