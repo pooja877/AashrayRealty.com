@@ -56,7 +56,7 @@ export default function Add() {
   
     if (response.ok) {
       setFormData((prev) => ({ ...prev, imageUrls: [...prev.imageUrls, ...data.urls] }));
-      console.log(formData);
+      
     } else {
       console.error("Upload failed:", data.error);
     }
@@ -146,12 +146,12 @@ export default function Add() {
                 <input id='amenities' onChange={handleChange} type="text" placeholder='Enter Amenities' name="amenities"required />
                 {/* price */}
                 <label>Price <span>*</span> </label>
-                <input id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' name="price"required />
+                <input min='1' id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' name="price"required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
                 <label>Discounted Price <span>*</span> </label>
-                <input id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice"required />
+                <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice"required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
@@ -192,7 +192,7 @@ export default function Add() {
             <h3>{formData.propertyName}</h3>
             <div className="loc">
               <img className='locicon' src="/location_20.png" alt="" />
-              <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area},{formData.city}</p>
+              <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area} {formData.city}</p>
             </div>
             <div className="price">
               <p>₹ {formData.discountPrice}</p>
