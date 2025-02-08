@@ -4,10 +4,11 @@ import cloudinary from "../cloudinary.js";
 export const uploadImage=async (req, res) => {
   try {
     const imageUrls = [];
+    
     for (const file of req.files) {
       const result = await new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
-          { folder: "real_estate" },
+          { folder: "aashray_images/" },
           (error, result) => {
             if (error) reject(error);
             else resolve(result);
@@ -18,6 +19,7 @@ export const uploadImage=async (req, res) => {
       imageUrls.push(result.secure_url);
     }
     res.json({ urls: imageUrls });
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -26,9 +28,42 @@ export const uploadImage=async (req, res) => {
 
 
 export const addProperty=async (req,res,next)=>{
-    try{
+ 
+  const {imageUrls,
+    propertyName,
+    propertyType,
+    transactionType,
+    areaSqft,
+    desc,
+    amenities,
+    bedrooms,
+    bathrooms,
+    price,
+    discountPrice,
+    houseno,
+    buildingName,
+    streetName,
+    area,
+    city}=req.body;
+
+  try{
     
-      const newProperty = new Property({ ...req.body});
+      const newProperty = new Property({ imageUrls,
+    propertyName,
+    propertyType,
+    transactionType,
+    areaSqft,
+    desc,
+    amenities,
+    bedrooms,
+    bathrooms,
+    price,
+    discountPrice,
+    houseno,
+    buildingName,
+    streetName,
+    area,
+    city,}); 
       await newProperty.save();
       res.status(201).json({ message: "Property added successfully!" });
     }

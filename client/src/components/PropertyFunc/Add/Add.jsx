@@ -27,6 +27,7 @@ export default function Add() {
   });
   
   
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -34,7 +35,7 @@ export default function Add() {
     });
   
 };
-  
+
   const handleImageUpload =async (e) => {
     const files = e.target.files;
     if (!files.length) return;
@@ -52,8 +53,10 @@ export default function Add() {
     });
 
     const data = await response.json();
+  
     if (response.ok) {
       setFormData((prev) => ({ ...prev, imageUrls: [...prev.imageUrls, ...data.urls] }));
+      console.log(formData);
     } else {
       console.error("Upload failed:", data.error);
     }
@@ -83,16 +86,19 @@ export default function Add() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          formData
-        }),
+        body: JSON.stringify(formData),
       });
+      
       const data = await res.json();
+      
       setLoading(false);
+     
       if (data.success === false) {
         setError(data.message);
       }
-      alert('Property added successfully!!');
+      else{
+        alert('Property added successfully!!');
+      }
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -189,7 +195,7 @@ export default function Add() {
               <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area},{formData.city}</p>
             </div>
             <div className="price">
-              <p>₹ {formData.price}</p>
+              <p>₹ {formData.discountPrice}</p>
             </div>
             <div className="bedbath">
             <div className="bed">
