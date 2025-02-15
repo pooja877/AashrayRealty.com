@@ -55,7 +55,7 @@ const propertySchema = new mongoose.Schema({
    },
    buildingName:{
     type:String,
-    required:true
+    
    },
    streetName:{
     type:String,

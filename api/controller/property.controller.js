@@ -1,6 +1,25 @@
 import Property from "../models/property.model.js";
 import cloudinary from "../cloudinary.js";
-//import getLatLngFromAddress from "../utils/geocode.js";
+import getLatLngFromAddress from "../geocode.js";
+
+export const allProperty= async (req, res) => {
+  try {
+    const properties = await Property.find({}); // Fetch all properties
+
+    for (let property of properties) {
+      // Create a full address from address fields
+      const fullAddress = `${property.houseno}, ${property.building}, ${property.street}, ${property.area}, ${property.city}`;
+      const coords = await getLatLngFromAddress(fullAddress);
+
+      if (coords) {
+        property.latitude = coords.latitude;
+        property.longitude = coords.longitude;
+      }
+    }
+  }catch (error) {
+    res.status(500).json({ message: "Error fetching properties" });
+  }
+};
 // Upload Property Images to Cloudinary
 export const uploadImage=async (req, res) => {
   try {

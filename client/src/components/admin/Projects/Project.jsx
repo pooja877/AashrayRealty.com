@@ -1,4 +1,5 @@
   import DataFilter from "../../Datafilter/dataFilter"
+import Listing from "../../Listing/Listing"
 import Map from "../../map/Map"
 import AdminNavbar from "../adminNavbar/AdminNavbar"
 
@@ -11,6 +12,7 @@ export default function Project() {
       <div className="main-container">
         <div className="data" >
           <DataFilter/>
+          <Listing/>
         </div>
         <div className="map"><Map/></div>
       </div>

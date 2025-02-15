@@ -202,7 +202,7 @@ export default function Add() {
           <input type="text" id='houseno' onChange={handleChange} placeholder="Enter property flat no./house no."name="houseno" required />
 
           <label>Building Name <span>*</span></label>
-          <input type="text" id='buildingName  ' onChange={handleChange} placeholder="Enter property building name" name="buildingName" required />
+          <input type="text" id='buildingName  ' onChange={handleChange} placeholder="Enter property building name" name="buildingName" />
 
           <label>Street Address <span>*</span></label>
           <input type="text" id='streetName' onChange={handleChange} name="streetName"placeholder="Enter property street address" required />
