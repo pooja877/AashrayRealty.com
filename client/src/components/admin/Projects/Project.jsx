@@ -22,16 +22,43 @@ export default function Project() {
   return (
      <>
      <AdminNavbar/>
-      <div className="main-container">
+      <div className="main-contain">
         <div className="data" >
                 {properties.length > 0 ? (
                     properties.map((property) => (
-                        <div  className='container' key={property._id}>
-                            <h3>{property.propertyName}</h3>
-                            <img className='imgProperty'src={property.images[0]} alt="" />
-                            <p>{property.desc}</p>
-                            <p>Price: ${property.price}</p>
-                        </div>
+                        <div  className='contain' key={property._id}>
+                           {property.images?.length > 0 && (
+                            <img
+                            className="imageConatiner"
+                              src={property.images[0].url}
+                              alt="Property"
+                            />
+                          )}
+                            
+                          <div className="info"> 
+                             <h3>{property.propertyName}</h3>
+                            <div className="prodetails">
+                              <img className='icon' src="/location_20.png" alt="" />
+                              <p>{property.houseno} {property.buildingName} {property.streetName} {property.area} {property.city}</p></div>
+                            
+                            <div className="price">₹{property.discountPrice}</div>
+                            <div className="bathbed">
+                            <div className="bed">
+                              <img className="iconBed" src="/bed_8.png" alt="bed" />
+                              <span>{property.bedrooms} bedrooms</span>
+                            </div>
+                            <div className="bath">
+                              <img className="iconBath" src="/bathroom_2.png" alt="bath" />
+                              <span>{property.bathrooms} bathrooms</span>
+                            </div>
+                            </div>
+                            <div className="btns">
+                             <button className="btnUpdate ">Update</button>
+                             <button className="btnDelete">Delete</button>
+                            </div>
+                            </div>
+                            </div>
+                        
                     ))
                 ) : (
                     <p>No properties found.</p>

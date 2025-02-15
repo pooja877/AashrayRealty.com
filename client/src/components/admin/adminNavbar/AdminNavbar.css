@@ -5,7 +5,6 @@
     display: flex;
     position: fixed;
     height:60px;
-    z-index: 1000;
     width:97%;
     padding-right: 1rem;
     
@@ -44,6 +43,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    height: 60px;
     gap:2rem;
     .item
   { justify-content: center;

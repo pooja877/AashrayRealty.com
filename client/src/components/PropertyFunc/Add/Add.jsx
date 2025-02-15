@@ -217,7 +217,7 @@ export default function Add() {
 
         </div>
 
-        <div className="right">
+        <div className="rightSide">
           <h2>Quick Preview</h2>
           <div className="contain">
             <div className="info-contain">

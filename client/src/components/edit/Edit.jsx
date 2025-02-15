@@ -40,7 +40,7 @@ export default function Edit() {
       }
     }
   return (
-    <div className='main-container'>
+    <div className='mainContainer'>
         <div className="container">
         <img src={currentUser.avatar} action=""/>
          <form onSubmit={handleSubmit}>
