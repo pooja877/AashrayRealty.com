@@ -1,6 +1,6 @@
 import Property from "../models/property.model.js";
 import cloudinary from "../cloudinary.js";
-import getLatLngFromAddress from "../utils/geocode.js";
+//import getLatLngFromAddress from "../utils/geocode.js";
 // Upload Property Images to Cloudinary
 export const uploadImage=async (req, res) => {
   try {
@@ -95,20 +95,3 @@ export const addProperty=async (req,res,next)=>{
     }
 }
 
-export const allProperty= async (req, res) => {
-  try {
-    const properties = await Property.find({}, "propertyName city state");
-
-    // Convert city & state to lat/lng
-    const propertiesWithLatLng = await Promise.all(
-      properties.map(async (property) => {
-        const coords = await getLatLngFromAddress(property.city, property.state);
-        return coords ? { ...property.toObject(), ...coords } : null;
-      })
-    );
-
-    res.json(propertiesWithLatLng.filter(Boolean));
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching properties" });
-  }
-};

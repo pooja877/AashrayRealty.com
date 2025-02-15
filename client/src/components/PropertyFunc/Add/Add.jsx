@@ -169,10 +169,10 @@ export default function Add() {
                 <textarea id='desc' onChange={handleChange} placeholder='Enter details of the property' name="desc"required />
                 {/* bedrooms */}
                 <label>Bedrooms <span>*</span> </label>
-                <input min='1'id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms"required />
+                <input min='1'id='bedrooms' onChange={handleChange} type="text" placeholder='Enter number of bedrooms' name="bedrooms"required />
                {/* bathrooms */}
                 <label>Bathrooms <span>*</span> </label>
-                <input min='1' id='bathrooms' onChange={handleChange} type="number" placeholder='Enter number of bathrooms' name="bathrooms"required />
+                <input min='1' id='bathrooms' onChange={handleChange} type="text" placeholder='Enter number of bathrooms' name="bathrooms"required />
                 {/* Amenities */}
                 <label>Amenities </label>
                 <input id='amenities' onChange={handleChange} type="text" placeholder='Enter Amenities' name="amenities"required />
@@ -224,7 +224,7 @@ export default function Add() {
             <h3>{formData.propertyName}</h3>
             <div className="loc">
               <img className='locicon' src="/location_20.png" alt="" />
-              <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area} {formData.city}</p>
+              <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area} {formData.city}  </p>
             </div>
             <div className="price">
               <p>₹ {formData.discountPrice}</p>
