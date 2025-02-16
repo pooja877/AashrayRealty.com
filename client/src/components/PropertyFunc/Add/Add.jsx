@@ -139,9 +139,10 @@ export default function Add() {
   
   return (
     <>
-    <AdminNavbar/>
-    <div className="maincontainer">
-        <div className="left">
+   
+    <div className="mainAddcontainer">
+       <AdminNavbar/>
+        <div className="leftadd">
             <h2>Add Property</h2>
             <form action="" onSubmit={handleSubmit}>
                 <h3>Property Information</h3>
@@ -217,7 +218,7 @@ export default function Add() {
 
         </div>
 
-        <div className="rightSide">
+        <div className="rightadd">
           <h2>Quick Preview</h2>
           <div className="contain">
             <div className="info-contain">

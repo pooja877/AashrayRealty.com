@@ -17,6 +17,8 @@ import AdminDashboard from "./components/admin/dashboard/Dashboard";
 import AdminNavbar from "./components/admin/adminNavbar/AdminNavbar";
 import Project from "./components/admin/Projects/Project";
 import Add from "./components/PropertyFunc/Add/Add";
+import Update from "./components/PropertyFunc/Update/Update";
+
 
 function App() {
   return ( 
@@ -42,6 +44,7 @@ function App() {
             <Route path="/admin/navbar" element={<AdminNavbar/>} />
             <Route path="/admin/projects" element={<Project/>}/>
             <Route path="/admin/addProperty" element={<Add/>} />
+            <Route path="/admin/projects/updateProperty/:id" element={<Update/>} />
       </Route>
         <Route path="/admin/login" element={<AdminLogin/>} />
     </Routes>
@@ -52,7 +55,9 @@ function App() {
 
  const ConditionalNavbar=()=>{
   const location=useLocation();
-  const hideNavbarRoutes=["/admin/login","/admin/dashboard","/admin/projects","/admin/addProperty"];
-  return !hideNavbarRoutes.includes(location.pathname)?<Navbar/>:null;
+  const hideNavbarRoutes=["/admin/login","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty"];
+  // return !hideNavbarRoutes.includes(location.pathname)?<Navbar/>:null;
+  const shouldHideNavbar=hideNavbarRoutes.some(route=>location.pathname.startsWith(route));
+  return shouldHideNavbar?null:<Navbar/>;
  }
 export default App

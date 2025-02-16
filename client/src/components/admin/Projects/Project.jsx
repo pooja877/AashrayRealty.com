@@ -1,11 +1,11 @@
 import Map from "../../map/Map"
 import AdminNavbar from "../adminNavbar/AdminNavbar"
 import { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom'
 import './Project.css'
+import { useNavigate } from "react-router-dom";
 export default function Project() {
   const [properties, setProperties] = useState([]);
-  
+  const navigate=useNavigate();
     useEffect(() => {
         const fetchProperties = async () => {
             try {
@@ -19,6 +19,25 @@ export default function Project() {
   
         fetchProperties();
     }, []);
+
+    const handleDeleteProperty=async(id)=>{
+      try {
+        const response = await fetch(`/api/property/deleteProperty/${id}`, {
+            method: "DELETE",
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert("Property deleted successfully");
+            setProperties(properties.filter(property => property._id !== id));
+        } else {
+            alert(data.message);
+        }
+    } catch (error) {
+        console.error("Error deleting property:", error);
+    }
+    }
+   
   return (
      <>
      <AdminNavbar/>
@@ -53,8 +72,8 @@ export default function Project() {
                             </div>
                             </div>
                             <div className="btns">
-                             <button className="btnUpdate ">Update</button>
-                             <button className="btnDelete">Delete</button>
+                             <button onClick={()=>navigate(`/admin/projects/updateProperty/${property._id}`)} className="btnUpdate ">Update</button>
+                             <button onClick={() => handleDeleteProperty(property._id)}className="btnDelete">Delete</button>
                             </div>
                             </div>
                             </div>
