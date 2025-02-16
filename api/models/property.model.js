@@ -68,12 +68,6 @@ const propertySchema = new mongoose.Schema({
    city:{
     type:String,
     required:true
-   },
-   latitude:{
-      type:Number
-   },
-   longitude:{
-      type:Number
    }
 
 },

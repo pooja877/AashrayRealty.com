@@ -8,7 +8,7 @@ export default function Map() {
    useEffect(() => {
     const fetchProperties = async () => {
         try {
-            const response = await fetch("/api/property/getall");
+            const response = await fetch("/api/property/getallmap");
             
             const data = await response.json();
             setProperties(data);
@@ -23,17 +23,6 @@ export default function Map() {
   
 
   return (
-  //   <MapContainer center={position} zoom={7} scrollWheelZoom={false} className='mapview'>
-  //   <TileLayer
-  //     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  //     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  //   />
-  //   <Marker position={position}>
-  //     <Popup>
-  //       A pretty CSS3 popup. <br /> Easily customizable.
-  //     </Popup>
-  //   </Marker>
-  // </MapContainer>
   <MapContainer center={position} zoom={7} className='mapview'>
   <TileLayer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -44,9 +33,23 @@ export default function Map() {
           <Marker key={property._id} position={[property.latitude, property.longitude]}>
           
               <Popup>
-                  <strong>{property.buildingName}</strong>
-                  <br />
-                  {property.street}, {property.area}, {property.city}
+                  <div className="popcontainer">
+                  {property.images?.length > 0 && (
+                            <img
+                            className="imagepopup"
+                              src={property.images[0].url}
+                              alt="Property"
+                            />
+                          )}
+                    <div className="infocontain">
+                    <h4>{property.propertyName}</h4>
+                    <span>{property.streetName} {property.area} {property.city}</span>
+                    <span>Type:{property.propertyType}</span>
+                        <p className='price'>₹{property.discountPrice}</p>
+                        
+                    </div>
+                    
+                  </div>
               </Popup>
           </Marker>
       ) : null

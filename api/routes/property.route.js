@@ -7,7 +7,7 @@ const router=express.Router();
 router.post("/upload", upload.array("images"),uploadImage);
 router.delete("/delete",deleteImage);
 router.post('/add',addProperty);
-router.get('/getall',getAllProperties);
+router.get('/getallmap',getAllProperties);
 router.get('/all',allProperty);
 router.get("/:id", getPropertyById);
 router.delete('/deleteProperty/:id',deleteProperty);

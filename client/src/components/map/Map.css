@@ -5,5 +5,40 @@
     align-items: center; */
     border-radius: 0.5rem;
     margin-top: 1rem;
+
+    
+    .popcontainer{
+        height:5rem;
+        width:13rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap:1rem;
+        .imagepopup{
+            height:3.3rem;
+            width:3.3rem;
+            align-self: center;
+            border-radius: 0.2rem;
+        }
+        .infocontain{
+            display: flex;
+            flex-direction: column;
+            height:3rem;
+           
+            .price{
+                background-color: rgb(236, 219, 110);
+                color:black;
+                height:1rem;
+                width:fit-content;
+                text-align: center;
+                font-size: 0.8rem;
+                margin-top: 0.2rem;
+                
+            }
+            
+          
+        }
+    }
  
 }

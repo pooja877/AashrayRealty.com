@@ -106,7 +106,7 @@ export default function Add() {
       }
       else{
         alert('Property added successfully!!');
-        navigate('/admin/dashboard');
+        navigate('/admin/projects');
       }
     } catch (error) {
       setError(error.message);

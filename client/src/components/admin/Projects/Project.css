@@ -7,7 +7,7 @@
    /* padding-left: 1rem;
    padding-right: 1rem;
    margin-bottom: 5rem; */
-   /* background: linear-gradient( #fdf9f9, #dddbdb); */
+   background: linear-gradient( #fdf9f9, #dddbdb);
     .data{
        padding-top: 60px;
         width:65%;
@@ -36,13 +36,13 @@
             flex-direction: row;
             justify-content: flex-start;
             align-items: flex-start;
-            padding-left: 5rem;
+            padding-left: 3rem;
             gap:1rem;
             padding-top: 1rem;
 
             .imageConatiner{
-                height:10rem;
-                width:15rem;
+                height:13rem;
+                width:16rem;
                 border: 1px solid black;
                 border-radius: 0.5rem;
             }

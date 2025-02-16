@@ -2,12 +2,6 @@ import Property from "../models/property.model.js";
 import cloudinary from "../cloudinary.js";
 import fetch from 'node-fetch';
 
-const deleteOldImages = async (imageUrls) => {
-  for (let url of imageUrls) {
-    const publicId = url.split('/').pop().split('.')[0]; // Extract public ID from URL
-    await cloudinary.uploader.destroy(publicId);
-  }
-};
 
 export const getPropertyById = async (req, res) => {
   try {
@@ -25,36 +19,19 @@ export const getPropertyById = async (req, res) => {
 };
 
 export const updateProperty=async(req,res)=>{
-  // try {
-  //   const { id } = req.params;
-  //   const updatedProperty = await Property.findByIdAndUpdate(id, req.body, {
-  //     new: true,
-  //   });
-
-  //   if (!updatedProperty) {
-  //     return res.status(404).json({ message: "Property not found" });
-  //   }
-
-  //   res.status(200).json(updatedProperty);
-  // } catch (error) {
-  //   res.status(500).json({ message: "Server error", error: error.message });
-  // }
   try {
-    const property = await Property.findById(req.params.id);
-    if (!property) return res.status(404).json({ message: 'Property not found' });
+    const { id } = req.params;
+    const updatedProperty = await Property.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
-    // Delete old images if new images are provided
-    if (req.body.images && req.body.images.length > 0) {
-      await deleteOldImages(property.images);
-      property.images = req.body.images; // Replace with new images
+    if (!updatedProperty) {
+      return res.status(404).json({ message: "Property not found" });
     }
 
-    Object.assign(property, req.body);
-    await property.save();
-
-    res.json(property);
+    res.status(200).json(updatedProperty);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 }
 
@@ -80,14 +57,16 @@ export const getAllProperties = async (req, res) => {
       const updatedProperties = await Promise.all(
           properties.map(async (property) => {
               // Combine address parts into a full address
-              const fullAddress = `${property.houseno}, ${property.buildingName}, ${property.streetName}, ${property.area}, ${property.city}`;
+              const fullAddress = `${property.area}, ${property.city},Gujarat,India`.trim().replace(/\s+/g," ");
               const encodedAddress = encodeURIComponent(fullAddress);
-              const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}`;
-            // console.log(encodedAddress);
+               const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}`;
+             
+             
+             
               const response = await fetch(url);
               const data = await response.json();
               
-
+             
               if (data.length > 0) {
                   const location = data[0];
                   
@@ -98,12 +77,11 @@ export const getAllProperties = async (req, res) => {
                   };
                 
               }
-//console.log(property.toObject());
+
               return property.toObject();
           })
       );
 
-      console.log(updatedProperties);
       res.status(200).json(updatedProperties);
   } catch (error) {
       res.status(500).json({ message: "Error fetching properties", error });
