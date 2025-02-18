@@ -7,12 +7,12 @@
         
       //  text-align: center;
       display: inline-block;
-       margin-right: 12rem;
+       margin-right: 11rem;
        font-weight: bold;
        padding-top: 0.2rem;
-       @media(max-width: 700px){
-        margin-right: 3rem;
-      }
+      //  @media(max-width: 700px){
+      //   margin-right: 3rem;
+      // }
       }
      
       &:hover{

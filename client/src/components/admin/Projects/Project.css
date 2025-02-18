@@ -1,13 +1,23 @@
+::-webkit-scrollbar {
+    display: none;
+  }
+  
 .main-contain{
     display: flex;
    flex-direction: row;
    justify-content: flex-start;
+   flex-wrap: wrap;
    gap:1rem;
    width:100%;
    /* padding-left: 1rem;
    padding-right: 1rem;
    margin-bottom: 5rem; */
    background: linear-gradient( #fdf9f9, #dddbdb);
+  
+   /* @media(max-width: 1062px)
+   {       
+   } */
+   
     .data{
        padding-top: 60px;
         width:65%;

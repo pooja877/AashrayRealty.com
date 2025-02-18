@@ -179,12 +179,12 @@ export default function Add() {
                 <input id='amenities' onChange={handleChange} type="text" placeholder='Enter Amenities' name="amenities"required />
                 {/* price */}
                 <label>Price <span>*</span> </label>
-                <input min='1' id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' name="price"required />
+                <input min='1' id='price' onChange={handleChange}  type="text" placeholder='Enter Property Price' name="price"required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
                 <label>Discounted Price <span>*</span> </label>
-                <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice"required />
+                <input min='1' id='discountPrice 'onChange={handleChange} type="text" placeholder='Enter discounted price' name="discountPrice"required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}

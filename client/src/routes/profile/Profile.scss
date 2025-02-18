@@ -1,19 +1,20 @@
 .infocontainer{
-    background-color: #f4f8fd;
+    // background-color: #f4f8fd;
     height: 100vh;
-    padding: 4rem;
+    padding:4rem;
     margin: auto;
+    // padding-top: 10rem;
     display: flex;
-    width:30rem;
+    width:40rem;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     //align-items: center;
     overflow: auto;
      gap:1rem;
 
 
      @media(max-width: 700px) {
-       width:20rem;
+       width:30rem;
     }
     
     .containerDetails
@@ -85,9 +86,9 @@
        margin-right: 10rem;
        font-weight: bold;
        padding-top: 0.2rem;
-       @media(max-width: 700px){
-        margin-right: 3rem;
-      }
+      //  @media(max-width: 700px){
+      //   margin-right: 3rem;
+      // }
       
       }
      

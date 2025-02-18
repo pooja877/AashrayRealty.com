@@ -4,7 +4,8 @@ import {  useState } from 'react';
 import { updateUserStart ,updateUserSuccess,updateUserFailure} from '../../redux/user/userSlice.js';
 
 export default function Edit() {
-
+  // const fileRef = useRef(null);
+  // const [ setFile] = useState(undefined);
     const {currentUser, loading}=useSelector((state)=>state.user);
     const [formData, setFormData] = useState({});
     const dispatch=useDispatch();
@@ -42,8 +43,22 @@ export default function Edit() {
   return (
     <div className='mainContainer'>
         <div className="container">
-        <img src={currentUser.avatar} action=""/>
+        
          <form onSubmit={handleSubmit}>
+         {/* <input
+          onChange={(e) => setFile(e.target.files[0])}
+          type='file'
+          ref={fileRef}
+          hidden
+          accept='image/*'
+        />
+        <img
+          onClick={() => fileRef.current.click()}
+          src={ currentUser.avatar}
+          alt='profile'
+          
+        /> */}
+         <img src={currentUser.avatar} action=""/>
            Username: <input type="text" placeholder={currentUser.username} id="username"onChange={handleChange}/>
            Email: <input type="email" placeholder={currentUser.email} id='email' onChange={handleChange}/>  
            {/* Password: <input type="Password" placeholder={currentUser.password} id='password' onChange={handleChange}/>   */}

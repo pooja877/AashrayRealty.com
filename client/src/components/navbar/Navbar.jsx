@@ -20,7 +20,7 @@ function Navbar()
             <a href="/">Home</a> 
             <a href="/about">About us</a>
             <a href="/">Contact us</a>
-            <a href="/">Properties</a>
+            <a href="/properties">Properties</a>
        </div>
 
        {/* right side */}
@@ -42,7 +42,7 @@ function Navbar()
           <a href="/">Home</a>
           <a href="/about">About</a>
           <a href="/">Contact</a>
-          <a href="/">Properties</a>
+          <a href="/properties">Properties</a>
           <a href="/signin">Sign in</a>
         </div>
         </div>

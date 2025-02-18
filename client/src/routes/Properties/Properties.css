@@ -1,0 +1,104 @@
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+.main-user-contain{
+    display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   flex-wrap: wrap;
+   gap:1rem;
+   width:100%;
+   /* padding-left: 1rem;
+   padding-right: 1rem;
+   margin-bottom: 5rem; */
+   background: linear-gradient( #fdf9f9, #dddbdb);
+  
+   /* @media(max-width: 1062px)
+   {       
+   } */
+   
+    .datapro{
+        width:55%;
+        height:100vh;
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        border-radius: 0.5rem;
+        background-color: white;
+        overflow-y: scroll;
+        overflow-x:hidden;
+        display: flex;
+        padding-left: 1rem;
+       padding-right: 1rem;
+       padding-bottom: 1rem;
+        justify-content: space-evenly;
+        gap:0.5rem;
+        align-items: flex-start;
+        flex-direction: column;
+
+        .contain{
+            width:40rem;
+            height:30rem;
+            /* box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+            border-radius: 0.5rem; */
+            /* border:1px solid black; */
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 1rem;
+            gap:1rem;
+           
+
+            .imageConatiner{
+                height:13rem;
+                width:16rem;
+                border: 1px solid black;
+                border-radius: 0.5rem;
+                cursor: pointer;
+            }
+            .info{
+                
+                padding-top: 1rem;
+                text-transform: capitalize;
+                padding-left: 1rem;
+                
+                gap:1rem;
+                .prodetails{
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 0.2rem;
+                    .icon{
+                        width:1rem;
+                        height:1rem;
+                        align-self: center;
+                    }
+                    p{
+                        margin-top: 0.2rem;
+                    }
+                }
+                .price{
+                    background-color: rgb(236, 219, 110);
+                    color:black;
+                    width:6rem;
+                    height:1.5rem;
+                    border-radius: 0.2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;  
+                    margin-top: 0.5rem;
+                }
+
+               
+                
+            }   
+        }
+    }
+    .map{
+         /* box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        border-radius: 1rem;  */
+        height:98vh;
+        width:35%;
+       justify-content: flex-start;
+       flex-direction: column;
+    }
+}

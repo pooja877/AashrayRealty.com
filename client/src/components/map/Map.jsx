@@ -23,7 +23,7 @@ export default function Map() {
   
 
   return (
-  <MapContainer center={position} zoom={7} className='mapview'>
+  <MapContainer center={position} zoom={8} className='mapview'>
   <TileLayer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
