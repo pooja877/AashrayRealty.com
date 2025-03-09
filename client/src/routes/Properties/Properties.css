@@ -1,104 +1,151 @@
+/* Hide scrollbar */
 ::-webkit-scrollbar {
     display: none;
   }
   
-.main-user-contain{
+  /* Main container */
+  .main-user-contain {
     display: flex;
-   flex-direction: row;
-   justify-content: space-evenly;
-   flex-wrap: wrap;
-   gap:1rem;
-   width:100%;
-   /* padding-left: 1rem;
-   padding-right: 1rem;
-   margin-bottom: 5rem; */
-   background: linear-gradient( #fdf9f9, #dddbdb);
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    background: linear-gradient(#fdf9f9, #dddbdb);
+    padding: 1rem;
+    
+    
+  }
   
-   /* @media(max-width: 1062px)
-   {       
-   } */
-   
-    .datapro{
-        width:55%;
-        height:100vh;
-        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-        border-radius: 0.5rem;
-        background-color: white;
-        overflow-y: scroll;
-        overflow-x:hidden;
-        display: flex;
-        padding-left: 1rem;
-       padding-right: 1rem;
-       padding-bottom: 1rem;
-        justify-content: space-evenly;
-        gap:0.5rem;
-        align-items: flex-start;
-        flex-direction: column;
-
-        .contain{
-            width:40rem;
-            height:30rem;
-            /* box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-            border-radius: 0.5rem; */
-            /* border:1px solid black; */
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: flex-start;
-            padding: 1rem;
-            gap:1rem;
-           
-
-            .imageConatiner{
-                height:13rem;
-                width:16rem;
-                border: 1px solid black;
-                border-radius: 0.5rem;
-                cursor: pointer;
-            }
-            .info{
-                
-                padding-top: 1rem;
-                text-transform: capitalize;
-                padding-left: 1rem;
-                
-                gap:1rem;
-                .prodetails{
-                    display: flex;
-                    flex-direction: row;
-                    margin-top: 0.2rem;
-                    .icon{
-                        width:1rem;
-                        height:1rem;
-                        align-self: center;
-                    }
-                    p{
-                        margin-top: 0.2rem;
-                    }
-                }
-                .price{
-                    background-color: rgb(236, 219, 110);
-                    color:black;
-                    width:6rem;
-                    height:1.5rem;
-                    border-radius: 0.2rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;  
-                    margin-top: 0.5rem;
-                }
-
-               
-                
-            }   
-        }
-    }
-    .map{
-         /* box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-        border-radius: 1rem;  */
-        height:98vh;
-        width:35%;
-       justify-content: flex-start;
-       flex-direction: column;
-    }
+  /* Property List Container - Uses Grid */
+  .datapro {
+    width: 65%;
+    max-height: 100vh;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    background-color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+    padding-bottom: 7rem;
+  }
+  
+  /* Property Card */
+  .contain {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  /* Image Wrapper */
+  .imageWrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .imageConatiner {
+    width: 100%;
+    height: 200px;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    object-fit: cover;
+  }
+  
+  /* Like Button */
+  .likeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .liked {
+    color: red;
+  }
+  
+  .unliked {
+    color:white;
+  }
+  
+  /* Property Info */
+  .info {
+    padding-top: 1rem;
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .prodetails {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .prodetails p {
+    margin: 0;
+  }
+  .desc{
+      color:rgb(71, 70, 70);
+  }
+  
+  .price {
+    background-color: rgb(236, 219, 110);
+    color: black;
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    font-weight: bold;
+    margin: auto;
+  }
+  
+  
+ /* Map Section */
+.map {
+    height: 98vh;
+    width: 30%;
+    display: flex;
+   padding-bottom: 2rem;
 }
+
+  
+  /* Responsive Design */
+  @media (max-width: 1062px) {
+    .main-user-contain {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .datapro {
+      width: 90%;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+  
+    .map {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .datapro {
+      width: 100%;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  
+    .contain {
+      width: 100%;
+    }
+
+  }
+  

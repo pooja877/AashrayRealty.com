@@ -43,7 +43,8 @@ function Navbar()
           <a href="/about">About</a>
           <a href="/">Contact</a>
           <a href="/properties">Properties</a>
-          <a href="/signin">Sign in</a>
+          {/* <a href="/signin">Sign in</a> */}
+          {currentUser? (<a href="/profile">Profile</a>):(<a href="/signin">Sign in</a>)}
         </div>
         </div>
        </nav>

@@ -220,7 +220,7 @@ const handleImageUpload = async (e) => {
                 </div>
               
               
-             <div className="imagecontain">
+             <div className="imageContain">
              {formData.images.length > 0 &&
                 formData.images.map((img,index) => (
                   <div
