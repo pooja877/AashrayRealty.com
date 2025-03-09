@@ -2,6 +2,37 @@ import Property from "../models/property.model.js";
 import cloudinary from "../cloudinary.js";
 import fetch from 'node-fetch';
 
+export const getSingleProperty = async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    // Combine address into a full address string
+    const fullAddress = `${property.area}, ${property.city}, Gujarat, India`.trim().replace(/\s+/g, " ");
+    const encodedAddress = encodeURIComponent(fullAddress);
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.length > 0) {
+      const location = data[0];
+
+      // Send property details along with lat/lon
+      return res.status(200).json({
+        ...property.toObject(),
+        latitude: parseFloat(location.lat),
+        longitude: parseFloat(location.lon),
+      });
+    }
+
+    res.status(200).json({ ...property.toObject(), latitude: null, longitude: null });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching property", error });
+  }
+};
 
 export const getPropertyById = async (req, res) => {
   try {

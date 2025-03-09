@@ -2,6 +2,7 @@ import Map from '../../components/map/Map';
 import { useState, useEffect } from 'react';
 import './Properties.css';
 import { useNavigate } from 'react-router-dom';
+import { FaBed, FaBath,FaMapMarkerAlt,FaRupeeSign } from "react-icons/fa";
 
 export default function Properties() {
     const [properties, setProperties] = useState([]);
@@ -38,10 +39,11 @@ export default function Properties() {
                       <div className="info"> 
                          <h3>{property.propertyName}</h3>
                         <div className="prodetails">
-                          <img className='icon' src="/location_20.png" alt="" />
+                          <FaMapMarkerAlt/>
                           <p>{property.houseno} {property.buildingName} {property.streetName} {property.area} {property.city}</p></div>
-                        
-                        <div className="price">₹{property.discountPrice}</div>
+                          <p><FaBed /> {property.bedrooms}bedrooms</p>
+                          <p><FaBath />{property.bathrooms}bathrooms</p>
+                        <div className="price"><FaRupeeSign/>{property.discountPrice}</div>
                         </div>
                         </div>
                     

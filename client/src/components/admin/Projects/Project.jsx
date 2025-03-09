@@ -3,6 +3,7 @@ import AdminNavbar from "../adminNavbar/AdminNavbar"
 import { useState, useEffect } from 'react';
 import './Project.css'
 import { useNavigate } from "react-router-dom";
+import { FaBed, FaBath, FaMapMarkerAlt ,FaRupeeSign } from "react-icons/fa";
 export default function Project() {
   const [properties, setProperties] = useState([]);
   const navigate=useNavigate();
@@ -57,17 +58,18 @@ export default function Project() {
                           <div className="info"> 
                              <h3>{property.propertyName}</h3>
                             <div className="prodetails">
-                              <img className='icon' src="/location_20.png" alt="" />
+                             <FaMapMarkerAlt/>
                               <p>{property.houseno} {property.buildingName} {property.streetName} {property.area} {property.city}</p></div>
                             
-                            <div className="price">₹{property.discountPrice}</div>
+                            <div className="price"><FaRupeeSign/>{property.discountPrice}</div>
                             <div className="bathbed">
                             <div className="bed">
-                              <img className="iconBed" src="/bed_8.png" alt="bed" />
+                            <FaBed /> 
                               <span>{property.bedrooms} bedrooms</span>
                             </div>
                             <div className="bath">
-                              <img className="iconBath" src="/bathroom_2.png" alt="bath" />
+                            
+                            <FaBath />
                               <span>{property.bathrooms} bathrooms</span>
                             </div>
                             </div>

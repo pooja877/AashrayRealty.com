@@ -20,6 +20,7 @@ import Add from "./components/PropertyFunc/Add/Add";
 import Update from "./components/PropertyFunc/Update/Update";
 import Properties from "./routes/Properties/Properties";
 import Single_property from "./components/Individual_Property/Single_property";
+import Swipe from "./components/Swipe/swipe";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
       <Route path="/properties" element={<Properties/>}/>
       <Route path="/Properties/Single_Property/:id" element={<Single_property/>}/>
+      <Route path="/Properties/Swipe/:id" element={<Swipe/>}/>
       {/* for open admin panel admin can login and open it */}
       <Route element={<Privateadmin/>}>
             <Route path="/admin/dashboard" element={<AdminDashboard/>} />

@@ -3,6 +3,7 @@ import './Add.css';
 import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaBed, FaBath,FaRupeeSign } from "react-icons/fa";
 
 export default function Add() {
   const [error, setError] = useState(false);
@@ -228,15 +229,15 @@ export default function Add() {
               <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area} {formData.city}  </p>
             </div>
             <div className="price">
-              <p>₹ {formData.discountPrice}</p>
+              <p><FaRupeeSign/> {formData.discountPrice}</p>
             </div>
             <div className="bedbath">
             <div className="bed">
-              <img className='bedicon' src="/bed_8.png" alt="" />
+              <FaBed/>
               <p>{formData.bedrooms} <span>Bedrooms</span></p>
             </div>
             <div className="bath">
-              <img className='bathicon' src="/bathroom_2.png" alt="" />
+              <FaBath/>
               <p>{formData.bathrooms} <span>Bathrooms</span></p>
             </div>
             </div>
