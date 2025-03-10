@@ -32,7 +32,7 @@
        
         padding-top: 60px;
         overflow-y:scroll;
-        @media(max-width: 700px)
+        @media(max-width: 800px)
         {
                 width:90%;
                 height: 70vh;
@@ -126,13 +126,15 @@
 
     .rightUpdate
     {  
-       margin: 0rem 1rem 1rem 2rem;
+      
        width:30%;
        height: 100vh;
        overflow-y: scroll;
       flex-direction: column;
-      justify-content: flex-start;
       padding-top: 60px;
+      margin-left: 1.5rem;
+    
+      
      
       h2{
         margin-top: 1.5rem;
@@ -141,14 +143,16 @@
         text-transform: capitalize;
     }
     .contain{
-        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+       
+
+
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
             border-radius: 0.5rem;
             background-color: white;
             display: flex;
-            width: 100%;
-            justify-content: flex-end;
+           
             flex-direction: column;
-            gap:0.5rem;
+            gap:0.3rem;
             padding-left: 1rem;
   .info-contain{
     display: flex;
@@ -230,7 +234,7 @@
            }
     }
 
-    @media(max-width: 700px)
+    @media(max-width: 800px)
     {
             width: 90%;
             height:30vh;
@@ -241,7 +245,7 @@
     }
    
     }
-    @media(max-width: 700px)
+    @media(max-width: 800px)
     {
             flex-direction: column;
     }

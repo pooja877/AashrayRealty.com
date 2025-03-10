@@ -244,7 +244,7 @@ export default function Add() {
             </div>
           
           
-         <div className="imagecontain">
+         <div className="imageAddContain">
          {formData.images.length > 0 &&
             formData.images.map((img,index) => (
               <div

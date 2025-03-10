@@ -43,7 +43,7 @@ export default function MapDirection( ) {
                 <h4>{property.propertyName}</h4>
                 <span>{property.streetName}, {property.area}, {property.city}</span>
                 <span>Type: {property.propertyType}</span>
-                <p className="price">₹{property.discountPrice}</p>
+                <p className="ind-price">₹{property.discountPrice}</p>
               </div>
             </div>
           </Popup>

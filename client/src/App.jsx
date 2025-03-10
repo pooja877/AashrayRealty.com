@@ -52,7 +52,7 @@ function App() {
             <Route path="/admin/addProperty" element={<Add/>} />
             <Route path="/admin/projects/updateProperty/:id" element={<Update/>} />
       </Route>
-        <Route path="/admin/login" element={<AdminLogin/>} />
+        <Route path="/admin" element={<AdminLogin/>} />
     </Routes>
     </BrowserRouter> 
     </>
