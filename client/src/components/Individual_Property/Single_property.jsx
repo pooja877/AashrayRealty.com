@@ -1,101 +1,108 @@
-import './SingleProperty.css'
-import { useEffect,  useState } from 'react';
-import {  useNavigate, useParams } from 'react-router-dom';
-// import Swipe from '../Swipe/swipe';
- import { FaBed, FaBath,  FaMapMarkerAlt ,FaRupeeSign, FaRulerCombined, FaBuilding, FaTag, FaCheckCircle, FaDumbbell, FaSwimmingPool, FaShieldAlt, FaCar, FaWifi, FaUtensils, FaBolt, FaUsers, FaPaw} from "react-icons/fa";
+import './SingleProperty.css';
+import { useEffect, useState } from 'react';
+import {  useParams } from 'react-router-dom';
+import { FaBed, FaBath, FaMapMarkerAlt, FaRupeeSign, FaRulerCombined, FaBuilding, FaTag, FaCheckCircle, FaDumbbell, FaSwimmingPool, FaShieldAlt, FaCar, FaWifi, FaUtensils, FaBolt, FaUsers, FaPaw } from "react-icons/fa";
 import MapDirection from '../Singlemap/MapDirection';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from "swiper/modules"; 
+import "swiper/css";
+import "swiper/css/navigation";
 
-export default function Single_property() {
+export default function SingleProperty() {
     const { id: propertyId } = useParams();
-     const navigate=useNavigate();
-     const [formData, setFormData] = useState({
-          images:[],
-          propertyName: '',
-          propertyType: '',
-          transactionType: '',
-          areaSqft:0,
-          desc:'',
-          amenities:'',
-          bedrooms: 0,
-          bathrooms:0,
-          price: 0,
-          discountPrice:0,
-          houseno:"",
-          buildingName:'',
-          streetName:'',
-          area:'',
-          city:'',
-        });
-        const amenityIcons = {
-          "gym": <FaDumbbell className="icon" />,
-          "swimming Pool": <FaSwimmingPool className="icon" />,
-          "security": <FaShieldAlt className="icon" />,
-          "parking": <FaCar className="icon" />,
-          "wiFi": <FaWifi className="icon" />,
-          "restaurant": <FaUtensils className="icon" />,
-          "power Backup": <FaBolt className="icon" />,
-          "clubhouse": <FaUsers className="icon" /> ,
-          "pet friendly": <FaPaw className="icon" />,  // Dog/Pet-Friendly Icon
-          "dog park": <FaPaw className="icon" />,
-        };
-        
+    
+    const [formData, setFormData] = useState({
+        images: [],
+        propertyName: '',
+        propertyType: '',
+        transactionType: '',
+        areaSqft: 0,
+        desc: '',
+        amenities: '',
+        bedrooms: 0,
+        bathrooms: 0,
+        price: 0,
+        discountPrice: 0,
+        houseno: "",
+        buildingName: '',
+        streetName: '',
+        area: '',
+        city: '',
+    });
+
+    const amenityIcons = {
+        "gym": <FaDumbbell className="icon" />,
+        "swimming pool": <FaSwimmingPool className="icon" />,
+        "security": <FaShieldAlt className="icon" />,
+        "parking": <FaCar className="icon" />,
+        "wifi": <FaWifi className="icon" />,
+        "restaurant": <FaUtensils className="icon" />,
+        "power backup": <FaBolt className="icon" />,
+        "clubhouse": <FaUsers className="icon" />,
+        "pet friendly": <FaPaw className="icon" />,
+        "dog park": <FaPaw className="icon" />,
+    };
+
     useEffect(() => {
-            const fetchProperty = async () => {
-              try {
+        const fetchProperty = async () => {
+            try {
                 const res = await fetch(`/api/property/${propertyId}`);
                 const data = await res.json();
                 if (res.ok) {
-                  setFormData(data);
+                    setFormData(data);
                 } else {
-                  console.error("Property not found");
+                    console.error("Property not found");
                 }
-              } catch (error) {
+            } catch (error) {
                 console.error("Error fetching property:", error);
-              }
-            };
-            fetchProperty();
-        }, [propertyId]);
-  return (
-    <>
-    <div className="maincontain">
-      
-      <div className="imagecontain">
-                {formData.images?.length > 0 && (
-                        <img
-                         className='leftimage'
-                          src={formData.images[0].url}
-                          alt="Property"
-                          onClick={()=>navigate(`/Properties/Swipe/${propertyId}`)}
-                        />
-                        
-                      )}
-                      <div className="rightside">
-                      {formData.images?.length > 1 && (
-                        <img
-                         className='rightimage'
-                          src={formData.images[1].url}
-                          alt="Property"
-                          onClick={()=>navigate(`/Properties/Swipe/${propertyId}`)}
-                        />
-                        
-                      )}
-                      {formData.images?.length > 2 && (
-                        <img
-                         className='rightsecimage'
-                          src={formData.images[2].url}
-                          alt="Property"
-                          onClick={()=>navigate(`/Properties/Swipe/${propertyId}`)}
-                        />
-                        
-                      )}
-                      </div>
-      </div>
-     
-        <div className="property-container">
-        <h2 className="property-title">
-        {formData.propertyName}
-        </h2>
-        <p className="property-type">
+            }
+        };
+        fetchProperty();
+    }, [propertyId]);
+
+    return (
+        <>
+         <div className="propertycontainer">
+                {/* Left Section - Images */}
+                <div className="image-section">
+                <Swiper
+                    key={formData.images.length}
+                    modules={[Navigation]}
+                    navigation
+                    // loop={formData.images.length > 1}
+                    className="property-swiper">
+                    {formData.images.map((item, index) => (
+                      <SwiperSlide key={index} className="slide-container">
+                        <div className="image-wrapper">
+                          <img
+                            src={item.url || item}
+                            alt={`Property ${index + 1}`}
+                            className="property-slide"
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                   
+            </div>
+
+           <div className="leftright">
+
+            {/* left side */}
+           <div className="property-leftside">
+
+            {/* title & price */}
+               <div className="titlePrice">
+               <h2 className="property-title">{formData.propertyName}</h2>
+               <p className="property-price">
+               <FaRupeeSign className="icon" /> <span className="original-price">{formData.price}</span> </p>
+               </div>
+               <div className="bathbedrooms">
+                       <p><FaBed className="icon" /> {formData.bedrooms} Bedrooms</p>
+          <p><FaBath className="icon" /> {formData.bathrooms} Bathrooms</p>
+               </div>
+               <div className="typesqrt">
+               <p className="property-type">
           <FaBuilding className="icon" /> {formData.propertyType}
         </p>
         <p className="property-transaction">
@@ -105,19 +112,16 @@ export default function Single_property() {
         <p className="property-area">
           <FaRulerCombined className="icon" /> {formData.areaSqft} sqft
         </p>
-        <p className="property-price">
-          <FaRupeeSign className="icon" /> <span className="original-price">{formData.price}</span> 
-          <span className="discount-price"> {formData.discountPrice}</span>
-        </p>
-        <p className="property-description">Description: {formData.desc}</p>
-      
-      
-      
-       
-          <p><FaBed className="icon" /> {formData.bedrooms} Bedrooms</p>
-          <p><FaBath className="icon" /> {formData.bathrooms} Bathrooms</p>
-        
-         <div className="property-amenities">
+               </div>
+               <div className="desc">
+               <p>{formData.desc}</p>
+               </div>
+      <button className='book-btn'>Book Property</button>
+
+       </div>
+    {/* Right Side*/}
+           <div className="property-rightside">
+           <div className="property-amenities">
           <h3>Amenities</h3>
           {formData.amenities.split(",").map((amenity, index) => {
             const key = amenity.trim().toLowerCase(); // Convert to lowercase
@@ -128,16 +132,56 @@ export default function Single_property() {
             );
           })}
         </div>
-         <p className="property-address">
-          <FaMapMarkerAlt className="icon" /> {formData.houseno}, {formData.buildingName} {formData.streetName}, {formData.area}, {formData.city}
-        </p>
-        <div className="mapdirect">
-          <MapDirection />
-        </div>
-      </div>
-    </div>
-    </>
-    
-  )
-}
 
+           <p className="propertylocation">  <FaMapMarkerAlt className="icon" /> {formData.houseno} {formData.buildingName} {formData.streetName}, {formData.area}, {formData.city}</p>
+             <div className="property-map">
+             <MapDirection />
+             </div>
+           </div>
+           </div>
+            </div>
+        </>
+    );
+}
+{/* <div className="property-amenities">
+<h3>Amenities</h3>
+{formData.amenities.split(",").map((amenity, index) => {
+    const key = amenity.trim().toLowerCase();
+    return (
+        <p key={index}>
+            {amenityIcons[key] || <FaCheckCircle className="icon" />} {amenity.trim()}
+        </p>
+    );
+})}
+</div> */}
+
+ {/* Left Side */}
+//  <div className="property-text">
+//  <div className="title-price">
+//    <h2 className="property-title">{formData.propertyName}</h2>
+//    <p className="property-price">
+//                <FaRupeeSign className="icon" />
+//                <span className="original-price">{formData.price}</span>
+//                {formData.discountPrice > 0 && (
+//                    <span className="discount-price"> {formData.discountPrice}</span>
+//                )}
+//            </p>
+//  </div>
+//   <div className="property-detail">
+//   <span className="property-transaction"><FaTag className="icon" /> {formData.transactionType}</span>
+//   <span className="property-area"><FaRulerCombined className="icon" /> {formData.areaSqft} sqft</span>
+//   </div>
+//  {/* Icons and Property Features */}
+//  <div className="property-features">
+//  <span><FaBuilding className="icon" /> <b>{formData.propertyType} </b></span>
+//    <span><FaBath className="icon" /><b> {formData.bathrooms}</b>Bathrooms</span>
+//    <span><FaBed className="icon" /><b> {formData.bedrooms}</b>Bedrooms</span>
+//  </div>
+
+//  {/* Description */}
+//  <p className="property-description">
+//   {formData.desc}
+//  </p>
+             
+//     {/* Amenities Section */}
+   

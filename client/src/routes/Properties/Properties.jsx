@@ -57,7 +57,7 @@ export default function Properties() {
                                     <FaMapMarkerAlt />
                                     <p>{property.houseno} {property.buildingName} {property.streetName} {property.area} {property.city}</p>
                                 </div>
-                               <p className='desc'>{property.desc}</p>
+                               <p className='protype'>{property.transactionType}</p>
                                 <div className="price"><FaRupeeSign />{property.discountPrice}</div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@ export default function Properties() {
                 )}
             </div>
 
-            <div className="map"><Map /></div>
+            <div className="mapall"><Map /></div>
         </div>
     );
 }

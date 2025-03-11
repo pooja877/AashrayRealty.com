@@ -26,7 +26,7 @@ export default function MapDirection( ) {
     return (
       <MapContainer
         center={[property.latitude, property.longitude]}
-        zoom={13}
+        zoom={11}
         className="mapSingleview"
       >
         <TileLayer
