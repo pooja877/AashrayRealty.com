@@ -42,13 +42,13 @@ function App() {
       <Route path="/resetPassword/:token" element={<ResetPassword/>}/>
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
       <Route path="/properties" element={<Properties/>}/>
-      <Route path="/Properties/Single_Property/:id" element={<Single_property/>}/>
+      <Route path="/Properties/:id" element={<Single_property/>}/>
       <Route path="/Properties/Swipe/:id" element={<Swipe/>}/>
       {/* for open admin panel admin can login and open it */}
       <Route element={<Privateadmin/>}>
             <Route path="/admin/dashboard" element={<AdminDashboard/>} />
             <Route path="/admin/navbar" element={<AdminNavbar/>} />
-            <Route path="/admin/projects" element={<Project/>}/>
+            <Route path="/admin/properties" element={<Project/>}/>
             <Route path="/admin/addProperty" element={<Add/>} />
             <Route path="/admin/projects/updateProperty/:id" element={<Update/>} />
       </Route>
@@ -61,7 +61,7 @@ function App() {
 
  const ConditionalNavbar=()=>{
   const location=useLocation();
-  const hideNavbarRoutes=["/admin/login","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty"];
+  const hideNavbarRoutes=["/admin","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty"];
   // return !hideNavbarRoutes.includes(location.pathname)?<Navbar/>:null;
   const shouldHideNavbar=hideNavbarRoutes.some(route=>location.pathname.startsWith(route));
   return shouldHideNavbar?null:<Navbar/>;

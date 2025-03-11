@@ -1,16 +1,17 @@
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate ,Link} from 'react-router-dom';
 import './AdminNavbar.css'
+import { useState } from 'react';
 export default function AdminNavbar() {
   const navigate = useNavigate();
-
+   const [open, setOpen] = useState(false);
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
-        navigate('/admin/login');
+        navigate('/admin');
     };
   return (
     <>
-    {/* row items */}
-    <div className="header">
+   
+   <div className="header">
       <a href="/admin/dashboard" className='logo'>
                 <img src="/logo.jpeg" alt="" />
                 <p>Aashray
@@ -23,7 +24,7 @@ export default function AdminNavbar() {
       <span>Dashboard</span>
       </div>
        <div className="item">
-        <Link to="/admin/projects">
+        <Link to="/admin/properties">
             <img src="/projects_1.png" alt="" />
             </Link>
 
@@ -38,7 +39,26 @@ export default function AdminNavbar() {
        </div>
 
        <button onClick={handleLogout}>Logout</button>
-    </div>
+
+
+         
+
+        {/* max-width is small */}
+        <div className="menuIcon">
+          <img
+            src="/menu.png"
+            alt=""
+            onClick={() => setOpen((prev) => !prev)}
+          />
+        </div>
+        <div className={open ? "menu active" : "menu"}>  
+         
+        <a href="/admin/dashboard">Dashboard</a> 
+            <a href="/admin/properties">Properties</a>
+            <a href="/admin/addProperty">Add Property</a>
+            <button onClick={handleLogout}>Logout</button>
+        </div>
+        </div>
     </div>
    
     

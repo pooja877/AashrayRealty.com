@@ -75,52 +75,7 @@ nav {
       background-color: #fece51;
     }
 
-    // .menuIcon {
-    //   display: none;
-    //   z-index: 999;
-
-    //   img {
-    //     width: 36px;
-    //     height:36px;
-    //     cursor: pointer;
-    //   }
-
-    //   @media(max-width: 700px){
-    //     display: inline;
-    //   }
-    // }
-
-    // .menu {
-    //   position:absolute;
-    //   top: 0;
-    //   right: -30%;
-    //   overflow: auto;
-    //   background-color: black;
-    //   color: white;
-    //   height: 35%;
-    //   width: 30%;
-    //   transition: all 1s ease;
-    //   display: flex;
-    //   flex-direction: column;
-    //   align-items: center;
-    //   justify-content: center;
-    //  line-height: 23px;
-    //   font-size: 15px;
-      
-
-    //   &.active {
-    //     right: 0;
-    //   }
-
-    //   @media(max-width: 738px){
-      
-    //      a{
-    //       display:block;  
-    //       cursor: pointer;
-    //     }
-       
-    //   }
-    // }
+   
     .menuIcon {
       display: none;
       z-index: 1001; /* Ensure it stays above other elements */

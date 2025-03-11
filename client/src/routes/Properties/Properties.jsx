@@ -35,15 +35,15 @@ export default function Properties() {
             <div className="datapro">
                 {properties.length > 0 ? (
                     properties.map((property) => (
-                        <div className="contain" key={property._id}>
-                            <div className="imageWrapper">
+                        <div className="contain" key={property._id} onClick={() => navigate(`/Properties/${property._id}`)}
+>
+                            <div className="imageWrapper" >
                                 {property.images?.length > 0 && (
                                     <img
                                         className="imageConatiner"
                                         src={property.images[0].url}
                                         alt="Property"
-                                        onClick={() => navigate(`/Properties/Single_Property/${property._id}`)}
-                                    />
+                                                                            />
                                 )}
                                 <FaHeart
                                     className={`likeButton ${likedProperties[property._id] ? 'liked' : 'unliked'}`}
