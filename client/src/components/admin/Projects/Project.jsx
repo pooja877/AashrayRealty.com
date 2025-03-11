@@ -74,7 +74,7 @@ export default function Project() {
                             </div>
                             </div>
                             <div className="btns">
-                             <button onClick={()=>navigate(`/admin/projects/updateProperty/${property._id}`)} className="btnUpdate ">Update</button>
+                             <button onClick={()=>navigate(`/admin/property/updateProperty/${property._id}`)} className="btnUpdate ">Update</button>
                              <button onClick={() => handleDeleteProperty(property._id)}className="btnDelete">Delete</button>
                             </div>
                             </div>

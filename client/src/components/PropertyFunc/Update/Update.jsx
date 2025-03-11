@@ -106,7 +106,7 @@ const handleImageUpload = async (e) => {
       if (res.ok) 
         {           
                     alert("Property updated successfully!",data.message);
-                    navigate("/admin/projects"); // Redirect back to property list
+                    navigate("/admin/properties"); // Redirect back to property list
                 } else {
                     alert("Failed to update property.");
                 }
@@ -197,7 +197,7 @@ const handleImageUpload = async (e) => {
     
             <div className="rightUpdate">
               <h2>Quick Preview</h2>
-              <div className="contain">
+              <div className="upcontain">
                 <div className="info-contain">
                 <h3>{formData.propertyName}</h3>
                 <div className="loc">

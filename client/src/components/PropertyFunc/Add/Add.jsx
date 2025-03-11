@@ -221,7 +221,7 @@ export default function Add() {
 
         <div className="rightadd">
           <h2>Quick Preview</h2>
-          <div className="contain">
+          <div className="adddcontain">
             <div className="info-contain">
             <h3>{formData.propertyName}</h3>
             <div className="loc">

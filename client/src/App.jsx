@@ -49,7 +49,7 @@ function App() {
             <Route path="/admin/navbar" element={<AdminNavbar/>} />
             <Route path="/admin/properties" element={<Project/>}/>
             <Route path="/admin/addProperty" element={<Add/>} />
-            <Route path="/admin/projects/updateProperty/:id" element={<Update/>} />
+            <Route path="/admin/property/updateProperty/:id" element={<Update/>} />
       </Route>
         <Route path="/admin" element={<AdminLogin/>} />
     </Routes>
