@@ -1,7 +1,7 @@
 import './SingleProperty.css';
 import { useEffect, useState } from 'react';
 import {  useParams } from 'react-router-dom';
-import { FaBed, FaBath, FaMapMarkerAlt, FaRupeeSign, FaRulerCombined, FaBuilding, FaTag, FaCheckCircle, FaDumbbell, FaSwimmingPool, FaShieldAlt, FaCar, FaWifi, FaUtensils, FaBolt, FaUsers, FaPaw } from "react-icons/fa";
+import { FaBed, FaBath, FaMapMarkerAlt, FaRupeeSign, FaRulerCombined, FaBuilding, FaTag, FaCheckCircle, FaDumbbell, FaSwimmingPool, FaShieldAlt, FaCar, FaWifi, FaUtensils, FaBolt, FaUsers, FaPaw, FaWater } from "react-icons/fa";
 import MapDirection from '../Singlemap/MapDirection';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from "swiper/modules"; 
@@ -40,6 +40,9 @@ export default function SingleProperty() {
         "power backup": <FaBolt className="icon" />,
         "clubhouse": <FaUsers className="icon" />,
         "pet friendly": <FaPaw className="icon" />,
+        "pet dog allow": <FaPaw className="icon" />,
+        "24/7 water": <FaWater className="icon" />,
+        "24 water": <FaWater className="icon" />,
         "dog park": <FaPaw className="icon" />,
     };
 
@@ -134,7 +137,7 @@ export default function SingleProperty() {
         </div>
 
            <p className="propertylocation">  <FaMapMarkerAlt className="icon" /> {formData.houseno} {formData.buildingName} {formData.streetName}, {formData.area}, {formData.city}</p>
-             <div className="property-map">
+             <div className="propertymap">
              <MapDirection />
              </div>
            </div>
