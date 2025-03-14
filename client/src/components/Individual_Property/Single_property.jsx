@@ -1,7 +1,7 @@
 import './SingleProperty.css';
 import { useEffect, useState } from 'react';
 import {  useParams } from 'react-router-dom';
-import { FaBed, FaBath, FaMapMarkerAlt, FaRupeeSign, FaRulerCombined, FaBuilding, FaTag, FaCheckCircle, FaDumbbell, FaSwimmingPool, FaShieldAlt, FaCar, FaWifi, FaUtensils, FaBolt, FaUsers, FaPaw, FaWater } from "react-icons/fa";
+import { FaBed, FaBath,FaHeart, FaMapMarkerAlt, FaRupeeSign, FaRulerCombined, FaBuilding, FaTag, FaCheckCircle, FaDumbbell, FaSwimmingPool, FaShieldAlt, FaCar, FaWifi, FaUtensils, FaBolt, FaUsers, FaPaw, FaWater } from "react-icons/fa";
 import MapDirection from '../Singlemap/MapDirection';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from "swiper/modules"; 
@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 
 export default function SingleProperty() {
     const { id: propertyId } = useParams();
-    
+    const [likedProperties, setLikedProperties] = useState({});
     const [formData, setFormData] = useState({
         images: [],
         propertyName: '',
@@ -30,6 +30,12 @@ export default function SingleProperty() {
         city: '',
     });
 
+    const toggleLike = (id) => {
+      setLikedProperties(prev => ({
+          ...prev,
+          [id]: !prev[id] // Toggle like status
+      }));
+  };
     const amenityIcons = {
         "gym": <FaDumbbell className="icon" />,
         "swimming pool": <FaSwimmingPool className="icon" />,
@@ -82,9 +88,11 @@ export default function SingleProperty() {
                             alt={`Property ${index + 1}`}
                             className="property-slide"
                           />
+                            <FaHeart className={`likeButton ${likedProperties[propertyId] ? 'liked' : 'unliked'}`}onClick={() => toggleLike(propertyId)}/>
                         </div>
                       </SwiperSlide>
                     ))}
+                   
                   </Swiper>
                    
             </div>
@@ -146,45 +154,5 @@ export default function SingleProperty() {
         </>
     );
 }
-{/* <div className="property-amenities">
-<h3>Amenities</h3>
-{formData.amenities.split(",").map((amenity, index) => {
-    const key = amenity.trim().toLowerCase();
-    return (
-        <p key={index}>
-            {amenityIcons[key] || <FaCheckCircle className="icon" />} {amenity.trim()}
-        </p>
-    );
-})}
-</div> */}
 
- {/* Left Side */}
-//  <div className="property-text">
-//  <div className="title-price">
-//    <h2 className="property-title">{formData.propertyName}</h2>
-//    <p className="property-price">
-//                <FaRupeeSign className="icon" />
-//                <span className="original-price">{formData.price}</span>
-//                {formData.discountPrice > 0 && (
-//                    <span className="discount-price"> {formData.discountPrice}</span>
-//                )}
-//            </p>
-//  </div>
-//   <div className="property-detail">
-//   <span className="property-transaction"><FaTag className="icon" /> {formData.transactionType}</span>
-//   <span className="property-area"><FaRulerCombined className="icon" /> {formData.areaSqft} sqft</span>
-//   </div>
-//  {/* Icons and Property Features */}
-//  <div className="property-features">
-//  <span><FaBuilding className="icon" /> <b>{formData.propertyType} </b></span>
-//    <span><FaBath className="icon" /><b> {formData.bathrooms}</b>Bathrooms</span>
-//    <span><FaBed className="icon" /><b> {formData.bedrooms}</b>Bedrooms</span>
-//  </div>
-
-//  {/* Description */}
-//  <p className="property-description">
-//   {formData.desc}
-//  </p>
-             
-//     {/* Amenities Section */}
    

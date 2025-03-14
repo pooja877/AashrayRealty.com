@@ -1,4 +1,4 @@
-import { useNavigate ,Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './AdminNavbar.css'
 import { useState } from 'react';
 export default function AdminNavbar() {
@@ -11,37 +11,25 @@ export default function AdminNavbar() {
   return (
     <>
    
-   <div className="header">
-      <a href="/admin/dashboard" className='logo'>
+  
+    <nav>
+        {/* left side */}
+       <div className="adminleft">
+            <a href="/admin/dashboard" className='logo'>
                 <img src="/logo.jpeg" alt="" />
                 <p>Aashray
                 <span id="realty">Realty</span> 
                 </p> 
             </a>
-    <div className="right">
-    <div className="item">
-      <img src="/dashboard_21.png" alt="" />
-      <span>Dashboard</span>
-      </div>
-       <div className="item">
-        <Link to="/admin/properties">
-            <img src="/projects_1.png" alt="" />
-            </Link>
-
-       <span>Property</span>
-       </div>
-       <div className="item">
-        <Link to="/admin/addProperty">
-            <img src="/home_1.png" alt="" />
-            </Link>
-
-       <span>Add Property</span>
+            
        </div>
 
-       <button onClick={handleLogout}>Logout</button>
-
-
-         
+       {/* right side */}
+        <div className="adminright">
+        <a href="/admin/dashboard">Dashboard</a> 
+            <a href="/admin/properties">Properties</a>
+            <a href="/admin/addProperty" className='addProperty'>+ Add Property</a>
+            <button onClick={handleLogout} className='logoutadmin'>Logout</button>
 
         {/* max-width is small */}
         <div className="menuIcon">
@@ -56,13 +44,12 @@ export default function AdminNavbar() {
         <a href="/admin/dashboard">Dashboard</a> 
             <a href="/admin/properties">Properties</a>
             <a href="/admin/addProperty">Add Property</a>
-            <button onClick={handleLogout}>Logout</button>
+            <button className='logoutadmin' onClick={handleLogout}>Logout</button>
         </div>
         </div>
-    </div>
+       </nav>
    
     
     </>
   )
 }
-

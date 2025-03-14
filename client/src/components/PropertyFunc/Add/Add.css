@@ -1,245 +1,232 @@
-::-webkit-scrollbar {
-    display: none;
-  }
+.mainaddcom {
+  font-family: Arial, sans-serif;
+  background: #f2eded;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  height: 100vh;
+}
+
+.addcon {
+  width: 70%;
+  height: fit-content;
+  overflow-y: scroll;
+  background: white;
+  padding: 20px;
+  margin-top: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   
+}
 
-.mainAddcontainer
-{
-    background-color: rgba(243, 237, 237, 0.9);
-    width:100%;
-    height: 100vh;
-    /* overflow-y: scroll; */
-    padding-bottom: 2rem;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    /* margin-top: 1rem; */
-    @media(max-width: 700px)
-    {
-            width:100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            /* overflow-y: scroll; */
-            /* padding-top: 60px; */
+/* Stepper Container */
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
 
-    }
+/* Step Item */
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Step Circle */
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ccc;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Step Title */
+.step-item p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Active Step */
+.step-item.active .step-circle {
+  background: #007bff;
+}
+
+/* Connecting Line */
+.line {
+  height: 4px;
+  width: 100px;
+  background: #ccc;
+  position: relative;
+
+}
+
+.line.active {
+  background: #007bff;
+}
+
+
+
+.form-step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.addaddressside{
+  display: flex;
+  flex-direction: row;
+  gap:0.5rem;
+  width:100%;
+  justify-content: space-between;
+
+  @media(max-width: 1080px) {
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+   }
+}
+.rightaddside{
+    width:50%;
     
-    .leftadd{
-        
-        margin-left: 1.5rem;
-        width:60%;
-        height:100vh;
-       
-        padding-top: 60px;
-        overflow-y:scroll;
-        @media(max-width: 700px)
-        {
-                width:90%;
-                height: 70vh;
-                /* display: flex;
-                flex-direction: column;
-                overflow-y: scroll; */
-                /* padding-top: 60px; */
+    @media(max-width: 1080px) {
+      width:100%;
+     }
 
-        }
-        h2{
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
-        }
-        form{
-            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-            border-radius: 0.5rem;
-            background-color: white;
-            display: flex;
-            justify-content: flex-start;
-            flex-direction: column;
-            gap:0.3rem;
-            padding-left: 1rem;
-            h3{
-                padding-top:0.5rem;
-                font-size: 1.2rem;
-            }
-            label{
-                font-size: 0.9rem;
-                margin-top: 0.4rem;
-                span{
-                    color:red;
-                }
-            }
-            input,select{
-               height:1.5rem; 
-                width:95%;
-                border:1px solid gray;
-                border-radius: 0.2rem;
-                padding-left: 0.5rem;
-                text-transform: capitalize;
-                
-            }
-            textarea{
-                width:95%;
-                border:1px solid gray;
-                border-radius: 0.2rem;
-                padding-left: 0.5rem;
-                height:2rem;
-                text-transform:capitalize;
-            }
-           
-            .image{
-              
-                font-size: 1rem;
-                font-weight: bold;
-            }
-            .btnUpload{
-                cursor: pointer;
-                background-color: rgb(36, 36, 104);
-                color:white;
-                width:13%;
-                height: 2rem;
-                text-transform: uppercase;
-                border-radius: 0.2rem;
-                @media(max-width: 700px) {
-                    width:30%;
-                  }
-            }
+}
+.leftaddside
+{
+  width:50%;
+  display: flex;
+  flex-direction: column;
+  gap:0.4rem;
 
-            .btnSubmit{
-                cursor: pointer;
-                background-color: rgb(36, 36, 104);
-                color:white;
-                width:20%;
-                border-radius: 0.2rem;
-                margin-top: 1rem;
-                margin-bottom: 1.5rem;
-                height: 2rem;
-                @media(max-width: 700px) {
-                    width:40%;
-                  }
-            }
-            p{
-                margin-bottom: 1rem;
-                color: red;
-            }
-            
-        }
-    }
-
-    .rightadd
-    {  
-       margin: 0rem 1rem 1rem 2rem;
-       width:30%;
-       height: 100vh;
-       overflow-y: scroll;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding-top: 60px;
-     
-      h2{
-        margin-top: 1.5rem;
-        margin-bottom: 0.5rem;
-        font-size: 1.5rem;
-        text-transform: capitalize;
-    }
-    .adddcontain{
-        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-            border-radius: 0.5rem;
-            background-color: white;
-            display: flex;
-            width: 100%;
-            justify-content: flex-end;
-            flex-direction: column;
-            gap:0.5rem;
-            padding-left: 1rem;
-  .info-contain{
-    display: flex;
-    margin-top: 1rem;
-    flex-direction: column;
-    justify-content: center;
-    gap:1rem;
-    align-items: center;
-    .loc,.bed,.bath{
-        display: flex;
-        flex-direction: row;
-        gap:1rem;
-        align-items: center;
-
-    }
-    .locicon,.bedicon,.bathicon{
-        width:1.5rem;
-        height:1.5rem;
-        align-self: center;
-    }
-    .price{
-        background-color: rgb(82, 145, 227);
-        color: rgb(24, 23, 23);
-        font-size: 1.2rem;
-        width:auto;
-        padding: 0.5rem;
-        border-radius: 0.4rem;
-        text-align: center;
-    }
-    .bedbath{
-        display: flex;
-        flex-direction: row;
-        gap:1rem;
-        .bed,.bath{
-            background-color: rgb(234, 224, 224);
-            padding: 0.3rem;
-            border-radius: 0.4rem;
-        }
-        @media(max-width: 875px)
-        {
-               flex-direction: column;
-        }
-    }
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
-           
-           .imageAddContain{
-            margin: 1rem 1rem 1rem 1rem;
-            display: flex;
-            flex-direction: column;
-           gap:1rem;
-            
-            .imageProperty{
-                
-                  display: flex;
-                  flex-direction: row;
-                  align-items: center;
-                  gap:1rem;
-                    .listimage{
-                        border: 1px solid gray;
-                    border-radius: 0.5rem;
-                        height:8rem;
-                        width:10rem;
-                        align-self: center;
-                    }
-                    button{
-                        height:2rem;
-                        width:6rem;
-                        background-color: rgb(43, 43, 101);
-                        color: white;
-                        cursor: pointer;
-                        border-radius: 0.5rem;
-                    }
-                   
-            }
-           }
-    }
+  @media(max-width: 1080px) {
+   width:100%;
+  }
+}
 
-    @media(max-width: 700px)
-    {
-            width: 90%;
-            height:30vh;
-            /* overflow-y:scroll;*/
-            padding-top: 0; 
-            margin-top: 1rem;
-           
-    }
-   
-    }
-    @media(max-width: 700px)
-    {
-            flex-direction: column;
-    }
+
+.prevnextbtn{
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+  width: 100%;
+  justify-content: space-between;
+  
+}
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.detailcompo{
+
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  align-items: center;
+  justify-content: center;
+  gap:0.5rem;
+  input,textarea {
+    width: 60%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .divinfo{
+    display: flex;
+    flex-direction: row;
+    gap:1rem;
+    @media (max-width:700px) {
+      flex-direction: column;
+     }
+  }
+  span{
+    color: red;
+  }
+}
+.facilityinfo{
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  align-items: center;
+  justify-content: center;
+  gap:0.5rem;
+  input,textarea {
+    width: 60%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  span{
+    color: red;
+  }
+}
+.btnadd {
+  padding: 10px;
+  border: none;
+  width:20%;
+  height: fit-content;
+  border-radius: 5px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  
+}
+
+.btnadd:hover {
+  background: #0056b3;
+}
+.btnaddproperty{
+  background: rgb(131, 235, 131);
+  padding: 10px;
+  border: none;
+  height: fit-content;
+  width:30%;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 25px;
+  @media (max-width:700px) {
+   font-size: 18px;
+  }
+  @media (max-width:400px) {
+    font-weight: lighter;
+    font-size: 13px;
+   }
+
+}
+.preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 10px auto;
+  display: block;
 }

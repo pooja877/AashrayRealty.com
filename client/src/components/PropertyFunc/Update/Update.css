@@ -29,9 +29,8 @@
         margin-left: 1.5rem;
         width:60%;
         height:100vh;
-       
-        padding-top: 60px;
         overflow-y:scroll;
+        padding-bottom: 100px;
         @media(max-width: 800px)
         {
                 width:90%;
@@ -131,9 +130,8 @@
        height: 100vh;
        overflow-y: scroll;
       flex-direction: column;
-      padding-top: 60px;
       margin-left: 1.5rem;
-    
+     padding-bottom: 100px;
       
      
       h2{

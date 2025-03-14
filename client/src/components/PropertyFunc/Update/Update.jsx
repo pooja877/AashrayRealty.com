@@ -122,8 +122,9 @@ const handleImageUpload = async (e) => {
  
   return (
     <>
+     <AdminNavbar/>
     <div className="mainUpdatecontainer">
-           <AdminNavbar/>
+          
             <div className="leftUpdate">
                 <h2>Update Property</h2>
                 <form action="" onSubmit={handleSubmit}>

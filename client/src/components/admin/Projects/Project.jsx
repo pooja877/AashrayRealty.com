@@ -59,8 +59,10 @@ export default function Project() {
                              <h3>{property.propertyName}</h3>
                             <div className="prodetails">
                              <FaMapMarkerAlt/>
-                              <p>{property.houseno} {property.buildingName} {property.streetName} {property.area} {property.city}</p></div>
-                            
+                              <p>{property.houseno} {property.buildingName} {property.streetName} {property.area} {property.city}</p>
+                              
+                              </div>
+                              <p className="typetransaction">For {property.transactionType}</p>
                             <div className="price"><FaRupeeSign/>{property.discountPrice}</div>
                             <div className="bathbed">
                             <div className="bed">
@@ -75,7 +77,7 @@ export default function Project() {
                             </div>
                             <div className="btns">
                              <button onClick={()=>navigate(`/admin/property/updateProperty/${property._id}`)} className="btnUpdate ">Update</button>
-                             <button onClick={() => handleDeleteProperty(property._id)}className="btnDelete">Delete</button>
+                             <button onClick={() => handleDeleteProperty(property._id)} className="btnDelete">Delete</button>
                             </div>
                             </div>
                             </div>

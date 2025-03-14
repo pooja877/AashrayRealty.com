@@ -1,16 +1,18 @@
 // import { useNavigate } from 'react-router-dom';
 import './Add.css';
 import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
-import { useRef, useState } from 'react';
+import {  useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaBed, FaBath,FaRupeeSign } from "react-icons/fa";
+// import { FaBed, FaBath,FaRupeeSign } from "react-icons/fa";
+import Locationform from '../../Locationform/Locationform';
 
 export default function Add() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const selectRef=useRef();
+  const [step, setStep] = useState(1);
   const navigate=useNavigate();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData ] = useState({
     images:[],
     propertyName: '',
     propertyType: '',
@@ -29,7 +31,7 @@ export default function Add() {
     city:'',
   });
   
-  
+ 
   
   const handleChange = (e) => {
     setFormData({
@@ -107,48 +109,127 @@ export default function Add() {
       }
       else{
         alert('Property added successfully!!');
-        navigate('/admin/projects');
+        navigate('/admin/properties');
       }
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   };
-  const handledeleteImage=async (publicId)=>{
-    try {
-      const res = await fetch('/api/property/delete', {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify( {publicId} ),
-      });
+  // const handledeleteImage=async (publicId)=>{
+  //   try {
+  //     const res = await fetch('/api/property/delete', {
+  //       method: "DELETE",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify( {publicId} ),
+  //     });
   
-      const result = await res.json();
+  //     const result = await res.json();
       
-      if (res.ok) {
-        // Remove the deleted image from state
-        setFormData((prev) => ({
-          ...prev,
-          images: prev.images.filter((img) => img.publicId !== publicId),
-        }));
-      } else {
-        console.error("Failed to delete image:", result.error);
-      }
-    } catch (error) {
-      console.error("Error deleting image:", error);
-    }
-  }
+  //     if (res.ok) {
+  //       // Remove the deleted image from state
+  //       setFormData((prev) => ({
+  //         ...prev,
+  //         images: prev.images.filter((img) => img.publicId !== publicId),
+  //       }));
+  //     } else {
+  //       console.error("Failed to delete image:", result.error);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error deleting image:", error);
+  //   }
+  // }
+  
+  const next = () => setStep((prev) => Math.min(prev + 1, 4));
+  const prev = () => setStep((prev) => Math.max(prev - 1, 1));
   
   return (
     <>
-   
-    <div className="mainAddcontainer">
-       <AdminNavbar/>
-        <div className="leftadd">
-            <h2>Add Property</h2>
-            <form action="" onSubmit={handleSubmit}>
-                <h3>Property Information</h3>
+   <AdminNavbar/>
+   <div className="mainaddcom">
+    <div className="addcon">
+      <h2>Add Property</h2>
+       {/* Stepper UI */}
+    <div className="stepper">
+      <div className={`step-item ${step >= 1 ? "active" : ""}`}>
+        <div className="step-circle">1</div>
+        <p>Location</p>
+      </div>
+      <div className={`line ${step >= 2 ? "active" : ""}`}></div>
+      <div className={`step-item ${step >= 2 ? "active" : ""}`}>
+        <div className="step-circle">2</div>
+        <p>Images</p>
+      </div>
+      <div className={`line ${step >= 3 ? "active" : ""}`}></div>
+      <div className={`step-item ${step >= 3 ? "active" : ""}`}>
+        <div className="step-circle">3</div>
+        <p>Details</p>
+      </div>
+      <div className={`line ${step >= 4 ? "active" : ""}`}></div>
+      <div className={`step-item ${step >= 4 ? "active" : ""}`}>
+        <div className="step-circle">4</div>
+        <p>Facilities</p>
+      </div>
+      </div>
+
+      {step === 1 && (
+        
+        <div className="form-step">
+           
+          {/* <label>Flat/House No. <span>*</span></label> */}
+          <div className="addaddressside">
+          <div className="leftaddside">
+            {/* <label>City <span>*</span></label> */}
+          <input  type="text" id='city'   value={formData.city} onChange={handleChange} placeholder='Enter name of city' name="city"required />
+            {/* <label>Area <span>*</span></label> */}
+          <input  type="text" id='area'   value={formData.area} onChange={handleChange} placeholder='Enter name of area ' name="area"required />
+          
+          <input type="text" id='houseno' onChange={handleChange} placeholder="Enter property flat no./house no."name="houseno" required />
+
+          {/* <label>Building Name <span>*</span></label> */}
+          <input type="text" id='buildingName  ' onChange={handleChange} placeholder="Enter property building name" name="buildingName" />
+
+          {/* <label>Street Address <span>*</span></label> */}
+          <input type="text" id='streetName' onChange={handleChange} name="streetName"placeholder="Enter property street address" required />
+        
+          
+         
+          </div>
+          <div className="rightaddside">
+          <Locationform  streetName={formData.streetName} area={formData.area} city={formData.city}/>
+          </div>
+          
+          </div>
+          <button onClick={next} className='btnadd'>Next</button>
+         
+        </div>
+      )}
+
+      {step === 2 && (
+        <div className="form-step">
+          {/* <h2>Upload Image</h2>
+          <input type="file" onChange={(e) => setFormData({ ...formData, image: URL.createObjectURL(e.target.files[0]) })} required />
+          {formData.images && <img src={formData.images} alt="Preview" className="preview" multiple/>}
+          <button onClick={prev} className='btnadd'>Back</button>
+          <button onClick={next} className='btnadd' disabled={!formData.images}>Next</button>
+        </div> */}
+        <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
+        <div className="prevnextbtn">
+                  <button onClick={prev} className='btnadd'>Back</button>
+          <button onClick={next} className='btnadd' disabled={!formData.images}>Next</button>
+        </div>
+
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="form-step">
+          <div className="detailcompo">
+               
                 <label>Property Name <span>*</span> </label>
                 <input type="text" id='name' placeholder='Enter Property name'onChange={handleChange} name='propertyName' required />
+                
+                <div className="divinfo">
                 <label>Property Type <span>*</span> </label>
                 <select onChange={handleChange} name='propertyType'  required>
                     <option value="">Select...</option>
@@ -163,108 +244,184 @@ export default function Add() {
                     <option  value="Rent">Rent</option>
                     <option  value="Sale">Sale</option>
                 </select>
+                </div>
                 {/* area sqft */}
+                
                 <label>Area(Sq.ft) <span>*</span> </label>
                 <input id='areaSqft' onChange={handleChange} type="text" placeholder='Enter Area(Sq.ft)' name="areaSqft"required />
+              
                {/* description */}
+               
                 <label>Description <span>*</span> </label>
                 <textarea id='desc' onChange={handleChange} placeholder='Enter details of the property' name="desc"required />
-                {/* bedrooms */}
-                <label>Bedrooms <span>*</span> </label>
-                <input min='1'id='bedrooms' onChange={handleChange} type="text" placeholder='Enter number of bedrooms' name="bedrooms"required />
+                
+                </div>
+          <div className="prevnextbtn">
+                  <button onClick={prev} className='btnadd'>Back</button>
+          <button onClick={next} className='btnadd' >Next</button>
+        </div>
+        </div>
+      )}
+
+      {step === 4 && (
+        <div className="form-step">
+          <div className="facilityinfo">
+                 {/* bedrooms */}
+                 <label>Bedrooms <span>*</span> </label>
+                <input min='1'id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms"required />
                {/* bathrooms */}
                 <label>Bathrooms <span>*</span> </label>
-                <input min='1' id='bathrooms' onChange={handleChange} type="text" placeholder='Enter number of bathrooms' name="bathrooms"required />
+                <input min='1' id='bathrooms' onChange={handleChange} type="number" placeholder='Enter number of bathrooms' name="bathrooms"required />
                 {/* Amenities */}
                 <label>Amenities </label>
                 <input id='amenities' onChange={handleChange} type="text" placeholder='Enter Amenities' name="amenities"required />
                 {/* price */}
                 <label>Price <span>*</span> </label>
-                <input min='1' id='price' onChange={handleChange}  type="text" placeholder='Enter Property Price' name="price"required />
+                <input min='1' id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' name="price"required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
                 <label>Discounted Price <span>*</span> </label>
-                <input min='1' id='discountPrice 'onChange={handleChange} type="text" placeholder='Enter discounted price' name="discountPrice"required />
+                <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice"required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
-                {/* image */}
-                <label className='image'>Property Images <span>*</span></label>
-                <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
-               
-                
-        
-                <p>
-                {/* {imageUploadError } */}
-                </p>
-                {/* location */}
-                <h3>Property Location</h3>
-                <label>Flat/House No. <span>*</span></label>
-          <input type="text" id='houseno' onChange={handleChange} placeholder="Enter property flat no./house no."name="houseno" required />
-
-          <label>Building Name <span>*</span></label>
-          <input type="text" id='buildingName  ' onChange={handleChange} placeholder="Enter property building name" name="buildingName" />
-
-          <label>Street Address <span>*</span></label>
-          <input type="text" id='streetName' onChange={handleChange} name="streetName"placeholder="Enter property street address" required />
-          <label>Area <span>*</span></label>
-          <input  type="text" id='area' onChange={handleChange} placeholder='Enter name of area ' name="area"required />
-          <label>City <span>*</span></label>
-          <input  type="text" id='city' onChange={handleChange} placeholder='Enter name of city' name="city"required />
-          <button   disabled={loading} className='btnSubmit'> {loading ? 'Adding...' : 'Add Property'}</button>
-          {error && <p>{error}</p>}
-            </form>
-           
-
+                  
+          </div>
+          
+          <div className="prevnextbtn">
+                  <button onClick={prev} className='btnadd'>Back</button>
+                  <button className='btnaddproperty' onClick={handleSubmit}>Add Property</button>
         </div>
-
-        <div className="rightadd">
-          <h2>Quick Preview</h2>
-          <div className="adddcontain">
-            <div className="info-contain">
-            <h3>{formData.propertyName}</h3>
-            <div className="loc">
-              <img className='locicon' src="/location_20.png" alt="" />
-              <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area} {formData.city}  </p>
-            </div>
-            <div className="price">
-              <p><FaRupeeSign/> {formData.discountPrice}</p>
-            </div>
-            <div className="bedbath">
-            <div className="bed">
-              <FaBed/>
-              <p>{formData.bedrooms} <span>Bedrooms</span></p>
-            </div>
-            <div className="bath">
-              <FaBath/>
-              <p>{formData.bathrooms} <span>Bathrooms</span></p>
-            </div>
-            </div>
-            </div>
-          
-          
-         <div className="imageAddContain">
-         {formData.images.length > 0 &&
-            formData.images.map((img,index) => (
-              <div
-                key={index}
-                className="imageProperty"
-              >
-                <img
-                  className='listimage'
-                  src={img.url}
-                  alt='listing image'
-                />
-                <button onClick={()=>handledeleteImage(img.publicId)}>Delete</button>
-               
-              </div>
-            ))}
-         </div>
-            
-          </div>
-          </div>
-    </div>
+         
+        </div>
+      )}
+    </div></div>
     </>
-  )
+  );
 }
+
+// <div className="mainAddcontainer">
+// <AdminNavbar/>
+//  <div className="leftadd">
+//      <h2>Add Property</h2>
+//      <form action="" onSubmit={handleSubmit}>
+//          <h3>Property Information</h3>
+//          <label>Property Name <span>*</span> </label>
+//          <input type="text" id='name' placeholder='Enter Property name'onChange={handleChange} name='propertyName' required />
+//          <label>Property Type <span>*</span> </label>
+//          <select onChange={handleChange} name='propertyType'  required>
+//              <option value="">Select...</option>
+//              <option value="Residential">Residential</option>
+//              <option value="Commercial">Commercial</option>
+//              <option value="Apartment">Apartment/Flat</option>
+//          </select>
+//          {/*  type */}
+//          <label>Transaction Type <span>*</span> </label>
+//          <select ref={selectRef} onChange={handleChange} id='transactionType'name='transactionType' required>
+//              <option value="">Select...</option>
+//              <option  value="Rent">Rent</option>
+//              <option  value="Sale">Sale</option>
+//          </select>
+//          {/* area sqft */}
+//          <label>Area(Sq.ft) <span>*</span> </label>
+//          <input id='areaSqft' onChange={handleChange} type="text" placeholder='Enter Area(Sq.ft)' name="areaSqft"required />
+//         {/* description */}
+//          <label>Description <span>*</span> </label>
+//          <textarea id='desc' onChange={handleChange} placeholder='Enter details of the property' name="desc"required />
+//          {/* bedrooms */}
+//          <label>Bedrooms <span>*</span> </label>
+//          <input min='1'id='bedrooms' onChange={handleChange} type="text" placeholder='Enter number of bedrooms' name="bedrooms"required />
+//         {/* bathrooms */}
+//          <label>Bathrooms <span>*</span> </label>
+//          <input min='1' id='bathrooms' onChange={handleChange} type="text" placeholder='Enter number of bathrooms' name="bathrooms"required />
+//          {/* Amenities */}
+//          <label>Amenities </label>
+//          <input id='amenities' onChange={handleChange} type="text" placeholder='Enter Amenities' name="amenities"required />
+//          {/* price */}
+//          <label>Price <span>*</span> </label>
+//          <input min='1' id='price' onChange={handleChange}  type="text" placeholder='Enter Property Price' name="price"required />
+//          {formData.transactionType === 'Rent' && (
+//              <span>(₹ / month)</span>
+//            )}
+//          <label>Discounted Price <span>*</span> </label>
+//          <input min='1' id='discountPrice 'onChange={handleChange} type="text" placeholder='Enter discounted price' name="discountPrice"required />
+//          {formData.transactionType === 'Rent' && (
+//              <span>(₹ / month)</span>
+//            )}
+//          {/* image */}
+//          <label className='image'>Property Images <span>*</span></label>
+//          <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
+        
+         
+ 
+//          <p>
+//          {/* {imageUploadError } */}
+//          </p>
+//          {/* location */}
+//          <h3>Property Location</h3>
+//          <label>Flat/House No. <span>*</span></label>
+//    <input type="text" id='houseno' onChange={handleChange} placeholder="Enter property flat no./house no."name="houseno" required />
+
+//    <label>Building Name <span>*</span></label>
+//    <input type="text" id='buildingName  ' onChange={handleChange} placeholder="Enter property building name" name="buildingName" />
+
+//    <label>Street Address <span>*</span></label>
+//    <input type="text" id='streetName' onChange={handleChange} name="streetName"placeholder="Enter property street address" required />
+//    <label>Area <span>*</span></label>
+//    <input  type="text" id='area' onChange={handleChange} placeholder='Enter name of area ' name="area"required />
+//    <label>City <span>*</span></label>
+//    <input  type="text" id='city' onChange={handleChange} placeholder='Enter name of city' name="city"required />
+//    <button   disabled={loading} className='btnSubmit'> {loading ? 'Adding...' : 'Add Property'}</button>
+//    {error && <p>{error}</p>}
+//      </form>
+    
+
+//  </div>
+
+//  <div className="rightadd">
+//    <h2>Quick Preview</h2>
+//    <div className="adddcontain">
+//      <div className="info-contain">
+//      <h3>{formData.propertyName}</h3>
+//      <div className="loc">
+//        <img className='locicon' src="/location_20.png" alt="" />
+//        <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area} {formData.city}  </p>
+//      </div>
+//      <div className="price">
+//        <p><FaRupeeSign/> {formData.discountPrice}</p>
+//      </div>
+//      <div className="bedbath">
+//      <div className="bed">
+//        <FaBed/>
+//        <p>{formData.bedrooms} <span>Bedrooms</span></p>
+//      </div>
+//      <div className="bath">
+//        <FaBath/>
+//        <p>{formData.bathrooms} <span>Bathrooms</span></p>
+//      </div>
+//      </div>
+//      </div>
+   
+   
+//   <div className="imageAddContain">
+//   {formData.images.length > 0 &&
+//      formData.images.map((img,index) => (
+//        <div
+//          key={index}
+//          className="imageProperty"
+//        >
+//          <img
+//            className='listimage'
+//            src={img.url}
+//            alt='listing image'
+//          />
+//          <button onClick={()=>handledeleteImage(img.publicId)}>Delete</button>
+        
+//        </div>
+//      ))}
+//   </div>
+     
+//    </div>
+//    </div>
+// </div>
