@@ -2,7 +2,7 @@
   padding: 1 rem;
   max-width: 32 rem;
   margin:auto;
-  height:17rem;
+  height:20rem;
   width:20rem;
   border-radius: 0.5rem;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
@@ -32,7 +32,24 @@
         width:12rem;
       }
   }
+
+  .resendtimer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .resend{
+    font-size: 1rem;
+
+  }
+  .resend:hover{
+    color: red;
+    text-decoration: underline red;
+  }
   
+  .timer{
+    color:red;
+  }
   button{
       background-color:rgb(5, 40, 75);
       color:#ffffff;

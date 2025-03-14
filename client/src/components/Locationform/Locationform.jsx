@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-const Locationform = ({ area, city }) => {
+const Locationform = ({streetname, area, city }) => {
   const [position, setPosition] = useState({
     lat: 23.0225, // Default Ahmedabad
     lng: 72.5714,
@@ -61,7 +61,7 @@ useEffect(() => {
     };
   
     fetchCoordinates();
-  }, [area, city]);
+  }, [streetname,area, city]);
   
 
   const ChangeView = ({ coords }) => {

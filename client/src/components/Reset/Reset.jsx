@@ -3,7 +3,7 @@ import './Reset.scss'
 // import { useNavigate } from 'react-router-dom';
 
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {useEffect} from "react";
 
 const ResetPassword = () => {
@@ -12,12 +12,32 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message,setmessage]=useState('');
   const navigate=useNavigate();
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
+  const [isExpired,setIsExpired] = useState(false);
 
 
   useEffect(()=>{
     console.log(token);
   },[token]);
   
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      setIsExpired(true);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [timeLeft]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,7 +59,7 @@ const ResetPassword = () => {
         setmessage("Password reset successful !!");
        navigate('/signin');
       } else {
-        alert("not updated Password there is a some problem!!",data.message);
+        alert("Link is not valid to reset Password!!",data.message);
       }
     } catch (error) {
       
@@ -65,6 +85,18 @@ const ResetPassword = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
+        <div className="resendtimer">
+        <Link to="/forgotPassword">
+            <p  className="resend">Resend Link</p>
+            </Link>
+            {isExpired ? (
+        <p className="timer">Link expired!</p>
+      ) : (
+        
+        <span className="timer">{formatTime(timeLeft)}</span> 
+      )}
+
+        </div>
         <button type="submit">Reset Password</button>
       </form>
       <p>{message}</p>

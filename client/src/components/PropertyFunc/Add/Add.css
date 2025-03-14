@@ -1,13 +1,16 @@
 .mainaddcom {
   font-family: Arial, sans-serif;
-  background: #f2eded;
+  /* background: #f2eded; */
   display: flex;
   justify-content: center;
   /* align-items: center; */
   height: 100vh;
+  width: 100%;
 }
 
+
 .addcon {
+
   width: 70%;
   height: fit-content;
   overflow-y: scroll;
@@ -205,23 +208,29 @@ input, textarea {
   background: #0056b3;
 }
 .btnaddproperty{
-  background: rgb(131, 235, 131);
+  background: rgb(41, 210, 41);
   padding: 10px;
   border: none;
   height: fit-content;
-  width:30%;
+  width:20%;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
   @media (max-width:700px) {
    font-size: 18px;
+   width:30%;
   }
   @media (max-width:400px) {
     font-weight: lighter;
     font-size: 13px;
    }
 
+}
+.btnaddproperty:hover{
+  background: linear-gradient(45deg, #05e648, #5ca56e); /* Darker Blue on Hover */
+  transform: translateY(-1px);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
 }
 .preview {
   width: 100px;

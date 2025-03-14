@@ -109,8 +109,11 @@ export const forgetPassword=async (req,res)=>{
   const user = await User.findOne({ email });
   if (!user) return res.status(404).json({ message: "User not found" });
 
+
+ 
+
   // const secret=process.env.JWT_SECRET+user.password;
-  const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'10m'});
+  const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'5m'});
   const resetLink = `http://localhost:5173/resetPassword/${token}`;
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -121,11 +124,27 @@ export const forgetPassword=async (req,res)=>{
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    // from: process.env.EMAIL_USER,
+    // to: email,
+    // subject: 'Password Reset',
+    // text:`Click the link below to reset your password:\n\n${resetLink}\n\nThe link will expire in 10 minutes.`,
+
+    from: '"AashrayRealty" <no-reply@aashrayRealty.com>',
     to: email,
-    subject: 'Password Reset',
-    text:`Click the link below to reset your password:\n\n${resetLink}\n\nThe link will expire in 10 minutes.`,
-    //  html: `<p>Click <a href="${resetLink}">here</a> to reset your password.</p>`
+    subject: "Reset Your Password - AashrayRealty",
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+        <h2>Password Reset Request</h2>
+        <p>You recently requested to reset your password for your AashrayRealty account.</p>
+        <p>Click the link below to reset your password:</p>
+        <p>This link is valid for only <b>5 minutes</b> after that you can not update your Password using this link.</p>
+        <a href="${resetLink}" style="background: #007bff; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 5px;">Reset Password</a>
+        <p>If you did not request a password reset, please ignore this email.</p>
+        <p>For any issues, contact our support team.</p>
+        <br/>
+        <p>Best Regards,<br/>AashrayRealty Team</p>
+      </div>
+    `,
   };
 
    await transporter.sendMail(mailOptions, (err, info) => {
