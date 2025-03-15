@@ -35,7 +35,7 @@ export default function Properties() {
             <div className="datapro">
                 {properties.length > 0 ? (
                     properties.map((property) => (
-                        <div className="contain" key={property._id} onClick={() => navigate(`/Properties/${property._id}`)}
+                        <div className="contain" key={property._id} 
 >
                             <div className="imageWrapper" >
                                 {property.images?.length > 0 && (
@@ -51,7 +51,7 @@ export default function Properties() {
                                 />
                             </div>
 
-                            <div className="info">
+                            <div className="info" onClick={() => navigate(`/Properties/${property._id}`)}>
                                 <h3>{property.propertyName}</h3>
                                 <div className="prodetails">
                                     <FaMapMarkerAlt />
