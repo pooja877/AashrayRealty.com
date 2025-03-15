@@ -71,7 +71,7 @@ export default function Edit() {
             hidden
             accept='image/*'
           />
-          <img onClick={() => fileRef.current.click()} src={preview} alt='profile' />
+          <img onClick={() => fileRef.current.click()} src={preview||currentUser.avatar} alt='profile' />
           <label>Username:</label>
           <input type="text" placeholder={currentUser.username} id="username" onChange={handleChange} />
           <label>Email:</label>

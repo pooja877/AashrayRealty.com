@@ -6,23 +6,141 @@ import { errorHandler } from "../utils/error.js";
 
 
 
-export const signup = async(req,res,next) =>{
-  const { username,email,password }=req.body;
-  
-  const hashedPassword=bcryptjs.hashSync(password,10);
+export const verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.params;
 
-  const newUser=new User({username,email,password: hashedPassword});
+    // console.log("Received Token:", token); // Debugging
 
-  try{
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // console.log("Decoded Token:", decoded); // Debugging
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email: decoded.email });
+    if (existingUser) {
+      return res.send(`<script>alert("Your account is already verified!"); window.location.href = "http://localhost:5173/signin";</script>`);
+    }
+
+    // Create new user
+    const newUser = new User({
+      username: decoded.username,
+      email: decoded.email,
+      password: decoded.password, // Already hashed in signup
+      isVerified: true,
+    });
+
     await newUser.save();
-    res.status(201).json('User created successfully!');
+
+    res.send(`<script>alert("Your account has been created successfully! You can now sign in."); window.location.href = "http://localhost:5173/signin";</script>`);
+
+  } catch (error) {
+    console.error("Verification Error:", error);
+    res.send(`<script>alert("Invalid or expired token! Please sign up again."); window.location.href = "http://localhost:5173/signin";</script>`);
   }
-  catch(error)
-  {
+};
+
+
+export const signup = async (req, res, next) => {
+  const { username, email, password } = req.body;
+
+  try {
+    // Hash the password
+    const hashedPassword = bcryptjs.hashSync(password, 10);
+
+    // Generate a verification token with the user's info
+    const token = jwt.sign(
+      { username, email, password: hashedPassword },
+      process.env.JWT_SECRET,
+      { expiresIn: '10m' }
+    );
+
+    const verificationLink = `http://localhost:5173/api/auth/verify/${token}`;
+
+    // Nodemailer setup
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: '"AashrayRealty" <no-reply@aashrayRealty.com>',
+      to: email,
+      subject: "Verify Your Email - AashrayRealty",
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+          <h2>Verify Your Email</h2>
+          <p>Click the link below to verify your email and activate your account:</p>
+          <a href="${verificationLink}" style="background: #28a745; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 5px;">Verify Email</a>
+          <p>This link is valid for <b>10 minutes</b>.</p>
+          <p>If you did not request this, please ignore this email.</p>
+          <br/>
+          <p>Best Regards,<br/>AashrayRealty Team</p>
+        </div>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: "Verification email sent! Check your inbox." });
+
+  } catch (error) {
     next(error);
   }
+};
+
+
+// export const verifyEmail = async (req, res) => {
+//   try {
+//     const { token } = req.params;
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+//     // Check if the user is already verified
+//     const existingUser = await User.findOne({ email: decoded.email });
+//     if (existingUser) {
+//       return res.send(`<script>alert("Your account is already verified!"); window.location.href = "http://localhost:5173/signin";</script>`);
+//     }
+
+//     // Create and store user in database
+//     const newUser = new User({
+//       username: decoded.username,
+//       email: decoded.email,
+//       password: decoded.password, // Already hashed in signup
+//       isVerified: true,
+//     });
+
+//     await newUser.save();
+
+//     // Send alert message before redirecting
+//     res.send(`<script>alert("Your account has been created successfully! You can now sign in."); window.location.href = "http://localhost:5173/signin";</script>`);
+
+//   } catch (error) {
+//     res.send(`<script>alert("Invalid or expired token!"); window.location.href = "http://localhost:5173/signup";</script>`);
+//   }
+// };
+
+
+
+
+// export const signup = async(req,res,next) =>{
+//   const { username,email,password }=req.body;
   
-}
+//   const hashedPassword=bcryptjs.hashSync(password,10);
+
+//   const newUser=new User({username,email,password: hashedPassword});
+
+//   try{
+//     await newUser.save();
+//     res.status(201).json('User created successfully!');
+//   }
+//   catch(error)
+//   {
+//     next(error);
+//   }
+  
+// }
 
 export const signin=async(req,res,next)=>{
   const { email,password }=req.body;

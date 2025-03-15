@@ -1,7 +1,9 @@
 import express from 'express';
-import { forgetPassword, google,logout,reset,signin,signup} from '../controller/auth.controller.js';
+import { forgetPassword, google,logout,reset,signin,signup,verifyEmail} from '../controller/auth.controller.js';
 
 const router=express.Router();
+
+router.get('/verify/:token', verifyEmail);
 
 router.post('/signup',signup);
 router.post('/signin',signin);

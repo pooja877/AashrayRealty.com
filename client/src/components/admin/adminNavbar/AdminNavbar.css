@@ -1,4 +1,4 @@
-nav {
+.head {
   background-color: rgb(247, 249, 250);
   height: 60px;
   display: flex;
@@ -8,6 +8,7 @@ nav {
   margin-right:20PX;
   a {
     transition: all 0.4s ease;
+    cursor: pointer;
     @media(max-width: 700px) {
       display: none;
     }

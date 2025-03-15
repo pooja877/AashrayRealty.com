@@ -32,7 +32,7 @@ export default function Profile() {
     <div className='infocontainer'>
       {/*  user info */}
            <div className="containerDetails">
-           <img className="profile"src={currentUser.avatar}/>
+           <img className="profile" src={currentUser.avatar||"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}/>
            <div className="info">
            <h2 id="username">{currentUser.username}</h2>
            <p id='email'>{currentUser.email}</p>

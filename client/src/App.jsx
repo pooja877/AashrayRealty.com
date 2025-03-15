@@ -32,6 +32,7 @@ function App() {
       <Route path="/About" element={<AboutUs/>}/>
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/signin" element={<Signin/>}/>
+      {/* <Route path="/verifyemail" element={<Verifyemail/>}/> */}
       {/* profile page and it open when user is login */}
       <Route element={<PrivateRoute/>}>
       <Route path="/profile" element={<Profile/>}/>
