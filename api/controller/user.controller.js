@@ -3,43 +3,92 @@ import { errorHandler } from "../utils/error.js";
 import bcryptjs from 'bcryptjs';
 import cloudinary from "../cloudinary.js";
 
+// export const uploadProfilePicture = async (req, res) => {
+//     try {
+//       const { id } = req.params;
+  
+      
+//       // Check if file exists
+//       if (!req.file) {
+//         return res.status(400).json({ success: false, message: "No image uploaded." });
+//       }
+  
+//       // Upload Image to Cloudinary
+//       const result = await new Promise((resolve, reject) =>  {
+//         const stream = cloudinary.uploader.upload_stream(
+//         { folder: "profile_pictures/" },
+//          (error, result) => {
+//           if (error) reject(error);
+//           else resolve(result);
+//         }
+//         );
+//         stream.end(file.buffer);
+  
+//           // Update User Profile with Cloudinary URL
+//           const updatedUser = User.findByIdAndUpdate(
+//             id,
+//             { avatar: result.secure_url }, // Save URL in DB
+//             { new: true }
+//           );
+          
+  
+//           if (!updatedUser) {
+//             return res.status(404).json({ success: false, message: "User not found." });
+//           }
+
+  
+//           res.status(200).json(updatedUser);
+//         }
+//       );
+  
+//        // Send the buffer to Cloudinary
+//     } catch (error) {
+//       res.status(500).json({ success: false, message: error.message });
+//     }
+//   };
 export const uploadProfilePicture = async (req, res) => {
-    try {
-      const { id } = req.params;
-  
-      // Check if file exists
-      if (!req.file) {
-        return res.status(400).json({ success: false, message: "No image uploaded." });
-      }
-  
-      // Upload Image to Cloudinary
-      const result = await cloudinary.v2.uploader.upload_stream(
-        { folder: "profile_pictures" },
-        async (error, cloudinaryResult) => {
-          if (error) {
-            return res.status(500).json({ success: false, message: "Cloudinary upload failed" });
-          }
-  
-          // Update User Profile with Cloudinary URL
-          const updatedUser = await User.findByIdAndUpdate(
-            id,
-            { avatar: cloudinaryResult.secure_url }, // Save URL in DB
-            { new: true }
-          );
-  
-          if (!updatedUser) {
-            return res.status(404).json({ success: false, message: "User not found." });
-          }
-  
-          res.status(200).json(updatedUser);
+  try {
+    const { id } = req.params;
+
+    // Check if file exists
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "No image uploaded." });
+    }
+
+    // Upload Image to Cloudinary
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: "profile_pictures/" },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
         }
       );
-  
-      result.end(req.file.buffer); // Send the buffer to Cloudinary
-    } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+      stream.end(req.file.buffer); // Send buffer to Cloudinary
+    });
+
+    // Update User Profile with Cloudinary URL
+    // const updatedUser = await User.findByIdAndUpdate(
+    //   id,
+    //   { avatar: result.secure_url }, // Save Cloudinary URL in DB
+    //   { new: true }
+    // );
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { $set: { avatar: result.secure_url } }, // Use $set to update only avatar
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: "User not found." });
     }
-  };
+
+    res.status(200).json({ success: true, avatar: result.secure_url, user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
   
 
 export const test=(req,res)=>{
