@@ -7,8 +7,11 @@ export default function Tools() {
     <>
     <div className="tools" onClick={()=>setShowTool(!showTool)} >
             <img className="image" src="./cal.jpg" alt="" />
-            <p>Tools & Advices</p>
+            <div className="toolprodata">
+            <p className='tooltitle'>Tools & Advices</p>
             <img className="image" src="./arrow-down-circle_1.png" alt="" />
+            </div>
+
           </div>
 
           {showTool && <div className="tools_">

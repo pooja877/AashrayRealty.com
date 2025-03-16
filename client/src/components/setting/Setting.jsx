@@ -33,7 +33,7 @@ export default function Setting() {
        <p>Username: <span>{currentUser.username}</span>  </p>
        <p>Email: <span> {currentUser.email} </span></p>
        
-       <button onClick={handleDeleteUser} >
+       <button className='deleteuserbtn' onClick={handleDeleteUser} >
        Confirm
        </button>
     </div>

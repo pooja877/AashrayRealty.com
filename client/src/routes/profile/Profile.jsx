@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import { logoutUserStart ,logoutUserSuccess,logoutUserFailure} from '../../redux/user/userSlice.js';
 import Activity from '../../components/Activity/Activity.jsx';
 import Tools from '../../components/Tools&advice/Tools.jsx';
-
+// import {} from "react-icons/fa";
 
 export default function Profile() {
     const {currentUser} = useSelector((state)=>state.user);
@@ -28,7 +28,7 @@ export default function Profile() {
 
     }
      return (
-      
+      <div className="profilecontainer">
     <div className='infocontainer'>
       {/*  user info */}
            <div className="containerDetails">
@@ -50,8 +50,10 @@ export default function Profile() {
      <Link to="/setting">
         <div className="account_setting" >
          <img className="image"src="./user-delete_1.png" alt="delete" />
-         <p>Delete my account</p>
-          <img  className="image"src="./arrow-circle-right_2.png" alt="arrow"/>
+         <div className="acproset">
+         <p className='writetitledelete'>Delete my account</p> 
+         <img  className="image"src="./arrow-circle-right_2.png" alt="arrow"/>
+         </div>
         </div>
         </Link>
 
@@ -60,6 +62,7 @@ export default function Profile() {
             <img className="image"src="logout_1.png" alt="" />
             Log Out
             </button>
+      </div>
       </div>
   )
 }

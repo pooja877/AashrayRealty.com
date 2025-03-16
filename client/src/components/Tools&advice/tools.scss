@@ -3,28 +3,21 @@
       // justify-content: center;
       gap:0.5rem;
       
-      p{
-        
-      //  text-align: center;
-      display: inline-block;
-       margin-right: 11rem;
-       font-weight: bold;
+      .toolprodata{
+        display: flex;
+        flex-direction: row;  
+        gap:7rem;
+      .tooltitle{
+        font-weight: bold;
        padding-top: 0.2rem;
-      //  @media(max-width: 700px){
-      //   margin-right: 3rem;
-      // }
+      
       }
      
-      &:hover{
-        background-color: #d9dde4;
-        cursor: pointer;
-        border-radius: 0.5rem;
-        
-      }
       @media(max-width: 700px){
-         margin-right: 3rem;
+        //  margin-right: 3rem;
         width:13rem;
       }
+    }
   }
   .tools_
   { 
