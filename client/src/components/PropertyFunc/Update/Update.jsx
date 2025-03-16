@@ -17,6 +17,7 @@ export default function Update() {
       bhk:'',
       floor:'',
       areaSqft:0,
+      furnished:'',
       desc:'',
       amenities:'',
       bedrooms: 0,
@@ -136,7 +137,7 @@ const handleImageUpload = async (e) => {
                         <option value="">Select...</option>
                         <option value="Residential">Residential</option>
                         <option value="Commercial">Commercial</option>
-                        <option value="Apartment">Apartment/Flat</option>
+                        <option value="Apartment/Flat">Apartment/Flat</option>
                     </select>
                     {/*  type */}
                     <label>Transaction Type <span>*</span> </label>
@@ -152,9 +153,15 @@ const handleImageUpload = async (e) => {
                     <option value="2 BHk">2BHK</option>
                     <option value="3 BHk">3BHK</option>
                 </select>
+                <label>Furnished <span>*</span> </label>
+                    <select ref={selectRef}  value={formData.furnished}  onChange={handleChange} id='furnished'name='furnished' required>
+                        <option value="">Select...</option>
+                        <option  value="Yes">Yes</option>
+                        <option  value="No">No</option>
+                    </select>
 
                 <label>Floor<span>*</span> </label>
-                <input id='floor' onChange={handleChange} type="number" value={formData.floor} placeholder={formData.floor} name="floor"required />
+                <input id='floor' onChange={handleChange} type="text" value={formData.floor} placeholder={formData.floor} name="floor"required />
               
                     {/* area sqft */}
                     <label>Area(Sq.ft) <span>*</span> </label>

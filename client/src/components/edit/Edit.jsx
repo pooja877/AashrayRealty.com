@@ -14,29 +14,6 @@ export default function Edit() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  // const handleFileUpload = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file) return;
-
-  //   setPreview(URL.createObjectURL(file)); // Show preview before uploading
-
-  //   const formData = new FormData();
-  //   formData.append("avatar", file);
-
-  //   try {
-  //     const res = await fetch(`/api/user/profileupload/${currentUser._id}`, {
-  //       method: "POST",
-  //       body: formData, // No need for headers, Fetch handles FormData correctly
-  //     });
-
-  //     const data = await res.json();
-  //     if (!res.ok) throw new Error(data.message || "Upload failed");
-
-  //     dispatch(updateUserSuccess(data));
-  //   } catch (error) {
-  //     dispatch(updateUserFailure(error.message));
-  //   }
-  // };
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];

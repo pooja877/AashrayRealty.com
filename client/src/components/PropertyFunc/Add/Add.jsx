@@ -4,8 +4,10 @@ import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
 import {  useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Locationform from '../../Locationform/Locationform';
+import { FaCloudUploadAlt } from 'react-icons/fa';
 
 export default function Add() {
+  const fileRef = useRef(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const selectRef=useRef();
@@ -18,7 +20,8 @@ export default function Add() {
     transactionType: '',
     bhk:'',
     floor:'',
-    areaSqft:0,
+    areaSqft:'',
+    furnished:'',
     desc:'',
     amenities:'',
     bedrooms: 0,
@@ -166,7 +169,61 @@ export default function Add() {
   //   }
   // }
   
-  const next = () => setStep((prev) => Math.min(prev + 1, 4));
+//   const validatelocation = () => {
+//     let newErrors = {};
+
+//     if (!formData.address) {
+//         newErrors.address = "Address is required";
+//     }
+//     if (!formData.area) {
+//         newErrors.area = "Area is required";
+//     }
+//     if (!formData.city) {
+//         newErrors.city = "City is required";
+//     }
+
+//     setError(newErrors); // Update error state
+
+    
+//     // If no errors, return true
+//     return Object.keys(newErrors).length === 0;
+// };
+
+// const validatedetails= () => {
+//   let newErrors = {};
+
+//   if (!formData.propertyName) {
+//       newErrors.propertyName = "Property name is required";
+//   }
+//   if (!formData.propertyType) {
+//       newErrors.propertyType = "Property Type is required";
+//   }
+//   if (!formData.transactionType) {
+//       newErrors.transactionType = "Transaction type is required";
+//   }
+  
+//   if (!formData.desc) {
+//     newErrors.desc = "Description is required";
+//     }
+//     if (!formData.areaSqft) {
+//         newErrors.areaSqft = "Property area sqrt is required";
+//     }
+//     if (!formData.bhk) {
+//         newErrors.bhk = "property configurations is required";
+//     }
+
+//     if (!formData.floor) {
+//       newErrors.floor = "property configurations is required";
+//   }
+
+//   setError(newErrors); // Update error state
+
+  
+//   // If no errors, return true
+//   return Object.keys(newErrors).length === 0;
+// };
+
+  const next = () => {  setStep((prev) => Math.min(prev + 1, 4));}
   const prev = () => setStep((prev) => Math.max(prev - 1, 1));
   
   return (
@@ -179,106 +236,122 @@ export default function Add() {
     <div className="stepper">
       <div className={`step-item ${step >= 1 ? "active" : ""}`}>
         <div className="step-circle">1</div>
-        <p>Location</p>
+        <p className='infoadddara'>Location</p>
       </div>
       <div className={`line ${step >= 2 ? "active" : ""}`}></div>
       <div className={`step-item ${step >= 2 ? "active" : ""}`}>
         <div className="step-circle">2</div>
-        <p>Images</p>
+        <p className='infoadddara'>Images</p>
       </div>
       <div className={`line ${step >= 3 ? "active" : ""}`}></div>
       <div className={`step-item ${step >= 3 ? "active" : ""}`}>
         <div className="step-circle">3</div>
-        <p>Details</p>
+        <p className='infoadddara'>Details</p>
       </div>
       <div className={`line ${step >= 4 ? "active" : ""}`}></div>
       <div className={`step-item ${step >= 4 ? "active" : ""}`}>
         <div className="step-circle">4</div>
-        <p>Facilities</p>
+        <p className='infoadddara'>Facilities</p>
       </div>
       </div>
 
+              {/*------------------------------- step1---------------------- */}
       {step === 1 && (
         
         <div className="form-step">
-           
-          {/* <label>Flat/House No. <span>*</span></label> */}
           <div className="addaddressside">
           <div className="leftaddside">
-            {/* <label>City <span>*</span></label> */}
           <input  type="text" id='city'   value={formData.city} onChange={handleChange} placeholder='Enter name of city' name="city"required />
-            {/* <label>Area <span>*</span></label> */}
           <input  type="text" id='area'   value={formData.area} onChange={handleChange} placeholder='Enter name of area ' name="area"required />
           <input type="text" id='address'value={formData.address} onChange={handleChange} placeholder="Enter property address (houseno,buildingname,streetname)"name="address" required />
-        
+
           </div>
           <div className="rightaddside">
           <Locationform  area={formData.area} city={formData.city}/>
           </div>
-          
           </div>
+
           <button onClick={next} className='btnadd'>Next</button>
-         
         </div>
       )}
 
+         {/* ----------------------------step2------------------------ */}
       {step === 2 && (
         <div className="form-step">
-         
-        <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
+           <input type="file" ref={fileRef} accept="image/*" multiple hidden onChange={handleImageUpload} />
+         <div onClick={() => fileRef.current.click()} className="imageproadd" >
+          
+          {formData.images.length > 0 ?(
+                <img
+                  className="imgforaddphoto"
+                  src={formData.images[0].url}
+                  alt="listing image"
+                />
+         ):(<FaCloudUploadAlt className='iconupload'/>)}
+
+         </div>
         <div className="prevnextbtn">
                   <button onClick={prev} className='btnadd'>Back</button>
           <button onClick={next} className='btnadd' disabled={!formData.images}>Next</button>
         </div>
-
         </div>
       )}
+      {/* ------------------step3---------------- */}
 
       {step === 3 && (
         <div className="form-step">
           <div className="detailcompo">
                
+                <div className="namepro">
                 <label>Property Name <span>*</span> </label>
-                <input type="text" id='name' value={formData.propertyName} placeholder='Enter Property name'onChange={handleChange} name='propertyName' required />
+                <input type="text" id='propertyName' value={formData.propertyName} placeholder='Enter Property name'onChange={handleChange} name='propertyName' required />
+                </div>
+                
                 
                 <div className="divinfo">
+                <div className="seladdop">
                 <label>Property Type <span>*</span> </label>
                 <select onChange={handleChange} name='propertyType' value={formData.propertyType}  required>
                     <option value="">Select...</option>
                     <option value="Residential">Residential</option>
                     <option value="Commercial">Commercial</option>
-                    <option value="Apartment">Apartment/Flat</option>
+                    <option value="Apartment/Flat">Apartment/Flat</option>
                 </select>
+               
+                </div>
+               
                 {/*  type */}
+                <div className="seladdop">
                 <label>Transaction Type <span>*</span> </label>
                 <select ref={selectRef} onChange={handleChange} value={formData.transactionType} id='transactionType'name='transactionType' required>
                     <option value="">Select...</option>
                     <option  value="Rent">Rent</option>
                     <option  value="Sale">Sale</option>
                 </select>
+                
                 </div>
 
-                <div className="divinfo">
-                <label>BHK <span>*</span> </label>
-                <select onChange={handleChange} name='bhk' ref={selectRef}  id='bhk' value={formData.bhk}  required>
-                    <option value="">Select...</option>
-                    <option value="1 BHk">1BHK</option>
-                    <option value="2 BHk">2BHK</option>
-                    <option value="3 BHk">3BHK</option>
-                </select>
-                 {/* area sqft */}
+                {/* BHK */}
                 
-                <label>Area(Sq.ft) <span>*</span> </label>
-                <input id='areaSqft' onChange={handleChange} type="text" placeholder='Enter Area(Sq.ft)' name="areaSqft" value={formData.areaSqft}required />
                 </div>
                
-                <label>Floor<span>*</span> </label>
-                <input id='floor' onChange={handleChange} type="text" placeholder='Enter floor' name="floor" value={formData.floor}required />
+               <div className="namepro">
+               <label>Area(Sq.ft) <span>*</span> </label>
+               <input id='areaSqft' onChange={handleChange} type="text" placeholder='Enter Area(Sq.ft)' name="areaSqft" value={formData.areaSqft}required />
+               </div>
+              
+               <div className="namepro">
+               <label>Floor<span>*</span> </label>
+               <input id='floor' onChange={handleChange} type="text" placeholder='Enter Total no of floor / Enter Floor' name="floor" value={formData.floor}required />
+               </div>
+               
               
                {/* description */}
                
+                <div className="namepro">
                 <label>Description <span>*</span> </label>
                 <textarea id='desc' onChange={handleChange} value={formData.desc} placeholder='Enter details of the property' name="desc"required />
+                </div>
                 
                 </div>
           <div className="prevnextbtn">
@@ -288,31 +361,77 @@ export default function Add() {
         </div>
       )}
 
+
+
+      {/* -------------------------step4------------------ */}
+
       {step === 4 && (
         <div className="form-step">
           <div className="facilityinfo">
-                 {/* bedrooms */}
+            <div className="addfacinfo">
+            {/* bhk */}
+          <div className="seladdforfac">
+                <label>BHK <span>*</span> </label>
+                <select onChange={handleChange} name='bhk' ref={selectRef}  id='bhk' value={formData.bhk}  required>
+                    <option value="">Select...</option>
+                    <option value="1 BHk">1BHK</option>
+                    <option value="2 BHk">2BHK</option>
+                    <option value="3 BHk">3BHK</option>
+                    <option value="3 BHk">4BHK</option>
+                </select>
+                
+                </div>
+                {/* furnished */}
+        <div className="seladdforfac">
+
+        <label>Furnished <span>*</span> </label>
+                <select ref={selectRef} onChange={handleChange} value={formData.furnished} id='furnished'name='furnished' required>
+                    <option value="">Select...</option>
+                    <option  value="Yes">Yes</option>
+                    <option  value="No">No</option>
+                </select>
+        </div>
+        </div>
+          
+                <div className="bedbathaddinfo">
+                   {/* bedrooms */}
+                 <div className="bedbathadd">
                  <label>Bedrooms <span>*</span> </label>
-                <input min='1'id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms" value={formData.bedrooms}required />
+                 <input min='1'id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms" value={formData.bedrooms}required />
+                 </div>
                {/* bathrooms */}
+               <div className="bedbathadd">
                 <label>Bathrooms <span>*</span> </label>
                 <input min='1' id='bathrooms' onChange={handleChange} type="number" placeholder='Enter number of bathrooms' name="bathrooms" value={formData.bathrooms}required />
-                {/* Amenities */}
+                </div>
+                </div>
                 
-
-                <label>Amenities </label>
+                
+                
+                {/* Amenities */}
+                <div className="amenitiesadd">
+                <label>Amenities <span>*</span> </label>
                 <input id='amenities' onChange={handleChange} type="text" placeholder='Enter Amenities' value={formData.amenities} name="amenities"required />
+              
+                </div>
                 {/* price */}
-                <label>Price <span>*</span> </label>
+               <div className="priceadddata">
+              <div className="priceadd">
+              <label>Price <span>*</span> </label>
                 <input min='1' id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' value={formData.price} name="price"required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
-                <label>Discounted Price <span>*</span> </label>
+              </div>
+              <div className="priceadd">
+              <label>Discounted Price</label>
                 <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice" value={formData.discountPrice}required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
+              </div>
+                
+               </div>
                   
           </div>
           
@@ -320,7 +439,7 @@ export default function Add() {
                   <button onClick={prev} className='btnadd'>Back</button>
                   <button disabled={loading} className='btnaddproperty' onClick={handleSubmit}>{loading ? 'loading...' : 'Add Property'}</button>
         </div>
-        {error && <p>{error}</p>}
+        {error && <p className='adderror'>{error}</p>}
          
         </div>
       )}

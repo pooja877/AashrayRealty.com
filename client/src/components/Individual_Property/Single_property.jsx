@@ -19,6 +19,7 @@ export default function SingleProperty() {
       bhk:'',
       floor:'',
       areaSqft:0,
+      furnished:'',
       desc:'',
       amenities:'',
       bedrooms: 0,
@@ -31,10 +32,15 @@ export default function SingleProperty() {
     });
 
     const toggleLike = (id) => {
-      setLikedProperties(prev => ({
-          ...prev,
-          [id]: !prev[id] // Toggle like status
-      }));
+      // setLikedProperties(prev => ({
+      //     ...prev,
+      //     [id]: !prev[id] // Toggle like status
+      // }));
+      setLikedProperties(prev => {
+        const updatedLikes = { ...prev, [id]: !prev[id] };
+        localStorage.setItem("likedProperties", JSON.stringify(updatedLikes)); // Save in localStorage
+        return updatedLikes;
+    });
   };
     const amenityIcons = {
         "gym": <FaDumbbell className="icon" />,
@@ -67,6 +73,8 @@ export default function SingleProperty() {
             }
         };
         fetchProperty();
+        const storedLikes = JSON.parse(localStorage.getItem("likedProperties")) || {};
+        setLikedProperties(storedLikes);
     }, [propertyId]);
 
     return (
@@ -138,14 +146,19 @@ export default function SingleProperty() {
      
        </div>
        <div className="floorbhk">
+
+       <p className="propertyfurnished">
+       <span className='hedpro'>Furnished</span>
+       <span> {formData.furnished}</span>
+       </p>
        <p className="propertybhk">
-       <span className='hedpro'>BHk Configures</span>
-       <span> {formData.bhk}</span>
+       <span className='hedpro'> {formData.propertyType === "Residential" ?"" :  "BHk Configures"}</span>
+       <span>  {formData.propertyType === "Residential" ? "" : `${formData.bhk}`}</span>
        </p>
 
        <p className="propertyfloor">
-       <span className='hedpro'>Floor</span>
-       <span> {formData.floor} Floor</span>
+       <span className='hedpro'>{formData.propertyType === "Residential" ? "Total Floor" : "Floor"}</span>
+       <span>{formData.propertyType === "Residential" ? `${formData.floor} `: `${formData.floor} Floor`} </span>
        </p>
        </div>
             </div>

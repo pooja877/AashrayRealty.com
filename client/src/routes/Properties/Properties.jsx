@@ -21,13 +21,20 @@ export default function Properties() {
         };
 
         fetchProperties();
+        const storedLikes = JSON.parse(localStorage.getItem("likedProperties")) || {};
+        setLikedProperties(storedLikes);
     }, []);
 
     const toggleLike = (id) => {
-        setLikedProperties(prev => ({
-            ...prev,
-            [id]: !prev[id] // Toggle like status
-        }));
+        // setLikedProperties(prev => ({
+        //     ...prev,
+        //     [id]: !prev[id] // Toggle like status
+        // }));
+        setLikedProperties(prev => {
+            const updatedLikes = { ...prev, [id]: !prev[id] };
+            localStorage.setItem("likedProperties", JSON.stringify(updatedLikes)); // Save in localStorage
+            return updatedLikes;
+        });
     };
 
     return (
