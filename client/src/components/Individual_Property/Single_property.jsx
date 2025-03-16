@@ -12,22 +12,22 @@ export default function SingleProperty() {
     const { id: propertyId } = useParams();
     const [likedProperties, setLikedProperties] = useState({});
     const [formData, setFormData] = useState({
-        images: [],
-        propertyName: '',
-        propertyType: '',
-        transactionType: '',
-        areaSqft: 0,
-        desc: '',
-        amenities: '',
-        bedrooms: 0,
-        bathrooms: 0,
-        price: 0,
-        discountPrice: 0,
-        houseno: "",
-        buildingName: '',
-        streetName: '',
-        area: '',
-        city: '',
+      images:[],
+      propertyName: '',
+      propertyType: '',
+      transactionType: '',
+      bhk:'',
+      floor:'',
+      areaSqft:0,
+      desc:'',
+      amenities:'',
+      bedrooms: 0,
+      bathrooms:0,
+      price: 0,
+      discountPrice:0,
+      address:'',
+      area:'',
+      city:'',
     });
 
     const toggleLike = (id) => {
@@ -106,7 +106,7 @@ export default function SingleProperty() {
                <div className="titlePrice">
                <h2 className="property-title">{formData.propertyName}</h2>
                <p className="property-price">
-               <FaRupeeSign className="icon" /> <span className="original-price">{formData.price}</span> </p>
+               <FaRupeeSign className="icon" /> <span className="original-price">{formData.discountPrice}</span> </p>
                </div>
                <div className="bathbedrooms">
                        <p><FaBed className="icon" /> {formData.bedrooms} Bedrooms</p>
@@ -123,6 +123,11 @@ export default function SingleProperty() {
         <p className="property-area">
           <FaRulerCombined className="icon" /> {formData.areaSqft} sqft
         </p>
+               </div>
+               <div className="bhkfloor">
+                <p className='propertybhk'>
+                  {formData.bhk}</p>
+                <p className='propertyfloor'>{formData.floor}</p>
                </div>
                <div className="desc">
                <p>{formData.desc}</p>
@@ -144,7 +149,7 @@ export default function SingleProperty() {
           })}
         </div>
 
-           <p className="propertylocation">  <FaMapMarkerAlt className="icon" /> {formData.houseno} {formData.buildingName} {formData.streetName}, {formData.area}, {formData.city}</p>
+           <p className="propertylocation">  <FaMapMarkerAlt className="icon" /> {formData.address}, {formData.area}, {formData.city}</p>
              <div className="propertymap">
              <MapDirection />
              </div>

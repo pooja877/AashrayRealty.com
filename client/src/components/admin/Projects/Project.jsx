@@ -59,7 +59,7 @@ export default function Project() {
                              <h3>{property.propertyName}</h3>
                             <div className="prodetails">
                              <FaMapMarkerAlt/>
-                              <p>{property.houseno} {property.buildingName} {property.streetName} {property.area} {property.city}</p>
+                              <p>{property.address} {property.area} {property.city}</p>
                               
                               </div>
                               <p className="typetransaction">For {property.transactionType}</p>

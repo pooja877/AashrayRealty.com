@@ -12,5 +12,5 @@ router.post('/update/:id',verifyToken,updateUser);
 
 
 router.delete('/delete/:id',verifyToken,deleteUser);
-router.post("/profileupload/:id",verifyToken,upload.single("avatar"),uploadProfilePicture);
+router.post("/profileupload/:id",verifyToken,upload.single("image"),uploadProfilePicture);
 export default router;

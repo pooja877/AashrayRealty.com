@@ -55,7 +55,7 @@ export default function Properties() {
                                 <h3>{property.propertyName}</h3>
                                 <div className="prodetails">
                                     <FaMapMarkerAlt />
-                                    <p>{property.houseno} {property.buildingName} {property.streetName} {property.area} {property.city}</p>
+                                    <p>{property.address} {property.area} {property.city}</p>
                                 </div>
                                <p className='protype'>{property.transactionType}</p>
                                 <div className="price"><FaRupeeSign />{property.discountPrice}</div>

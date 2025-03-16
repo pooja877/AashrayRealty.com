@@ -3,7 +3,6 @@ import './Add.css';
 import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
 import {  useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { FaBed, FaBath,FaRupeeSign } from "react-icons/fa";
 import Locationform from '../../Locationform/Locationform';
 
 export default function Add() {
@@ -13,40 +12,22 @@ export default function Add() {
   const [step, setStep] = useState(1);
   const navigate=useNavigate();
   const [formData, setFormData ] = useState({
-    // images:[],
-    // propertyName: '',
-    // propertyType: '',
-    // transactionType: '',
-    // areaSqft:0,
-    // desc:'',
-    // amenities:'',
-    // bedrooms: 0,
-    // bathrooms:0,
-    // price: 0,
-    // discountPrice:0,
-    // houseno:0,
-    // buildingName:'',
-    // streetName:'',
-    // area:'',
-    // city:'',
-    title: "",
-    description: "",
-    propertyType: "Residential",
-    transactionType: "Sale",
-    bhk: "1BHK",
-    floor: "",
-    areaSqft: "",
-    bedrooms: "",
-    bathrooms: "",
-    furnished: false,
-    parking: false,
-    price: "",
-    discountPrice: "",
-    address: "",
-    city: "",
-    state: "",
-    amenities: [],
-    images: [],
+    images:[],
+    propertyName: '',
+    propertyType: '',
+    transactionType: '',
+    bhk:'',
+    floor:'',
+    areaSqft:0,
+    desc:'',
+    amenities:'',
+    bedrooms: 0,
+    bathrooms:0,
+    price: 0,
+    discountPrice:0,
+    address:'',
+    area:'',
+    city:'',
   });
   
  
@@ -59,44 +40,71 @@ export default function Add() {
   
 };
 
-  const handleImageUpload =async (e) => {
-    const files = e.target.files;
-    if (!files.length) return;
+  // const handleImageUpload =async (e) => {
+  //   const files = e.target.files;
+  //   if (!files.length) return;
 
-    const form = new FormData();
-    for (let file of files) {
-      form.append("images", file);
-    }
+  //   const form = new FormData();
+  //   for (let file of files) {
+  //     form.append("images", file);
+  //   }
 
-    try{
+  //   try{
 
+  //   const response = await fetch("/api/property/upload", {
+  //     method: "POST",
+  //     body: form,
+  //   });
+
+  //   const data = await response.json();
+  //   if (response.ok) {
+  //    // setFormData((prev) => ({ ...prev, imageUrls: [...prev.imageUrls, ...data.urls] }));
+  //      // Store both URL & public_id
+      
+  //     setFormData((prev) => ({
+  //       ...prev,
+  //       images: [...prev.images, ...data.images],
+  //     }));
+      
+  //   } else {
+  //     console.error("Upload failed:", data.error);
+  //   }
+  // }
+  //   catch (error) {
+  //     console.error("Error uploading images:", error);
+  //   }
+  // };
+
+
+ const handleImageUpload = async (e) => {
+  const files = e.target.files;
+  if (!files.length) return;
+
+  const form = new FormData();
+  for (let file of files) {
+    form.append("images", file);
+  }
+
+  try {
     const response = await fetch("/api/property/upload", {
       method: "POST",
       body: form,
     });
 
     const data = await response.json();
-  
     if (response.ok) {
-     // setFormData((prev) => ({ ...prev, imageUrls: [...prev.imageUrls, ...data.urls] }));
-       // Store both URL & public_id
-      
       setFormData((prev) => ({
         ...prev,
-        images: [...prev.images, ...data.images],
+        images: [...prev.images, ...data.images], // Maintain images
       }));
-      
     } else {
       console.error("Upload failed:", data.error);
     }
+  } catch (error) {
+    console.error("Error uploading images:", error);
   }
-    catch (error) {
-      console.error("Error uploading images:", error);
-    }
-  };
+};
 
-
- 
   
 
   const handleSubmit = async (e) => {
@@ -118,6 +126,7 @@ export default function Add() {
         body: JSON.stringify(formData),
       });
       
+      console.log(formData);
       const data = await res.json();
       
       setLoading(false);
@@ -201,20 +210,11 @@ export default function Add() {
           <input  type="text" id='city'   value={formData.city} onChange={handleChange} placeholder='Enter name of city' name="city"required />
             {/* <label>Area <span>*</span></label> */}
           <input  type="text" id='area'   value={formData.area} onChange={handleChange} placeholder='Enter name of area ' name="area"required />
-          
-          <input type="text" id='houseno' onChange={handleChange} placeholder="Enter property flat no./house no."name="houseno" required />
-
-          {/* <label>Building Name <span>*</span></label> */}
-          <input type="text" id='buildingName  ' onChange={handleChange} placeholder="Enter property building name" name="buildingName" />
-
-          {/* <label>Street Address <span>*</span></label> */}
-          <input type="text" id='streetName' onChange={handleChange} name="streetName"placeholder="Enter property street address" required />
+          <input type="text" id='address'value={formData.address} onChange={handleChange} placeholder="Enter property address (houseno,buildingname,streetname)"name="address" required />
         
-          
-         
           </div>
           <div className="rightaddside">
-          <Locationform  streetName={formData.streetName} area={formData.area} city={formData.city}/>
+          <Locationform  area={formData.area} city={formData.city}/>
           </div>
           
           </div>
@@ -225,12 +225,7 @@ export default function Add() {
 
       {step === 2 && (
         <div className="form-step">
-          {/* <h2>Upload Image</h2>
-          <input type="file" onChange={(e) => setFormData({ ...formData, image: URL.createObjectURL(e.target.files[0]) })} required />
-          {formData.images && <img src={formData.images} alt="Preview" className="preview" multiple/>}
-          <button onClick={prev} className='btnadd'>Back</button>
-          <button onClick={next} className='btnadd' disabled={!formData.images}>Next</button>
-        </div> */}
+         
         <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
         <div className="prevnextbtn">
                   <button onClick={prev} className='btnadd'>Back</button>
@@ -245,11 +240,11 @@ export default function Add() {
           <div className="detailcompo">
                
                 <label>Property Name <span>*</span> </label>
-                <input type="text" id='name' placeholder='Enter Property name'onChange={handleChange} name='propertyName' required />
+                <input type="text" id='name' value={formData.propertyName} placeholder='Enter Property name'onChange={handleChange} name='propertyName' required />
                 
                 <div className="divinfo">
                 <label>Property Type <span>*</span> </label>
-                <select onChange={handleChange} name='propertyType'  required>
+                <select onChange={handleChange} name='propertyType' value={formData.propertyType}  required>
                     <option value="">Select...</option>
                     <option value="Residential">Residential</option>
                     <option value="Commercial">Commercial</option>
@@ -257,21 +252,34 @@ export default function Add() {
                 </select>
                 {/*  type */}
                 <label>Transaction Type <span>*</span> </label>
-                <select ref={selectRef} onChange={handleChange} id='transactionType'name='transactionType' required>
+                <select ref={selectRef} onChange={handleChange} value={formData.transactionType} id='transactionType'name='transactionType' required>
                     <option value="">Select...</option>
                     <option  value="Rent">Rent</option>
                     <option  value="Sale">Sale</option>
                 </select>
                 </div>
-                {/* area sqft */}
+
+                <div className="divinfo">
+                <label>BHK <span>*</span> </label>
+                <select onChange={handleChange} name='bhk' ref={selectRef}  id='bhk' value={formData.bhk}  required>
+                    <option value="">Select...</option>
+                    <option value="1 BHk">1BHK</option>
+                    <option value="2 BHk">2BHK</option>
+                    <option value="3 BHk">3BHK</option>
+                </select>
+                 {/* area sqft */}
                 
                 <label>Area(Sq.ft) <span>*</span> </label>
-                <input id='areaSqft' onChange={handleChange} type="text" placeholder='Enter Area(Sq.ft)' name="areaSqft"required />
+                <input id='areaSqft' onChange={handleChange} type="text" placeholder='Enter Area(Sq.ft)' name="areaSqft" value={formData.areaSqft}required />
+                </div>
+               
+                <label>Floor<span>*</span> </label>
+                <input id='floor' onChange={handleChange} type="text" placeholder='Enter floor' name="floor" value={formData.floor}required />
               
                {/* description */}
                
                 <label>Description <span>*</span> </label>
-                <textarea id='desc' onChange={handleChange} placeholder='Enter details of the property' name="desc"required />
+                <textarea id='desc' onChange={handleChange} value={formData.desc} placeholder='Enter details of the property' name="desc"required />
                 
                 </div>
           <div className="prevnextbtn">
@@ -286,21 +294,23 @@ export default function Add() {
           <div className="facilityinfo">
                  {/* bedrooms */}
                  <label>Bedrooms <span>*</span> </label>
-                <input min='1'id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms"required />
+                <input min='1'id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms" value={formData.bedrooms}required />
                {/* bathrooms */}
                 <label>Bathrooms <span>*</span> </label>
-                <input min='1' id='bathrooms' onChange={handleChange} type="number" placeholder='Enter number of bathrooms' name="bathrooms"required />
+                <input min='1' id='bathrooms' onChange={handleChange} type="number" placeholder='Enter number of bathrooms' name="bathrooms" value={formData.bathrooms}required />
                 {/* Amenities */}
+                
+
                 <label>Amenities </label>
-                <input id='amenities' onChange={handleChange} type="text" placeholder='Enter Amenities' name="amenities"required />
+                <input id='amenities' onChange={handleChange} type="text" placeholder='Enter Amenities' value={formData.amenities} name="amenities"required />
                 {/* price */}
                 <label>Price <span>*</span> </label>
-                <input min='1' id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' name="price"required />
+                <input min='1' id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' value={formData.price} name="price"required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
                 <label>Discounted Price <span>*</span> </label>
-                <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice"required />
+                <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice" value={formData.discountPrice}required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
@@ -309,8 +319,9 @@ export default function Add() {
           
           <div className="prevnextbtn">
                   <button onClick={prev} className='btnadd'>Back</button>
-                  <button className='btnaddproperty' onClick={handleSubmit}>Add Property</button>
+                  <button disabled={loading} className='btnaddproperty' onClick={handleSubmit}>{loading ? 'loading...' : 'Add Property'}</button>
         </div>
+        {error && <p>{error}</p>}
          
         </div>
       )}

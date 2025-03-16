@@ -138,16 +138,18 @@
   color: #003366;
 }
 
-.typesqrt{
+.typesqrt,.bhkfloor{
   display: flex;
   flex-direction: row;
 gap:2rem;
 }
-.property-transaction{
+.property-transaction,.propertybhk,.propertyfloor{
   font-weight: bold;
   font-size: 1.5rem;
   color:#0f0c3cea;
 }
+
+
 .desc{
   color:rgb(98, 99, 99);
   font-size: 1rem;

@@ -22,6 +22,7 @@ import Properties from "./routes/Properties/Properties";
 import Single_property from "./components/Individual_Property/Single_property";
 
 
+
 function App() {
   return ( 
     <>
@@ -49,6 +50,7 @@ function App() {
             <Route path="/admin/navbar" element={<AdminNavbar/>} />
             <Route path="/admin/properties" element={<Project/>}/>
             <Route path="/admin/addProperty" element={<Add/>} />
+            
             <Route path="/admin/property/updateProperty/:id" element={<Update/>} />
       </Route>
         <Route path="/admin" element={<AdminLogin/>} />

@@ -14,6 +14,8 @@ export default function Update() {
       propertyName: '',
       propertyType: '',
       transactionType: '',
+      bhk:'',
+      floor:'',
       areaSqft:0,
       desc:'',
       amenities:'',
@@ -21,9 +23,7 @@ export default function Update() {
       bathrooms:0,
       price: 0,
       discountPrice:0,
-      houseno:"",
-      buildingName:'',
-      streetName:'',
+      address:'',
       area:'',
       city:'',
     });
@@ -145,6 +145,17 @@ const handleImageUpload = async (e) => {
                         <option  value="Rent">Rent</option>
                         <option  value="Sale">Sale</option>
                     </select>
+                    <label>BHK <span>*</span> </label>
+                <select onChange={handleChange} name='bhk' ref={selectRef}  id='bhk' value={formData.bhk}  required>
+                    <option value="">Select...</option>
+                    <option value="1 BHk">1BHK</option>
+                    <option value="2 BHk">2BHK</option>
+                    <option value="3 BHk">3BHK</option>
+                </select>
+
+                <label>Floor<span>*</span> </label>
+                <input id='floor' onChange={handleChange} type="number" value={formData.floor} placeholder={formData.floor} name="floor"required />
+              
                     {/* area sqft */}
                     <label>Area(Sq.ft) <span>*</span> </label>
                     <input id='areaSqft' onChange={handleChange} type="text" value={formData.areaSqft} placeholder={formData.areaSqft} name="areaSqft"required />
@@ -157,6 +168,9 @@ const handleImageUpload = async (e) => {
                    {/* bathrooms */}
                     <label>Bathrooms <span>*</span> </label>
                     <input min='1' id='bathrooms' onChange={handleChange} type="text" placeholder={formData.bathrooms} value={formData.bathrooms} name="bathrooms"required />
+                 
+                  
+                
                     {/* Amenities */}
                     <label>Amenities </label>
                     <input id='amenities' onChange={handleChange} type="text" placeholder={formData.amenities} value={formData.amenities} name="amenities"required />
@@ -177,14 +191,14 @@ const handleImageUpload = async (e) => {
                    
                     {/* location */}
                     <h3>Property Location</h3>
-                    <label>Flat/House No. <span>*</span></label>
+                    {/* <label>Flat/House No. <span>*</span></label>
               <input type="text" id='houseno' onChange={handleChange} placeholder={formData.houseno} value={formData.houseno} name="houseno" required />
     
               <label>Building Name <span>*</span></label>
               <input type="text" id='buildingName  ' onChange={handleChange} placeholder={formData.buildingName} value={formData.buildingName} name="buildingName" />
-    
-              <label>Street Address <span>*</span></label>
-              <input type="text" id='streetName' onChange={handleChange} name="streetName"placeholder={formData.streetName} value={formData.streetName} required />
+     */}
+              <label>address<span>*</span></label>
+              <input type="text" id='address' onChange={handleChange} name="address"placeholder={formData.address} value={formData.address} required />
               <label>Area <span>*</span></label>
               <input  type="text" id='area' onChange={handleChange} placeholder={formData.area} name="area" value={formData.area}required />
               <label>City <span>*</span></label>
@@ -203,7 +217,7 @@ const handleImageUpload = async (e) => {
                 <h3>{formData.propertyName}</h3>
                 <div className="loc">
                   <img className='locicon' src="/location_20.png" alt="" />
-                  <p>{formData.houseno} {formData.buildingName} {formData.streetName} {formData.area} {formData.city}  </p>
+                  <p>{formData.address} {formData.area} {formData.city}  </p>
                 </div>
                 <div className="price">
                   <p><FaRupeeSign/> {formData.discountPrice}</p>
@@ -222,7 +236,7 @@ const handleImageUpload = async (e) => {
               
               
              <div className="imageContain">
-             {formData.images.length > 0 &&
+             {Array.isArray(formData.images) && formData.images.length > 0 &&
                 formData.images.map((img,index) => (
                   <div
                     key={index}

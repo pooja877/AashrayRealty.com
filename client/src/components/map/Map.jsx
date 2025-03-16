@@ -45,7 +45,7 @@ export default function Map() {
                           )}
                     <div className="infocontain">
                     <h4>{property.propertyName}</h4>
-                    <span>{property.streetName} {property.area} {property.city}</span>
+                    <span>{property.address} {property.area} {property.city}</span>
                     <span>Type:{property.propertyType}</span>
                         <p className='Price'>₹{property.discountPrice}</p>
                         

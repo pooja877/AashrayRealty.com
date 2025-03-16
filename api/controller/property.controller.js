@@ -168,7 +168,7 @@ export const allProperty= async (req, res) => {
     res.status(500).json({ message: 'Server Error', error: error.message });
 }
 };
-// Upload Property Images to Cloudinary
+//Upload Property Images to Cloudinary
 export const uploadImage=async (req, res) => {
   try {
     const uploadedImages = [];
@@ -194,6 +194,8 @@ export const uploadImage=async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 }
+
+
 
 export const deleteImage=async (req,res)=>{
   try {
@@ -222,6 +224,8 @@ export const addProperty=async (req,res,next)=>{
     propertyName,
     propertyType,
     transactionType,
+    bhk,
+    floor,
     areaSqft,
     desc,
     amenities,
@@ -229,31 +233,33 @@ export const addProperty=async (req,res,next)=>{
     bathrooms,
     price,
     discountPrice,
-    houseno,
-    buildingName,
-    streetName,
+    address,
     area,
     city}=req.body;
+    
 
   try{
     
-      const newProperty = new Property({ images,
-    propertyName,
-    propertyType,
-    transactionType,
-    areaSqft,
-    desc,
-    amenities,
-    bedrooms,
-    bathrooms,
-    price,
-    discountPrice,
-    houseno,
-    buildingName,
-    streetName,
-    area,
-    city,}); 
+      const newProperty = new Property({ 
+        images,
+        propertyName,
+        propertyType,
+        transactionType,
+        bhk,
+        floor,
+        areaSqft,
+        desc,
+        amenities,
+        bedrooms,
+        bathrooms,
+        price,
+        discountPrice,
+        address,
+        area,
+        city}); 
+        
       await newProperty.save();
+      console.log("new:",newProperty);
       res.status(201).json({ message: "Property added successfully!" });
     }
     catch(error)
