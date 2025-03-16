@@ -102,35 +102,57 @@ export default function SingleProperty() {
             {/* left side */}
            <div className="property-leftside">
 
+              <div className="infopro">
+                
             {/* title & price */}
                <div className="titlePrice">
                <h2 className="property-title">{formData.propertyName}</h2>
                <p className="property-price">
-               <FaRupeeSign className="icon" /> <span className="original-price">{formData.discountPrice}</span> </p>
+               <FaRupeeSign className="rupeeicon" /> <span className="original-price">{formData.discountPrice} {formData.transactionType === "Rent" ? "/month" : ""}</span> </p>
                </div>
                <div className="bathbedrooms">
                        <p><FaBed className="icon" /> {formData.bedrooms} Bedrooms</p>
           <p><FaBath className="icon" /> {formData.bathrooms} Bathrooms</p>
                </div>
-               <div className="typesqrt">
-               <p className="property-type">
-          <FaBuilding className="icon" /> {formData.propertyType}
-        </p>
-        <p className="property-transaction">
-          <FaTag className="icon" /> {formData.transactionType}
-        </p>
-        
-        <p className="property-area">
-          <FaRulerCombined className="icon" /> {formData.areaSqft} sqft
-        </p>
-               </div>
-               <div className="bhkfloor">
-                <p className='propertybhk'>
-                  {formData.bhk}</p>
-                <p className='propertyfloor'>{formData.floor}</p>
-               </div>
+
+               {/* types and sqrt area */}
+            <div className="type-floor">
+            <div className="typesqrt">
+              
+               
+              <p className="property-type">
+              <span className='hedpro'>Property Type</span>
+        <span><FaBuilding className="icon" /> {formData.propertyType}</span> 
+       </p>
+
+       <p className="property-transaction">
+       <span className='hedpro'>Selling Type</span>
+        <span><FaTag className="icon" /> {formData.transactionType} </span> 
+       </p>
+       
+       <p className="property-area">
+       <span className='hedpro'>Area</span>
+       <span> <FaRulerCombined className="icon" /> {formData.areaSqft} sqft</span>
+       </p>
+
+     
+       </div>
+       <div className="floorbhk">
+       <p className="propertybhk">
+       <span className='hedpro'>BHk Configures</span>
+       <span> {formData.bhk}</span>
+       </p>
+
+       <p className="propertyfloor">
+       <span className='hedpro'>Floor</span>
+       <span> {formData.floor} Floor</span>
+       </p>
+       </div>
+            </div>
+               
                <div className="desc">
                <p>{formData.desc}</p>
+               </div>
                </div>
       <button className='book-btn'>Book Property</button>
 
@@ -139,6 +161,7 @@ export default function SingleProperty() {
            <div className="property-rightside">
            <div className="property-amenities">
           <h3>Amenities</h3>
+          <hr />
           {formData.amenities.split(",").map((amenity, index) => {
             const key = amenity.trim().toLowerCase(); // Convert to lowercase
             return (

@@ -259,7 +259,6 @@ export const addProperty=async (req,res,next)=>{
         city}); 
         
       await newProperty.save();
-      console.log("new:",newProperty);
       res.status(201).json({ message: "Property added successfully!" });
     }
     catch(error)

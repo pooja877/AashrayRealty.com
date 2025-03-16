@@ -12,7 +12,7 @@
     gap: 1rem;
     width: 100%;
     background: linear-gradient(#fdf9f9, #dddbdb);
-    padding: 1rem;
+    padding: 0.5rem;
     
     
   }
@@ -36,6 +36,8 @@
   /* Property Card */
   .contain {
     background: white;
+    height: fit-content;
+    /* width:fit-content; */
     border-radius: 0.5rem;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     padding: 1rem;

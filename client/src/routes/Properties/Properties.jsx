@@ -57,8 +57,8 @@ export default function Properties() {
                                     <FaMapMarkerAlt />
                                     <p>{property.address} {property.area} {property.city}</p>
                                 </div>
-                               <p className='protype'>{property.transactionType}</p>
-                                <div className="price"><FaRupeeSign />{property.discountPrice}</div>
+                               <p className='protype'>For {property.transactionType}</p>
+                                <div className="price"><FaRupeeSign />{property.discountPrice} {property.transactionType === "Rent" ? "/month" : ""}</div>
                             </div>
                         </div>
                     ))

@@ -126,7 +126,6 @@ export default function Add() {
         body: JSON.stringify(formData),
       });
       
-      console.log(formData);
       const data = await res.json();
       
       setLoading(false);
