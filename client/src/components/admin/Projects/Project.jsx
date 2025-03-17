@@ -1,4 +1,3 @@
-import Map from "../../map/Map"
 import AdminNavbar from "../adminNavbar/AdminNavbar"
 import { useState, useEffect } from 'react';
 import './Project.css'
@@ -87,8 +86,6 @@ export default function Project() {
                     <p>No properties found.</p>
                 )}
             </div>
-          
-        <div className="map"><Map/></div>
       </div>
       </>
   )

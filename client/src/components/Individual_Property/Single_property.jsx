@@ -115,8 +115,19 @@ export default function SingleProperty() {
             {/* title & price */}
                <div className="titlePrice">
                <h2 className="property-title">{formData.propertyName}</h2>
-               <p className="property-price">
-               <FaRupeeSign className="rupeeicon" /> <span className="original-price">{formData.discountPrice} {formData.transactionType === "Rent" ? "/month" : ""}</span> </p>
+                                  <p className="property-price">
+                      <FaRupeeSign className="rupeeicon" /> 
+                      {formData.discountPrice ? (
+                        <>
+                          <span className="strike">{formData.price}</span> 
+                          <span className="discount-price">{formData.discountPrice} {formData.transactionType === "Rent" ? "/month" : ""}</span>
+                        </>
+                      ) : (
+                        <span className="original-price">{formData.price} {formData.transactionType === "Rent" ? "/month" : ""}</span>
+                      )}
+                    </p>
+               {/* <p className="property-price">
+               <FaRupeeSign className="rupeeicon" /> <span className="original-price">{formData.discountPrice} {formData.transactionType === "Rent" ? "/month" : ""}</span> </p> */}
                </div>
                <div className="bathbedrooms">
                        <p><FaBed className="icon" /> {formData.bedrooms} Bedrooms</p>

@@ -132,8 +132,19 @@
   text-transform: capitalize;
 }
 
+.strike {
+  text-decoration: line-through;
+  color: red;
+  margin-right: 5px;
+}
+.discount-price {
+  color: green;
+  font-weight: bold;
+}
 
-.property-price {
+
+.original-price
+ {
   font-size: 22px;
   font-weight: bold;
   color: #ff9900;
@@ -163,10 +174,10 @@ flex-direction: column;
   font-size: 1.2rem;
   color: #003366;
 }
-.rupeeicon{
+/* .rupeeicon{
   font-size: 1.2rem;
   color: #ff9900;
-}
+} */
 
 .type-floor{
   height:auto;

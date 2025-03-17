@@ -9,7 +9,9 @@
   a {
     transition: all 0.4s ease;
     cursor: pointer;
-    @media(max-width: 700px) {
+    font-weight: bold;
+    font-size: 16px;
+    @media(max-width: 730px) {
       display: none;
     }
 
@@ -44,11 +46,18 @@
       }
 
       span {
-        @media(max-width:700px) {
+        @media(max-width:730px) {
           display: initial;
         }
       }
     }
+  }
+  .gotowebsite{
+   
+    /* color: rgb(18, 82, 44); */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
   }
   .adminright {
 
@@ -73,6 +82,7 @@
       border-radius: 0.5rem;
       font-size: 1rem;
     } */
+
     .addProperty {
       background: linear-gradient(45deg, #2b7bd2, #00c6ff); /* Blue Gradient */
       color: white;
@@ -87,8 +97,16 @@
       @media(max-width: 1080px) {
        padding: 5px 7px;
       }
+     
+    
   
     }
+    @media(max-width: 1350px) {
+      .addProperty{
+        padding: 5px 5px;
+        text-align: center;
+      }
+     }
     
     .addProperty:hover {
       background: linear-gradient(45deg, #0056b3, #0099cc); /* Darker Blue on Hover */
@@ -106,7 +124,7 @@
       border-radius: 0.5rem;
       font-size: 1rem;
     
-      @media(max-width: 700px) {
+      @media(max-width: 730px) {
         display: none;
       }
     }
@@ -123,7 +141,7 @@
         cursor: pointer;
       }
     
-      @media (max-width: 700px) {
+      @media (max-width: 730px) {
         display: inline;
       }
     }
@@ -149,7 +167,7 @@
         right: 0;
       }
     
-      @media (max-width: 738px) {
+      @media (max-width: 730px) {
         a {
           display: block;
           cursor: pointer;

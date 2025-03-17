@@ -1,0 +1,135 @@
+/* Main container */
+.mainalluseradmincontrol {
+    height: 100vh;
+    overflow-y: scroll;
+    width: 100%;
+    background-color: rgb(245, 251, 253);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 5rem;
+    padding-top: 5rem;
+    
+    
+  }
+  
+  /* Admin Table Container */
+  .admintable {
+   margin-top: 1rem;
+    width: 90%;
+    max-width: 1200px;
+    height: fit-content;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+  }
+  
+  /* Header Section: Keep Heading & Search Box Together */
+  .adminheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;  /* Prevents breaking */
+    margin-bottom: 15px;
+  }
+  
+  /* Heading */
+  .headuser {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap; 
+    margin-bottom: 1rem;/* Prevents text from breaking */
+  }
+  
+  /* Search Box */
+  .searchbox {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  
+  /* Table */
+  .table-container {
+    overflow-x: auto; /* Enables horizontal scrolling */
+    width: 100%;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    text-transform: capitalize;
+  }
+  
+  th {
+    background: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  /* Responsive Table: Keep Header & Search Box Fixed */
+  @media (max-width: 768px) {
+    .mainalluseradmincontrol{
+        align-items: normal;
+    }
+    .adminheader {
+      flex-direction: column; /* Stack heading and search box */
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .searchbox {
+      width: 100%; /* Full width on small screens */
+    }
+  
+    .table-container {
+      overflow-x: auto;
+    }
+  }
+  
+  /* Buttons */
+
+  .deleteuserbtn {
+    padding: 6px 12px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    background: #dc3545;
+    color: white;
+  }
+  
+  
+ 
+  /* Pagination */
+  .pagination {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .pagination button {
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .pagination button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  

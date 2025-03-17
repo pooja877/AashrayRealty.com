@@ -15,11 +15,13 @@ import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/Reset/Reset";
 import AdminDashboard from "./components/admin/dashboard/Dashboard";
 import AdminNavbar from "./components/admin/adminNavbar/AdminNavbar";
-import Project from "./components/admin/Projects/Project";
+// import Project from "./components/admin/Projects/Project";
 import Add from "./components/PropertyFunc/Add/Add";
 import Update from "./components/PropertyFunc/Update/Update";
 import Properties from "./routes/Properties/Properties";
 import Single_property from "./components/Individual_Property/Single_property";
+import TableProperty from "./components/propertytable/TableProperty";
+import TableUser from "./components/admin/Users/TableUser";
 
 
 
@@ -48,10 +50,11 @@ function App() {
       <Route element={<Privateadmin/>}>
             <Route path="/admin/dashboard" element={<AdminDashboard/>} />
             <Route path="/admin/navbar" element={<AdminNavbar/>} />
-            <Route path="/admin/properties" element={<Project/>}/>
+            {/* <Route path="/admin/properties" element={<Project/>}/> */}
             <Route path="/admin/addProperty" element={<Add/>} />
-            
+            <Route path="/admin/properties" element={<TableProperty/>}/>
             <Route path="/admin/property/updateProperty/:id" element={<Update/>} />
+            <Route path="/admin/users" element={<TableUser/>} />
       </Route>
         <Route path="/admin" element={<AdminLogin/>} />
     </Routes>

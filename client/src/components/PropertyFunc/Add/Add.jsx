@@ -1,10 +1,10 @@
 // import { useNavigate } from 'react-router-dom';
 import './Add.css';
-import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
 import {  useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Locationform from '../../Locationform/Locationform';
 import { FaCloudUploadAlt } from 'react-icons/fa';
+import AdminNavbar from '../../admin/adminNavbar/AdminNavbar';
 
 export default function Add() {
   const fileRef = useRef(null);
@@ -43,41 +43,7 @@ export default function Add() {
   
 };
 
-  // const handleImageUpload =async (e) => {
-  //   const files = e.target.files;
-  //   if (!files.length) return;
-
-  //   const form = new FormData();
-  //   for (let file of files) {
-  //     form.append("images", file);
-  //   }
-
-  //   try{
-
-  //   const response = await fetch("/api/property/upload", {
-  //     method: "POST",
-  //     body: form,
-  //   });
-
-  //   const data = await response.json();
-  //   if (response.ok) {
-  //    // setFormData((prev) => ({ ...prev, imageUrls: [...prev.imageUrls, ...data.urls] }));
-  //      // Store both URL & public_id
-      
-  //     setFormData((prev) => ({
-  //       ...prev,
-  //       images: [...prev.images, ...data.images],
-  //     }));
-      
-  //   } else {
-  //     console.error("Upload failed:", data.error);
-  //   }
-  // }
-  //   catch (error) {
-  //     console.error("Error uploading images:", error);
-  //   }
-  // };
-
+ 
 
  const handleImageUpload = async (e) => {
   const files = e.target.files;

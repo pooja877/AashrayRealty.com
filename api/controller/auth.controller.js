@@ -92,36 +92,6 @@ export const signup = async (req, res, next) => {
 };
 
 
-// export const verifyEmail = async (req, res) => {
-//   try {
-//     const { token } = req.params;
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-//     // Check if the user is already verified
-//     const existingUser = await User.findOne({ email: decoded.email });
-//     if (existingUser) {
-//       return res.send(`<script>alert("Your account is already verified!"); window.location.href = "http://localhost:5173/signin";</script>`);
-//     }
-
-//     // Create and store user in database
-//     const newUser = new User({
-//       username: decoded.username,
-//       email: decoded.email,
-//       password: decoded.password, // Already hashed in signup
-//       isVerified: true,
-//     });
-
-//     await newUser.save();
-
-//     // Send alert message before redirecting
-//     res.send(`<script>alert("Your account has been created successfully! You can now sign in."); window.location.href = "http://localhost:5173/signin";</script>`);
-
-//   } catch (error) {
-//     res.send(`<script>alert("Invalid or expired token!"); window.location.href = "http://localhost:5173/signup";</script>`);
-//   }
-// };
-
-
 
 
 // export const signup = async(req,res,next) =>{

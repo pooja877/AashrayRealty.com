@@ -15,7 +15,6 @@ const propertySchema = new mongoose.Schema({
    },
    bhk: {
       type: String, // Example: "1BHK", "2BHK", "3BHK"
-      required: true
    },
    floor: {
       type: String, // Example: Floor number

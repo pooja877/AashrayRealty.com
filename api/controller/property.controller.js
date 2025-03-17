@@ -82,42 +82,6 @@ export const deleteProperty = async (req, res) => {
       res.status(500).json({ message: "Error deleting property", error });
   }
 };
-// export const getAllProperties = async (req, res) => {
-//   try {
-//       const properties = await Property.find({});
-//       const updatedProperties = await Promise.all(
-//           properties.map(async (property) => {
-//               // Combine address parts into a full address
-//               const fullAddress = `${property.streetName},${property.area},${property.city},Gujarat,India`.trim().replace(/\s+/g," ");
-//               const encodedAddress = encodeURIComponent(fullAddress);
-//                const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}`;
-             
-             
-             
-//               const response = await fetch(url);
-//               const data = await response.json();
-              
-             
-//               if (data.length > 0) {
-//                   const location = data[0];
-                  
-//                   return {
-//                       ...property.toObject(),
-//                       latitude: parseFloat(location.lat),
-//                       longitude: parseFloat(location.lon),
-//                   };
-                
-//               }
-
-//               return property.toObject();
-//           })
-//       );
-
-//       res.status(200).json(updatedProperties);
-//   } catch (error) {
-//       res.status(500).json({ message: "Error fetching properties", error });
-//   }
-// };
 
 
 export const getAllProperties = async (req, res) => {

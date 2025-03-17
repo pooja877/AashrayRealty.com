@@ -26,8 +26,10 @@ export default function AdminNavbar() {
 
        {/* right side */}
         <div className="adminright">
+        
+        <a href="/" className='gotowebsite'>Home</a>
         <a href="/admin/dashboard">Dashboard</a> 
-             <a href='/admin/dashboard'>users</a>
+             <a href='/admin/users'>Users</a>
             <a href="/admin/properties">Properties</a>
             <a href="/admin/addProperty" className='addProperty'>+ Add Property</a>
             <button onClick={handleLogout} className='logoutadmin'>Logout</button>
@@ -41,9 +43,9 @@ export default function AdminNavbar() {
           />
         </div>
         <div className={open ? "menu active" : "menu"}>  
-         
+        <a href="/" className='addProperty'> Go to Website</a>
         <a href="/admin/dashboard">Dashboard</a> 
-        <a href='/admin/dashboard'>users</a>
+        <a href='/admin/users'>Users</a>
             <a href="/admin/properties">Properties</a>
             <a href="/admin/addProperty">Add Property</a>
             <button className='logoutadmin' onClick={handleLogout}>Logout</button>
