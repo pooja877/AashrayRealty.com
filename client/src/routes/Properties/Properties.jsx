@@ -50,7 +50,7 @@ export default function Properties() {
                                         className="imageConatiner"
                                         src={property.images[0].url}
                                         alt="Property"
-                                                                            />
+                                        onClick={() => navigate(`/Properties/${property._id}`)}                                   />
                                 )}
                                 <FaHeart
                                     className={`likeButton ${likedProperties[property._id] ? 'liked' : 'unliked'}`}
