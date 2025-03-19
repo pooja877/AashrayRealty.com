@@ -19,7 +19,7 @@ function Navbar()
             </a>
             <a href="/">Home</a> 
             <a href="/about">About us</a>
-            <a href="/">Contact us</a>
+            <a href="/contactus">Contact us</a>
             <a href="/properties">Properties</a>
        </div>
 
@@ -41,7 +41,7 @@ function Navbar()
          
           <a href="/">Home</a>
           <a href="/about">About</a>
-          <a href="/">Contact</a>
+          <a href="/contactus">Contact</a>
           <a href="/properties">Properties</a>
           {/* <a href="/signin">Sign in</a> */}
           {currentUser? (<a href="/profile">Profile</a>):(<a href="/signin">Sign in</a>)}

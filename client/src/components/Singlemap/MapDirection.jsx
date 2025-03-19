@@ -43,7 +43,16 @@ export default function MapDirection( ) {
                 <h4>{property.propertyName}</h4>
                 <span>{property.address}, {property.area}, {property.city}</span>
                 <span>Type: {property.propertyType}</span>
-                <p className="ind-price">₹{property.discountPrice}</p>
+                <p className="ind-price">{property.discountPrice ? (
+                        <>
+                          <span className="strike">{property.price}</span> 
+                          <span className="discountprice">{property.discountPrice} {property.transactionType === "Rent" ? "/month" : ""}</span>
+                        </>
+                      ) : (
+                        <span className="originalprice">{property.price} {property.transactionType === "Rent" ? "/month" : ""}</span>
+                      )}
+                      </p>
+                      
               </div>
             </div>
           </Popup>

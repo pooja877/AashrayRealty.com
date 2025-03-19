@@ -363,12 +363,12 @@ export default function Add() {
                    {/* bedrooms */}
                  <div className="bedbathadd">
                  <label>Bedrooms <span>*</span> </label>
-                 <input min='1'id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms" value={formData.bedrooms}required />
+                 <input min='1'id='bedrooms' onChange={handleChange} type="number" placeholder='Enter number of bedrooms' name="bedrooms" required />
                  </div>
                {/* bathrooms */}
                <div className="bedbathadd">
                 <label>Bathrooms <span>*</span> </label>
-                <input min='1' id='bathrooms' onChange={handleChange} type="number" placeholder='Enter number of bathrooms' name="bathrooms" value={formData.bathrooms}required />
+                <input min='1' id='bathrooms' onChange={handleChange} type="number" placeholder='Enter number of bathrooms' name="bathrooms" required />
                 </div>
                 </div>
                 
@@ -384,14 +384,14 @@ export default function Add() {
                <div className="priceadddata">
               <div className="priceadd">
               <label>Price <span>*</span> </label>
-                <input min='1' id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' value={formData.price} name="price"required />
+                <input min='1' id='price' onChange={handleChange}  type="number" placeholder='Enter Property Price' name="price"required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}
               </div>
               <div className="priceadd">
               <label>Discounted Price</label>
-                <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice" value={formData.discountPrice}required />
+                <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder='Enter discounted price' name="discountPrice" required />
                 {formData.transactionType === 'Rent' && (
                     <span>(₹ / month)</span>
                   )}

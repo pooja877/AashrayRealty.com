@@ -47,7 +47,16 @@ export default function Map() {
                     <h4>{property.propertyName}</h4>
                     <span>{property.address} {property.area} {property.city}</span>
                     <span>Type:{property.propertyType}</span>
-                        <p className='Price'>₹{property.discountPrice}</p>
+                       
+                    <p className="Price">₹{property.discountPrice ? (
+                        <>
+                          <span className="strike">{property.price}</span> 
+                          <span className="discountrice">{property.discountPrice} {property.transactionType === "Rent" ? "/month" : ""}</span>
+                        </>
+                      ) : (
+                        <span className="originalrice">{property.price} {property.transactionType === "Rent" ? "/month" : ""}</span>
+                      )}
+                      </p>
                         
                     </div>
                     

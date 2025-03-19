@@ -22,6 +22,7 @@ import Properties from "./routes/Properties/Properties";
 import Single_property from "./components/Individual_Property/Single_property";
 import TableProperty from "./components/propertytable/TableProperty";
 import TableUser from "./components/admin/Users/TableUser";
+import ContactUs from "./components/ContactUs/ContactUs";
 
 
 
@@ -35,6 +36,7 @@ function App() {
       <Route path="/About" element={<AboutUs/>}/>
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/signin" element={<Signin/>}/>
+      <Route path="/contactus" element={<ContactUs/>}/>
       {/* <Route path="/verifyemail" element={<Verifyemail/>}/> */}
       {/* profile page and it open when user is login */}
       <Route element={<PrivateRoute/>}>

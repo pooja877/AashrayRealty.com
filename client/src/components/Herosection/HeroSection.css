@@ -1,0 +1,194 @@
+/* Hero Section */
+.hero-section {
+    position: relative;
+    color: white;
+    overflow: hidden;
+    padding: 4rem 0;
+    text-align: center;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+}
+
+.city-silhouette {
+    position: absolute;
+    inset: 0;
+    background: url('http://www.pixelstalk.net/wp-content/uploads/2016/10/Tower-building-1920x1080-wallpaper.jpg') no-repeat center/cover;
+    opacity: 0.3;
+}
+
+.hcontainer {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Hero Content */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.hero-text {
+    max-width: 600px;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+/* Search Box */
+.searchherobox {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 500px;
+    width: 100%;
+}
+
+.search-tabs {
+    display: flex;
+    font-size: 0.9rem;
+    color: #444;
+    background: #f0f0f0;
+}
+
+.search-tab {
+    flex: 1;
+    padding: 1rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    transition: 0.3s;
+}
+
+.search-tab.active {
+    background: #6a11cb;
+    color: white;
+    font-weight: bold;
+}
+
+.search-input {
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+}
+
+/* Input */
+.input-wrapper {
+    flex-grow: 1;
+    position: relative;
+    cursor: pointer;
+}
+
+.city-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.input-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+/* Dropdown */
+.city-dropdown {
+    position: absolute;
+    left: 10px;
+    right: 0;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+    z-index: 100;
+    width: 200px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.city-search {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
+}
+
+.city-list {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.city-item {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: black;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.city-item:hover {
+    background: #f0f0f0;
+}
+
+/* Search Button */
+.searchherobutton {
+    background: #28a745;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.searchherobutton:hover {
+    background: #218838;
+}
+
+/* Hero Image */
+.hero-image img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .hero-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .hero-text {
+        text-align: left;
+    }
+    .searchherobox {
+        /* max-width: 600px; */
+        width: 100%;
+    }
+}
