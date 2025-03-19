@@ -11,7 +11,7 @@
 .city-silhouette {
     position: absolute;
     inset: 0;
-    background: url('http://www.pixelstalk.net/wp-content/uploads/2016/10/Tower-building-1920x1080-wallpaper.jpg') no-repeat center/cover;
+    background: url('/hero.jpg') no-repeat center/cover;
     opacity: 0.3;
 }
 
@@ -61,14 +61,14 @@
     width: 100%;
 }
 
-.search-tabs {
+.searchtabs {
     display: flex;
     font-size: 0.9rem;
     color: #444;
     background: #f0f0f0;
 }
 
-.search-tab {
+.searchtab {
     flex: 1;
     padding: 1rem;
     cursor: pointer;
@@ -77,13 +77,13 @@
     transition: 0.3s;
 }
 
-.search-tab.active {
+.searchtab.active {
     background: #6a11cb;
     color: white;
     font-weight: bold;
 }
 
-.search-input {
+.searchinput {
     display: flex;
     padding: 1rem;
     align-items: center;

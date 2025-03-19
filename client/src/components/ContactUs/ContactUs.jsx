@@ -20,7 +20,8 @@ const ContactUs = () => {
     };
 
     return (
-        <section id="contact" className="contact-section">
+       <div className="contactrapper">
+         <section id="contact" className="contact-section">
             <div className="container">
                 <div className="contact-wrapper">
                     {/* Left Section */}
@@ -110,6 +111,7 @@ const ContactUs = () => {
                 </div>
             </div>
         </section>
+       </div>
     );
 };
 

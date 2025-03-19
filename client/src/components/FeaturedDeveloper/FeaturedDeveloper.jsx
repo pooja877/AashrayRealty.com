@@ -39,7 +39,7 @@ const FeaturedDeveloper = () => {
                         />
                         <div className="image-overlay">
                             <div className="image-text">
-                                <h3 className="property-title">Assetz Marq 2.0</h3>
+                                <h3 className="propertytitle">Assetz Marq 2.0</h3>
                                 <p className="property-description">Luxury apartments in East Bangalore with premium amenities</p>
                                 <div className="button-group">
                                     <button className="view-details-btn">View Details</button>

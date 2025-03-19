@@ -36,10 +36,11 @@ export default function Footercompo() {
             <h3 className="footer-title">Company</h3>
             <ul className="footer-list">
               <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
+              <li><a href="/contactus">Contact Us</a></li>
               <li><a href="#">News</a></li>
               <li><a href="#">Terms & Conditions</a></li>
               <li><a href="#">Privacy Policy</a></li>
+              <li><a href="/FAQ">FAQ</a></li>
             </ul>
           </div>
 
@@ -51,7 +52,7 @@ export default function Footercompo() {
               <li><a href="#">Residential Property</a></li>
               <li><a href="#">Apartment/Flats</a></li>
               <li><a href="#">Commercial Property</a></li>
-              <li><a href="#">Home Loans</a></li>
+              <li><a href="#">EMI Calculator</a></li>
             </ul>
           </div>
 

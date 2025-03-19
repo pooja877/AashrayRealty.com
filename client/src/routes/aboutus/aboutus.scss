@@ -16,10 +16,10 @@ $cta-background: #eaf2f8;
   max-width: 1200px;
   margin: 0 auto;
   height:100vh;
+  overflow-y: scroll;
   background-color: $background-color;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  overflow:auto;
 
   /* Header Section */
   &-header {

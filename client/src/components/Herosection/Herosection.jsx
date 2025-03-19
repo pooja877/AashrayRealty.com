@@ -15,12 +15,12 @@ const Herosection = () => {
                         <p className="hero-subtitle">Seamless, secure, and stress-free property hunting.</p>
                         
                         <div className="searchherobox">
-                            <div className="search-tabs">
-                                <button className={`search-tab ${activeTab === "buy" ? "active" : ""}`} onClick={() => setActiveTab("buy")}>BUY</button>
-                                <button className={`search-tab ${activeTab === "rent" ? "active" : ""}`} onClick={() => setActiveTab("rent")}>RENT</button>
-                                <button className={`search-tab ${activeTab === "commercial" ? "active" : ""}`} onClick={() => setActiveTab("commercial")}>COMMERCIAL</button>
+                            <div className="searchtabs">
+                                <button className={`searchtab ${activeTab === "buy" ? "active" : ""}`} onClick={() => setActiveTab("buy")}>BUY</button>
+                                <button className={`searchtab ${activeTab === "rent" ? "active" : ""}`} onClick={() => setActiveTab("rent")}>RENT</button>
+                                <button className={`searchtab ${activeTab === "commercial" ? "active" : ""}`} onClick={() => setActiveTab("commercial")}>COMMERCIAL</button>
                             </div>
-                            <div className="search-input">
+                            <div className="searchinput">
                                 <div className="input-wrapper" onClick={() => setCityDropdown(!cityDropdown)}>
                                     <input type="text" placeholder="Select City" readOnly className="city-input" />
                                     <i className="fas fa-chevron-down input-icon"></i>
