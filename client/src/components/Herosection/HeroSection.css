@@ -102,6 +102,7 @@
     border: 1px solid #ddd;
     border-radius: 6px;
     cursor: pointer;
+    text-transform: capitalize;
 }
 
 .input-icon {
@@ -191,4 +192,38 @@
         /* max-width: 600px; */
         width: 100%;
     }
+}
+.searchinput {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.city-select,
+.area-select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.city-select:focus,
+.area-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.city-select option,
+.area-select option {
+    font-size: 14px;
+    padding: 5px;
 }

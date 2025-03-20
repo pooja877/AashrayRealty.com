@@ -5,7 +5,8 @@ import Footercompo from "../../components/Footer/Footercompo";
 import Herosection from "../../components/Herosection/Herosection";
 import News from "../../components/Newssection/News";
 import PropertyList from "../../components/PropertyList/PropertyList";
-import PropertySearch from "../../components/PropertySearch/PropertySearch";
+import PropertyTypes from "../../components/PropertyTypes/PropertyTypes";
+
 import Testimonials from "../../components/testimonialsData/Testimonials";
 
 import './Homepage.scss'
@@ -14,7 +15,7 @@ export default function Homepage() {
   return (
     <div className='mainhomeeepage'>
       <Herosection/>
-      <PropertySearch/>
+      <PropertyTypes/>
       <PropertyList/>
       <FeaturedDeveloper/>
       <Testimonials/>

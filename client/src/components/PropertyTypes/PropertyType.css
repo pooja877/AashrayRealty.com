@@ -1,0 +1,58 @@
+.propertytypesection {
+  padding: 3rem 0;
+}
+
+.typecontainer {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+.sectiontypetitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.propertytypegrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.propertytypecard {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.propertytypecard:hover {
+  transform: scale(1.05);
+}
+
+.imagetypecontainer {
+  position: relative;
+  height: 150px;
+}
+
+.propertytypeimage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.propertytypetitle {
+  font-size: 1.2rem;
+  color: #222;
+  margin: 1rem 0;
+}

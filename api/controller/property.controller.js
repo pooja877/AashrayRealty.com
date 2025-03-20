@@ -83,29 +83,52 @@ export const deleteProperty = async (req, res) => {
   }
 };
 
-
 export const getAllProperties = async (req, res) => {
   try {
-    const properties = await Property.find({});
-    
+    let filter = {};
+
+    if (req.query.city) {
+      filter.city = { $regex: new RegExp(`^${req.query.city}$`, "i") }; // Case-insensitive match
+    }
+    if (req.query.area) {
+      filter.area = { $regex: new RegExp(`^${req.query.area}$`, "i") }; // Case-insensitive match
+    }
+    if (req.query.transactionType) {
+      filter.transactionType = req.query.transactionType;
+    }
+
+    if (req.query.propertyType) {
+      filter.propertyType = req.query.propertyType;
+    }
+
+
+    const properties = await Property.find(filter);
+
     const updatedProperties = await Promise.all(
       properties.map(async (property) => {
+        if (property.latitude && property.longitude) {
+          return property.toObject();
+        }
+
         const fullAddress = `${property.area}, ${property.city}, Gujarat, India`.trim();
         const encodedAddress = encodeURIComponent(fullAddress);
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}`;
-        
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        if (data.length > 0) {
-          const location = data[0];
 
-          return {
-            ...property.toObject(),
-            latitude: parseFloat(location.lat),
-            longitude: parseFloat(location.lon),
-          };
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+
+          if (data.length > 0) {
+            return {
+              ...property.toObject(),
+              latitude: parseFloat(data[0].lat),
+              longitude: parseFloat(data[0].lon),
+            };
+          }
+        } catch (geoError) {
+          console.error("Error fetching geolocation:", geoError);
         }
+
         return {
           ...property.toObject(),
           latitude: null,
@@ -123,15 +146,33 @@ export const getAllProperties = async (req, res) => {
 
 
 
-
-export const allProperty= async (req, res) => {
+export const allProperty = async (req, res) => {
   try {
-    const properties = await Property.find(); // Fetch all properties
+    let filter = {};  
+
+    if (req.query.city) {
+      filter.city = { $regex: new RegExp(`^${req.query.city}$`, "i") }; // Case-insensitive match
+    }
+    if (req.query.area) {
+      filter.area = { $regex: new RegExp(`^${req.query.area}$`, "i") }; // Case-insensitive match
+    }
+    if (req.query.transactionType) {
+      filter.transactionType = req.query.transactionType;
+    }
+    if (req.query.propertyType) {
+      filter.propertyType = req.query.propertyType;
+    }
+
+    const properties = await Property.find(filter);
     res.status(200).json(properties);
-} catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message });
-}
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching properties", error });
+  }
 };
+
+
+
+
 //Upload Property Images to Cloudinary
 export const uploadImage=async (req, res) => {
   try {
@@ -232,4 +273,3 @@ export const addProperty=async (req,res,next)=>{
         next(error);
     }
 }
-

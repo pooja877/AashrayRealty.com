@@ -292,7 +292,7 @@ export default function Add() {
                 <select ref={selectRef} onChange={handleChange} value={formData.transactionType} id='transactionType'name='transactionType' required>
                     <option value="">Select...</option>
                     <option  value="Rent">Rent</option>
-                    <option  value="Sale">Sale</option>
+                    <option  value="Buy">Buy</option>
                 </select>
                 
                 </div>

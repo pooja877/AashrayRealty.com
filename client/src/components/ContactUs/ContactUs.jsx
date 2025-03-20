@@ -20,7 +20,6 @@ const ContactUs = () => {
     };
 
     return (
-       <div className="contactrapper">
          <section id="contact" className="contact-section">
             <div className="container">
                 <div className="contact-wrapper">
@@ -111,7 +110,7 @@ const ContactUs = () => {
                 </div>
             </div>
         </section>
-       </div>
+       
     );
 };
 

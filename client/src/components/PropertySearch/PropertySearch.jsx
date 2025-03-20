@@ -19,7 +19,6 @@ const PropertySearch = () => {
   return (
     <section className="property-search">
       <div className="search-container">
-        <h2 className="search-title">Find Your Perfect Property</h2>
         <div className="search-grid">
           <div>
             <label className="search-label">Location</label>

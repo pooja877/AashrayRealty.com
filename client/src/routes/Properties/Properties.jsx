@@ -1,6 +1,8 @@
 import Map from '../../components/map/Map';
 import { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import './Properties.css';
+// import PropertySearch from "../../components/PropertySearch/PropertySearch";
 import { useNavigate } from 'react-router-dom';
 import {  FaMapMarkerAlt, FaHeart } from "react-icons/fa";
 
@@ -8,22 +10,27 @@ export default function Properties() {
     const [properties, setProperties] = useState([]);
     const [likedProperties, setLikedProperties] = useState({});
     const navigate = useNavigate();
+    const location = useLocation(); 
 
     useEffect(() => {
         const fetchProperties = async () => {
             try {
-                const response = await fetch("/api/property/all");
+              
+                const response = await fetch(`/api/property/all${location.search}`);
+
+                if (!response.ok) throw new Error("Failed to fetch properties");
+        
                 const data = await response.json();
+                
                 setProperties(data);
             } catch (error) {
-                console.error('Error fetching properties:', error);
+                console.error("Error fetching properties:", error);
+                setProperties([]);
             }
         };
-
+        
         fetchProperties();
-        const storedLikes = JSON.parse(localStorage.getItem("likedProperties")) || {};
-        setLikedProperties(storedLikes);
-    }, []);
+    }, [location.search]); 
 
     const toggleLike = (id) => {
         // setLikedProperties(prev => ({
@@ -39,7 +46,9 @@ export default function Properties() {
 
     return (
         <div className="main-user-contain">
+         
             <div className="datapro">
+            {/* <PropertySearch/> */}
                 {properties.length > 0 ? (
                     properties.map((property) => (
                         <div className="contain" key={property._id} 
@@ -83,6 +92,7 @@ export default function Properties() {
                     <p>No properties found.</p>
                 )}
             </div>
+           
 
             <div className="mapall"><Map /></div>
         </div>
