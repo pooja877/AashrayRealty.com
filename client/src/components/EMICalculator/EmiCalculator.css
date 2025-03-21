@@ -1,0 +1,141 @@
+.maincontaincalemi{
+    height: 100vh;
+    width:100%;
+    overflow-y: scroll;
+    padding-bottom: 8rem;
+    background: linear-gradient(145deg,rgb(200, 242, 241),rgb(155, 155, 201));
+}
+.cal-container {
+    width: 80%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cal-header {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .cal-content {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color:rgba(255, 255, 255, 0.85);
+    padding: 20px; 
+  }
+ 
+  
+  .cal-box ,.cal-data-box {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+  }
+  .cal-data-box{
+   
+   span{
+    color:#274aa3;
+    font-weight: bold;
+    font-size: 1.5em;
+   }
+  }
+  
+  .cal-box label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .cal-box input {
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  .calemi {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: #274aa3;
+    font-size: 1.2rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .calemi :hover {
+    background: #274aa3;
+  }
+  
+  .cal-history {
+    /* margin-top: 30px; */
+    background-color:rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    .caltable {
+        background-color: white;
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 1rem;
+            text-align: center;
+          }
+          
+      }
+  }
+  
+ .caltable{
+    th {
+        background: #274aa3;
+        color: white;
+      }
+ }
+  
+ .cal-history {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    overflow-x: auto; /* Enables horizontal scrolling */
+}
+
+.caltable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: white;
+}
+
+.caltable th, 
+.caltable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.caltable th {
+    background: #274aa3;
+    color: white;
+}
+
+/* Responsive table for smaller screens */
+@media (max-width: 768px) {
+    .cal-history {
+        overflow-x: auto;
+    }
+
+    .caltable {
+        /* display: block; */
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+ 
+  @media (max-width: 768px) {
+    .cal-content {
+      flex-direction: column;
+    }
+  }
+  

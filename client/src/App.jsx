@@ -14,7 +14,7 @@ import  Privateadmin  from "./components/privateAdmin/Privateadmin";
 import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/Reset/Reset";
 import AdminDashboard from "./components/admin/dashboard/Dashboard";
-import AdminNavbar from "./components/admin/adminNavbar/AdminNavbar";
+// import AdminNavbar from "./components/admin/adminNavbar/AdminNavbar";
 // import Project from "./components/admin/Projects/Project";
 import Add from "./components/PropertyFunc/Add/Add";
 import Update from "./components/PropertyFunc/Update/Update";
@@ -27,6 +27,7 @@ import Faq from "./components/FAQ/Faq";
 import NewsTable from "./components/admin/NewsTable/NewsTable";
 import AdminNews from "./components/admin/adminNews/AdminNews";
 import Updatenews from "./components/admin/UpdateNews/Updatenews";
+import EmiCalculator from "./components/EMICalculator/EmiCalculator";
 
 
 
@@ -52,11 +53,12 @@ function App() {
       <Route path="/resetPassword/:token" element={<ResetPassword/>}/>
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
       <Route path="/properties" element={<Properties/>}/>
+      <Route path="/CalculateEmi" element={<EmiCalculator/>}/>
       <Route path="/Properties/:id" element={<Single_property/>}/>
       {/* for open admin panel admin can login and open it */}
       <Route element={<Privateadmin/>}>
             <Route path="/admin/dashboard" element={<AdminDashboard/>} />
-            <Route path="/admin/navbar" element={<AdminNavbar/>} />
+            {/* <Route path="/admin/navbar" element={<AdminNavbar/>} /> */}
             {/* <Route path="/admin/properties" element={<Project/>}/> */}
             <Route path="/admin/addProperty" element={<Add/>} />
             <Route path="/admin/properties" element={<TableProperty/>}/>
@@ -75,7 +77,7 @@ function App() {
 
  const ConditionalNavbar=()=>{
   const location=useLocation();
-  const hideNavbarRoutes=["/admin","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty"];
+  const hideNavbarRoutes=["/admin","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty","/admin/users","/admin/news","/admin/addNews","/admin/news/updatenews/:id"];
   // return !hideNavbarRoutes.includes(location.pathname)?<Navbar/>:null;
   const shouldHideNavbar=hideNavbarRoutes.some(route=>location.pathname.startsWith(route));
   return shouldHideNavbar?null:<Navbar/>;

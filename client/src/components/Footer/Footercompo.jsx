@@ -40,7 +40,6 @@ export default function Footercompo() {
               <li><a href="/contactus">Contact Us</a></li>
               <li><a href="#">News</a></li>
               <li><a href="#">Terms & Conditions</a></li>
-              <li><a href="#">Privacy Policy</a></li>
               <li><a href="/FAQ">FAQ</a></li>
             </ul>
           </div>
@@ -53,7 +52,7 @@ export default function Footercompo() {
               <li><a href="/properties?propertyType=Residential">Residential Property</a></li>
               <li><a href="/properties?propertyType=Apartment/Flat">Apartment/Flats</a></li>
               <li><a href="/properties?propertyType=Commercial">Commercial Property</a></li>
-              <li><a href="#">EMI Calculator</a></li>
+              <li><a href="/CalculateEmi">EMI Calculator</a></li>
             </ul>
           </div>
 

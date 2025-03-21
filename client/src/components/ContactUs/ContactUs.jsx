@@ -71,17 +71,6 @@ const ContactUs = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="phone">Phone Number</label>
-                                    <input
-                                        type="tel"
-                                        id="phone"
-                                        placeholder="Enter your Mobile No"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
                                     <label htmlFor="subject">Subject</label>
                                     <input
                                         type="text"
