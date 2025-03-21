@@ -24,6 +24,9 @@ import TableProperty from "./components/propertytable/TableProperty";
 import TableUser from "./components/admin/Users/TableUser";
 import Contact from "./components/ContactUs/Contact";
 import Faq from "./components/FAQ/Faq";
+import NewsTable from "./components/admin/NewsTable/NewsTable";
+import AdminNews from "./components/admin/adminNews/AdminNews";
+import Updatenews from "./components/admin/UpdateNews/Updatenews";
 
 
 
@@ -59,6 +62,9 @@ function App() {
             <Route path="/admin/properties" element={<TableProperty/>}/>
             <Route path="/admin/property/updateProperty/:id" element={<Update/>} />
             <Route path="/admin/users" element={<TableUser/>} />
+            <Route path="/admin/news" element={<NewsTable/>} />
+            <Route path="/admin/addNews" element={<AdminNews/>} />
+            <Route path="/admin/news/updatenews/:id" element={<Updatenews/>} />
       </Route>
         <Route path="/admin" element={<AdminLogin/>} />
     </Routes>

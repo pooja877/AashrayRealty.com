@@ -1,16 +1,16 @@
-/* Main container */
-.mainallproadmincontrol {
+
+.mainalladmincontrol {
     height: 100vh;
     overflow-y: scroll;
     width: 100%;
     background: linear-gradient(135deg, #f0e3ee, #c3ccde);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    flex-direction: column;
+    justify-content: center; 
+     align-items: center;
+    /* padding: 20px; */
     padding-bottom: 4rem;
     padding-top: 1rem;
-    flex-direction: column;
     
     
   }
@@ -26,7 +26,7 @@
   }
   
   
-  #addProperty {
+  #addddNews {
     background: linear-gradient(45deg, #2b7bd2, #00c6ff); /* Blue Gradient */
     color: white;
     font-size: 16px;
@@ -44,6 +44,7 @@
   
 
   }
+  
   
   /* Admin Table Container */
   .admin-table {

@@ -31,7 +31,8 @@ export default function AdminNavbar() {
         <a href="/admin/dashboard">Dashboard</a> 
              <a href='/admin/users'>Users</a>
             <a href="/admin/properties">Properties</a>
-            <a href="/admin/addProperty" className='addProperty'>+ Add Property</a>
+            <a href="/admin/news">News</a>
+            {/* <a href="/admin/addProperty" className='addProperty'>+ Add Property</a> */}
             <button onClick={handleLogout} className='logoutadmin'>Logout</button>
 
         {/* max-width is small */}

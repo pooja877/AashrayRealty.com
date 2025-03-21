@@ -79,6 +79,10 @@ const filteredProperties = properties.filter((prop) =>
     <>
      <AdminNavbar/>
    <div className="mainallproadmincontrol">
+   <div className="divaddnewscontain">
+   <div id='addProperty'onClick={()=>{navigate('/admin/addProperty')}}>Add Property</div>
+   </div>
+   
      <div className="admin-table">
       <h2 className='headpro'>Property List</h2>
 

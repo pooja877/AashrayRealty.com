@@ -6,6 +6,7 @@ import authRouter from './routes/auth.route.js';
 import adminRouter from './routes/admin.route.js';
 import cookieParser from 'cookie-parser';
 import propertyRouter from './routes/property.route.js';
+import newsRoutes from './routes/news.route.js';
 dotenv.config();
 
 mongoose
@@ -37,7 +38,8 @@ app.listen(3000,()=>{
     app.use('/api/user',userRouter);
      app.use('/api/auth', authRouter);
      app.use('/api/admin', adminRouter);
-     app.use('/api/property',propertyRouter)
+     app.use('/api/property',propertyRouter);
+     app.use("/api/news", newsRoutes);
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;

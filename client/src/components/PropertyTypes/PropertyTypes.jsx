@@ -11,7 +11,7 @@ const propertyTypes = [
     image: "https://img.freepik.com/premium-photo/modern-corporate-architecture-can-be-seen-cityscape-office-buildings_410516-276.jpg", // Random building image
   },
   {
-    type: "Apartment/Flats",
+    type: "Apartments/Flats",
     image: "https://cdn.confident-group.com/wp-content/uploads/2023/02/20122747/slider_pioneer.jpg", // Random apartment image
   },
 ];

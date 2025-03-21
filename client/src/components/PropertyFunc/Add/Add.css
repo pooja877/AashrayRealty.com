@@ -13,6 +13,7 @@
   width: 100%;
   overflow-y: scroll;
   padding-bottom: 5rem;
+  background: linear-gradient(135deg, #f0e3ee, #c3ccde);
 }
 
 
