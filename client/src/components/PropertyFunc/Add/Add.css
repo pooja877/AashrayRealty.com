@@ -16,7 +16,6 @@
   background: linear-gradient(135deg, #f0e3ee, #c3ccde);
 }
 
-
 .addcon {
 
   width: 70%;
@@ -160,7 +159,7 @@
   align-items: center;
   gap:0.4rem;
 
-  input {
+  input,select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;

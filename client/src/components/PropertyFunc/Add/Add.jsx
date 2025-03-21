@@ -13,6 +13,20 @@ export default function Add() {
   const selectRef=useRef();
   const [step, setStep] = useState(1);
   const navigate=useNavigate();
+  const areaOptions = {
+    Ahmedabad: [
+      "Satellite", "Bopal", "Narol", "Navrangpura", "Maninagar",
+      "Vastrapur", "Thaltej", "Naranpura", "Gota", "Prahlad Nagar",
+      "Ashram Road", "Chandkheda", "Iscon", "Shahibaug", "Memnagar",
+      "Jodhpur", "Ranip", "Ellis Bridge", "Paldi", "SG Highway"
+    ],
+    Gandhinagar: [
+      "Sector 1", "Sector 7", "Sector 11", "Sector 21",
+      "Sector 27", "Infocity", "Adalaj", "Kudasan",
+      "Sargasan", "Pethapur"
+    ]
+  };
+  
   const [formData, setFormData ] = useState({
     images:[],
     propertyName: '',
@@ -150,8 +164,27 @@ export default function Add() {
         <div className="form-step">
           <div className="addaddressside">
           <div className="leftaddside">
-          <input  type="text" id='city'   value={formData.city} onChange={handleChange} placeholder='Enter name of city' name="city"required />
-          <input  type="text" id='area'   value={formData.area} onChange={handleChange} placeholder='Enter name of area ' name="area"required />
+          {/* <input  type="text" id='city'   value={formData.city} onChange={handleChange} placeholder='Enter name of city' name="city"required /> */}
+          
+          {/* <select onChange={handleChange} name='city' value={formData.city}  required>
+           <option value="">Select City</option>
+            <option value="Ahmedabad">Ahmedabad</option>
+            <option value="Gandhinagar">Gandhinagar</option>
+      </select> */}
+           <select name='city' value={formData.city} onChange={handleChange} required>
+                <option value="">Select City</option>
+                {Object.keys(areaOptions).map(city => (
+                  <option key={city} value={city}>{city}</option>
+                ))}
+              </select>
+              <select name='area' value={formData.area} onChange={handleChange} required>
+                <option value="">Select Area</option>
+                {areaOptions[formData.city]?.map(area => (
+                  <option key={area} value={area}>{area}</option>
+                ))}
+              </select>
+        
+          {/* <input  type="text" id='area'   value={formData.area} onChange={handleChange} placeholder='Enter name of area ' name="area"required /> */}
           <input type="text" id='address'value={formData.address} onChange={handleChange} placeholder="Enter property address (houseno,buildingname,streetname)"name="address" required />
 
           </div>

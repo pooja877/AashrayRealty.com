@@ -73,18 +73,26 @@ const Herosection = () => {
         >
             <option value="">Select Area</option>
             {selectedCity === "Ahmedabad" && (
-                <>
-                    <option value="Satellite">Satellite</option>
-                    <option value="Bopal">Bopal</option>
-                    <option value="Narol">Narol</option>
-                    <option value="Navrangpura">Navrangpura</option>
-                    <option value="Maninagar">Maninagar</option>
-                    <option value="Vastrapur">Vastrapur</option>
-                    <option value="Thaltej">Thaltej</option>
-                    <option value="Naranpura">Naranpura</option>
-                    <option value="Gota">Gota</option>
-                    <option value="Prahlad Nagar">Prahlad Nagar</option>
-                    <option value="Ashram Road">Ashram Road</option>
+                <><option value="Satellite">Satellite</option>
+                <option value="Bopal">Bopal</option>
+                <option value="Narol">Narol</option>
+                <option value="Navrangpura">Navrangpura</option>
+                <option value="Maninagar">Maninagar</option>
+                <option value="Vastrapur">Vastrapur</option>
+                <option value="Thaltej">Thaltej</option>
+                <option value="Naranpura">Naranpura</option>
+                <option value="Gota">Gota</option>
+                <option value="Prahlad Nagar">Prahlad Nagar</option>
+                <option value="Ashram Road">Ashram Road</option>
+                <option value="Chandkheda">Chandkheda</option>
+                <option value="Iscon">Iscon</option>
+                <option value="Shahibaug">Shahibaug</option>
+                <option value="Memnagar">Memnagar</option>
+                <option value="Jodhpur">Jodhpur</option>
+                <option value="Ranip">Ranip</option>
+                <option value="Ellis Bridge">Ellis Bridge</option>
+                <option value="Paldi">Paldi</option>
+                <option value="SG Highway">SG Highway</option>
                 </>
             )}
             {selectedCity === "Gandhinagar" && (

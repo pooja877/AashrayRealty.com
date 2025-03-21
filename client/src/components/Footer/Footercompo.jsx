@@ -1,5 +1,6 @@
 import './Footercompo.css'
 export default function Footercompo() {
+
   return (
    <>
     <footer className="footer">
@@ -47,11 +48,11 @@ export default function Footercompo() {
           <div>
             <h3 className="footer-title">Our Services</h3>
             <ul className="footer-list">
-              <li><a href="#">Buy Property</a></li>
-              <li><a href="#">Rent Property</a></li>
-              <li><a href="#">Residential Property</a></li>
-              <li><a href="#">Apartment/Flats</a></li>
-              <li><a href="#">Commercial Property</a></li>
+              <li><a href="/properties?transactionType=Buy" >Buy Property</a></li>
+              <li><a href="/properties?transactionType=Rent">Rent Property</a></li>
+              <li><a href="/properties?propertyType=Residential">Residential Property</a></li>
+              <li><a href="/properties?propertyType=Apartment/Flat">Apartment/Flats</a></li>
+              <li><a href="/properties?propertyType=Commercial">Commercial Property</a></li>
               <li><a href="#">EMI Calculator</a></li>
             </ul>
           </div>
@@ -59,8 +60,8 @@ export default function Footercompo() {
           <div>
             <h3 className="footer-title">Popular Locations</h3>
             <ul className="footer-list">
-              <li><a href="#">Ahmedabad</a></li>
-              <li><a href="#">Gandhinagar</a></li>
+              <li><a href="/properties?city=Ahmedabad">Ahmedabad</a></li>
+              <li><a href="/properties?city=Gandhinagar">Gandhinagar</a></li>
             </ul>
           </div>
         </div>

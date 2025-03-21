@@ -144,7 +144,7 @@ const handleImageUpload = async (e) => {
                     <select ref={selectRef}  value={formData.transactionType}  onChange={handleChange} id='transactionType'name='transactionType' required>
                         <option value="">Select...</option>
                         <option  value="Rent">Rent</option>
-                        <option  value="Sale">Sale</option>
+                        <option  value="Buy">Buy</option>
                     </select>
                     <label>BHK <span>*</span> </label>
                 <select onChange={handleChange} name='bhk' ref={selectRef}  id='bhk' value={formData.bhk}  required>
