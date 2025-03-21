@@ -1,8 +1,100 @@
-.right
-{
-    height:100vh;
-    flex: 2;
+.mainadmindashboard{
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+    background: linear-gradient(135deg, #f0e3ee, #c3ccde);
+}
+.admindas-container {
+  
+    border-radius: 0.3rem;
+    padding: 20px;
+    background: white;
+    width: 70%;
+   
+    text-align: center;
+}
+
+.admindas-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.admindas-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.admindas-box {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    height: 100px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.admindas-icon {
+    font-size: 32px;
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+.admindas-number {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.admindas-charts {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.admindas-chart-box {
+    width: 280px;
+    height: 280px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap:10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admindas-dashboard, .admindas-charts {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admindas-box {
+        width: 90%;
+        height: auto;
+    }
+
+    .admindas-chart-box {
+        width: 90%;
+        height: auto;
+    }
 }
