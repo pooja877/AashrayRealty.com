@@ -1,0 +1,122 @@
+.alldetailnews{
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+   padding-bottom: 3rem;
+   background-color: rgb(249, 251, 253);
+
+}
+.newsdetail-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    font-family: "Poppins", sans-serif;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    /* border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+  }
+  
+  /* Big Title */
+  .newsdetail-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #222;
+    text-align: center;
+    /* margin-bottom: 15px; */
+  }
+  
+  /* News Image */
+
+   .newsdetail-image {
+    display: block;
+    width: 100%;
+    max-width: 400px; /* Adjust as needed */
+    height: 400px; /* Ensures aspect ratio is maintained */
+    object-fit: cover; /* Crops instead of stretching */
+    border-radius: 10px;
+    margin: 10px auto;
+  }
+  /* Category & Time */
+  .newsdetail-meta {
+    text-align: center;
+    font-size: 20px;
+    color: #20317b;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .newsdetail-category {
+    font-weight: bold;
+    color: #0d407a;
+    
+  }
+  
+  .newsdetail-time {
+    font-style: italic;
+    color: rgb(107, 103, 103);
+  }
+  
+  /* Description */
+  .newsdetail-description {
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Full Content */
+  .newsdetail-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 15px;
+  }
+  
+  /* Read More Link */
+  .newsdetail-readmore {
+    display: block;
+    text-align: center;
+    color: #fff;
+    background-color: #0c4f97;
+    padding: 12px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 5px;
+    width: 200px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .newsdetail-readmore:hover {
+    background-color: #06203b;
+  }
+  
+  /* Back Button */
+  .newsdetail-back {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #0d345e;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .newsdetail-back:hover {
+    text-decoration: underline;
+  }
+  
+  /* Loading & Error Messages */
+  .newsdetail-loading,
+  .newsdetail-error {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+  }
+  

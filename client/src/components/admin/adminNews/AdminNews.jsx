@@ -2,6 +2,7 @@
 import { useState } from "react";
 import AdminNavbar from "../adminNavbar/AdminNavbar";
 import "./AdminNews.css";
+import { useNavigate } from "react-router-dom";
 
 const AdminNews = () => {
     const [formData, setFormData] = useState({
@@ -10,7 +11,9 @@ const AdminNews = () => {
         content: "",
         category: "",
         image: "",
+        link:""
     });
+    const navigate=useNavigate();
 
     const [error,setError]=useState();
     const [step, setStep] = useState(1);
@@ -52,7 +55,7 @@ const AdminNews = () => {
             if (!response.ok) throw new Error("Failed to add news");
 
             alert("News added successfully!");
-            setFormData({ title: "", description: "", content: "", category: "", image: "" });
+            navigate("/admin/news");
             setStep(1);
         } catch (error) {
             console.error("Error:", error);
@@ -93,9 +96,25 @@ const AdminNews = () => {
                                 <label className="newlabel">Description</label>
                                 <textarea name="description" value={formData.description} className='newsdesc' onChange={handleChange} required />
 
-                                <label className="newlabel">Category</label>
-                                <input type="text" className="innew" name="category" value={formData.category} onChange={handleChange} required />
+                                {/* <label className="newlabel">Category</label>
+                                <input type="text" className="innew" name="category" value={formData.category} onChange={handleChange} required /> */}
+                                 <label className="newlabel">Category</label>
+                                        <select className="innew" name="category" value={formData.category} onChange={handleChange} required>
+                                        <option value="">Select Category</option>
+                                        <option value="New-projects">New & Upcoming Projects</option>
+                                        <option value="Market-trends">Market Trends & Analysis</option>
+                                        <option value="Construction">Construction & Infrastructure</option>
+                                        <option value="Commercial">Commercial Real Estate</option>
+                                        <option value="Residential">Residential Real Estate</option> 
+                                        <option value="Government">Government Policies & Legal Updates</option>
+                                        <option value="Finance">Home Loans & Finance</option>
+                                        <option value="Smartliving">Smart Cities & Sustainable Living</option>
+                                        <option value="Guides">Real Estate Guides & Tips</option>
+                                        <option value="Scams">Scams & Fraud Alerts</option>
+                                        </select>
 
+                                <label className="newlabel">Link</label>
+                                <input type="text" className="innew" name="link" value={formData.link} onChange={handleChange} />
                                 <button type="button" onClick={() => setStep(2)} className="next-btn">Next</button>
                             </>
                         )}

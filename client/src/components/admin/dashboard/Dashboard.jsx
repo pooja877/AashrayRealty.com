@@ -83,7 +83,7 @@ const Dashboard = () => {
         <AdminNavbar/>
         <div className="mainadmindashboard">
             <div className="admindas-container">
-            <h2 className="admindas-title">Aashray Realty Dashboard</h2>
+            <h2 className="admindas-title">AashrayRealty Dashboard</h2>
 
             <div className="admindas-dashboard">
                 <div className="admindas-box">
@@ -101,9 +101,11 @@ const Dashboard = () => {
 
             <div className="admindas-charts">
                 <div className="admindas-chart-box">
+                <h3>Property Type</h3>
                     <canvas id="admindas-propertyTypeChart"></canvas>
                 </div>
                 <div className="admindas-chart-box">
+                <h3>Transaction Type</h3>
                     <canvas id="admindas-transactionTypeChart"></canvas>
                 </div>
             </div>

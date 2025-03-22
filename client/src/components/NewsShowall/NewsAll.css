@@ -1,0 +1,135 @@
+.allnewscontainer{
+    height:100vh;
+    width: 100%;
+    overflow-y: scroll;
+    padding-bottom: 4rem;
+    background: linear-gradient(145deg,rgb(212, 212, 227),rgb(250, 252, 253));
+}
+/* General Container */
+.allnews-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    font-family: "Poppins", sans-serif;
+    /* background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+  }
+  
+  /* Title */
+  .allnews-title {
+    text-align: center;
+    color: #222;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  /* News List */
+  .allnews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* News Card */
+  .allnews-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    gap:2rem;
+  }
+  
+  .allnews-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .imageallnews{
+    height: 150px;
+    width:150px;
+    object-fit: cover;
+  }
+  .containnewsdata{
+    display: flex;
+    flex-direction: column;
+  }
+  /* News Title */
+  .allnews-news-title {
+    font-size: 20px;
+    color: #0f3d6d;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  /* Category */
+  .allnews-category {
+    font-size: 18px;
+    color: #3e3c3c;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  /* Description */
+  .allnews-description {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  
+  /* Read More Link */
+  .allnews-readmore {
+    color: #072b4e;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  
+   
+  .allnews-readmore:hover {
+    /* background-color: #032345; */
+    text-decoration: underline;
+  }
+  
+  /* Loading Text */
+  .allnews-loading {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .allnews-card {
+      padding: 12px;
+      flex-direction: column;
+      align-items: center;
+
+    }
+  
+    .allnews-news-title {
+      font-size: 18px;
+    }
+  
+    .allnews-description {
+      font-size: 14px;
+    }
+  
+    .allnews-readmore {
+      font-size: 13px;
+      padding: 6px 10px;
+    }
+
+    .imageallnews{
+        height: 200px;
+        width: auto;
+    }
+  }
+  

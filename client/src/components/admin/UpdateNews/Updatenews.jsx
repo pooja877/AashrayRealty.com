@@ -13,6 +13,7 @@ const Updatenews = () => {
         category: "",
         image: "",
         date:"",
+        link:""
     });
     const [error, setError] = useState("");
     const [step, setStep] = useState(1);
@@ -107,9 +108,25 @@ const Updatenews = () => {
                                 <label className="newlabel">Category</label>
                                 <input type="text" className="innew" name="category" value={formData.category} onChange={handleChange} />
 
-                                <label className="newlabel">Date</label>
-                                <input type="text" className="innew" name="date" value={formData.date} onChange={handleChange} />
-
+                                {/* <label className="newlabel">Date</label>
+                                <input type="text" className="innew" name="date" value={formData.date} onChange={handleChange} /> */}
+                               <label className="newlabel">Category</label>
+                                        <select className="innew" name="category" value={formData.category} onChange={handleChange} required>
+                                        <option value="">Select Category</option>
+                                        <option value="new-projects">New & Upcoming Projects</option>
+                                        <option value="market-trends">Market Trends & Analysis</option>
+                                        <option value="construction">Construction & Infrastructure</option>
+                                        <option value="commercial">Commercial Real Estate</option>
+                                        <option value="residential">Residential Real Estate</option>
+                                        <option value="government">Government Policies & Legal Updates</option>
+                                        <option value="finance">Home Loans & Finance</option>
+                                        <option value="smartliving">Smart Cities & Sustainable Living</option>
+                                        <option value="guides">Real Estate Guides & Tips</option>
+                                        <option value="scams">Scams & Fraud Alerts</option>
+                                        </select>
+                                
+                                <label className="newlabel">Link</label>
+                                <input type="text" className="innew" name="link" value={formData.link} onChange={handleChange} />
                                 <button type="button" onClick={() => setStep(2)} className="next-btn">Next</button>
                             </>
                         )}

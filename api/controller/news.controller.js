@@ -14,8 +14,8 @@ export const getAllNews = async (req, res) => {
 // Add new news
 export const addNews = async (req, res) => {
     try {
-        const { title, description, content, image, category } = req.body;
-        const newNews = new News({ title, description, content, image, category });
+        const { title, description, content, image, category,link } = req.body;
+        const newNews = new News({ title, description, content, image, category,link });
         await newNews.save();
         res.status(201).json({ message: "News added successfully" });
     } catch (error) {
@@ -25,8 +25,8 @@ export const addNews = async (req, res) => {
 // Update news
 export const updateNews = async (req, res) => {
     try {
-        const { title, description, content, image, category,date } = req.body;
-        await News.findByIdAndUpdate(req.params.id, { title, description, content, image, category,date });
+        const { title, description, content, image, category,date ,link} = req.body;
+        await News.findByIdAndUpdate(req.params.id, { title, description, content, image, category,date,link });
         res.json({ message: "News updated successfully" });
     } catch (error) {
         res.status(500).json({ error: "Failed to update news" });
@@ -57,3 +57,4 @@ export const getNewsByID = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+

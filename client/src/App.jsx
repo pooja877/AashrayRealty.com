@@ -28,6 +28,8 @@ import NewsTable from "./components/admin/NewsTable/NewsTable";
 import AdminNews from "./components/admin/adminNews/AdminNews";
 import Updatenews from "./components/admin/UpdateNews/Updatenews";
 import EmiCalculator from "./components/EMICalculator/EmiCalculator";
+import NewsAll from "./components/NewsShowall/NewsAll";
+import NewsDetail from "./components/NewsShowall/NewsDetail";
 
 
 
@@ -55,6 +57,8 @@ function App() {
       <Route path="/properties" element={<Properties/>}/>
       <Route path="/CalculateEmi" element={<EmiCalculator/>}/>
       <Route path="/Properties/:id" element={<Single_property/>}/>
+      <Route path="/news" element={<NewsAll/>}/>
+      <Route path="/newsDetail/:id" element={<NewsDetail/>}/>
       {/* for open admin panel admin can login and open it */}
       <Route element={<Privateadmin/>}>
             <Route path="/admin/dashboard" element={<AdminDashboard/>} />

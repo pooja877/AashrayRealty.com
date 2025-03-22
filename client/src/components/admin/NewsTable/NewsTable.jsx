@@ -81,11 +81,11 @@ const filteredNews = news.filter((prop) =>
         <thead>
           <tr>
             <th>#</th>
-            <th>News Title</th>
-            <th>description</th>
-            <th>image</th>
-            <th>category</th>
-            <th>date</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Category</th>
+            <th>Date</th>
             <th>Actions</th>
           </tr>
         </thead>

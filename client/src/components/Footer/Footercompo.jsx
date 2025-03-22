@@ -36,9 +36,9 @@ export default function Footercompo() {
           <div>
             <h3 className="footer-title">Company</h3>
             <ul className="footer-list">
-              <li><a href="#">About Us</a></li>
+              <li><a href="/About">About Us</a></li>
               <li><a href="/contactus">Contact Us</a></li>
-              <li><a href="#">News</a></li>
+              <li><a href="/news">News</a></li>
               <li><a href="#">Terms & Conditions</a></li>
               <li><a href="/FAQ">FAQ</a></li>
             </ul>
