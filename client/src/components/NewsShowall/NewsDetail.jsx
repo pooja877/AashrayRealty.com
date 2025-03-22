@@ -48,9 +48,9 @@ const NewsDetail = () => {
       <p className="newsdetail-content">{news.content}</p>
 
       {/* Read More Link */}
-      <a href={news.link} className="newsdetail-readmore" target="_blank" rel="noopener noreferrer">
+    {news.link?  <a href={news.link} className="newsdetail-readmore" target="_blank" rel="noopener noreferrer">
         Read Full Article
-      </a>
+      </a>:""}
 
       {/* Back Button */}
       <Link to="/news" className="newsdetail-back">← Back to News</Link>

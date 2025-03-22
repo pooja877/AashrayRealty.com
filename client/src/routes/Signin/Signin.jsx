@@ -2,13 +2,14 @@ import "./signin.scss"
 import { useState  } from "react";
 import {Link,useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { signInStart ,signInFailure,signInSuccess} from "../../redux/user/userSlice";
 import OAuth from "../../components/google/OAuth";
 
 
 function SignIn()
 {   
-    
+    const [showPassword, setShowPassword] = useState(false);
     const [formData,setFormData]=useState({});
     const {loading} =useSelector((state)=>state.user);
     const dispatch=useDispatch();
@@ -55,12 +56,29 @@ function SignIn()
    
 
     return(
-       <div className="signIn">
+     <div className="mainsignin">
+          <div className="signIn">
         <h1>Sign in</h1>
         <form onSubmit={handleSubmit}>
             <input type="email" placeholder="Email" id='email' onChange={handleChange}
                 required />
-            <input type="password" placeholder="Password" id='password'onChange={handleChange}/>
+            {/* <input type="password" placeholder="Password" id='password'onChange={handleChange}/> */}
+               <div className="password-container">
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password"
+                        id="password"
+                        onChange={handleChange}
+                    />
+                    <FaEye 
+                        className={`eye-icon ${showPassword ? "hide" : ""}`} 
+                        onClick={() => setShowPassword(!showPassword)} 
+                    />
+                    <FaEyeSlash 
+                        className={`eye-icon ${showPassword ? "" : "hide"}`} 
+                        onClick={() => setShowPassword(!showPassword)} 
+                    />
+                </div>
             <Link to="/forgotPassword">
             <p  className="forget">Forget password?</p>
             </Link>
@@ -79,6 +97,7 @@ function SignIn()
         
         {error && <p className="errormsg">{error}</p>}
        </div>
+     </div>
     )
 }
 

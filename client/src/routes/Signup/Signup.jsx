@@ -1,8 +1,11 @@
 import "./signup.scss"
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function SignUp() {
+  const [showPassword, setShowPassword] = useState(false);
+
     const navigate=useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -53,13 +56,47 @@ const handleSubmit = async (e) => {
 };
 
   return (
+   <div className="mainsignup">
     <div className="signUp">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Username" id="username" onChange={handleChange} />
         <input type="email" placeholder="Email" id="email" onChange={handleChange} />
-        <input type="password" placeholder="Password" id="password" onChange={handleChange} />
-        <input type="password" placeholder="Confirm Password" id="confirm" onChange={handleChange} />
+        {/* <input type="password" placeholder="Password" id="password" onChange={handleChange} /> */}
+        {/* <input type="password" placeholder="Confirm Password" id="confirm" onChange={handleChange} /> */}
+        <div className="password-container">
+                           <input
+                               type={showPassword ? "text" : "password"}
+                               placeholder="Password"
+                               id="password"
+                               onChange={handleChange}
+                           />
+                           <FaEye 
+                               className={`eye-icon ${showPassword ? "hide" : ""}`} 
+                               onClick={() => setShowPassword(!showPassword)} 
+                           />
+                           <FaEyeSlash 
+                               className={`eye-icon ${showPassword ? "" : "hide"}`} 
+                               onClick={() => setShowPassword(!showPassword)} 
+                           />
+                       </div>
+                       <div className="password-container">
+                       <input
+                               type={showPassword ? "text" : "password"}
+                               placeholder="Confirm Password"
+                               id="confirm"
+                               onChange={handleChange}
+                           />
+                           <FaEye 
+                               className={`eye-icon ${showPassword ? "hide" : ""}`} 
+                               onClick={() => setShowPassword(!showPassword)} 
+                           />
+                           <FaEyeSlash 
+                               className={`eye-icon ${showPassword ? "" : "hide"}`} 
+                               onClick={() => setShowPassword(!showPassword)} 
+                           />
+                       </div>
+
         <button disabled={loading} className="signup_btn">
           {loading ? "Loading..." : "Sign Up"}
         </button>
@@ -72,7 +109,7 @@ const handleSubmit = async (e) => {
           <span>Sign in</span>
         </Link>
       </div>
-    </div>
+    </div></div>
   );
 }
 
