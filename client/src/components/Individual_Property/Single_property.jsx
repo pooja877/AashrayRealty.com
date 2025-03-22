@@ -1,16 +1,17 @@
 import './SingleProperty.css';
 import { useEffect, useState } from 'react';
-import {  useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { FaBed, FaBath,FaHeart, FaMapMarkerAlt, FaRupeeSign, FaRulerCombined, FaBuilding, FaTag, FaCheckCircle, FaDumbbell, FaSwimmingPool, FaShieldAlt, FaCar, FaWifi, FaUtensils, FaBolt, FaUsers, FaPaw, FaWater } from "react-icons/fa";
 import MapDirection from '../Singlemap/MapDirection';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from "swiper/modules"; 
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Navigation } from "swiper/modules"; 
 import "swiper/css";
 import "swiper/css/navigation";
 
 export default function SingleProperty() {
     const { id: propertyId } = useParams();
     const [likedProperties, setLikedProperties] = useState({});
+    const navigate=useNavigate();
     const [formData, setFormData] = useState({
       images:[],
       propertyName: '',
@@ -81,7 +82,7 @@ export default function SingleProperty() {
         <>
          <div className="propertycontainer">
                 {/* Left Section - Images */}
-                <div className="image-section">
+                {/* <div className="image-section">
                 <Swiper
                     key={formData.images.length}
                     modules={[Navigation]}
@@ -95,6 +96,9 @@ export default function SingleProperty() {
                             src={item.url || item}
                             alt={`Property ${index + 1}`}
                             className="property-slide"
+                            onClick={()=>{
+                              navigate(`/proeprties/swipe/${propertyId}`)
+                            }}
                           />
                             <FaHeart className={`likeButton ${likedProperties[propertyId] ? 'liked' : 'unliked'}`}onClick={() => toggleLike(propertyId)}/>
                         </div>
@@ -103,7 +107,43 @@ export default function SingleProperty() {
                    
                   </Swiper>
                    
-            </div>
+            </div> */}
+
+<div className="image-gallery">
+  {formData.images.length > 0 && (
+    <div className="large-image">
+      <img
+        src={formData.images[0].url || formData.images[0]}
+        alt="Property 1"
+        className="property-slide"
+        onClick={()=>{
+          navigate(`/proeprties/swipe/${propertyId}`)
+        }}
+      />
+      <FaHeart
+        className={`likeButton ${likedProperties[propertyId] ? 'liked' : 'unliked'}`}
+        onClick={() => toggleLike(propertyId)}
+      />
+    </div>
+  )}
+
+  <div className="small-images">
+    {formData.images.slice(1, 3).map((item, index) => (
+      <div key={index} className="small-image">
+        <img
+          src={item.url || item}
+          alt={`Property ${index + 2}`}
+          className="property-slide"
+          onClick={()=>{
+            navigate(`/proeprties/swipe/${propertyId}`)
+          }}
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
+
 
            <div className="leftright">
 

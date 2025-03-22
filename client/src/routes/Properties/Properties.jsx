@@ -33,16 +33,12 @@ export default function Properties() {
     }, [location.search]); 
 
     const toggleLike = (id) => {
-        // setLikedProperties(prev => ({
-        //     ...prev,
-        //     [id]: !prev[id] // Toggle like status
-        // }));
-        setLikedProperties(prev => {
-            const updatedLikes = { ...prev, [id]: !prev[id] };
-            localStorage.setItem("likedProperties", JSON.stringify(updatedLikes)); // Save in localStorage
-            return updatedLikes;
+        setLikedProperties((prev) => {
+          const updatedLikes = { ...prev, [id]: !prev[id] };
+          localStorage.setItem('likedProperties', JSON.stringify(updatedLikes));
+          return updatedLikes;
         });
-    };
+      };
 
     return (
         <div className="main-user-contain">
@@ -61,7 +57,7 @@ export default function Properties() {
                                         alt="Property"
                                         onClick={() => navigate(`/Properties/${property._id}`)}                                   />
                                 )}
-                                <FaHeart
+                                 <FaHeart
                                     className={`likeButton ${likedProperties[property._id] ? 'liked' : 'unliked'}`}
                                     onClick={() => toggleLike(property._id)}
                                 />

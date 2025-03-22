@@ -30,6 +30,7 @@ import Updatenews from "./components/admin/UpdateNews/Updatenews";
 import EmiCalculator from "./components/EMICalculator/EmiCalculator";
 import NewsAll from "./components/NewsShowall/NewsAll";
 import NewsDetail from "./components/NewsShowall/NewsDetail";
+import Swipe from "./components/SwipeImage/Swipe";
 
 
 
@@ -57,6 +58,8 @@ function App() {
       <Route path="/properties" element={<Properties/>}/>
       <Route path="/CalculateEmi" element={<EmiCalculator/>}/>
       <Route path="/Properties/:id" element={<Single_property/>}/>
+      <Route path="/proeprties/swipe/:id" element={<Swipe/>}/>
+      
       <Route path="/news" element={<NewsAll/>}/>
       <Route path="/newsDetail/:id" element={<NewsDetail/>}/>
       {/* for open admin panel admin can login and open it */}
