@@ -41,6 +41,7 @@ export default function Footercompo() {
               <li><a href="/news">News</a></li>
               <li><a href="#">Terms & Conditions</a></li>
               <li><a href="/FAQ">FAQ</a></li>
+              <li><a href="/Feedback">Feedback</a></li>
             </ul>
           </div>
 

@@ -1,0 +1,90 @@
+.mainfeedbackcontain{
+    height: 100vh;
+     width:100%;
+     overflow-y: hidden;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     background: linear-gradient(145deg,rgb(245, 246, 247),rgb(235, 235, 248));
+}
+.feedback-container {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    background: white;
+    text-align: center;
+  }
+  
+  .feedback-container h2 {
+    margin-bottom: 10px;
+    font-size: 30px;
+    color: #333;
+  }
+  
+  .feedback-container input,
+  .feedback-container textarea {
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 10rem;
+    font-size: 16px;
+  }
+  
+  .feedback-container .rating-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  
+  .feedback-container .star {
+    font-size: 40px;
+    cursor: pointer;
+    color: #ccc;
+    margin: 0 5px;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .feedback-container .star.selected {
+    color: gold;
+  }
+  
+  .feedback-container button {
+    background: #0a2441;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+  
+  .feedback-container button:hover {
+    background: #0c498f;
+  }
+  
+  /* 🔴 Disabled button style when user is not logged in */
+  .feedback-container button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* ✅ Success & Error Messages */
+  .message {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .not-logged-in {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  

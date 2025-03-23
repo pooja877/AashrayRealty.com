@@ -7,6 +7,8 @@ import adminRouter from './routes/admin.route.js';
 import cookieParser from 'cookie-parser';
 import propertyRouter from './routes/property.route.js';
 import newsRoutes from './routes/news.route.js';
+import feedbackRoutes from './routes/feedback.route.js';
+
 dotenv.config();
 
 mongoose
@@ -40,6 +42,7 @@ app.listen(3000,()=>{
      app.use('/api/admin', adminRouter);
      app.use('/api/property',propertyRouter);
      app.use("/api/news", newsRoutes);
+     app.use("/api/feedback",feedbackRoutes );
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;

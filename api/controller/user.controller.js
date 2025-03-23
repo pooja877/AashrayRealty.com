@@ -3,6 +3,12 @@ import { errorHandler } from "../utils/error.js";
 import bcryptjs from 'bcryptjs';
 import cloudinary from "../cloudinary.js";
 
+export const getUser = (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  res.json({ id: req.user.id, email: req.user.email });
+};
 
 
 export const deleteusersadmin = async (req, res) => {

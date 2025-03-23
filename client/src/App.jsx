@@ -31,6 +31,7 @@ import EmiCalculator from "./components/EMICalculator/EmiCalculator";
 import NewsAll from "./components/NewsShowall/NewsAll";
 import NewsDetail from "./components/NewsShowall/NewsDetail";
 import Swipe from "./components/SwipeImage/Swipe";
+import FeedbackForm from "./components/FeedbackForm/FeedbackForm";
 
 
 
@@ -61,6 +62,7 @@ function App() {
       <Route path="/proeprties/swipe/:id" element={<Swipe/>}/>
       
       <Route path="/news" element={<NewsAll/>}/>
+      <Route path="/Feedback" element={<FeedbackForm/>}/>
       <Route path="/newsDetail/:id" element={<NewsDetail/>}/>
       {/* for open admin panel admin can login and open it */}
       <Route element={<Privateadmin/>}>

@@ -18,11 +18,17 @@
 
 /* Navigation Buttons */
 .news-nav {
-    display: flex;
+    /* display: flex;
     justify-content: space-around;
     align-items: center;
     margin-bottom: 20px;
-    padding: 0 10px;
+    padding: 0 10px; */
+    display: flex;
+        justify-content: space-between;
+        margin: 10px auto;
+        width: 80%;
+        max-width: 900px;
+    
 }
 
 .nav-btn {
@@ -118,10 +124,10 @@
         width: 100%;
     }
 
-    .news-nav {
+    /* .news-nav {
         flex-direction: column;
         gap: 10px;
-    }
+    } */
 }
 
 .read-more:hover{
