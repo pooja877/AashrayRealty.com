@@ -7,15 +7,27 @@
   width: 100%;
   overflow-y: scroll;
   height: 100vh;
-  background-color: rgb(250, 238, 238,0.2);
+  background-color: rgba(228, 209, 209, 0.2);
   /* max-width: 1200px; Desktop me full width na ho */
   /* margin: 0 auto; */
  
 }
+.propertyswipeinfo{
+    display:flex ;
+    flex-direction: row;
+    width: 80%;
+    justify-content: flex-end;
+    align-items: fle;
+}
 
+
+.close-button{
+    cursor: pointer;
+    font-size: 40px;
+}
 .imagesection {
   position: relative;
-  height: 90vh;
+  /* height: 90vh; */
   margin: 1rem;
   width: 80%;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); 
@@ -67,9 +79,10 @@
 }
 
 /* 🔹 Mobile View - Scrollable Grid */
-@media (max-width: 768px) {
+@media (max-width: 780px) {
   .image-section {
       width: 100%;
+     
       max-width: none;
       background-color: black;
       border-radius: 0px;
@@ -77,9 +90,14 @@
       overflow-y: auto; /* Enable scrolling */
   }
 
+  .close-button{
+    display: none;
+  }
   .mobile-view {
+    
       display: flex;
       flex-direction: column;
+      margin-top: 25rem;
      /* background-color: black; gap: 10px; */
       padding: 10px;
       height: 100%; /* Full container height */

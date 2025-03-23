@@ -1,16 +1,20 @@
 import './Swipe.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Navigation } from "swiper/modules";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaTimes } from "react-icons/fa";
 import "swiper/css";
 import "swiper/css/navigation";
 
 export default function Swipe() {
     const { id: propertyId } = useParams();
     const [likedProperties, setLikedProperties] = useState({});
-    const [formData, setFormData] = useState({ images: [] });
+    const [formData, setFormData] = useState({ images: [],
+        propertyName:"",
+        transactionType:"",
+     });
+       const navigate=useNavigate();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     const toggleLike = (id) => {
@@ -48,8 +52,15 @@ export default function Swipe() {
 
     return (
         <div className="mainimage">
+              <div className="propertyswipeinfo">
+                 {/* Top Right - Close Button */}
+            <FaTimes className="close-button" onClick={() => navigate(-1)} />
+            </div>
+
+           
             <div className="imagesection">
                 {isMobile ? (
+                    
                     <div className="mobile-view">
                         {formData.images.map((item, index) => (
                             <div key={index} className="mobile-image-wrapper">
@@ -64,7 +75,9 @@ export default function Swipe() {
                                 />
                             </div>
                         ))}
+                      
                     </div>
+                    
                 ) : (
                     <Swiper
                         key={formData.images.length}

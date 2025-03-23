@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './AdminNavbar.css'
 import { useState } from 'react';
+import { FaBell } from "react-icons/fa";
 export default function AdminNavbar() {
   const navigate = useNavigate();
    const [open, setOpen] = useState(false);
@@ -27,15 +28,17 @@ export default function AdminNavbar() {
        {/* right side */}
         <div className="adminright">
         
-        <a href="/" className='gotowebsite'>Home</a>
+        {/* <a href="/" className='gotowebsite'>Home</a>
         <a href="/admin/dashboard">Dashboard</a> 
              <a href='/admin/users'>Users</a>
             <a href="/admin/properties">Properties</a>
-            <a href="/admin/news">News</a>
-            {/* <a href="/admin/addProperty" className='addProperty'>+ Add Property</a> */}
-            <button onClick={handleLogout} className='logoutadmin'>Logout</button>
+            <a href="/admin/news">News</a> */}
+            {/* <a href="/admin/addProperty" className='addProperty'>+ Add Property</a>
+            <button onClick={handleLogout} className='logoutadmin'>Logout</button> */}
 
         {/* max-width is small */}
+        
+        <FaBell size={30} style={{ cursor: "pointer" }} />
         <div className="menuIcon">
           <img
             src="/menu.png"
@@ -44,7 +47,7 @@ export default function AdminNavbar() {
           />
         </div>
         <div className={open ? "menu active" : "menu"}>  
-        <a href="/" className='addProperty'> Go to Website</a>
+        <a href="/" className='goweb'> Go to Website</a>
         <a href="/admin/dashboard">Dashboard</a> 
         <a href='/admin/users'>Users</a>
             <a href="/admin/properties">Properties</a>
