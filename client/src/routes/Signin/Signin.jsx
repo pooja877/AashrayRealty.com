@@ -14,7 +14,7 @@ function SignIn()
     const {loading} =useSelector((state)=>state.user);
     const dispatch=useDispatch();
     //const [message, setmessage] = useState('');
-    const [error] = useState('');
+    const [error,setError] = useState('');
     const navigate = useNavigate();
 
     const handleChange=(e)=>{
@@ -40,6 +40,7 @@ function SignIn()
        
         const data=await res.json();
         if(data.success===false){  
+            setError(data.message);
            dispatch(signInFailure(data.message));
             return;
         }
@@ -49,6 +50,7 @@ function SignIn()
         catch(err)
         {
             alert(err);
+            setError(err);
             dispatch(signInFailure(err.message));
         }
         

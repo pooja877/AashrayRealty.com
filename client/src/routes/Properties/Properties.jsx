@@ -8,7 +8,7 @@ import {  FaMapMarkerAlt, FaHeart } from "react-icons/fa";
 
 export default function Properties() {
     const [properties, setProperties] = useState([]);
-    const [likedProperties, setLikedProperties] = useState({});
+    // const [likedProperties, setLikedProperties] = useState({});
     const navigate = useNavigate();
     const location = useLocation(); 
 
@@ -31,14 +31,26 @@ export default function Properties() {
         
         fetchProperties();
     }, [location.search]); 
+    const [likedProperties, setLikedProperties] = useState(() => {
+        const savedLikes = localStorage.getItem('likedProperties');
+        return savedLikes ? JSON.parse(savedLikes) : {}; // Default to empty object if no data
+      });
 
-    const toggleLike = (id) => {
-        setLikedProperties((prev) => {
-          const updatedLikes = { ...prev, [id]: !prev[id] };
-          localStorage.setItem('likedProperties', JSON.stringify(updatedLikes));
+    // const toggleLike = (id) => {
+    //     setLikedProperties((prev) => {
+    //       const updatedLikes = { ...prev, [id]: !prev[id] };
+    //       localStorage.setItem('likedProperties', JSON.stringify(updatedLikes));
+    //       return updatedLikes;
+    //     });
+    //   };
+    const toggleLike = (propertyId) => {
+        setLikedProperties(prevState => {
+          const updatedLikes = { ...prevState, [propertyId]: !prevState[propertyId] };
+          localStorage.setItem('likedProperties', JSON.stringify(updatedLikes)); // Save to localStorage
           return updatedLikes;
         });
       };
+      
 
     return (
         <div className="main-user-contain">
@@ -57,10 +69,11 @@ export default function Properties() {
                                         alt="Property"
                                         onClick={() => navigate(`/Properties/${property._id}`)}                                   />
                                 )}
-                                 <FaHeart
-                                    className={`likeButton ${likedProperties[property._id] ? 'liked' : 'unliked'}`}
-                                    onClick={() => toggleLike(property._id)}
+                                <FaHeart
+                                className={`likeButton ${likedProperties[property._id] ? 'liked' : 'unliked'}`}
+                                onClick={() => toggleLike(property._id)}
                                 />
+
                             </div>
 
                             <div className="info" onClick={() => navigate(`/Properties/${property._id}`)}>

@@ -1,0 +1,118 @@
+/* Review Container */
+.review-container {
+    width: 100%;
+    /* max-width: 800px; */
+    margin: 20px auto;
+    text-align: center;
+    /* padding: 15px; */
+    background: #fff;
+    border-radius: 10px;
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap:0.5rem;
+   
+  }
+  
+  /* Average Rating */
+  .average-rating {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+    /* margin-bottom: 15px; */
+  }
+  .photname{
+    display: flex;
+    flex-direction: row;
+    align-items:center ;
+    gap:1rem;
+  }
+  
+  /* Reviews Wrapper */
+  .reviews {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  /* Individual Review Card */
+  .review-card {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    width: 300px;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .review-card:hover {
+    transform: scale(1.05);
+  }
+  
+  /* User Profile Photo */
+  .user-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 8px;
+  }
+  
+  /* Review Text */
+  .review-text strong {
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .review-text p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  /* Review Navigation Buttons */
+  .review-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .review-nav button {
+    background: #5a2a83;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .review-nav button:hover {
+    background: #4b1f6d;
+  }
+  
+  .review-nav button:disabled {
+    background: #ddd;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .reviews {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .review-card {
+      width: 90%;
+    }
+  }
+  

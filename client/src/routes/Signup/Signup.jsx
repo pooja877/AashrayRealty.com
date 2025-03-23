@@ -28,6 +28,10 @@ function SignUp() {
 const handleSubmit = async (e) => {
     e.preventDefault();
     
+    if(formData.password!=formData.confirm)
+    {
+      alert("Password and Confirm password should be same!!");
+    }
     try {
         setLoading(true);
         setError(null);

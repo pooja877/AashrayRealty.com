@@ -7,6 +7,8 @@ import MapDirection from '../Singlemap/MapDirection';
 // import { Navigation } from "swiper/modules"; 
 import "swiper/css";
 import "swiper/css/navigation";
+import ReviewCarousel from '../ReviewCarousel/ReviewCarousel';
+
 
 export default function SingleProperty() {
     const { id: propertyId } = useParams();
@@ -31,6 +33,7 @@ export default function SingleProperty() {
       area:'',
       city:'',
     });
+    
 
     const toggleLike = (id) => {
       // setLikedProperties(prev => ({
@@ -60,26 +63,35 @@ export default function SingleProperty() {
     };
 
     useEffect(() => {
-        const fetchProperty = async () => {
-            try {
-                const res = await fetch(`/api/property/${propertyId}`);
-                const data = await res.json();
-                if (res.ok) {
-                    setFormData(data);
-                } else {
-                    console.error("Property not found");
-                }
-            } catch (error) {
-                console.error("Error fetching property:", error);
-            }
-        };
-        fetchProperty();
-        const storedLikes = JSON.parse(localStorage.getItem("likedProperties")) || {};
-        setLikedProperties(storedLikes);
-    }, [propertyId]);
+      const fetchProperty = async () => {
+          try {
+              const res = await fetch(`/api/property/${propertyId}`);
+              const data = await res.json();
+              if (res.ok) {
+                  setFormData(data);
+              } else {
+                  console.error("Property not found");
+              }
+          } catch (error) {
+              console.error("Error fetching property:", error);
+          }
+      };
+
+     
+      
+      fetchProperty();
+      
+     
+      const storedLikes = JSON.parse(localStorage.getItem("likedProperties")) || {};
+      setLikedProperties(storedLikes);
+  }, [propertyId]);
+
+ 
+    
 
     return (
         <>
+         <div className="mainprocon">
          <div className="propertycontainer">
                 {/* Left Section - Images */}
                 {/* <div className="image-section">
@@ -218,7 +230,9 @@ export default function SingleProperty() {
                <p>{formData.desc}</p>
                </div>
                </div>
+             
       <button className='book-btn'>Book Property</button>
+           
 
        </div>
     {/* Right Side*/}
@@ -242,7 +256,16 @@ export default function SingleProperty() {
              </div>
            </div>
            </div>
+          <div className="reviewprocon">
+          <button onClick={()=>{navigate(`/Review/${propertyId}`)}} className='giveratereviewbtn' >Give Review-Rating</button>
+          <ReviewCarousel propertyId={propertyId} />
+          </div>
             </div>
+           
+           
+            
+    </div>
+ 
         </>
     );
 }

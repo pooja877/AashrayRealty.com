@@ -2,6 +2,43 @@ import Property from "../models/property.model.js";
 import cloudinary from "../cloudinary.js";
 import fetch from 'node-fetch';
 
+
+export const getTopRatedProperties = async (req, res) => {
+  try {
+    const propertiesWithRating = await Property.aggregate([
+      {
+        $lookup: {
+          from: "reviews", // Join Review table
+          localField: "_id",
+          foreignField: "propertyId",
+          as: "reviews",
+        },
+      },
+      {
+        $addFields: {
+          avgRating: {
+            $cond: {
+              if: { $gt: [{ $size: "$reviews" }, 0] }, // Agar reviews hain toh calculate karo
+              then: { $avg: "$reviews.rating" },
+              else: 0, // Nahi toh 0 rating
+            },
+          },
+        },
+      },
+      {
+        $match: { avgRating: { $gte: 3 } }, // Sirf 3+ rating wale properties lo
+      },
+      { $sort: { avgRating: -1 } }, // Highest rating first
+      { $limit: 10 }, // ✅ Sirf pehli 10 properties
+    ]);
+
+    res.status(200).json(propertiesWithRating);
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
 export const getSingleProperty = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);

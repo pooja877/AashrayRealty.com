@@ -230,8 +230,7 @@
   font-size: 1.2rem;
 }
 
-.menu a:hover,
-.menu .logoutadmin:hover {
+.menu a:hover{
   background: rgba(255, 255, 255, 0.2);
 }
 

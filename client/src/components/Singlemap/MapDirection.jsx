@@ -87,7 +87,7 @@ export default function MapDirection() {
     if (!property) return <p>Loading...</p>;
 
     return (
-        <div style={{ position: "relative", width: "100%", height: "400px" }}>
+        <div style={{ position: "relative", width: "100%", height: "300px" }}>
             {/* Map Container */}
             <MapContainer
                 center={[property.latitude, property.longitude]}

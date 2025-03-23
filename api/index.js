@@ -8,6 +8,8 @@ import cookieParser from 'cookie-parser';
 import propertyRouter from './routes/property.route.js';
 import newsRoutes from './routes/news.route.js';
 import feedbackRoutes from './routes/feedback.route.js';
+import reviewRoutes from './routes/review.route.js';
+
 
 dotenv.config();
 
@@ -23,6 +25,8 @@ mongoose
 const app=express();
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 //app.use(express.json({limit:'50mb'}));
 
 
@@ -43,6 +47,7 @@ app.listen(3000,()=>{
      app.use('/api/property',propertyRouter);
      app.use("/api/news", newsRoutes);
      app.use("/api/feedback",feedbackRoutes );
+     app.use("/api/review",reviewRoutes );
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;
