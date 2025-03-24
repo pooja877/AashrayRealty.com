@@ -99,3 +99,25 @@ export const replyMessage = async (req, res) => {
       res.status(500).json({ message: "Error fetching messages", error });
     }
   }
+
+  
+export const deleteMessage = async (req, res) => {
+  try {
+      const { id } = req.params;
+      await Contact.findByIdAndDelete(id);
+      res.status(200).json({ message: "Message deleted successfully" });
+  } catch (error) {
+      res.status(500).json({ error: "Failed to delete message" });
+  }
+};
+
+
+export const deleteMultipleMessages = async (req, res) => {
+  try {
+      const { ids } = req.body;
+      await Contact.deleteMany({ _id: { $in: ids } });
+      res.status(200).json({ message: "Messages deleted successfully" });
+  } catch (error) {
+      res.status(500).json({ error: "Failed to delete messages" });
+  }
+};

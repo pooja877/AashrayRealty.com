@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaBell } from "react-icons/fa";
@@ -8,8 +7,9 @@ export default function AdminNavbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [unansweredCount, setUnansweredCount] = useState(0);
+  const [showPopup, setShowPopup] = useState(false); // Popup ke liye state
 
-  // Fetch the number of unanswered messages
+  // Fetch unanswered messages count
   useEffect(() => {
     const fetchUnansweredMessages = async () => {
       try {
@@ -20,6 +20,12 @@ export default function AdminNavbar() {
         const data = await res.json();
         if (res.ok) {
           setUnansweredCount(data.count);
+
+          // Show popup only if there are unanswered messages
+          if (data.count > 0) {
+            setShowPopup(true);
+            setTimeout(() => setShowPopup(false), 5000); // Auto-hide after 5 sec
+          }
         }
       } catch (error) {
         console.error("Error fetching unanswered messages", error);
@@ -36,6 +42,13 @@ export default function AdminNavbar() {
 
   return (
     <>
+      {/* 🔔 Notification Popup Near Bell Icon */}
+      {showPopup && (
+        <div className="popup-notification">
+          <p>You have {unansweredCount} unanswered messages!</p>
+        </div>
+      )}
+
       <nav className="head">
         {/* Left Side */}
         <div className="adminleft">

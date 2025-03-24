@@ -23,21 +23,11 @@ const TableProperty = () => {
     fetchProperties();
 }, []);
   // Fetch data from backend
-//   useEffect(() => {
-//     fetch("/api/property/all") // Change to your API endpoint
-//       .then((response) => response.json())
-//       .then((data) => setProperties(data))
-//       .catch((error) => console.error("Error fetching properties:", error));
-//   }, []);
 
-  // Handle delete property
-//    const handleDelete = (id) => {
-//     fetch(`/api/property/deleteProperty/${id}`, { method: "DELETE" })
-//       .then(() => setProperties(properties.filter((prop) => prop._id !== id)))
-//       .catch((error) => console.error("Error deleting property:", error));
-//   };
 
 const handleDelete=async(id)=>{
+  const confirmDelete = window.confirm("Are you sure you want to delete this message?");
+  if (!confirmDelete) return;
     try {
       const response = await fetch(`/api/property/deleteProperty/${id}`, {
           method: "DELETE",
