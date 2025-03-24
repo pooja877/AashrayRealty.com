@@ -5,11 +5,13 @@ import './Reset.scss'
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {useEffect} from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const ResetPassword = () => {
   const { token } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [message,setmessage]=useState('');
   const navigate=useNavigate();
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
@@ -43,6 +45,7 @@ const ResetPassword = () => {
 
     if (password !== confirmPassword) {
       alert("Passwords do not match");
+      setmessage("Passwords do not match");
       return;
     }
 
@@ -56,14 +59,17 @@ const ResetPassword = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        setmessage("Password reset successful !!");
+        alert("Password reset successful !!");
+        setmessage("Password reset successfully!!");
        navigate('/signin');
       } else {
         alert("Link is not valid to reset Password!!",data.message);
+        setmessage("Link is not valid to reset Password!!",data.message);
       }
     } catch (error) {
       
       alert("Something went wrong. Please try again.",error);
+      setmessage("Something went wrong. Please try again.",error);
     }
   };
 
@@ -72,7 +78,7 @@ const ResetPassword = () => {
      <div className='reset'>
       <h2>Reset Password</h2>
       <form onSubmit={handleSubmit}>
-        <input
+        {/* <input
           type="password"
           placeholder="New password"
           value={password}
@@ -85,7 +91,41 @@ const ResetPassword = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
-        />
+        />*/}
+        <div className="password-container"> 
+                                   <input
+                                       type={showPassword ? "text" : "password"}
+                                       placeholder="New Password"
+                                       id="password"
+                                       value={password}
+                                       onChange={(e) => setPassword(e.target.value)}
+                                   />
+                                   <FaEye 
+                                       className={`eye-icon ${showPassword ? "hide" : ""}`} 
+                                       onClick={() => setShowPassword(!showPassword)} 
+                                   />
+                                   <FaEyeSlash 
+                                       className={`eye-icon ${showPassword ? "" : "hide"}`} 
+                                       onClick={() => setShowPassword(!showPassword)} 
+                                   />
+                               </div>
+                               <div className="password-container">
+                               <input
+                                       type={showPassword ? "text" : "password"}
+                                       placeholder="Confirm new password"
+                                       value={confirmPassword}
+                                       id="confirm"
+                                       onChange={(e) => setConfirmPassword(e.target.value)}
+                                   />
+                                   <FaEye 
+                                       className={`eye-icon ${showPassword ? "hide" : ""}`} 
+                                       onClick={() => setShowPassword(!showPassword)} 
+                                   />
+                                   <FaEyeSlash 
+                                       className={`eye-icon ${showPassword ? "" : "hide"}`} 
+                                       onClick={() => setShowPassword(!showPassword)} 
+                                   />
+                               </div>
         <div className="resendtimer">
         <Link to="/forgotPassword">
             <p  className="resend">Resend Link</p>
@@ -99,8 +139,9 @@ const ResetPassword = () => {
 
         </div>
         <button type="submit">Reset Password</button>
+        <p style={{color:"red"}}>{message}</p>
       </form>
-      <p>{message}</p>
+      
     </div>
    </div>
   );

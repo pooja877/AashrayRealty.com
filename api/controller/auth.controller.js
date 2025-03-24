@@ -66,7 +66,7 @@ export const signup = async (req, res, next) => {
     });
 
     const mailOptions = {
-      from: '"AashrayRealty" <no-reply@aashrayRealty.com>',
+      from: process.env.EMAIL_USER,
       to: email,
       subject: "Verify Your Email - AashrayRealty",
       html: `
@@ -92,25 +92,6 @@ export const signup = async (req, res, next) => {
 };
 
 
-
-
-// export const signup = async(req,res,next) =>{
-//   const { username,email,password }=req.body;
-  
-//   const hashedPassword=bcryptjs.hashSync(password,10);
-
-//   const newUser=new User({username,email,password: hashedPassword});
-
-//   try{
-//     await newUser.save();
-//     res.status(201).json('User created successfully!');
-//   }
-//   catch(error)
-//   {
-//     next(error);
-//   }
-  
-// }
 
 export const signin=async(req,res,next)=>{
   const { email,password }=req.body;
@@ -157,7 +138,8 @@ export const google=async(req,res,next)=>{
         username: req.body.name.split(" ").join("").toLowerCase()+Math.random().toString(36).slice(-4),
         email:req.body.email,
         password: hashedPassword,
-        avatar:req.body.photo
+        avatar:req.body.photo,
+        isVerified:true,
        });
       await newUser.save();
       const token=jwt.sign({id:newUser._id},process.env.JWT_SECRET);
@@ -217,7 +199,7 @@ export const forgetPassword=async (req,res)=>{
     // subject: 'Password Reset',
     // text:`Click the link below to reset your password:\n\n${resetLink}\n\nThe link will expire in 10 minutes.`,
 
-    from: '"AashrayRealty" <no-reply@aashrayRealty.com>',
+    from: process.env.EMAIL_USER,
     to: email,
     subject: "Reset Your Password - AashrayRealty",
     html: `
