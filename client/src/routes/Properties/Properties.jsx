@@ -55,7 +55,7 @@ export default function Properties() {
     return (
         <div className="main-user-contain">
          
-            <div className="datapro">
+            <div className={`datapro ${properties.length === 1 ? "single-property" : ""}`}>
             {/* <PropertySearch/> */}
                 {properties.length > 0 ? (
                     properties.map((property) => (

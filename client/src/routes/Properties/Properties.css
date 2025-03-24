@@ -60,7 +60,7 @@
     height: 200px;
     border-radius: 0.5rem;
     cursor: pointer;
-    object-fit: cover;
+    object-fit: fill;
   }
   
   /* Like Button */
@@ -159,3 +159,13 @@
 
   }
   
+  /* Single property should be centered and wider */
+.single-property {
+  display: flex;
+  justify-content: center;
+}
+
+.single-property .contain {
+  width: 40%;
+  max-width: 500px;
+}
