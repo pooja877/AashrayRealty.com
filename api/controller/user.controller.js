@@ -36,49 +36,7 @@ export const allUsers= async (req, res) => {
     res.status(500).json({ message: 'Server Error', error: error.message });
 }
 };
-// export const uploadProfilePicture = async (req, res) => {
-//     try {
-//       const { id } = req.params;
-  
-      
-//       // Check if file exists
-//       if (!req.file) {
-//         return res.status(400).json({ success: false, message: "No image uploaded." });
-//       }
-  
-//       // Upload Image to Cloudinary
-//       const result = await new Promise((resolve, reject) =>  {
-//         const stream = cloudinary.uploader.upload_stream(
-//         { folder: "profile_pictures/" },
-//          (error, result) => {
-//           if (error) reject(error);
-//           else resolve(result);
-//         }
-//         );
-//         stream.end(file.buffer);
-  
-//           // Update User Profile with Cloudinary URL
-//           const updatedUser = User.findByIdAndUpdate(
-//             id,
-//             { avatar: result.secure_url }, // Save URL in DB
-//             { new: true }
-//           );
-          
-  
-//           if (!updatedUser) {
-//             return res.status(404).json({ success: false, message: "User not found." });
-//           }
 
-  
-//           res.status(200).json(updatedUser);
-//         }
-//       );
-  
-//        // Send the buffer to Cloudinary
-//     } catch (error) {
-//       res.status(500).json({ success: false, message: error.message });
-//     }
-//   };
 export const uploadProfilePicture = async (req, res) => {
   try {
     const { id } = req.params;
@@ -100,17 +58,13 @@ export const uploadProfilePicture = async (req, res) => {
       stream.end(req.file.buffer); // Send buffer to Cloudinary
     });
 
-    // Update User Profile with Cloudinary URL
-    // const updatedUser = await User.findByIdAndUpdate(
-    //   id,
-    //   { avatar: result.secure_url }, // Save Cloudinary URL in DB
-    //   { new: true }
-    // );
+   
     const updatedUser = await User.findByIdAndUpdate(
       id,
       { $set: { avatar: result.secure_url } }, // Use $set to update only avatar
       { new: true }
     );
+    console.log(updateUser);
 
     if (!updatedUser) {
       return res.status(404).json({ success: false, message: "User not found." });
@@ -157,31 +111,7 @@ export const updateUser=async (req,res,next) =>{
         next(error);
     }
 }
-// export const updateUser = async (req, res) => {
-//     try {
-//       const { username, email } = req.body;
-  
-//       // Ensure data is provided
-//       if (!username || !email) {
-//         return res.status(400).json({ message: "Username and email are required." });
-//       }
-  
-//       const updatedUser = await User.findByIdAndUpdate(
-//         req.params.id,
-//         { username, email },
-//         { new: true }
-//       );
-  
-//       if (!updatedUser) {
-//         return res.status(404).json({ message: "User not found." });
-//       }
-  
-//       res.json(updatedUser);
-//     } catch (error) {
-//       console.error("Update Error:", error);
-//       res.status(500).json({ message: "Internal server error." });
-//     }
-//   };
+
   
 export const deleteUser=async(req,res,next)=>{
     if(req.user.id !== req.params.id)

@@ -1,6 +1,6 @@
 import express from 'express';
 import upload from "../multer.js";
-import { allUsers,getUser, deleteUser, deleteusersadmin, test, updateUser, uploadProfilePicture} from '../controller/user.controller.js';
+import { allUsers,getUser, deleteUser, deleteusersadmin, test, updateUser} from '../controller/user.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 
 
@@ -15,5 +15,8 @@ router.get("/me", verifyToken, getUser);
 router.get('/all',allUsers);
 router.delete('/delete/:id',verifyToken,deleteUser);
 router.delete('/deleteuser/:id',deleteusersadmin);
-router.post("/profileupload/:id",verifyToken,upload.single("image"),uploadProfilePicture);
+// router.post("/profileupload/:id",verifyToken,upload.single("image"),uploadProfilePicture);
+
+
+
 export default router;

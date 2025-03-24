@@ -33,6 +33,7 @@ import NewsDetail from "./components/NewsShowall/NewsDetail";
 import Swipe from "./components/SwipeImage/Swipe";
 import FeedbackForm from "./components/FeedbackForm/FeedbackForm";
 import ReviewForm from "./components/ReviewForm/ReviewForm";
+import LikedProperties from "./components/LikedProperties/LikedProperties";
 
 
 
@@ -63,6 +64,8 @@ function App() {
       <Route path="/proeprties/swipe/:id" element={<Swipe/>}/>
       
       <Route path="/news" element={<NewsAll/>}/>
+      
+      <Route path="/likedProperties" element={<LikedProperties/>}/>
       <Route path="/Feedback" element={<FeedbackForm/>}/>
       <Route path="/Review/:id" element={<ReviewForm/>}/>
 

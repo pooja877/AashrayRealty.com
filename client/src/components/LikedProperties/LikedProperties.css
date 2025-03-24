@@ -1,0 +1,42 @@
+.likeddis-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.likeddis-property-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.likeddis-image {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.likeddis-info h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.likeddis-info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.likeddis-liked {
+    color: red;
+}
+
+.likeddis-unliked {
+    color: gray;
+}
