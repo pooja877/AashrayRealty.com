@@ -1,172 +1,207 @@
 /* Hide scrollbar */
 ::-webkit-scrollbar {
-    display: none;
-  }
-
-  
-  /* Main container */
-  .main-user-contain {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    gap: 1rem;
-    width: 100%;
-    background: linear-gradient(#fdf9f9, #dddbdb);
-    padding: 0.5rem;
-    
-    
-  }
-  
-  /* Property List Container - Uses Grid */
-  .datapro {
-    width: 65%;
-    max-height: 100vh;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
-    background-color: white;
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem;
-    padding-bottom: 7rem;
-  }
-  
-  /* Property Card */
-  .contain {
-    background: white;
-    height: fit-content;
-    /* width:fit-content; */
-    border-radius: 0.5rem;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-  }
-  
-  /* Image Wrapper */
-  .imageWrapper {
-    position: relative;
-    width: 100%;
-  }
-  
-  .imageConatiner {
-    width: 100%;
-    height: 200px;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    object-fit: fill;
-  }
-  
-  /* Like Button */
-  .likeButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    transition: color 0.3s ease-in-out;
-   
-  }
-  
-  .liked {
-    color: red;
-  }
-  
-  .unliked {
-    color:white;
-  }
-  
-  /* Property Info */
-  .info {
-    padding-top: 1rem;
-    text-transform: capitalize;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .prodetails {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .prodetails p {
-    margin: 0;
-  }
-  .protype{
-      color:rgb(11, 11, 11);
-      font-size: 1.3rem;
-      font-weight: bold;
-  }
-  
-  .price {
-    background-color: rgb(236, 219, 110);
-    color: black;
-    width: fit-content;
-    padding: 0.5rem 1rem;
-    border-radius: 0.2rem;
-    font-weight: bold;
-    margin: auto;
-  }
-  
-  
- /* Map Section */
-.mapall {
-    height: 97vh;
-    width: 30%;
-    display: flex;
-   padding-bottom: 2rem;
+  display: none;
 }
 
-  
-  /* Responsive Design */
-  @media (max-width: 1062px) {
-    .main-user-contain {
-      flex-direction: column;
-      align-items: center;
-      padding: 0px;
-    }
-  
-    .datapro {
-      width: 90%;
-      box-shadow:none;
-      border-radius: 0;
-      width: 100%;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-  
-    .mapall {
-      display: none;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .datapro {
-      width: 100%;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-  
-    .contain {
-      width: 100%;
-    }
 
-  }
+/* Main container */
+.main-user-contain {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  /* gap: 0.5rem; */
+  width: 100%;
+  /* background: linear-gradient(#fdf9f9, #dddbdb); */
+  background-color: white;
+  padding: 0.3rem;
   
-  /* Single property should be centered and wider */
-.single-property {
+  
+}
+
+/* Property List Container - Uses Grid */
+.datapro {
+  width: 65%;
+  max-height: 100vh;
+  /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); */
+  border-radius: 0.5rem;
+  background-color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+
+  padding: 1rem;
+  padding-bottom: 7rem;
+  padding-right: 0.5rem;
+}
+
+/* Property Card */
+.contain {
+  background: white;
+  height: fit-content;
+  /* width:fit-content; */
+  border-radius: 0.5rem;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Image Wrapper */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.imageConatiner {
+  width: 100%;
+  height: 200px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  object-fit: fill;
+}
+
+/* Like Button */
+.likeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: color 0.3s ease-in-out;
+ 
+}
+
+.liked {
+  color: red;
+}
+
+.unliked {
+  color:white;
+}
+
+/* Property Info */
+.info {
+  padding-top: 1rem;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.prodetails {
   display: flex;
   justify-content: center;
 }
 
+.prodetails p {
+  margin: 0;
+}
+.protype{
+    color:rgb(11, 11, 11);
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.price {
+  background-color: rgb(236, 219, 110);
+  color: black;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+  font-weight: bold;
+  margin: auto;
+}
+
+
+/* Map Section */
+.mapall {
+  height: 93vh;
+  width: 30%;
+  display: flex;
+ padding-bottom: 2rem;
+}
+
+
+/* Responsive Design */
+@media (max-width: 1062px) {
+  .main-user-contain {
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+  }
+
+  .datapro {
+    width: 90%;
+    box-shadow:none;
+    border-radius: 0;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .mapall {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .datapro {
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .contain {
+    width: 100%;
+  }
+
+}
+
+/* Single property should be centered and wider */
+.single-property {
+display: flex;
+justify-content: center;
+}
+
 .single-property .contain {
-  width: 40%;
-  max-width: 500px;
+width: 40%;
+max-width: 500px;
+}
+.searchhhbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 20%;
+  padding-left: 2rem;
+ 
+}
+
+.searchhhbox input {
+  
+  width: 50%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-btn {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.search-btn:hover {
+  background-color: #0056b3;
 }

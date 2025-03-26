@@ -1,3 +1,4 @@
+
 import Map from '../../components/map/Map';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -8,6 +9,8 @@ export default function Properties() {
     const [properties, setProperties] = useState([]);
     const [likedProperties, setLikedProperties] = useState(new Set());
     const [user, setUser] = useState(null);
+    const [search, setSearch] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -39,25 +42,20 @@ export default function Properties() {
         fetchProperties();
     }, [location.search]);
 
-
-useEffect(() => {
-    if (user) {
-        const fetchLikedProperties = async () => {
-            try {
-                const res = await fetch('/api/likes/liked', { credentials: 'include' });
-                const data = await res.json();
-                
-                setLikedProperties(new Set(data.map(like => like.propertyId._id)));
-
-            } catch (error) {
-                console.error('Error fetching liked properties:', error);
-            }
-        };
-        fetchLikedProperties();
-    }
-}, [user]);
-
-    
+    useEffect(() => {
+        if (user) {
+            const fetchLikedProperties = async () => {
+                try {
+                    const res = await fetch('/api/likes/liked', { credentials: 'include' });
+                    const data = await res.json();
+                    setLikedProperties(new Set(data.map(like => like.propertyId._id)));
+                } catch (error) {
+                    console.error('Error fetching liked properties:', error);
+                }
+            };
+            fetchLikedProperties();
+        }
+    }, [user]);
 
     const toggleLike = async (propertyId) => {
         if (!user) {
@@ -90,12 +88,35 @@ useEffect(() => {
             console.error('Error toggling like:', error);
         }
     };
+    const handleSearch = () => {
+        setSearchQuery(search);
+    };
+
+
+    
+    const filteredProperties = properties.filter(property =>
+        property.propertyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        property.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        property.transactionType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        property.area.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        property.price.toString().includes(searchQuery)
+    );
 
     return (
         <div className="main-user-contain">
-            <div className={`datapro ${properties.length === 1 ? 'single-property' : ''}`}>
-                {properties.length > 0 ? (
-                    properties.map(property => (
+           <div className="searchhhbox">
+            <input
+                type="text"
+                placeholder="Search by Name, City, Type, Area, Price"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}      
+            />
+            <button className="search-btn" onClick={handleSearch}>Search</button>
+            </div>
+            <div className={`datapro ${filteredProperties.length === 1 ? 'single-property' : ''}`}>
+                
+                {filteredProperties.length > 0 ? (
+                    filteredProperties.map(property => (
                         <div className="contain" key={property._id}>
                             <div className="imageWrapper">
                                 {property.images?.length > 0 && (
@@ -106,13 +127,9 @@ useEffect(() => {
                                         onClick={() => navigate(`/Properties/${property._id}`)}
                                     />
                                 )}
-                                {/* <FaHeart
+                                <FaHeart
                                     className={`likeButton ${likedProperties.has(property._id) ? 'liked' : 'unliked'}`}
                                     onClick={() => toggleLike(property._id)}
-                                /> */}
-                                <FaHeart
-                                className={`likeButton ${likedProperties.has(property._id) ? 'liked' : 'unliked'}`}
-                                onClick={() => toggleLike(property._id)}
                                 />
                             </div>
                             <div className="info" onClick={() => navigate(`/Properties/${property._id}`)}>
@@ -140,7 +157,7 @@ useEffect(() => {
                     <p>No properties found.</p>
                 )}
             </div>
-            <div className="mapall"><Map/></div>
+            <div className="mapall"><Map /></div>
         </div>
     );
 }
