@@ -25,7 +25,9 @@ const FeedbackForm = () => {
     };
     fetchUser();
   }, []);
+ 
 
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -94,7 +96,7 @@ const FeedbackForm = () => {
         </button>
       </form>
 
-      {!user && <p className="not-logged-in">Please log in to submit feedback.</p>}
+      {!user && <p className="notlogged-in">Please log in to submit feedback.</p>}
     </div>
    </div>
   );

@@ -11,6 +11,6 @@ router.post("/like", verifyToken, likeProperty);
 router.post("/unlike", verifyToken, unlikeProperty); // Changed from DELETE to POST
 
 // 🔍 Get All Liked Properties of a User (No need for userId in URL)
-router.get("/liked/:id", verifyToken, getLikedProperties);
+router.get("/liked", verifyToken, getLikedProperties);
 
 export default router;

@@ -1,61 +1,208 @@
+// import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { FaMapMarkerAlt, FaHeart } from "react-icons/fa";
+// import "./LikedProperties.css";
+
+// export default function LikedProperties() {
+//     const [likedProperties, setLikedProperties] = useState([]);
+//     const navigate = useNavigate();
+
+//     useEffect(() => {
+//         const fetchLikedProperties = async () => {
+//             try {
+//                 const res = await fetch("/api/likes/liked", {
+//                     method: "GET",
+//                     credentials: "include",
+//                 });
+
+//                 if (!res.ok) throw new Error("Failed to fetch liked properties");
+
+//                 const data = await res.json();
+
+//                 // Ensure data is in the correct format
+//                 if (Array.isArray(data)) {
+//                     setLikedProperties(data.filter(item => item.propertyId)); 
+//                 } else {
+//                     setLikedProperties([]);
+//                 }
+//             } catch (error) {
+//                 console.error("Error fetching liked properties:", error);
+//                 setLikedProperties([]);
+//             }
+//         };
+
+//         fetchLikedProperties();
+//     }, []);
+
+//     const handleUnlike = async (propertyId) => {
+//         try {
+//             const res = await fetch("/api/likes/unlike", {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 credentials: "include",
+//                 body: JSON.stringify({ propertyId }),
+//             });
+
+//             if (!res.ok) throw new Error("Failed to unlike property");
+
+//             setLikedProperties((prev) => prev.filter((p) => p.propertyId._id !== propertyId));
+//         } catch (error) {
+//             console.error("Error unliking property:", error);
+//         }
+//     };
+
+//     return (
+//         <div className="main-user-contain">
+//             <h2>Liked Properties</h2>
+//             <div className="datapro">
+//                 {likedProperties.length > 0 ? (
+//                     likedProperties.map(({ propertyId }) => (
+//                         <div className="contain" key={propertyId._id}>
+//                             <div className="imageWrapper">
+//                                 {propertyId.images?.length > 0 && (
+//                                     <img
+//                                         className="imageConatiner"
+//                                         src={propertyId.images[0].url}
+//                                         alt="Property"
+//                                         onClick={() => navigate(`/Properties/${propertyId._id}`)}
+//                                     />
+//                                 )}
+//                                 <FaHeart
+//                                     className="likeButton liked"
+//                                     onClick={() => handleUnlike(propertyId._id)}
+//                                 />
+//                             </div>
+
+//                             <div className="info" onClick={() => navigate(`/Properties/${propertyId._id}`)}>
+//                                 <h3>{propertyId.propertyName}</h3>
+//                                 <div className="prodetails">
+//                                     <FaMapMarkerAlt />
+//                                     <p>{propertyId.address} {propertyId.area} {propertyId.city}</p>
+//                                 </div>
+//                                 <p className='protype'>For {propertyId.transactionType}</p>
+//                                 <div className="price">
+//                                     <p className="ind-price">
+//                                         ₹{propertyId.discountPrice ? (
+//                                             <>
+//                                                 <span className="strike">{propertyId.price}</span> 
+//                                                 <span className="discountprice">{propertyId.discountPrice} {propertyId.transactionType === "Rent" ? "/month" : ""}</span>
+//                                             </>
+//                                         ) : (
+//                                             <span className="originalprice">{propertyId.price} {propertyId.transactionType === "Rent" ? "/month" : ""}</span>
+//                                         )}
+//                                     </p>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     ))
+//                 ) : (
+//                     <p>No liked properties found.</p>
+//                 )}
+//             </div>
+//         </div>
+//     );
+// }
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaHeart } from "react-icons/fa";
 import "./LikedProperties.css";
 
 export default function LikedProperties() {
     const [likedProperties, setLikedProperties] = useState([]);
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchLikedProperties = async () => {
             try {
-                const res = await fetch("/api/user/me", {
+                const res = await fetch("/api/likes/liked", {
                     method: "GET",
                     credentials: "include",
                 });
+
+                if (!res.ok) throw new Error("Failed to fetch liked properties");
+
                 const data = await res.json();
-                if (res.ok) {
-                    setUser(data);
-                    fetchLikedProperties(data._id);
+                if (Array.isArray(data)) {
+                    setLikedProperties(data.filter(item => item.propertyId)); 
+                } else {
+                    setLikedProperties([]);
                 }
             } catch (error) {
-                console.error("Not logged in", error);
+                console.error("Error fetching liked properties:", error);
+                setLikedProperties([]);
             }
         };
-        fetchUser();
+
+        fetchLikedProperties();
     }, []);
 
-    const fetchLikedProperties = async (userId) => {
+    const handleUnlike = async (propertyId) => {
         try {
-            const res = await fetch(`/api/likes/${userId}`);
-            const data = await res.json();
-            if (res.ok) {
-                setLikedProperties(data);
-            }
+            const res = await fetch("/api/likes/unlike", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ propertyId }),
+            });
+
+            if (!res.ok) throw new Error("Failed to unlike property");
+
+            setLikedProperties((prev) => prev.filter((p) => p.propertyId._id !== propertyId));
         } catch (error) {
-            console.error("Error fetching liked properties:", error);
+            console.error("Error unliking property:", error);
         }
     };
 
     return (
-        <div className="likeddis-container">
+       <div className="mainlikedd">
+         <div className="likeddis-main-user-contain">
             <h2>Liked Properties</h2>
-            {likedProperties.length > 0 ? (
-                likedProperties.map(({ property }) => (
-                    <div className="likeddis-property-card" key={property._id} onClick={() => navigate(`/Properties/${property._id}`)}>
-                        <img src={property.images[0].url} alt="Property" className="likeddis-image" />
-                        <div className="likeddis-info">
-                            <h3>{property.propertyName}</h3>
-                            <p><FaMapMarkerAlt /> {property.address}, {property.city}</p>
-                            <p>₹{property.price} {property.transactionType === "Rent" ? "/month" : ""}</p>
+            <div className="likeddis-datapro">
+                {likedProperties.length > 0 ? (
+                    likedProperties.map(({ propertyId }) => (
+                        <div className="likeddis-contain" key={propertyId._id}>
+                            <div className="likeddis-imageWrapper">
+                                {propertyId.images?.length > 0 && (
+                                    <img
+                                        className="likeddis-imageConatiner"
+                                        src={propertyId.images[0].url}
+                                        alt="Property"
+                                        onClick={() => navigate(`/Properties/${propertyId._id}`)}
+                                    />
+                                )}
+                                <FaHeart
+                                    className="likeddis-likeButton"
+                                    onClick={() => handleUnlike(propertyId._id)}
+                                />
+                            </div>
+
+                            <div className="likeddis-info" onClick={() => navigate(`/Properties/${propertyId._id}`)}>
+                                <h3>{propertyId.propertyName}</h3>
+                                <div className="likeddis-prodetails">
+                                    <FaMapMarkerAlt />
+                                    <p>{propertyId.address} {propertyId.area} {propertyId.city}</p>
+                                </div>
+                                <p className='likeddis-protype'>For {propertyId.transactionType}</p>
+                                <div className="likeddis-price">
+                                    <p className="likeddis-ind-price">
+                                        ₹{propertyId.discountPrice ? (
+                                            <>
+                                                <span className="likeddis-strike">{propertyId.price}</span> 
+                                                <span className="likeddis-discountprice">{propertyId.discountPrice} {propertyId.transactionType === "Rent" ? "/month" : ""}</span>
+                                            </>
+                                        ) : (
+                                            <span className="likeddis-originalprice">{propertyId.price} {propertyId.transactionType === "Rent" ? "/month" : ""}</span>
+                                        )}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                ))
-            ) : (
-                <p>No liked properties.</p>
-            )}
+                    ))
+                ) : (
+                    <p>No liked properties found.</p>
+                )}
+            </div>
         </div>
+       </div>
     );
 }

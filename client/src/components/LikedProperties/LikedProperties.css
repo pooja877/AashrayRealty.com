@@ -1,42 +1,119 @@
-.likeddis-container {
-    max-width: 800px;
+.mainlikedd{
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+    padding-bottom: 4rem;
+}
+.likeddis-main-user-contain {
+    width: 90%;
     margin: auto;
     padding: 20px;
 }
 
-.likeddis-property-card {
+.likeddis-main-user-contain h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.likeddis-datapro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.likeddis-contain {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+.likeddis-contain:hover {
+    transform: scale(1.05);
+}
+
+.likeddis-imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.likeddis-imageConatiner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.likeddis-likeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: red;
+    cursor: pointer;
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.likeddis-info {
+    padding: 15px;
+    cursor: pointer;
+}
+
+.likeddis-prodetails {
     display: flex;
     align-items: center;
-    background: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.likeddis-image {
-    width: 100px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-right: 15px;
-}
-
-.likeddis-info h3 {
-    margin: 0;
-    font-size: 16px;
-}
-
-.likeddis-info p {
-    margin: 5px 0;
+    gap: 5px;
     font-size: 14px;
+    color: #555;
 }
 
-.likeddis-liked {
+.likeddis-protype {
+    font-weight: bold;
+    color: #333;
+}
+
+.likeddis-price {
+    margin-top: 10px;
+}
+
+.likeddis-ind-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.likeddis-strike {
+    text-decoration: line-through;
     color: red;
+    margin-right: 10px;
 }
 
-.likeddis-unliked {
-    color: gray;
+.likeddis-discountprice {
+    color: green;
+    font-weight: bold;
+}
+
+.likeddis-originalprice {
+    font-weight: bold;
+    color: #392f2f;
+}
+
+/* Ensure a single property is centered */
+@media (max-width: 500px) {
+    .likeddis-datapro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .likeddis-contain {
+        width: 100%;
+        max-width: 350px;
+    }
 }

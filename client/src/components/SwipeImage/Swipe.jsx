@@ -9,7 +9,8 @@ import "swiper/css/navigation";
 
 export default function Swipe() {
     const { id: propertyId } = useParams();
-    const [likedProperties, setLikedProperties] = useState({});
+    const [user, setUser] = useState(null);
+    const [likedProperties, setLikedProperties] = useState(new Set());
     const [formData, setFormData] = useState({ images: [],
         propertyName:"",
         transactionType:"",
@@ -17,13 +18,18 @@ export default function Swipe() {
        const navigate=useNavigate();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-    const toggleLike = (id) => {
-        setLikedProperties(prev => {
-            const updatedLikes = { ...prev, [id]: !prev[id] };
-            localStorage.setItem("likedProperties", JSON.stringify(updatedLikes));
-            return updatedLikes;
-        });
-    };
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await fetch('/api/user/me', { method: 'GET', credentials: 'include' });
+                const data = await res.json();
+                if (res.ok) setUser(data);
+            } catch (error) {
+                console.error('Not logged in', error);
+            }
+        };
+        fetchUser();
+    }, []);
 
     useEffect(() => {
         const fetchProperty = async () => {
@@ -41,14 +47,63 @@ export default function Swipe() {
         };
         fetchProperty();
 
-        const storedLikes = JSON.parse(localStorage.getItem("likedProperties")) || {};
-        setLikedProperties(storedLikes);
-
+       
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
         window.addEventListener("resize", handleResize);
 
         return () => window.removeEventListener("resize", handleResize);
     }, [propertyId]);
+
+    useEffect(() => {
+        if (user) {
+            const fetchLikedProperties = async () => {
+                try {
+                    const res = await fetch('/api/likes/liked', { credentials: 'include' });
+                    const data = await res.json();
+                    
+                    setLikedProperties(new Set(data.map(like => like.propertyId._id)));
+    
+                } catch (error) {
+                    console.error('Error fetching liked properties:', error);
+                }
+            };
+            fetchLikedProperties();
+        }
+    }, [user]);
+    
+        
+    
+        const toggleLike = async (propertyId) => {
+            if (!user) {
+                alert('Please login to like properties.');
+                return;
+            }
+            try {
+                if (likedProperties.has(propertyId)) {
+                    await fetch('/api/likes/unlike', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify({ propertyId })
+                    });
+                    setLikedProperties(prev => {
+                        const newSet = new Set(prev);
+                        newSet.delete(propertyId);
+                        return newSet;
+                    });
+                } else {
+                    await fetch('/api/likes/like', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify({ propertyId })
+                    });
+                    setLikedProperties(prev => new Set(prev).add(propertyId));
+                }
+            } catch (error) {
+                console.error('Error toggling like:', error);
+            }
+        };
 
     return (
         <div className="mainimage">
@@ -69,9 +124,9 @@ export default function Swipe() {
                                     alt={`Property ${index + 1}`}
                                     className="mobile-property-image"
                                 />
-                                <FaHeart
-                                    className={`likeButton ${likedProperties[propertyId] ? 'liked' : 'unliked'}`}
-                                    onClick={() => toggleLike(propertyId)}
+                                 <FaHeart
+                                className={`likeButton ${likedProperties.has(propertyId) ? 'liked' : 'unliked'}`}
+                                onClick={() => toggleLike(propertyId)}
                                 />
                             </div>
                         ))}
@@ -93,10 +148,10 @@ export default function Swipe() {
                                         alt={`Property ${index + 1}`}
                                         className="propertyslide"
                                     />
-                                    <FaHeart
-                                        className={`likeButton ${likedProperties[propertyId] ? 'liked' : 'unliked'}`}
-                                        onClick={() => toggleLike(propertyId)}
-                                    />
+                                     <FaHeart
+                                className={`likeButton ${likedProperties.has(propertyId) ? 'liked' : 'unliked'}`}
+                                onClick={() => toggleLike(propertyId)}
+                                />
                                 </div>
                             </SwiperSlide>
                         ))}

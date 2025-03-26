@@ -12,7 +12,8 @@ import ReviewCarousel from '../ReviewCarousel/ReviewCarousel';
 
 export default function SingleProperty() {
     const { id: propertyId } = useParams();
-    const [likedProperties, setLikedProperties] = useState({});
+    const [likedProperties, setLikedProperties] = useState(new Set());
+    const [user, setUser] = useState(null);
     const navigate=useNavigate();
     const [formData, setFormData] = useState({
       images:[],
@@ -34,18 +35,68 @@ export default function SingleProperty() {
       city:'',
     });
     
+    useEffect(() => {
+      const fetchUser = async () => {
+          try {
+              const res = await fetch('/api/user/me', { method: 'GET', credentials: 'include' });
+              const data = await res.json();
+              if (res.ok) setUser(data);
+          } catch (error) {
+              console.error('Not logged in', error);
+          }
+      };
+      fetchUser();
+  }, []);
 
-    const toggleLike = (id) => {
-      // setLikedProperties(prev => ({
-      //     ...prev,
-      //     [id]: !prev[id] // Toggle like status
-      // }));
-      setLikedProperties(prev => {
-        const updatedLikes = { ...prev, [id]: !prev[id] };
-        localStorage.setItem("likedProperties", JSON.stringify(updatedLikes)); // Save in localStorage
-        return updatedLikes;
-    });
-  };
+  useEffect(() => {
+    if (user) {
+        const fetchLikedProperties = async () => {
+            try {
+                const res = await fetch('/api/likes/liked', { credentials: 'include' });
+                const data = await res.json();
+                
+                setLikedProperties(new Set(data.map(like => like.propertyId._id)));
+
+            } catch (error) {
+                console.error('Error fetching liked properties:', error);
+            }
+        };
+        fetchLikedProperties();
+    }
+}, [user]);
+const toggleLike = async (propertyId) => {
+  if (!user) {
+      alert('Please login to like properties.');
+      return;
+  }
+  try {
+      if (likedProperties.has(propertyId)) {
+          await fetch('/api/likes/unlike', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
+              body: JSON.stringify({ propertyId })
+          });
+          setLikedProperties(prev => {
+              const newSet = new Set(prev);
+              newSet.delete(propertyId);
+              return newSet;
+          });
+      } else {
+          await fetch('/api/likes/like', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
+              body: JSON.stringify({ propertyId })
+          });
+          setLikedProperties(prev => new Set(prev).add(propertyId));
+      }
+  } catch (error) {
+      console.error('Error toggling like:', error);
+  }
+};
+
+    
     const amenityIcons = {
         "gym": <FaDumbbell className="icon" />,
         "swimming pool": <FaSwimmingPool className="icon" />,
@@ -80,10 +131,7 @@ export default function SingleProperty() {
      
       
       fetchProperty();
-      
-     
-      const storedLikes = JSON.parse(localStorage.getItem("likedProperties")) || {};
-      setLikedProperties(storedLikes);
+
   }, [propertyId]);
 
  
@@ -132,10 +180,9 @@ export default function SingleProperty() {
           navigate(`/proeprties/swipe/${propertyId}`)
         }}
       />
-      <FaHeart
-        className={`likeButton ${likedProperties[propertyId] ? 'liked' : 'unliked'}`}
-        onClick={() => toggleLike(propertyId)}
-      />
+     <FaHeart
+      className={`likeButton ${likedProperties.has(propertyId) ? 'liked' : 'unliked'}`}
+      onClick={() => toggleLike(propertyId)}/>
     </div>
   )}
 

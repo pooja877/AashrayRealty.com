@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import { logoutUserStart ,logoutUserSuccess,logoutUserFailure} from '../../redux/user/userSlice.js';
 import Activity from '../../components/Activity/Activity.jsx';
 import Tools from '../../components/Tools&advice/Tools.jsx';
+import { useEffect } from 'react';
 // import {} from "react-icons/fa";
 
 export default function Profile() {
@@ -27,6 +28,22 @@ export default function Profile() {
       }
 
     }
+ 
+  // 🔹 Logout when the page is closed/refreshed
+  useEffect(() => {
+      const handlePageClose = async () => {
+          await fetch("/api/auth/logout", { 
+              method: "POST", 
+              credentials: "include" 
+          });
+      };
+
+      window.addEventListener("beforeunload", handlePageClose);
+
+      return () => {
+          window.removeEventListener("beforeunload", handlePageClose);
+      };
+  }, []);
      return (
       <div className="profilecontainer">
     <div className='infocontainer'>
