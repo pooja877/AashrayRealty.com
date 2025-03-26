@@ -45,19 +45,19 @@ const handleDelete=async(id)=>{
   }
   }
 
-  // Filter properties based on search input
-
-const filteredProperties = properties.filter((prop) =>
-    [
+ 
+const filteredProperties = properties.filter((prop) => {
+  const numSearch = Number(search); // Convert search query to a number
+  return [
       prop.propertyName,
       prop.city,
-      prop.price,
       prop.propertyType,
       prop.transactionType,
-    //   prop.discountPrice,
       prop.area,
-      ].some(field => field?.toString().toLowerCase().includes(search.toLowerCase()))
-  );
+  ].some(field => field?.toString().toLowerCase().includes(search.toLowerCase()))
+  || (!isNaN(numSearch) && (prop.price === numSearch || prop.discountPrice === numSearch)); // Exact number match
+});
+
   
 
   // Paginate data

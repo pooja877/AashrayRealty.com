@@ -17,11 +17,11 @@
     height: fit-content;
     z-index: 1;
     padding:1rem;
-    padding-bottom: 5rem;
+    padding-bottom: 4rem;
     margin: 1rem;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    // width:40rem;
+    width:40rem;
     width: fit-content;
     // border: 1px solid black;
     flex-direction: column;
@@ -100,7 +100,7 @@
       
         display: flex;
         flex-direction: row;  
-        gap:6rem;
+        gap:7rem;
       .writetitledelete{
        font-weight: bold;
        padding-top: 0.2rem;

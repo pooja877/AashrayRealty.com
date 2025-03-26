@@ -99,7 +99,7 @@ export default function Properties() {
         property.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
         property.transactionType.toLowerCase().includes(searchQuery.toLowerCase()) ||
         property.area.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        property.price.toString().includes(searchQuery)
+        (Number(searchQuery) ? property.price === Number(searchQuery) || property.discountPrice === Number(searchQuery) : false)
     );
 
     return (

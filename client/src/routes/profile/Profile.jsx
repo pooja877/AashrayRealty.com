@@ -3,9 +3,9 @@ import {useSelector,useDispatch } from 'react-redux';
 import {Link} from "react-router-dom";
 import { logoutUserStart ,logoutUserSuccess,logoutUserFailure} from '../../redux/user/userSlice.js';
 import Activity from '../../components/Activity/Activity.jsx';
-import Tools from '../../components/Tools&advice/Tools.jsx';
+// import Tools from '../../components/Tools&advice/Tools.jsx';
 import { useEffect } from 'react';
-// import {} from "react-icons/fa";
+
 
 export default function Profile() {
     const {currentUser} = useSelector((state)=>state.user);
@@ -62,7 +62,7 @@ export default function Profile() {
         {/* My Activity */}
           <Activity/>
           {/* tools & advices */}
-          <Tools/>
+          {/* <Tools/> */}
      {/* Account Setting delete account */}
      <Link to="/setting">
         <div className="account_setting" >
