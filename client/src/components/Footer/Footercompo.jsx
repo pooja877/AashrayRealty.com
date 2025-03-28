@@ -14,7 +14,7 @@ export default function Footercompo() {
               <span className="site-name">AashrayRealty.COM</span>
             </div>
             <p className="description">
-              India s online real estate website to buy and rent residential and
+              Online real estate website to buy and rent residential and
               commercial properties. Trusted by millions of users every month.
             </p>
             <div className="social-icons">

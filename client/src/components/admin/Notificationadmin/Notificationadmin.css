@@ -1,0 +1,18 @@
+.contactusmessage {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding for better spacing */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    display: inline-block; /* Prevent full-width stretching */
+    cursor: pointer; /* Pointer cursor */
+  }
+  
+  .contactusmessage:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight scaling effect */
+  }
+  

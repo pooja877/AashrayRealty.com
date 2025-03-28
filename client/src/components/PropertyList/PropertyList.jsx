@@ -9,6 +9,8 @@ const PropertyList = () => {
   const [startIndex, setStartIndex] = useState(0);
   const propertiesPerPage = 3; 
   const navigate = useNavigate();
+  const [likedProperties, setLikedProperties] = useState(new Set());
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -23,10 +25,64 @@ const PropertyList = () => {
     fetchProperties();
   }, []);
 
-  const [likedProperties, setLikedProperties] = useState(() => {
-    const savedLikes = localStorage.getItem('likedProperties');
-    return savedLikes ? JSON.parse(savedLikes) : {}; // Default to empty object if no data
-  });
+  useEffect(() => {
+    const fetchUser = async () => {
+        try {
+            const res = await fetch('/api/user/me', { method: 'GET', credentials: 'include' });
+            const data = await res.json();
+            if (res.ok) setUser(data);
+        } catch (error) {
+            console.error('Not logged in', error);
+        }
+    };
+    fetchUser();
+}, []);
+  useEffect(() => {
+        if (user) {
+            const fetchLikedProperties = async () => {
+                try {
+                    const res = await fetch('/api/likes/liked', { credentials: 'include' });
+                    const data = await res.json();
+                    setLikedProperties(new Set(data.map(like => like.propertyId._id)));
+                } catch (error) {
+                    console.error('Error fetching liked properties:', error);
+                }
+            };
+            fetchLikedProperties();
+        }
+    }, [user]);
+
+    const toggleLike = async (propertyId) => {
+      if (!user) {
+          alert('Please login to like properties.');
+          return;
+      }
+      try {
+          if (likedProperties.has(propertyId)) {
+              await fetch('/api/likes/unlike', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  credentials: 'include',
+                  body: JSON.stringify({ propertyId })
+              });
+              setLikedProperties(prev => {
+                  const newSet = new Set(prev);
+                  newSet.delete(propertyId);
+                  return newSet;
+              });
+          } else {
+              await fetch('/api/likes/like', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  credentials: 'include',
+                  body: JSON.stringify({ propertyId })
+              });
+              setLikedProperties(prev => new Set(prev).add(propertyId));
+          }
+      } catch (error) {
+          console.error('Error toggling like:', error);
+      }
+  };
 
   // ✅ Ek time pe sirf 3 properties dikhani hain
   const visibleProperties =properties.slice(startIndex, startIndex + propertiesPerPage);
@@ -42,13 +98,7 @@ const handlePrevious = () => {
         setStartIndex(startIndex - 1);
     }
 };
-  const toggleLike = (propertyId) => {
-    setLikedProperties(prevState => {
-      const updatedLikes = { ...prevState, [propertyId]: !prevState[propertyId] };
-      localStorage.setItem('likedProperties', JSON.stringify(updatedLikes)); // Save to localStorage
-      return updatedLikes;
-    });
-  };
+ 
 
   return (
     <section className="top-picks">
@@ -84,8 +134,10 @@ const handlePrevious = () => {
               <div className="property-image">
                 {property.images?.length > 0 && (
                          <img className="imageConatiner" src={property.images[0].url} alt="Property" onClick={() => navigate(`/Properties/${property._id}`)} /> )}
-                        <FaHeart className={`likeButton ${likedProperties[property._id] ? 'liked' : 'unliked'}`}
-                            onClick={() => toggleLike(property._id)}/>
+                         <FaHeart
+                                    className={`likeButton ${likedProperties.has(property._id) ? 'liked' : 'unliked'}`}
+                                    onClick={() => toggleLike(property._id)}
+                                />
               </div>
               <div className="propertyproinfo">
                 <div className="property-header">

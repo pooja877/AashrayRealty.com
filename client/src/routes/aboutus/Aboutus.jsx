@@ -1,64 +1,55 @@
-import './aboutus.scss';
+import Footercompo from "../../components/Footer/Footercompo";
+import Testimonials from "../../components/testimonialsData/Testimonials";
+import "./aboutus.css"; // Importing the CSS file
+
 const AboutUs = () => {
   return (
-    <div className="about-us">
-      <div className="about-header">
-        <h1>About Us</h1>
-        <p>
-          Welcome to <strong>[Your System Name]</strong>
-        </p>
+   <div className="mianaboutcontainerr">
+      <div className="aboutus-container">
+      {/* Hero Section */}
+      <div className="aboutus-hero">
+        <h1>ABOUT US</h1>
       </div>
-      <section className="about-section">
-        <h2>Our Mission</h2>
-        <p>
-          To empower property managers, landlords, and tenants with cutting-edge
-          technology that simplifies real estate operations, improves
-          communication, and ensures transparency.
-        </p>
-      </section>
-      <section className="about-section">
-        <h2>Our Vision</h2>
-        <p>
-          To become the most trusted and user-friendly platform for real estate
-          management worldwide, making property management stress-free for
-          everyone.
-        </p>
-      </section>
-      <section className="about-section">
+
+      {/* Text Section */}
+      <div className="aboutus-content">
+        <div className="aboutus-text">
+          <h2>Welcome to Aashray Realty</h2>
+          <p>
+            AashrayRealty, founded in September 2017, is one of the leading
+            real estate companies in Ahmedabad. We cater to all real estate
+            needs, providing professionalized services to help customers choose
+            properties without compromising on their criteria.
+          </p>
+          <p>
+            Our goal is to make home buying & renting a **transparent, smooth,
+            and stress-free** experience. Whether you are searching for a dream
+            home or looking for the best real estate investment.
+          </p>
+          <p>
+            At AashrayRealty, we are committed to **trust, integrity, and
+            excellence.** Our team ensures that every client receives
+            personalized service and data-driven insights to make the best
+            property decisions.
+          </p>
+        </div>
+      </div>
+
+      {/* Responsibilities Section */}
+      <div className="aboutus-responsibilities">
         <h2>Why Choose Us?</h2>
         <ul>
-          <li><strong>Efficiency:</strong> Automate repetitive tasks and manage properties in one place.</li>
-          <li><strong>Transparency:</strong> Clear communication between stakeholders ensures smooth operations.</li>
-          <li><strong>Innovation:</strong> Regular updates and features to keep up with the dynamic real estate industry.</li>
-          <li><strong>Support:</strong> Dedicated customer support to help you every step of the way.</li>
+          <li>Years of experience in the real estate industry.</li>
+          <li>Personalized consultation based on your needs.</li>
+          <li>Access to verified properties with complete transparency.</li>
+          <li>End-to-end assistance, from property selection to legal help.</li>
+          <li>Customer satisfaction is our top priority.</li>
         </ul>
-      </section>
-      <section className="about-section">
-        <h2>Our Story</h2>
-        <p>
-          Founded in [Year] by a team of real estate enthusiasts and tech
-          experts, <strong>[AashrayRealty]</strong> was created to address
-          the everyday challenges faced in property management.
-        </p>
-      </section>
-      <section className="about-section">
-        <h2>Who We Serve</h2>
-        <ul>
-          <li>Property Managers</li>
-          <li>Landlords</li>
-          <li>Tenants</li>
-          <li>Real Estate Professionals</li>
-        </ul>
-      </section>
-      <div className="about-cta">
-        <h2>Get Started Today</h2>
-        <p>
-          Discover how <strong>[AashrayRealty]</strong> can simplify your
-          real estate management. Join us in building a more efficient and
-          connected future in real estate.
-        </p>
       </div>
+      <Testimonials/>
     </div>
+    <Footercompo/>
+   </div>
   );
 };
 

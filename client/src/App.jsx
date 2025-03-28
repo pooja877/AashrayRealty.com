@@ -34,6 +34,7 @@ import Swipe from "./components/SwipeImage/Swipe";
 import FeedbackForm from "./components/FeedbackForm/FeedbackForm";
 import ReviewForm from "./components/ReviewForm/ReviewForm";
 import LikedProperties from "./components/LikedProperties/LikedProperties";
+import Notificationadmin from "./components/admin/Notificationadmin/Notificationadmin";
 import AdminMessage from "./components/admin/AdminmessageContactus/AdminMessage";
 
 
@@ -82,7 +83,9 @@ function App() {
             <Route path="/admin/users" element={<TableUser/>} />
             <Route path="/admin/news" element={<NewsTable/>} />
             <Route path="/admin/addNews" element={<AdminNews/>} />
-            <Route path="/admin/messages" element={<AdminMessage/>} />
+            <Route path="/admin/messages" element={<Notificationadmin/>} />
+            <Route path="/admin/contact" element={<AdminMessage/>} />
+            
             <Route path="/admin/news/updatenews/:id" element={<Updatenews/>} />
       </Route>
         <Route path="/admin" element={<AdminLogin/>} />

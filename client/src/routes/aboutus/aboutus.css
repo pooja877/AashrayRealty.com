@@ -1,0 +1,112 @@
+
+.mianaboutcontainerr{
+  height: 100vh;
+  width: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 3rem;
+}
+/* About Us Page Styles */
+.aboutus-container {
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Hero Section */
+.aboutus-hero {
+  width: 100%;
+  height: 300px;
+  background-image: url('/contatchome.jpg');
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+.aboutus-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+}
+
+.aboutus-hero h1 {
+  position: relative;
+  z-index: 1;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.aboutus-hero p {
+  font-size: 18px;
+}
+
+/* Content Section */
+.aboutus-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Image Styling */
+.aboutus-image img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 8px;
+}
+
+/* Text Styling */
+.aboutus-text {
+  flex: 1;
+  margin-left: 40px;
+}
+
+.aboutus-text h2 {
+  font-size: 28px;
+  color: #0056b3;
+}
+
+.aboutus-text p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Responsibilities Section */
+.aboutus-responsibilities {
+  background: #f8f9fa;
+  padding: 40px;
+  text-align: center;
+}
+
+.aboutus-responsibilities h2 {
+  color: #0056b3;
+  font-size: 26px;
+}
+
+.aboutus-responsibilities ul {
+  list-style-type: disc;
+  text-align: left;
+  max-width: 800px;
+  margin: auto;
+}
+
+.aboutus-responsibilities li {
+  font-size: 16px;
+  margin: 5px 0;
+}

@@ -299,7 +299,9 @@ export default function Add() {
                     <option value="1 BHk">1BHK</option>
                     <option value="2 BHk">2BHK</option>
                     <option value="3 BHk">3BHK</option>
-                    <option value="3 BHk">4BHK</option>
+                    <option value="4 BHk">4BHK</option>
+                    <option value="5 BHk">5BHK</option>
+                    <option value="6 BHk">6BHK</option>
                 </select>
                 
                 </div>
