@@ -36,6 +36,7 @@ import ReviewForm from "./components/ReviewForm/ReviewForm";
 import LikedProperties from "./components/LikedProperties/LikedProperties";
 import Notificationadmin from "./components/admin/Notificationadmin/Notificationadmin";
 import AdminMessage from "./components/admin/AdminmessageContactus/AdminMessage";
+import Terms from "./components/Terms/Terms";
 
 
 
@@ -66,6 +67,7 @@ function App() {
       <Route path="/proeprties/swipe/:id" element={<Swipe/>}/>
       
       <Route path="/news" element={<NewsAll/>}/>
+      <Route path="/Terms" element={<Terms/>}/>
       
       <Route path="/likedProperties" element={<LikedProperties/>}/>
       <Route path="/Feedback" element={<FeedbackForm/>}/>

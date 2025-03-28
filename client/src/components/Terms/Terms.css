@@ -1,0 +1,66 @@
+
+.mainterm{
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+}
+.terms-container {
+    padding: 40px;
+    max-width: 80%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .terms-heading {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .terms-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .terms-list {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .terms-list li {
+    margin-bottom: 10px;
+  }
+  
+  /* 🔹 Responsive Styling */
+  @media screen and (max-width: 768px) {
+    .terms-container {
+      padding: 20px;
+      max-width: 95%;
+    }
+  
+    .terms-heading {
+      font-size: 22px;
+    }
+  
+    .terms-text, .terms-list {
+      font-size: 14px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .terms-container {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .terms-heading {
+      font-size: 20px;
+    }
+  
+    .terms-text, .terms-list {
+      font-size: 13px;
+    }
+  }
+  

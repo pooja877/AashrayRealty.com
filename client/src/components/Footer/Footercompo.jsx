@@ -39,7 +39,7 @@ export default function Footercompo() {
               <li><a href="/About">About Us</a></li>
               <li><a href="/contactus">Contact Us</a></li>
               <li><a href="/news">News</a></li>
-              <li><a href="#">Terms & Conditions</a></li>
+              <li><a href="/Terms">Terms & Conditions</a></li>
               <li><a href="/FAQ">FAQ</a></li>
               <li><a href="/Feedback">Feedback</a></li>
             </ul>
