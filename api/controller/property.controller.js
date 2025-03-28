@@ -263,6 +263,7 @@ export const deleteImage=async (req,res)=>{
 export const addProperty=async (req,res,next)=>{
  
   const {images,
+    video,
     propertyName,
     propertyType,
     transactionType,
@@ -285,6 +286,7 @@ export const addProperty=async (req,res,next)=>{
     
       const newProperty = new Property({ 
         images,
+        video,
         propertyName,
         propertyType,
         transactionType,

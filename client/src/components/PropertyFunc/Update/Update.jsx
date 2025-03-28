@@ -92,6 +92,34 @@ const handleImageUpload = async (e) => {
   };
    
     
+const handleVideoUpload = () => {
+  window.cloudinary.openUploadWidget(
+      {
+          cloudName: "dobtvcxnc",
+          uploadPreset: "aashrayRealty",
+          resourceType: "video",
+          multiple: false,
+          sources: ["local"],
+          maxFileSize: 50000000,
+          allowedFormats: ["mp4", "mov", "avi"]
+      },
+      (error, result) => {
+          if (!error && result.event === "success") {
+              const videoData = {
+                  url: result.info.secure_url,
+                  publicId: result.info.public_id
+              };
+
+              setFormData((prev) => ({ ...prev, video: videoData }));
+              console.log("Uploaded Video:", videoData);
+          } else if (error) {
+              alert("Video upload failed. Please try again.");
+              console.error(error);
+          }
+      }
+  );
+};
+
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -199,6 +227,22 @@ const handleImageUpload = async (e) => {
                     {/* image */}
                     <label className='image'>Property Images <span>*</span></label>
                     <input type="file" accept="image/*"  multiple onChange={handleImageUpload} />
+                      {/*video  */}
+                      <button type="button" onClick={handleVideoUpload} style={{
+            padding: "10px 15px",
+            width:"40%",
+          marginTop:'1rem',
+            fontSize: "14px",
+            fontWeight: "bold",
+            color: "white",
+            backgroundColor: "#007bff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            transition: "background 0.3s",
+        }}>Upload Video</button>
+
+                    
                    
                     {/* location */}
                     <h3>Property Location</h3>

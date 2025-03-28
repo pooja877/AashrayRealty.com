@@ -11,6 +11,7 @@ export default function Add() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const selectRef=useRef();
+
   const [step, setStep] = useState(1);
   const navigate=useNavigate();
   const areaOptions = {
@@ -29,6 +30,7 @@ export default function Add() {
   
   const [formData, setFormData ] = useState({
     images:[],
+    video:'',
     propertyName: '',
     propertyType: '',
     transactionType: '',
@@ -88,7 +90,37 @@ export default function Add() {
   }
 };
 
-  
+ 
+
+const handleVideoUpload = () => {
+  window.cloudinary.openUploadWidget(
+      {
+          cloudName: "dobtvcxnc",
+          uploadPreset: "aashrayRealty",
+          resourceType: "video",
+          multiple: false,
+          sources: ["local"],
+          maxFileSize: 50000000,
+          allowedFormats: ["mp4", "mov", "avi"]
+      },
+      (error, result) => {
+          if (!error && result.event === "success") {
+              const videoData = {
+                  url: result.info.secure_url,
+                  publicId: result.info.public_id
+              };
+
+              setFormData((prev) => ({ ...prev, video: videoData }));
+              console.log("Uploaded Video:", videoData);
+          } else if (error) {
+              alert("Video upload failed. Please try again.");
+              console.error(error);
+          }
+      }
+  );
+};
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -125,8 +157,10 @@ export default function Add() {
       setLoading(false);
     }
   };
+  
+  
 
-  const next = () => {  setStep((prev) => Math.min(prev + 1, 4));}
+  const next = () => {  setStep((prev) => Math.min(prev + 1, 5));}
   const prev = () => setStep((prev) => Math.max(prev - 1, 1));
   
   return (
@@ -155,6 +189,11 @@ export default function Add() {
       <div className={`step-item ${step >= 4 ? "active" : ""}`}>
         <div className="step-circle">4</div>
         <p className='infoadddara'>Facilities</p>
+      </div>
+      <div className={`line ${step >= 5 ? "active" : ""}`}></div>
+      <div className={`step-item ${step >= 5 ? "active" : ""}`}>
+        <div className="step-circle">5</div>
+        <p className='infoadddara'>Video</p>
       </div>
       </div>
 
@@ -361,12 +400,33 @@ export default function Add() {
           
           <div className="prevnextbtn">
                   <button onClick={prev} className='btnadd'>Back</button>
-                  <button disabled={loading} className='btnaddproperty' onClick={handleSubmit}>{loading ? 'loading...' : 'Add Property'}</button>
+                  <button onClick={next} className='btnadd' >Next</button>
+                  {/* <button disabled={loading} className='btnaddproperty' onClick={handleSubmit}>{loading ? 'loading...' : 'Add Property'}</button> */}
         </div>
         {error && <p className='adderror'>{error}</p>}
          
         </div>
       )}
+      {step === 5 && (
+         <div className='form-step'>
+          <p>Video size must be less than 50Mb</p>
+         <button onClick={handleVideoUpload} className='upload-video-btn'>Upload Video</button>
+         
+         {formData.video && (
+           <video width="200" controls >
+             <source src={formData.video} type="video/mp4" />
+           </video>
+         )}
+         
+
+          <div className="prevnextbtn">
+                  <button onClick={prev} className='btnadd'>Back</button>
+                  <button disabled={loading} className='btnaddproperty' onClick={handleSubmit}>{loading ? 'loading...' : 'Add Property'}</button>
+        </div>
+          </div>
+     )}
+
+      
     </div></div>
     </>
   );

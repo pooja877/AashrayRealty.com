@@ -10,7 +10,6 @@ import "swiper/css/navigation";
 import ReviewCarousel from '../ReviewCarousel/ReviewCarousel';
 import Footercompo from '../Footer/Footercompo';
 
-
 export default function SingleProperty() {
     const { id: propertyId } = useParams();
     const [likedProperties, setLikedProperties] = useState(new Set());
@@ -34,6 +33,7 @@ export default function SingleProperty() {
       address:'',
       area:'',
       city:'',
+      video:'',
     });
     
     useEffect(() => {
@@ -119,6 +119,7 @@ const toggleLike = async (propertyId) => {
           try {
               const res = await fetch(`/api/property/${propertyId}`);
               const data = await res.json();
+              console.log(data.video);
               if (res.ok) {
                   setFormData(data);
               } else {
@@ -303,7 +304,21 @@ const toggleLike = async (propertyId) => {
              <MapDirection />
              </div>
            </div>
+          
            </div>
+           {/* Video Section */}
+           {formData.video ? (
+    <div className="video-section">
+        <h3>Virtual Tour</h3>
+        <video controls className="property-video">
+            <source src={typeof formData.video === "object" ? formData.video.url : formData.video} type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+    </div>
+) : (
+    <p></p>
+)}
+
           <div className="reviewprocon">
           <button onClick={()=>{navigate(`/Review/${propertyId}`)}} className='giveratereviewbtn' >Give Review-Rating</button>
           <ReviewCarousel propertyId={propertyId} />

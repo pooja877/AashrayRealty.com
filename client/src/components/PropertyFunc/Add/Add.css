@@ -434,3 +434,28 @@
     width: 100%;
     }
     }
+
+    
+.upload-video-btn {
+  background: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.upload-video-btn:hover {
+  background: #0056b3;
+}
+
+.form-step video {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}

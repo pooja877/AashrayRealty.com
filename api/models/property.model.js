@@ -45,7 +45,7 @@ const propertySchema = new mongoose.Schema({
       type: Number,
       required: true
    },
-  
+   video: { url: String, publicId: String }, 
    images: [{
       url: String,
       publicId: String
