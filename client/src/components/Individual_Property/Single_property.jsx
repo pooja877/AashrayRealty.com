@@ -119,7 +119,7 @@ const toggleLike = async (propertyId) => {
           try {
               const res = await fetch(`/api/property/${propertyId}`);
               const data = await res.json();
-              console.log(data.video);
+              // console.log(data.video);
               if (res.ok) {
                   setFormData(data);
               } else {
@@ -135,6 +135,126 @@ const toggleLike = async (propertyId) => {
       fetchProperty();
 
   }, [propertyId]);
+//   const handleBooking = async () => {
+//     if (!user) {
+//         alert('Please login to book a property.');
+//         return;
+//     }
+
+//     try {
+//         const res = await fetch('/api/book/create', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             credentials: 'include',
+//             body: JSON.stringify({ amount: 1 }) // Fixed Amount ₹10,000
+//         });
+
+//         const orderData = await res.json();
+//         if (!res.ok) {
+//             throw new Error(orderData.message || 'Failed to create order');
+//         }
+
+//         const options = {
+//             key: 'rzp_test_1UtD2arKO3r2ix', // Replace with your Razorpay API Key
+//             amount: orderData.amount, // Should be 10000 * 100 (in paise)
+//             currency: 'INR',
+//             name: 'AashrayRealty',
+//             description: 'Property Booking Token Fee',
+//             order_id: orderData.id,
+//             handler: async function (response) {
+//                 alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+                
+//                 // Save booking details in your database
+//                 await fetch('/api/book/confirm', {
+//                     method: 'POST',
+//                     headers: { 'Content-Type': 'application/json' },
+//                     credentials: 'include',
+//                     body: JSON.stringify({
+//                         propertyId,
+//                         paymentId: response.razorpay_payment_id
+//                     })
+//                 });
+//                 alert("done!!");
+//             },
+//             prefill: {
+//                 name: user.name,
+//                 email: user.email
+//             },
+//             theme: {
+//                 color: '#3399cc'
+//             }
+//         };
+
+//         const rzp = new window.Razorpay(options);
+//         rzp.open();
+
+//     } catch (error) {
+//         console.error('Error processing payment:', error);
+//         alert('Payment failed. Please try again.');
+//     }
+// };
+
+
+const handleBooking = async () => {
+  if (!user) {
+      alert('Please login to book a property.');
+      return;
+  }
+
+  try {
+      const res = await fetch('/api/book/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ amount: 1 }) // Fixed amount ₹10,000
+      });
+
+      const orderData = await res.json();
+      if (!res.ok) {
+          throw new Error(orderData.message || 'Failed to create order');
+      }
+
+      const options = {
+          key: 'rzp_test_1UtD2arKO3r2ix', // Use your Razorpay API Key
+          amount: orderData.amount,
+          currency: 'INR',
+          name: 'Aashray Realty',
+          description: 'Property Booking Token Fee',
+          order_id: orderData.id,
+          handler: async function (response) {
+              alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+              await fetch('/api/book/confirm', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  credentials: 'include',
+                  body: JSON.stringify({
+                      propertyId,
+                      paymentId: response.razorpay_payment_id
+                  })
+              });
+              alert("Booking confirmed!");
+          },
+          prefill: {
+              name: user.name,
+              email: user.email
+          },
+          theme: {
+              color: '#3399cc'
+          },
+          payment_capture: 1,
+          method: {
+              upi: true // Enable UPI payments
+          }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+
+  } catch (error) {
+      console.error('Error processing payment:', error);
+      alert('Payment failed. Please try again.');
+  }
+};
 
  
     
@@ -280,7 +400,9 @@ const toggleLike = async (propertyId) => {
                </div>
                </div>
              
-      <button className='book-btn'>Book Property</button>
+      {/* <button className='book-btn'>Book Property</button> */}
+      <button className='book-btn' onClick={handleBooking}>Book Property</button>
+
            
 
        </div>

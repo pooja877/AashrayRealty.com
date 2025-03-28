@@ -12,6 +12,7 @@ import feedbackRoutes from './routes/feedback.route.js';
 import reviewRoutes from './routes/review.route.js';
 import likedRoutes from './routes/liked.route.js';
 import contactRoutes from './routes/contact.route.js';
+import bookRoutes from './routes/booking.route.js';
 
 
 dotenv.config();
@@ -59,6 +60,7 @@ app.listen(3000,()=>{
      app.use("/api/review",reviewRoutes );
      app.use("/api/likes",likedRoutes );
      app.use("/api/contact",contactRoutes );
+     app.use("/api/book",bookRoutes );
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;
