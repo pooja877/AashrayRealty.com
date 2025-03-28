@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import './Contact.css'
+import Footercompo from "../Footer/Footercompo";
 export default function ContactUs() {
    const [formData, setFormData] = useState({ subject: "", message: "" });
       const [user, setUser] = useState(null);
@@ -107,6 +108,7 @@ export default function ContactUs() {
         </div>
       </div>
     </div>
+  <Footercompo/>
 </div>
   );
 }

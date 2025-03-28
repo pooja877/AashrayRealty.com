@@ -1,6 +1,11 @@
+.mainfeed{
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+}
 .mainfeedbackcontain{
-    height: 100vh;
-     width:100%;
+    /* height: 100vh;
+     width:100%; */
      overflow-y: hidden;
      display: flex;
      flex-direction: column;
@@ -11,7 +16,7 @@
 .feedback-container {
     width: 100%;
     max-width: 400px;
-    margin: auto;
+    margin: 40px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);

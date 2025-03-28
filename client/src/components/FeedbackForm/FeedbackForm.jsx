@@ -1,6 +1,7 @@
 import './FeedbackForm.css'
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import Footercompo from '../Footer/Footercompo';
 
 const FeedbackForm = () => {
   const [formData, setFormData] = useState({ rating: 0, comments: "" });
@@ -67,6 +68,7 @@ const FeedbackForm = () => {
   };
 
   return (
+    <div className="mainfeed">
    <div className="mainfeedbackcontain">
      <div className="feedback-container">
       <h2>Feedback Form</h2>
@@ -98,6 +100,9 @@ const FeedbackForm = () => {
 
       {!user && <p className="notlogged-in">Please log in to submit feedback.</p>}
     </div>
+ 
+   </div>
+   <Footercompo/>
    </div>
   );
 };

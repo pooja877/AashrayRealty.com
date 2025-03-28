@@ -8,6 +8,7 @@ import MapDirection from '../Singlemap/MapDirection';
 import "swiper/css";
 import "swiper/css/navigation";
 import ReviewCarousel from '../ReviewCarousel/ReviewCarousel';
+import Footercompo from '../Footer/Footercompo';
 
 
 export default function SingleProperty() {
@@ -138,7 +139,7 @@ const toggleLike = async (propertyId) => {
     
 
     return (
-        <>
+       
          <div className="mainprocon">
          <div className="propertycontainer">
                 {/* Left Section - Images */}
@@ -309,11 +310,10 @@ const toggleLike = async (propertyId) => {
           </div>
             </div>
            
-           
-            
+            <Footercompo/>    
     </div>
- 
-        </>
+    
+        
     );
 }
 

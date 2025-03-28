@@ -3,6 +3,7 @@ import { useRef } from "react";
  import { useNavigate, useParams } from "react-router-dom";
 import './ReviewForm.css'
 import { FaTimes } from "react-icons/fa";
+import Footercompo from "../Footer/Footercompo";
 
 
 const ReviewForm = () => {
@@ -73,6 +74,7 @@ const ReviewForm = () => {
   
 
   return (
+    <div className="mainrevi">
    <div className="mainrevieww">
    
      <div className="review-form">
@@ -106,6 +108,8 @@ const ReviewForm = () => {
         <button type="submit">Submit Review</button>
       </form>
     </div>
+   </div>
+   <Footercompo/>
    </div>
   );
 };
