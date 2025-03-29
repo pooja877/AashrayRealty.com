@@ -119,6 +119,34 @@ const handleVideoUpload = () => {
       }
   );
 };
+// const handlePDFUpload = () => {
+//   window.cloudinary.openUploadWidget(
+//     {
+//       cloudName: "dobtvcxnc",
+//       uploadPreset: "aashrayRealty",
+//       resourceType: "raw",  // ✅ PDF ke liye "raw" set karo
+//       multiple: false,
+//       sources: ["local"],
+//       maxFileSize: 10000000, // 10MB limit
+//       allowedFormats: ["pdf"], // ✅ PDF allow karo
+//       showCompletedButton: true,
+//     },
+//     (error, result) => {
+//       console.log("Upload Response:", result);
+//       if (!error && result.event === "success") {
+//         console.log("PDF Uploaded Successfully:", result.info);
+//         const pdfData = {
+//           url: result.info.secure_url,
+//           publicId: result.info.public_id
+//         };
+//         setFormData((prev) => ({ ...prev, pdf: pdfData }));
+//       } else if (error) {
+//         console.error("Cloudinary Upload Error:", error);
+//         alert("PDF upload failed. Please try again.");
+//       }
+//     }
+//   );
+// };
 
 
 
@@ -193,7 +221,7 @@ const handleVideoUpload = () => {
       <div className={`line ${step >= 5 ? "active" : ""}`}></div>
       <div className={`step-item ${step >= 5 ? "active" : ""}`}>
         <div className="step-circle">5</div>
-        <p className='infoadddara'>Video</p>
+        <p className='infoadddara'>Videoes & Brochure </p>
       </div>
       </div>
 
@@ -411,7 +439,7 @@ const handleVideoUpload = () => {
          <div className='form-step'>
           <p>Video size must be less than 50Mb</p>
          <button onClick={handleVideoUpload} className='upload-video-btn'>Upload Video</button>
-         
+         {/* <button onClick={handlePDFUpload} className='upload-video-btn'>Upload Brochure pdf</button> */}
          {formData.video && (
            <video width="200" controls >
              <source src={formData.video} type="video/mp4" />

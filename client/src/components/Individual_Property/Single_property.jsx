@@ -34,6 +34,7 @@ export default function SingleProperty() {
       area:'',
       city:'',
       video:'',
+    
     });
     
     useEffect(() => {
@@ -119,7 +120,7 @@ const toggleLike = async (propertyId) => {
           try {
               const res = await fetch(`/api/property/${propertyId}`);
               const data = await res.json();
-              // console.log(data.video);
+              // console.log(data.pdf);
               if (res.ok) {
                   setFormData(data);
               } else {
@@ -135,65 +136,6 @@ const toggleLike = async (propertyId) => {
       fetchProperty();
 
   }, [propertyId]);
-//   const handleBooking = async () => {
-//     if (!user) {
-//         alert('Please login to book a property.');
-//         return;
-//     }
-
-//     try {
-//         const res = await fetch('/api/book/create', {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             credentials: 'include',
-//             body: JSON.stringify({ amount: 1 }) // Fixed Amount ₹10,000
-//         });
-
-//         const orderData = await res.json();
-//         if (!res.ok) {
-//             throw new Error(orderData.message || 'Failed to create order');
-//         }
-
-//         const options = {
-//             key: 'rzp_test_1UtD2arKO3r2ix', // Replace with your Razorpay API Key
-//             amount: orderData.amount, // Should be 10000 * 100 (in paise)
-//             currency: 'INR',
-//             name: 'AashrayRealty',
-//             description: 'Property Booking Token Fee',
-//             order_id: orderData.id,
-//             handler: async function (response) {
-//                 alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-                
-//                 // Save booking details in your database
-//                 await fetch('/api/book/confirm', {
-//                     method: 'POST',
-//                     headers: { 'Content-Type': 'application/json' },
-//                     credentials: 'include',
-//                     body: JSON.stringify({
-//                         propertyId,
-//                         paymentId: response.razorpay_payment_id
-//                     })
-//                 });
-//                 alert("done!!");
-//             },
-//             prefill: {
-//                 name: user.name,
-//                 email: user.email
-//             },
-//             theme: {
-//                 color: '#3399cc'
-//             }
-//         };
-
-//         const rzp = new window.Razorpay(options);
-//         rzp.open();
-
-//     } catch (error) {
-//         console.error('Error processing payment:', error);
-//         alert('Payment failed. Please try again.');
-//     }
-// };
-
 
 const handleBooking = async () => {
   if (!user) {
@@ -206,7 +148,7 @@ const handleBooking = async () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
-          body: JSON.stringify({ amount: 1 }) // Fixed amount ₹10,000
+          body: JSON.stringify({ amount: 10000 }) // Fixed amount ₹10,000
       });
 
       const orderData = await res.json();
@@ -218,7 +160,7 @@ const handleBooking = async () => {
           key: 'rzp_test_1UtD2arKO3r2ix', // Use your Razorpay API Key
           amount: orderData.amount,
           currency: 'INR',
-          name: 'Aashray Realty',
+          name: 'AashrayRealty',
           description: 'Property Booking Token Fee',
           order_id: orderData.id,
           handler: async function (response) {
@@ -429,17 +371,22 @@ const handleBooking = async () => {
           
            </div>
            {/* Video Section */}
-           {formData.video ? (
-    <div className="video-section">
-        <h3>Virtual Tour</h3>
-        <video controls className="property-video">
-            <source src={typeof formData.video === "object" ? formData.video.url : formData.video} type="video/mp4" />
-            Your browser does not support the video tag.
-        </video>
-    </div>
-) : (
-    <p></p>
-)}
+          <div className="video_broch">
+                         <div className="video-section">
+                         {formData.video ? (
+                          <>
+                        <h3>Virtual Tour</h3>
+                        <video controls className="property-video">
+                            <source src={typeof formData.video === "object" ? formData.video.url : formData.video} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        </>
+                ) : (
+                    <p></p>
+                )}    
+                         </div>
+               
+          </div>
 
           <div className="reviewprocon">
           <button onClick={()=>{navigate(`/Review/${propertyId}`)}} className='giveratereviewbtn' >Give Review-Rating</button>

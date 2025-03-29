@@ -27,6 +27,7 @@ export default function Update() {
       address:'',
       area:'',
       city:'',
+      video:''
     });
     
     useEffect(() => {
@@ -90,8 +91,9 @@ const handleImageUpload = async (e) => {
       images: prev.images.filter((_, i) => i !== index),
     }));
   };
-   
-    
+
+  
+  
 const handleVideoUpload = () => {
   window.cloudinary.openUploadWidget(
       {
@@ -111,7 +113,7 @@ const handleVideoUpload = () => {
               };
 
               setFormData((prev) => ({ ...prev, video: videoData }));
-              console.log("Uploaded Video:", videoData);
+              // console.log("Uploaded Video:", videoData);
           } else if (error) {
               alert("Video upload failed. Please try again.");
               console.error(error);
@@ -220,7 +222,7 @@ const handleVideoUpload = () => {
                         <span>(₹ / month)</span>
                       )}
                     <label>Discounted Price <span>*</span> </label>
-                    <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder={formData.discountPrice} value={formData.discountPrice} name="discountPrice"required />
+                    <input min='1' id='discountPrice 'onChange={handleChange} type="number" placeholder={formData.discountPrice} value={formData.discountPrice} name="discountPrice" />
                     {formData.transactionType === 'Rent' && (
                         <span>(₹ / month)</span>
                       )}
@@ -241,6 +243,7 @@ const handleVideoUpload = () => {
             cursor: "pointer",
             transition: "background 0.3s",
         }}>Upload Video</button>
+                   
 
                     
                    

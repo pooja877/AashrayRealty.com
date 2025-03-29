@@ -45,6 +45,10 @@ const propertySchema = new mongoose.Schema({
       type: Number,
       required: true
    },
+   // pdf: { 
+   //    url: String, 
+   //    publicId: String 
+   // },
    video: { url: String, publicId: String }, 
    images: [{
       url: String,
@@ -69,6 +73,7 @@ const propertySchema = new mongoose.Schema({
       type: String,
       required: true
    },
+  
    // latitude: Number,
    // longitude: Number
 }, 

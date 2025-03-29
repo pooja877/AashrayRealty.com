@@ -445,3 +445,8 @@ padding-top: 1rem;
   outline: none;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
+.video_broch{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
