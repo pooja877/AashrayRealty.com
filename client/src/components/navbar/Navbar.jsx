@@ -26,7 +26,7 @@ function Navbar()
 
        {/* right side */}
         <div className="right">
-           <FaBell size={30} style={{ cursor: "pointer" }} />
+           <FaBell size={25} style={{ cursor: "pointer" }} />
           <Link to="/profile">      
               {currentUser? (<img src={currentUser.avatar||"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} className="profile" />):(<p  className='register'>Sign in</p>)}
           </Link>

@@ -1,5 +1,5 @@
 
-import './Reset.scss'
+import './Reset.css'
 // import { useNavigate } from 'react-router-dom';
 
 import { useState } from "react";
@@ -8,38 +8,22 @@ import {useEffect} from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const ResetPassword = () => {
+
   const { token } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [message,setmessage]=useState('');
   const navigate=useNavigate();
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
-  const [isExpired,setIsExpired] = useState(false);
+
 
 
   useEffect(()=>{
-    console.log(token);
+    // console.log(token);
   },[token]);
   
-  useEffect(() => {
-    if (timeLeft <= 0) {
-      setIsExpired(true);
-      return;
-    }
 
-    const timer = setTimeout(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [timeLeft]);
-
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -77,21 +61,9 @@ const ResetPassword = () => {
    <div className="mainreset">
      <div className='reset'>
       <h2>Reset Password</h2>
+      <p style={{color:"red",marginBottom:"1rem"}}>This Link is valid for only <b>5 Minutes</b> </p>
       <form onSubmit={handleSubmit}>
-        {/* <input
-          type="password"
-          placeholder="New password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirm new password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />*/}
+        
         <div className="password-container"> 
                                    <input
                                        type={showPassword ? "text" : "password"}
@@ -128,17 +100,15 @@ const ResetPassword = () => {
                                </div>
         <div className="resendtimer">
         <Link to="/forgotPassword">
-            <p  className="resend">Resend Link</p>
+            <p  className="resend" >Resend Link</p>
             </Link>
-            {isExpired ? (
-        <p className="timer">Link expired!</p>
-      ) : (
-        
-        <span className="timer">{formatTime(timeLeft)}</span> 
-      )}
+            
+           
+       
 
-        </div>
-        <button type="submit">Reset Password</button>
+        </div> 
+        
+        <button type="submit" className='resetbtn'>Reset Password</button>
         <p style={{color:"red"}}>{message}</p>
       </form>
       
