@@ -59,7 +59,7 @@
 }
 
 /* Property Cards */
-.property-container {
+.propertcontainer {
   display: flex;
   gap: 20px;
   justify-content: center;

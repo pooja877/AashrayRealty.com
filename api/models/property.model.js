@@ -49,6 +49,11 @@ const propertySchema = new mongoose.Schema({
    //    url: String, 
    //    publicId: String 
    // },
+   status: { 
+      type: String, 
+      enum: ["Available", "Booked"], 
+      default: "Available" 
+    },
    video: { url: String, publicId: String }, 
    images: [{
       url: String,
@@ -74,8 +79,8 @@ const propertySchema = new mongoose.Schema({
       required: true
    },
   
-   // latitude: Number,
-   // longitude: Number
+   latitude: Number,
+   longitude: Number
 }, 
 { timestamps: true });
 

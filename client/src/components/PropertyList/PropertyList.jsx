@@ -128,9 +128,9 @@ const handlePrevious = () => {
           
         </div>
 
-        <div className="property-container">
+        <div className="propertcontainer">
           {visibleProperties.map((property) => (
-            <div key={property.id} className="property-card">
+            <div key={property._id} className="property-card">
               <div className="property-image">
                 {property.images?.length > 0 && (
                          <img className="imageConatiner" src={property.images[0].url} alt="Property" onClick={() => navigate(`/Properties/${property._id}`)} /> )}

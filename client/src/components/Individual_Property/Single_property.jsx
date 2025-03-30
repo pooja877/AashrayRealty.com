@@ -2,13 +2,15 @@ import './SingleProperty.css';
 import { useEffect, useState } from 'react';
 import {  useNavigate, useParams } from 'react-router-dom';
 import { FaBed, FaBath,FaHeart, FaMapMarkerAlt, FaRupeeSign, FaRulerCombined, FaBuilding, FaTag, FaCheckCircle, FaDumbbell, FaSwimmingPool, FaShieldAlt, FaCar, FaWifi, FaUtensils, FaBolt, FaUsers, FaPaw, FaWater } from "react-icons/fa";
-import MapDirection from '../Singlemap/MapDirection';
+// import MapDirection from '../Singlemap/MapDirection';
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Navigation } from "swiper/modules"; 
 import "swiper/css";
 import "swiper/css/navigation";
 import ReviewCarousel from '../ReviewCarousel/ReviewCarousel';
 import Footercompo from '../Footer/Footercompo';
+import Book from '../booked/Book';
+
 
 export default function SingleProperty() {
     const { id: propertyId } = useParams();
@@ -20,6 +22,7 @@ export default function SingleProperty() {
       propertyName: '',
       propertyType: '',
       transactionType: '',
+      status:'',
       bhk:'',
       floor:'',
       areaSqft:0,
@@ -34,7 +37,7 @@ export default function SingleProperty() {
       area:'',
       city:'',
       video:'',
-    
+     
     });
     
     useEffect(() => {
@@ -137,68 +140,8 @@ const toggleLike = async (propertyId) => {
 
   }, [propertyId]);
 
-const handleBooking = async () => {
-  if (!user) {
-      alert('Please login to book a property.');
-      return;
-  }
+  
 
-  try {
-      const res = await fetch('/api/book/create', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ amount: 10000 }) // Fixed amount ₹10,000
-      });
-
-      const orderData = await res.json();
-      if (!res.ok) {
-          throw new Error(orderData.message || 'Failed to create order');
-      }
-
-      const options = {
-          key: 'rzp_test_1UtD2arKO3r2ix', // Use your Razorpay API Key
-          amount: orderData.amount,
-          currency: 'INR',
-          name: 'AashrayRealty',
-          description: 'Property Booking Token Fee',
-          order_id: orderData.id,
-          handler: async function (response) {
-              alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-              await fetch('/api/book/confirm', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  credentials: 'include',
-                  body: JSON.stringify({
-                      propertyId,
-                      paymentId: response.razorpay_payment_id
-                  })
-              });
-              alert("Booking confirmed!");
-          },
-          prefill: {
-              name: user.name,
-              email: user.email
-          },
-          theme: {
-              color: '#3399cc'
-          },
-          payment_capture: 1,
-          method: {
-              upi: true // Enable UPI payments
-          }
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-
-  } catch (error) {
-      console.error('Error processing payment:', error);
-      alert('Payment failed. Please try again.');
-  }
-};
-
- 
     
 
     return (
@@ -342,11 +285,7 @@ const handleBooking = async () => {
                </div>
                </div>
              
-      {/* <button className='book-btn'>Book Property</button> */}
-      <button className='book-btn' onClick={handleBooking}>Book Property</button>
-
-           
-
+    <Book propertyId={propertyId} status={formData.status}/>
        </div>
     {/* Right Side*/}
            <div className="property-rightside">
@@ -365,28 +304,27 @@ const handleBooking = async () => {
 
            <p className="propertylocation">  <FaMapMarkerAlt className="icon" /> {formData.address}, {formData.area}, {formData.city}</p>
              <div className="propertymap">
-             <MapDirection />
+             {/* <MapDirection /> */}
              </div>
            </div>
           
            </div>
            {/* Video Section */}
-          <div className="video_broch">
-                         <div className="video-section">
-                         {formData.video ? (
-                          <>
-                        <h3>Virtual Tour</h3>
-                        <video controls className="property-video">
-                            <source src={typeof formData.video === "object" ? formData.video.url : formData.video} type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                        </>
-                ) : (
-                    <p></p>
-                )}    
-                         </div>
-               
-          </div>
+         
+                         
+           {formData.video && (
+    <div className="virtual-tour-container">
+        <h3 className="virtual-tour-heading">Virtual Tour</h3>
+        <video controls className="video-section">
+            <source 
+                src={typeof formData.video === "object" ? formData.video.url : formData.video} 
+                type="video/mp4" 
+            />
+            Your browser does not support the video tag.
+        </video>
+    </div>
+)}
+
 
           <div className="reviewprocon">
           <button onClick={()=>{navigate(`/Review/${propertyId}`)}} className='giveratereviewbtn' >Give Review-Rating</button>

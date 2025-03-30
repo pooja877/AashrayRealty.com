@@ -8,6 +8,7 @@ export const getUser = (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
   res.json({ id: req.user.id, email: req.user.email });
+  console.log(req.user.email);
 };
 
 

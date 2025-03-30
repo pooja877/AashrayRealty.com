@@ -1,6 +1,6 @@
 import Property from "../models/property.model.js";
 import cloudinary from "../cloudinary.js";
-// import fetch from 'node-fetch';
+import fetch from 'node-fetch';
 
 
 export const getTopRatedProperties = async (req, res) => {
