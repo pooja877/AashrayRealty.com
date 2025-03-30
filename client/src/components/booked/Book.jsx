@@ -83,7 +83,7 @@ export default function Book({propertyId, status}) {
                   orderId: response.razorpay_order_id,
                   signature: response.razorpay_signature,
                   email: user?.email,
-                  tokenAmount: orderData.amount, // ✅ Include Amount in Confirmation
+                  amount: orderData.amount, // ✅ Include Amount in Confirmation
                 }),
               });
       
@@ -144,7 +144,7 @@ export default function Book({propertyId, status}) {
         console.log(propertyId,user?.id,user?.email)
       
         try {
-          const response = await fetch("/api/book/notify", {
+          const response = await fetch("/api/notify/notify-me", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -168,24 +168,26 @@ export default function Book({propertyId, status}) {
       };
       
   return (
-    <div className='all3btn'>
-            {status === "Booked" ? (
-        user && bookingId ? ( // ✅ Check if user booked this property
-          <button className="cancel-btn" onClick={handleCancelBooking}>
-            Cancel Booking
-          </button>
-        ) : (
-        <>
-          <p style={{color:"red"}}>Property is not Avaialble now.It is Booked by Someone!!</p>
-          <button className="notify-btn" onClick={handleNotifyMe}>Notify Me When Available</button>
-          </>
-        )
-      ) : (
-        <button className="book-btn" onClick={handleBooking}>
-          Book Property
-        </button>
-      )}
+   
 
-    </div>
+    <div className="all3btn">
+  {status === "Booked" ? (
+    user && bookingId ? ( // ✅ Check if user booked this property
+      <button className="cancel-btn" onClick={handleCancelBooking}>
+        Cancel Booking
+      </button>
+    ) : (
+      <>
+        <p style={{color:"red"}}>Property is not available now. It is booked by someone!!</p>
+        <button className="notify-btn" onClick={handleNotifyMe}>Notify Me When Available</button>
+      </>
+    )
+  ) : (
+    <button className="book-btn" onClick={handleBooking}>
+      Book Property
+    </button>
+  )}
+</div>
+
   )
 }

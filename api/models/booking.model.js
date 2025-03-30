@@ -17,7 +17,7 @@ const BookingSchema = new mongoose.Schema({
   expiresAt: { type: Date }, // Auto-expiry date after 10 days
   refundAmount: { type: Number }, // 🔹 Store Refund Amount if Cancelled
   refundId: { type: String }, // 🔹 Store Refund ID from Razorpay
-  notifications: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+ 
 });
 
 export default mongoose.model("Booking", BookingSchema);

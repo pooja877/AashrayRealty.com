@@ -1,6 +1,7 @@
 import Property from "../models/property.model.js";
 import cloudinary from "../cloudinary.js";
 import fetch from 'node-fetch';
+import { notifyInterestedUsers } from "./notification.controller.js";
 
 
 export const getTopRatedProperties = async (req, res) => {
@@ -312,3 +313,25 @@ export const addProperty=async (req,res,next)=>{
         next(error);
     }
 }
+
+
+
+export const updatePropertyStatus = async (req, res) => {
+  try {
+    const { propertyId, status } = req.body;
+    if (!propertyId || !status) {
+      return res.status(400).json({ message: "Property ID and status are required" });
+    }
+
+    await Property.findByIdAndUpdate(propertyId, { status });
+
+    if (status === "Available") {
+      await notifyInterestedUsers(propertyId);
+    }
+
+    res.json({ message: `Property status updated to ${status}` });
+  } catch (error) {
+    console.error("Error updating property status:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

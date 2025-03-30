@@ -28,51 +28,6 @@ export const getBookingDetails = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-export const notifyMe = async (req, res) => {
-  try {
-    const { propertyId, userId } = req.body;
-
-    if (!propertyId || !userId) {
-      return res.status(400).json({ message: "Missing required fields" });
-    }
-
-    const booking = await Booking.findOne({ propertyId, status: "Confirmed" });
-
-    if (!booking) return res.status(404).json({ message: "Booking not found" });
-
-    // 🔹 Ensure user is not already in the notifications list
-    if (!booking.notifications.includes(userId)) {
-      booking.notifications.push(userId);
-      await booking.save();
-    }
-
-    res.json({ message: "You will be notified if the property becomes available!" });
-
-  } catch (error) {
-    console.error("Notify Me Error:", error);
-    res.status(500).json({ message: "Notification request failed" });
-  }
-};
-
-// ✅ Send Email Utility Function
-const sendEmail = async (to, subject, html) => {
-  try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    const mailOptions = { from: process.env.EMAIL_USER, to, subject, html };
-    await transporter.sendMail(mailOptions);
-  } catch (error) {
-    console.error("Email Sending Error:", error);
-  }
-};
 
 
 
@@ -168,11 +123,11 @@ export const createOrder = async (req, res) => {
   }
 };
 
-// 🔹 Cancel Booking & Process Refund
+
 export const cancelBooking = async (req, res) => {
   try {
     const { bookingId, propertyId, userId, email } = req.body;
-    console.log(req.body);
+
     if (!bookingId || !propertyId || !userId || !email) {
       return res.status(400).json({ message: "Missing required fields" });
     }
@@ -180,35 +135,37 @@ export const cancelBooking = async (req, res) => {
     // Fetch Booking Details
     const booking = await Booking.findById(bookingId);
     if (!booking) return res.status(404).json({ message: "Booking not found" });
-    console.log(booking);
 
-    // if (booking.status === "Cancelled") {
-    //   return res.status(400).json({ message: "Booking already cancelled" });
-    // }
+    if (booking.status === "Cancelled") {
+      return res.status(400).json({ message: "Booking already cancelled" });
+    }
 
-    // Ensure Payment ID and Token Amount Exist
-    // if (!booking.paymentId || !booking.tokenAmount) {
-    //   return res.status(400).json({ message: "Invalid booking data: Missing payment or amount" });
-    // }
+    // Check Expiry Date
+    const currentDate = new Date();
+    const isExpired = currentDate > booking.expiresAt;
 
-    // Check if Booking is Within 10 Days of Creation
-    // const currentDate = new Date();
-    // if (currentDate > booking.expiresAt) {
-    //   return res.status(400).json({ message: "Refund can only be processed within 10 days of booking" });
-    // }
+    if (isExpired) {
+      // Booking expired → No refund, mark property as available
+      booking.status = "Expired";
+      await booking.save();
+      await Property.findByIdAndUpdate(propertyId, { status: "Available" });
+
+      return res.json({ message: "Booking expired. Property is now available again. No refund issued." });
+    }
+
+    // Booking is still valid → Process 50% refund
+    if (!booking.paymentId || !booking.tokenAmount) {
+      return res.status(400).json({ message: "Invalid booking data: Missing payment or amount" });
+    }
 
     // Fetch Payment Details from Razorpay
     const paymentDetails = await razorpay.payments.fetch(booking.paymentId);
-
-    // If the payment was not captured, refund cannot be processed
     if (!paymentDetails.captured) {
       return res.status(400).json({ message: "Payment not captured. Refund not possible." });
     }
 
     const capturedAmount = paymentDetails.amount; // Captured amount in paise
-
-    // Ensure refund amount does not exceed the captured amount
-    const refundAmount = Math.min(Math.round(booking.tokenAmount / 2), capturedAmount); 
+    const refundAmount = Math.min(Math.round(booking.tokenAmount / 2), capturedAmount); // 50% refund
 
     // Process Refund
     const refund = await razorpay.payments.refund(booking.paymentId, { amount: refundAmount });
@@ -220,7 +177,7 @@ export const cancelBooking = async (req, res) => {
     // Update Booking Status
     booking.status = "Cancelled";
     booking.cancelledAt = new Date();
-    booking.refundAmount = refundAmount / 100; // Convert back to INR for storage
+    booking.refundAmount = refundAmount / 100; // Convert back to INR
     booking.refundId = refund.id;
     await booking.save();
 
@@ -241,7 +198,7 @@ export const cancelBooking = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "AashrayRealty - Your Property Booking Cancelled & Refund Processed",
+      subject: "AashrayRealty - Your Booking Cancelled & Refund Processed",
       html: ` 
         <div style="font-family: Arial, sans-serif; padding: 20px;">
           <h2 style="color: #d9534f;">Your Booking Has Been Cancelled</h2>
@@ -274,5 +231,4 @@ export const cancelBooking = async (req, res) => {
     res.status(500).json({ message: "Cancellation failed" });
   }
 };
-
 
