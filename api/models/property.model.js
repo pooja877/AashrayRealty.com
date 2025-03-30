@@ -78,7 +78,7 @@ const propertySchema = new mongoose.Schema({
       type: String,
       required: true
    },
-  
+   
    latitude: Number,
    longitude: Number
 }, 

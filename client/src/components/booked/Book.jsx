@@ -51,7 +51,7 @@ export default function Book({propertyId, status}) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-            body: JSON.stringify({  amount: 10000, // Pass the amount in paise (₹100)
+            body: JSON.stringify({  amount: 10000*100, // Pass the amount in paise (₹100)
               currency: "INR" }), // ✅ Pass Amount
           });
       
@@ -83,7 +83,7 @@ export default function Book({propertyId, status}) {
                   orderId: response.razorpay_order_id,
                   signature: response.razorpay_signature,
                   email: user?.email,
-                  amount: orderData.amount, // ✅ Include Amount in Confirmation
+                  tokenAmount: orderData.amount, // ✅ Include Amount in Confirmation
                 }),
               });
       
@@ -175,7 +175,10 @@ export default function Book({propertyId, status}) {
             Cancel Booking
           </button>
         ) : (
+        <>
+          <p style={{color:"red"}}>Property is not Avaialble now.It is Booked by Someone!!</p>
           <button className="notify-btn" onClick={handleNotifyMe}>Notify Me When Available</button>
+          </>
         )
       ) : (
         <button className="book-btn" onClick={handleBooking}>

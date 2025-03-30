@@ -13,6 +13,7 @@ import reviewRoutes from './routes/review.route.js';
 import likedRoutes from './routes/liked.route.js';
 import contactRoutes from './routes/contact.route.js';
 import bookRoutes from './routes/booking.route.js';
+import "./utils/expiredBookings.js";
 
 
 dotenv.config();
