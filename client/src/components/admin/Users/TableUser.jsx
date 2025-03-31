@@ -48,6 +48,7 @@ const filteredUsers = users.filter((prop) =>
     [
       prop.username,
       prop.email,
+      prop._id
       ].some(field => field?.toString().toLowerCase().includes(search.toLowerCase()))
   );
   
@@ -67,7 +68,7 @@ const filteredUsers = users.filter((prop) =>
       {/* Search Box */}
       <input
         type="text"
-        placeholder="Search by Name,email"
+        placeholder="Search by Id,Name,Email"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="searchbox"
@@ -78,6 +79,7 @@ const filteredUsers = users.filter((prop) =>
         <thead>
           <tr>
             <th>#</th>
+            <th>UserId</th>
             <th>User Name</th>
             <th>Email</th>
             <th>Avatar</th>
@@ -88,6 +90,7 @@ const filteredUsers = users.filter((prop) =>
           {currentUsers.map((prop, index) => (
             <tr key={prop._id}>
               <td>{index + 1 + indexOfFirstRow}</td>
+              <td>{prop._id}</td>
               <td>{prop.username}</td>
               <td>{prop.email}</td>
               <td style={{textAlign:"center"}}><img src={prop.avatar||"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt="profile" style={{width:"3rem",height:"3rem",borderRadius:"50%",objectFit:"cover",cursor:"pointer"}}/></td>

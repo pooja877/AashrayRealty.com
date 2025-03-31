@@ -18,6 +18,7 @@ const BookingSchema = new mongoose.Schema({
   refundAmount: { type: Number }, // 🔹 Store Refund Amount if Cancelled
   refundId: { type: String }, // 🔹 Store Refund ID from Razorpay
  
-});
+},
+{ timestamps: true });
 
 export default mongoose.model("Booking", BookingSchema);

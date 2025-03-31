@@ -50,6 +50,8 @@ const filteredProperties = properties.filter((prop) => {
   const numSearch = Number(search); // Convert search query to a number
   return [
       prop.propertyName,
+      prop._id,
+      prop.status,
       prop.city,
       prop.propertyType,
       prop.transactionType,
@@ -73,13 +75,13 @@ const filteredProperties = properties.filter((prop) => {
    <div id='addProperty'onClick={()=>{navigate('/admin/addProperty')}}>Add Property</div>
    </div>
    
-     <div className="admin-table">
+     <div className="adminable">
       <h2 className='headpro'>Property List</h2>
 
       {/* Search Box */}
       <input
         type="text"
-        placeholder="Search by Name,city,type,area,price"
+        placeholder="Search by Name,city,type,area,price,id,status"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="search-box"
@@ -90,7 +92,9 @@ const filteredProperties = properties.filter((prop) => {
         <thead>
           <tr>
             <th>#</th>
+            <th>PropertyId</th>
             <th>Property Name</th>
+            <th>Property Status</th>
             <th>Property Type</th>
             <th>Transaction Type</th>
             <th>Address</th>
@@ -105,7 +109,9 @@ const filteredProperties = properties.filter((prop) => {
           {currentProperties.map((prop, index) => (
             <tr key={prop._id}>
               <td>{index + 1 + indexOfFirstRow}</td>
+              <td>{prop._id}</td>
               <td>{prop.propertyName}</td>
+              <td>{prop.status}</td>
               <td>{prop.propertyType}</td>
               <td>{prop.transactionType}</td>
               <td>{prop.address}</td>

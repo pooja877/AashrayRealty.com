@@ -245,3 +245,19 @@ export const cancelBooking = async (req, res) => {
   }
 };
 
+export const getAllBookings = async (req, res) => {
+    try {
+        const bookings = await Booking.find().sort({ createdAt: -1 });
+        res.status(200).json(bookings);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching Bookings", error });
+    }
+};
+export const deleteBooking = async (req, res) => {
+    try {
+        await Booking.findByIdAndDelete(req.params.id);
+        res.json({ message: "Booking deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to delete Booking" });
+    }
+};

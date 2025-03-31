@@ -46,10 +46,10 @@
   }
   
   /* Admin Table Container */
-  .admin-table {
+  .adminable {
    margin-top: 1rem;
-    width: 90%;
-    max-width: 1200px;
+    width: 97%;
+    max-width: 1280px;
     height: fit-content;
     background: #fff;
     padding: 20px;

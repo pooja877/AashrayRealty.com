@@ -1,0 +1,180 @@
+.mainalladminbook {
+    min-height: 100vh;
+    overflow-y: auto;
+    width: 100%;
+    background: linear-gradient(135deg, #f0e3ee, #c3ccde);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0 4rem;
+}
+
+.adminbook-container {
+    width: 95%;
+    max-width: 1200px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.adminbook-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.adminbook-search {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* Responsive Table */
+.adminbook-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.adminbook-table th,
+.adminbook-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.adminbook-table th {
+    background: #f4f4f4;
+    font-weight: bold;
+}
+
+.adminbook-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.adminbook-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.adminbook-delete-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.adminbook-delete-btn:hover {
+    background: #c82333;
+}
+
+/* Pagination */
+.adminbook-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 10px;
+}
+
+.adminbook-pagination button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-size: 1rem;
+}
+
+.adminbook-pagination button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.adminbook-pagination span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+    .adminbook-table th,
+    .adminbook-table td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .adminbook-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .adminbook-title {
+        font-size: 1.5rem;
+    }
+
+    .adminbook-search {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .adminbook-table th,
+    .adminbook-table td {
+        padding: 6px;
+        font-size: 0.85rem;
+    }
+
+    .adminbook-pagination button {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+
+    .adminbook-pagination span {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .adminbook-title {
+        font-size: 1.3rem;
+    }
+
+    .adminbook-search {
+        font-size: 0.85rem;
+        padding: 6px;
+    }
+
+    .adminbook-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .adminbook-table th,
+    .adminbook-table td {
+        font-size: 0.8rem;
+        padding: 5px;
+    }
+
+    .adminbook-pagination button {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
+    .adminbook-pagination span {
+        font-size: 0.9rem;
+    }
+}

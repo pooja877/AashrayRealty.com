@@ -37,6 +37,7 @@ import LikedProperties from "./components/LikedProperties/LikedProperties";
 import Notificationadmin from "./components/admin/Notificationadmin/Notificationadmin";
 import AdminMessage from "./components/admin/AdminmessageContactus/AdminMessage";
 import Terms from "./components/Terms/Terms";
+import Booking from "./components/admin/Bookings/Booking";
 
 
 
@@ -87,6 +88,7 @@ function App() {
             <Route path="/admin/addNews" element={<AdminNews/>} />
             <Route path="/admin/messages" element={<Notificationadmin/>} />
             <Route path="/admin/contact" element={<AdminMessage/>} />
+            <Route path="/admin/bookings" element={<Booking/>} />
             
             <Route path="/admin/news/updatenews/:id" element={<Updatenews/>} />
       </Route>
@@ -99,7 +101,7 @@ function App() {
 
  const ConditionalNavbar=()=>{
   const location=useLocation();
-  const hideNavbarRoutes=["/admin","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty","/admin/users","/admin/news","/admin/addNews","/admin/news/updatenews/:id"];
+  const hideNavbarRoutes=["/admin","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty","/admin/users","/admin/news","/admin/addNews","/admin/news/updatenews/:id","/admin/bookings"];
   // return !hideNavbarRoutes.includes(location.pathname)?<Navbar/>:null;
   const shouldHideNavbar=hideNavbarRoutes.some(route=>location.pathname.startsWith(route));
   return shouldHideNavbar?null:<Navbar/>;
