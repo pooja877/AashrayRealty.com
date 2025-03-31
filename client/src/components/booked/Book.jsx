@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Book.css'
 
-export default function Book({propertyId, status}) {
+export default function Book({propertyId, status,transactionType}) {
     const [user, setUser] = useState(null);
     const [bookingId, setBookingId] = useState(null);
     useEffect(() => {
@@ -83,7 +83,8 @@ export default function Book({propertyId, status}) {
                   orderId: response.razorpay_order_id,
                   signature: response.razorpay_signature,
                   email: user?.email,
-                  amount: orderData.amount, // ✅ Include Amount in Confirmation
+                  amount: orderData.amount,
+                  transactionType // ✅ Include Amount in Confirmation
                 }),
               });
       

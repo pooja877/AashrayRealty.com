@@ -79,19 +79,12 @@ const propertySchema = new mongoose.Schema({
       type: String,
       required: true
    },
+  
    latitude: Number,
    longitude: Number
 }, 
 { timestamps: true });
 
-propertySchema.pre("save", async function (next) {
-   if (this.isModified("status") && this.status === "Available") {
-     console.log("Property Status Changed:", this.status); // 🔥 Debugging
-     await notifyInterestedUsers(this._id); // Auto notify users
-   }
-   next();
- });
- 
  
 const Property = mongoose.model('Property', propertySchema);
 export default Property;

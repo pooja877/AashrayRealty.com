@@ -1,4 +1,6 @@
 import Property from "../models/property.model.js";
+import Booking from "../models/booking.model.js";
+
 import cloudinary from "../cloudinary.js";
 import fetch from 'node-fetch';
 
@@ -138,7 +140,13 @@ export const getAllProperties = async (req, res) => {
       filter.propertyType = req.query.propertyType;
     }
 
+// Get all property IDs where isRented is true in the Booking collection
+const rentedPropertyIds = await Booking.find({ isRented: true }).distinct('propertyId');
 
+// Add the filter to exclude rented properties
+filter._id = { $nin: rentedPropertyIds }; // Exclude rented properties
+
+// Fetch properties that match the filters and are not rente
     const properties = await Property.find(filter);
 
     const updatedProperties = await Promise.all(
@@ -182,7 +190,6 @@ export const getAllProperties = async (req, res) => {
 };
 
 
-
 export const allProperty = async (req, res) => {
   try {
     let filter = {};  
@@ -200,13 +207,45 @@ export const allProperty = async (req, res) => {
       filter.propertyType = req.query.propertyType;
     }
 
-    
+    // Get all property IDs where isRented is true in the Booking collection
+    const rentedPropertyIds = await Booking.find({ isRented: true }).distinct('propertyId');
+
+    // Add the filter to exclude rented properties
+    filter._id = { $nin: rentedPropertyIds }; // Exclude rented properties
+
+    // Fetch properties that match the filters and are not rented
     const properties = await Property.find(filter).sort({ createdAt: -1 }); // Sort by createdAt DESC
     res.status(200).json(properties);
   } catch (error) {
     res.status(500).json({ message: "Error fetching properties", error });
   }
 };
+
+
+// export const allProperty = async (req, res) => {
+//   try {
+//     let filter = {};  
+
+//     if (req.query.city) {
+//       filter.city = { $regex: new RegExp(`^${req.query.city}$`, "i") }; // Case-insensitive match
+//     }
+//     if (req.query.area) {
+//       filter.area = { $regex: new RegExp(`^${req.query.area}$`, "i") }; // Case-insensitive match
+//     }
+//     if (req.query.transactionType) {
+//       filter.transactionType = req.query.transactionType;
+//     }
+//     if (req.query.propertyType) {
+//       filter.propertyType = req.query.propertyType;
+//     }
+
+    
+//     const properties = await Property.find(filter).sort({ createdAt: -1 }); // Sort by createdAt DESC
+//     res.status(200).json(properties);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error fetching properties", error });
+//   }
+// };
 
 
 

@@ -2,7 +2,7 @@ import './SingleProperty.css';
 import { useEffect, useState } from 'react';
 import {  useNavigate, useParams } from 'react-router-dom';
 import { FaBed, FaBath,FaHeart, FaMapMarkerAlt, FaRupeeSign, FaRulerCombined, FaBuilding, FaTag, FaCheckCircle, FaDumbbell, FaSwimmingPool, FaShieldAlt, FaCar, FaWifi, FaUtensils, FaBolt, FaUsers, FaPaw, FaWater } from "react-icons/fa";
-// import MapDirection from '../Singlemap/MapDirection';
+import MapDirection from '../Singlemap/MapDirection';
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Navigation } from "swiper/modules"; 
 import "swiper/css";
@@ -285,7 +285,7 @@ const toggleLike = async (propertyId) => {
                </div>
                </div>
              
-    <Book propertyId={propertyId} status={formData.status}/>
+    <Book propertyId={propertyId} status={formData.status} transactionType={formData.transactionType}/>
        </div>
     {/* Right Side*/}
            <div className="property-rightside">
@@ -304,7 +304,7 @@ const toggleLike = async (propertyId) => {
 
            <p className="propertylocation">  <FaMapMarkerAlt className="icon" /> {formData.address}, {formData.area}, {formData.city}</p>
              <div className="propertymap">
-             {/* <MapDirection /> */}
+             <MapDirection />
              </div>
            </div>
           

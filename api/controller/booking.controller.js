@@ -2,7 +2,9 @@ import { razorpay } from "../razorpay.js";
 import crypto from "crypto";
 import dotenv from "dotenv";
 import Property from "../models/property.model.js"; 
+import User from "../models/user.model.js";
 import Booking from "../models/booking.model.js"; 
+import Renting from "../models/renting.model.js";
 import nodemailer from "nodemailer";
 import { notifyInterestedUsers } from "./notification.controller.js";
 
@@ -34,7 +36,7 @@ export const getBookingDetails = async (req, res) => {
 
 export const confirmBooking = async (req, res) => {
   try {
-    const { userId, propertyId, paymentId, orderId, signature, email, amount } = req.body; // 🔹 Get Amount
+    const { userId, propertyId, paymentId, orderId, signature, email, amount,transactionType } = req.body; // 🔹 Get Amount
 
     // 🔹 Verify Razorpay Signature
     const body = orderId + "|" + paymentId;
@@ -55,6 +57,7 @@ export const confirmBooking = async (req, res) => {
       signature,
       tokenAmount: amount, // ✅ Store Token Amount
       status: "Confirmed",
+      transactionType,
       expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // ✅ Expires in 10 days
     });
 
@@ -261,3 +264,144 @@ export const deleteBooking = async (req, res) => {
         res.status(500).json({ error: "Failed to delete Booking" });
     }
 };
+
+export const markAsRented = async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    if (booking.isRented) {
+      return res.status(400).json({ message: "Property is already rented" });
+    }
+
+    const property = await Property.findById(booking.propertyId);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    const user = await User.findById(booking.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const amount=property.discountPrice ? property.discountPrice : property.price;
+    // Rent start & end dates (12 months lease)
+    const rentStartDate = new Date();
+    const rentEndDate = new Date();
+    rentEndDate.setFullYear(rentEndDate.getFullYear() + 1);
+    const dueDate = new Date(rentStartDate.getTime() + 5 * 60000);
+    // const dueDate = new Date(rentStartDate);
+    // dueDate.setMonth(dueDate.getMonth() + 1);
+    
+    // Save in Renting collection
+    const renting = new Renting({
+      userId: booking.userId,
+      propertyId: booking.propertyId,
+      rentStartDate,
+      rentEndDate,
+      dueDate,
+      rentAmount:amount 
+    });
+
+    await renting.save();
+
+    // Update Booking status to "Rented" and isRented to true
+    booking.isRented = true;
+    await booking.save();
+
+    // Send email to user
+    await sendRentedEmail(user.email, property);
+
+    res.json({ message: "Property marked as rented and user notified via email" });
+  } catch (error) {
+    console.error("Error marking as rented:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// Function to send email to user
+const sendRentedEmail = async (userEmail, property) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER, // Fetched from .env
+      pass: process.env.EMAIL_PASS, // Fetched from .env
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: userEmail,
+    subject: "🏡 Property Rental Confirmation - AashrayRealty",
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+        <h2 style="color: #007bff; text-align: center;">🏡 Property Rental Confirmation</h2>
+        <p>Dear Customer,</p>
+        
+        <p>We are pleased to inform you that your rental for the property <strong>${property.propertyName}</strong> has been successfully confirmed.</p>
+        
+        <hr style="border: 0; height: 1px; background: #ddd; margin: 15px 0;">
+        
+        <h3 style="color: #007bff;">Rental Details:</h3>
+        <p><strong>Property:</strong> ${property.propertyName}</p>
+        <p><strong>Location:</strong> ${property.address}${property.area}${property.city}</p>
+        <p><strong>Rent Duration:</strong> 12 Months</p>
+        <p><strong>Monthly Rent:</strong> 
+          ₹${property.discountPrice ? property.discountPrice : property.price} 
+          ${property.discountPrice ? `<span style="color: #777; text-decoration: line-through;">₹${property.price}</span>` : ""}
+        </p>
+        <p><strong>Start Date:</strong> ${new Date().toLocaleDateString()}</p>
+        <p><strong>Next Payment Due Date:</strong> ${new Date(new Date().setMonth(new Date().getMonth()+1)).toLocaleDateString()}</p>
+        
+        <hr style="border: 0; height: 1px; background: #ddd; margin: 15px 0;">
+        
+        <p>Thank you for choosing <strong>AashrayRealty</strong>. If you have any questions, feel free to contact our support team.</p>
+        
+        <p>Best Regards,</p>
+        <p><strong>AashrayRealty Team</strong></p>
+        <p style="font-size: 12px; color: #777;">This is an automated email. Please do not reply.</p>
+      </div>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    // console.log("Email sent to user:", userEmail);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+};
+export const markRented = async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    if (!booking.isRented) {
+      return res.status(400).json({ message: "Property is already rented false" });
+    }
+
+    const property = await Property.findById(booking.propertyId);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    const user = await User.findById(booking.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    booking.isRented = false;
+    await booking.save();
+
+
+    res.json({ message: "Property marked as rented and user notified via email" });
+  } catch (error) {
+    console.error("Error marking as rented:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+

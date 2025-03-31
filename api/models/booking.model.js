@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 const BookingSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, 
   propertyId: { type: mongoose.Schema.Types.ObjectId, ref: "Property", required: true }, 
+  transactionType: {
+    type: String, // Example: "Sale", "Rent"
+    required: true
+ },
   paymentId: { type: String, required: true }, 
   orderId: { type: String, required: true }, 
   signature: { type: String, required: true }, 
@@ -16,7 +20,11 @@ const BookingSchema = new mongoose.Schema({
   cancelledAt: { type: Date }, 
   expiresAt: { type: Date }, // Auto-expiry date after 10 days
   refundAmount: { type: Number }, // 🔹 Store Refund Amount if Cancelled
-  refundId: { type: String }, // 🔹 Store Refund ID from Razorpay
+  refundId: { type: String }, 
+  isRented: { 
+    type: Boolean, 
+    default: false  // Default is false, meaning it's not rented initially
+  },
  
 },
 { timestamps: true });

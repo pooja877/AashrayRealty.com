@@ -1,6 +1,6 @@
 .mainalladminbook {
     min-height: 100vh;
-    overflow-y: auto;
+    overflow-y: scroll;
     width: 100%;
     background: linear-gradient(135deg, #f0e3ee, #c3ccde);
     display: flex;
@@ -12,9 +12,12 @@
 .adminbook-container {
     width: 95%;
     max-width: 1200px;
+    height: 90vh;
+    overflow-y: scroll;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
+    padding-bottom: 3rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-x: auto;
 }
@@ -61,7 +64,11 @@
 .adminbook-table tr:hover {
     background-color: #f1f1f1;
 }
-
+.delrent{
+    display: flex;
+    flex-direction: column;
+    gap:0.3rem;
+}
 .adminbook-delete-btn {
     background: #dc3545;
     color: white;
@@ -71,7 +78,15 @@
     border-radius: 5px;
     transition: 0.3s;
 }
-
+.adminbook-rent-btn{
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
 .adminbook-delete-btn:hover {
     background: #c82333;
 }

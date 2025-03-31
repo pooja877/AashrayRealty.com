@@ -13,8 +13,9 @@ import reviewRoutes from './routes/review.route.js';
 import likedRoutes from './routes/liked.route.js';
 import contactRoutes from './routes/contact.route.js';
 import bookRoutes from './routes/booking.route.js';
-import "./cronJobs.js";
+import rentingRoutes from './routes/renting.route.js';
 import  notificationRoutes  from './routes/notification.route.js';
+import { scheduleExpiryReminderJob } from './cronJobs.js';
 
 
 dotenv.config();
@@ -64,6 +65,7 @@ app.listen(3000,()=>{
      app.use("/api/contact",contactRoutes );
      app.use("/api/book",bookRoutes );
      app.use("/api/notify", notificationRoutes);
+     app.use("/api/rent",rentingRoutes);
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;
@@ -74,3 +76,5 @@ app.use((err,req,res,next)=>{
         message
 });
 });
+
+scheduleExpiryReminderJob();
