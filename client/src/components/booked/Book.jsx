@@ -120,7 +120,7 @@ export default function Book({propertyId, status}) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-            body: JSON.stringify({ bookingId, propertyId, userId: user?.id ,email:user?.email}),
+            body: JSON.stringify({ bookingId, propertyId, userId: user?.id ,email:user?.email,status}),
           });
     
           if (response.ok) {

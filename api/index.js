@@ -16,6 +16,7 @@ import bookRoutes from './routes/booking.route.js';
 import "./cronJobs.js";
 import  notificationRoutes  from './routes/notification.route.js';
 
+
 dotenv.config();
 
 mongoose
@@ -73,3 +74,4 @@ app.use((err,req,res,next)=>{
         message
 });
 });
+

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import Property from "../models/property.model.js"; 
 import Booking from "../models/booking.model.js"; 
 import nodemailer from "nodemailer";
+import { notifyInterestedUsers } from "./notification.controller.js";
 
 dotenv.config();
 
@@ -54,7 +55,7 @@ export const confirmBooking = async (req, res) => {
       signature,
       tokenAmount: amount, // ✅ Store Token Amount
       status: "Confirmed",
-       expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // ✅ Expires in 10 days
+      expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // ✅ Expires in 10 days
     });
 
     await newBooking.save();
@@ -69,7 +70,7 @@ export const confirmBooking = async (req, res) => {
         pass: process.env.EMAIL_PASS,
       },
     });
-
+    const sendamount=amount/100;
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
@@ -77,7 +78,7 @@ export const confirmBooking = async (req, res) => {
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
           <h2 style="color: #2d89ef;">Your Property Booking is Confirmed! 🎉</h2>
-          <p>Your booking has been confirmed with a token amount of ₹${amount}.</p>
+          <p>Your booking has been confirmed with a token amount of ₹${sendamount}.</p>
           <p><strong>Payment ID:</strong> ${paymentId}</p>
           <p><strong>Order ID:</strong> ${orderId}</p>
           <p><strong>Property ID:</strong> ${propertyId}</p>
@@ -126,7 +127,7 @@ export const createOrder = async (req, res) => {
 
 export const cancelBooking = async (req, res) => {
   try {
-    const { bookingId, propertyId, userId, email } = req.body;
+    const { bookingId, propertyId, userId, email,status } = req.body;
 
     if (!bookingId || !propertyId || !userId || !email) {
       return res.status(400).json({ message: "Missing required fields" });
@@ -182,8 +183,17 @@ export const cancelBooking = async (req, res) => {
     await booking.save();
 
     // Mark Property as Available Again
-    await Property.findByIdAndUpdate(propertyId, { status: "Available" });
+    // await Property.findByIdAndUpdate(propertyId, { status: "Available" });
+    
+    const updatedProperty = await Property.findByIdAndUpdate(
+      propertyId, 
+      { status: "Available" }, 
+      { new: true } // Returns the updated property
+    );
 
+    if (updatedProperty.status === "Available") {
+      await notifyInterestedUsers(propertyId); // Call notification only after update
+    }
     // Send Refund Confirmation Email
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -225,6 +235,9 @@ export const cancelBooking = async (req, res) => {
       }
       res.json({ message: "Booking cancelled & 50% refund processed! Email sent successfully." });
     });
+    
+      
+    
 
   } catch (error) {
     console.error("Cancellation Error:", error);
