@@ -7,6 +7,7 @@ import Booking from "../models/booking.model.js";
 import Renting from "../models/renting.model.js";
 import nodemailer from "nodemailer";
 import { notifyInterestedUsers } from "./notification.controller.js";
+import {sendRentPaymentReminder} from "./renting.controller.js"
 
 dotenv.config();
 
@@ -291,9 +292,9 @@ export const markAsRented = async (req, res) => {
     const rentStartDate = new Date();
     const rentEndDate = new Date();
     rentEndDate.setFullYear(rentEndDate.getFullYear() + 1);
-    const dueDate = new Date(rentStartDate.getTime() + 5 * 60000);
-    // const dueDate = new Date(rentStartDate);
-    // dueDate.setMonth(dueDate.getMonth() + 1);
+    // const dueDate = new Date(rentStartDate.getTime() + 2 * 60 * 1000);
+    const dueDate = new Date(rentStartDate);
+    dueDate.setMonth(dueDate.getMonth() + 1);
     
     // Save in Renting collection
     const renting = new Renting({
@@ -311,6 +312,7 @@ export const markAsRented = async (req, res) => {
     booking.isRented = true;
     await booking.save();
 
+    
     // Send email to user
     await sendRentedEmail(user.email, property);
 
@@ -320,9 +322,11 @@ export const markAsRented = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
+    
 // Function to send email to user
 const sendRentedEmail = async (userEmail, property) => {
+  
+     
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -397,7 +401,7 @@ export const markRented = async (req, res) => {
     booking.isRented = false;
     await booking.save();
 
-
+    await sendRentedfalseemail(user.email, property);
     res.json({ message: "Property marked as rented and user notified via email" });
   } catch (error) {
     console.error("Error marking as rented:", error);
@@ -405,3 +409,54 @@ export const markRented = async (req, res) => {
   }
 };
 
+const sendRentedfalseemail = async (userEmail, property) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER, // Fetched from .env
+      pass: process.env.EMAIL_PASS, // Fetched from .env
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: userEmail,
+    subject: "🏡 Property Rental Cancellation - AashrayRealty",
+html: `
+  <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <h2 style="color: #dc3545; text-align: center;">🏡 Property Rental Cancellation</h2>
+    <p>Dear Customer,</p>
+    
+    <p>We regret to inform you that your rental for the property <strong>${property.propertyName}</strong> has been canceled.</p>
+    
+    <hr style="border: 0; height: 1px; background: #ddd; margin: 15px 0;">
+    
+    <h3 style="color: #007bff;">Rental Details:</h3>
+    <p><strong>Property:</strong> ${property.propertyName}</p>
+    <p><strong>Location:</strong> ${property.address}${property.area}${property.city}</p>
+    <p><strong>Reason for Cancellation:</strong> Rental has been marked as unavailable.</p>
+    <p><strong>Rent Duration:</strong> 12 Months</p>
+    <p><strong>Monthly Rent:</strong> 
+      ₹${property.discountPrice ? property.discountPrice : property.price} 
+      ${property.discountPrice ? `<span style="color: #777; text-decoration: line-through;">₹${property.price}</span>` : ""}
+    </p>
+    
+    <hr style="border: 0; height: 1px; background: #ddd; margin: 15px 0;">
+    
+    <p>We apologize for any inconvenience caused and hope to assist you with finding another property soon. If you have any questions or need further assistance, feel free to contact our support team.</p>
+    
+    <p>Best Regards,</p>
+    <p><strong>AashrayRealty Team</strong></p>
+    <p style="font-size: 12px; color: #777;">This is an automated email. Please do not reply.</p>
+  </div>
+`
+
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    // console.log("Email sent to user:", userEmail);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+};

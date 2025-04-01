@@ -319,6 +319,7 @@ export const addProperty=async (req,res,next)=>{
     discountPrice,
     address,
     area,
+    pincode,
     city}=req.body;
     
 
@@ -342,6 +343,7 @@ export const addProperty=async (req,res,next)=>{
         discountPrice,
         address,
         area,
+        pincode,
         city}); 
         
       await newProperty.save();
@@ -353,4 +355,45 @@ export const addProperty=async (req,res,next)=>{
     }
 }
 
+export const getTopRatedPropertiesByArea = async (req, res) => {
+  try {
+    // List of predefined areas you want to filter by
+    const predefinedAreas = ['Navrangpura', 'nikol','Sola', 'Satellite', 'Maninagar', 'Vastrapur',"Ranip","Gota","adalaj","Randesan", "Kudasan", "Sargasan", "Raysan"];
+
+    const propertiesWithRatingAndArea = await Property.aggregate([
+      {
+        $lookup: {
+          from: "reviews", // Join Review table
+          localField: "_id",
+          foreignField: "propertyId",
+          as: "reviews",
+        },
+      },
+      {
+        $addFields: {
+          avgRating: {
+            $cond: {
+              if: { $gt: [{ $size: "$reviews" }, 0] }, // If there are reviews, calculate the average rating
+              then: { $avg: "$reviews.rating" },
+              else: 0, // If no reviews, set rating to 0
+            },
+          },
+        },
+      },
+      {
+        $match: {
+          avgRating: { $gte: 3 }, // Only include properties with rating >= 3
+          area: { $in: predefinedAreas }, // Filter properties by predefined areas
+        },
+      },
+      { $sort: { avgRating: -1 } }, // Sort properties by rating in descending order
+      { $limit: 10 }, // Limit the result to top 10 properties
+    ]);
+
+    res.status(200).json(propertiesWithRatingAndArea);
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+};
 

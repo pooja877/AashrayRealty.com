@@ -36,6 +36,7 @@ export default function SingleProperty() {
       address:'',
       area:'',
       city:'',
+      pincode:'',
       video:'',
      
     });
@@ -302,7 +303,7 @@ const toggleLike = async (propertyId) => {
           })}
         </div>
 
-           <p className="propertylocation">  <FaMapMarkerAlt className="icon" /> {formData.address}, {formData.area}, {formData.city}</p>
+           <p className="propertylocation">  <FaMapMarkerAlt className="icon" /> {formData.address}, {formData.area}, {formData.city} {formData.pincode}</p>
              <div className="propertymap">
              <MapDirection />
              </div>

@@ -46,6 +46,7 @@ export default function Add() {
     discountPrice:0,
     address:'',
     area:'',
+    pincode:'',
     city:'',
   });
   
@@ -221,7 +222,7 @@ const handleVideoUpload = () => {
       <div className={`line ${step >= 5 ? "active" : ""}`}></div>
       <div className={`step-item ${step >= 5 ? "active" : ""}`}>
         <div className="step-circle">5</div>
-        <p className='infoadddara'>Videoes & Brochure </p>
+        <p className='infoadddara'>Videoes  </p>
       </div>
       </div>
 
@@ -250,8 +251,9 @@ const handleVideoUpload = () => {
                   <option key={area} value={area}>{area}</option>
                 ))}
               </select>
+              
         
-          {/* <input  type="text" id='area'   value={formData.area} onChange={handleChange} placeholder='Enter name of area ' name="area"required /> */}
+          <input  type="number" id='pincode'   value={formData.pincode} onChange={handleChange} placeholder='Enter 6 digit valid Pincode ' name="pincode"required />
           <input type="text" id='address'value={formData.address} onChange={handleChange} placeholder="Enter property address (houseno,buildingname,streetname)"name="address" required />
 
           </div>

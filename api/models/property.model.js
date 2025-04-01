@@ -79,6 +79,10 @@ const propertySchema = new mongoose.Schema({
       type: String,
       required: true
    },
+   pincode: {
+      type: Number,
+      required: true
+   },
   
    latitude: Number,
    longitude: Number

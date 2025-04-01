@@ -8,6 +8,7 @@ import PropertyList from "../../components/PropertyList/PropertyList";
 import PropertyTypes from "../../components/PropertyTypes/PropertyTypes";
 
 import Testimonials from "../../components/testimonialsData/Testimonials";
+import TopRated from "../../components/topratedbyarea/TopRated";
 
 import './Homepage.scss'
 
@@ -17,6 +18,7 @@ export default function Homepage() {
       <Herosection/>
       <PropertyTypes/>
       <PropertyList/>
+      <TopRated/>
       <FeaturedDeveloper/>
       <Testimonials/>
       <News/>

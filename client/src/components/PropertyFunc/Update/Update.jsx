@@ -26,6 +26,7 @@ export default function Update() {
       discountPrice:0,
       address:'',
       area:'',
+      pincode:'',
       city:'',
       video:''
     });
@@ -261,6 +262,9 @@ const handleVideoUpload = () => {
               <input  type="text" id='area' onChange={handleChange} placeholder={formData.area} name="area" value={formData.area}required />
               <label>City <span>*</span></label>
               <input  type="text" id='city' onChange={handleChange} placeholder={formData.city} name="city" value={formData.city}required />
+              <label>Pincode <span>*</span></label>
+             <input  type="number" id='pincode'   value={formData.pincode} onChange={handleChange} placeholder='Enter 6 digit valid Pincode ' name="pincode"required />
+              
               <button   disabled={loading} className='btnSubmit'> {loading ? 'Updating...' : 'Update Property'}</button>
               {error && <p>{error}</p>}
                 </form>

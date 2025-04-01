@@ -1,10 +1,10 @@
-import "./PropertyList.css";
+import "../PropertyList/PropertyList.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 
-const PropertyList = () => {
+const TopRated = () => {
   const [properties, setProperties] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const propertiesPerPage = 3; 
@@ -15,7 +15,7 @@ const PropertyList = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const res = await axios.get("/api/property/top-rated");
+        const res = await axios.get("/api/property/top-rated-area");
         setProperties(res.data); // ✅ 3+ rating wali properties set kar raha hoon
       } catch (error) {
         console.error("Error fetching properties", error);
@@ -122,7 +122,7 @@ const handlePrevious = () => {
       <div className="container">
         <div className="top-picks-header">
           
-            <h2 className="top-picks-title">AashrayRealty top picks By Rating</h2>
+            <h2 className="top-picks-title">AashrayRealty top picks By Area</h2>
             <p className="top-picks-subtitle">Explore top living options with us</p>
          
           
@@ -177,4 +177,4 @@ const handlePrevious = () => {
   );
 };
 
-export default PropertyList;
+export default TopRated;

@@ -15,7 +15,9 @@ import contactRoutes from './routes/contact.route.js';
 import bookRoutes from './routes/booking.route.js';
 import rentingRoutes from './routes/renting.route.js';
 import  notificationRoutes  from './routes/notification.route.js';
-import { scheduleExpiryReminderJob } from './cronJobs.js';
+import cron from "node-cron";
+import { sendExpiryReminders } from './controller/notification.controller.js';
+import { sendRentPaymentReminder } from './controller/renting.controller.js';
 
 
 dotenv.config();
@@ -77,4 +79,8 @@ app.use((err,req,res,next)=>{
 });
 });
 
-scheduleExpiryReminderJob();
+cron.schedule("0 9 * * *", () => {
+  console.log("Running expiry reminder check...");  
+  sendRentPaymentReminder();
+  sendExpiryReminders(); 
+});
