@@ -45,7 +45,7 @@ async function createOrder(rentAmount) {
 }
 
 // Function to create a Razorpay payment link
-async function createPaymentLink(rentAmount, userEmail, userId) {
+export async function createPaymentLink(rentAmount, userEmail, userId) {
   try {
     const orderId = await createOrder(rentAmount);
 
@@ -345,4 +345,33 @@ export const razorpayCallback = async (req, res) => {
     console.error("Error handling Razorpay callback:", error);
     return res.status(500).send("Internal server error");
   }
+};
+
+export const getUserRentings = async (req, res) => {
+  try {
+      const userId = req.user.id; // `verifyUser` middleware se user ID mil jayegi
+
+      const rentedProperties = await Renting.find({ userId }).populate('propertyId');
+
+      res.status(200).json(rentedProperties);
+  } catch (error) {
+      res.status(500).json({ message: 'Error fetching liked properties', error });
+  }
+};
+
+export const getAllRentings = async (req, res) => {
+    try {
+        const rentings = await Renting.find().sort({ createdAt: -1 });
+        res.status(200).json(rentings);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching Bookings", error });
+    }
+};
+export const deleteRenting = async (req, res) => {
+    try {
+        await Renting.findByIdAndDelete(req.params.id);
+        res.json({ message: "Booking deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to delete Booking" });
+    }
 };

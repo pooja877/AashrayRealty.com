@@ -460,3 +460,14 @@ html: `
     console.error("Error sending email:", error);
   }
 };
+export const getUserBookings = async (req, res) => {
+  try {
+      const userId = req.user.id; // `verifyUser` middleware se user ID mil jayegi
+
+      const bookedProperties = await Booking.find({ userId }).populate('propertyId');
+
+      res.status(200).json(bookedProperties);
+  } catch (error) {
+      res.status(500).json({ message: 'Error fetching liked properties', error });
+  }
+};

@@ -64,7 +64,7 @@ export default function AdminNavbar() {
         <div className="adminright">
           {/* Notification Bell with Message Count */}
           <div className="notification-icon" onClick={() => navigate("/admin/messages")}>
-            <FaBell size={30} style={{ cursor: "pointer" }} />
+            <FaBell size={25} style={{ cursor: "pointer" }} />
             {unansweredCount > 0 && (
               <span className="notification-badge">
                 {unansweredCount > 5 ? "5+" : unansweredCount}
@@ -81,9 +81,12 @@ export default function AdminNavbar() {
             <a href="/" className="goweb">Go to Website</a>
             <a href="/admin/dashboard">Dashboard</a>
             <a href="/admin/users">Users</a>
+            <a href="/admin/allrentedProperties">RentedProperties</a>
+            <a href="/admin/userProperties">UserProperties</a>
             <a href="/admin/properties">Properties</a>
             <a href="/admin/news">News</a>
             <a href="/admin/bookings">Bookings</a>
+            <a href="/admin/unPaidUser">UnPaidUser</a>
             <button className="logoutadmin" onClick={handleLogout}>Logout</button>
           </div>
         </div>

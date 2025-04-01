@@ -222,30 +222,30 @@ export const allProperty = async (req, res) => {
 };
 
 
-// export const allProperty = async (req, res) => {
-//   try {
-//     let filter = {};  
+export const getallProperty = async (req, res) => {
+  try {
+    let filter = {};  
 
-//     if (req.query.city) {
-//       filter.city = { $regex: new RegExp(`^${req.query.city}$`, "i") }; // Case-insensitive match
-//     }
-//     if (req.query.area) {
-//       filter.area = { $regex: new RegExp(`^${req.query.area}$`, "i") }; // Case-insensitive match
-//     }
-//     if (req.query.transactionType) {
-//       filter.transactionType = req.query.transactionType;
-//     }
-//     if (req.query.propertyType) {
-//       filter.propertyType = req.query.propertyType;
-//     }
+    if (req.query.city) {
+      filter.city = { $regex: new RegExp(`^${req.query.city}$`, "i") }; // Case-insensitive match
+    }
+    if (req.query.area) {
+      filter.area = { $regex: new RegExp(`^${req.query.area}$`, "i") }; // Case-insensitive match
+    }
+    if (req.query.transactionType) {
+      filter.transactionType = req.query.transactionType;
+    }
+    if (req.query.propertyType) {
+      filter.propertyType = req.query.propertyType;
+    }
 
     
-//     const properties = await Property.find(filter).sort({ createdAt: -1 }); // Sort by createdAt DESC
-//     res.status(200).json(properties);
-//   } catch (error) {
-//     res.status(500).json({ message: "Error fetching properties", error });
-//   }
-// };
+    const properties = await Property.find(filter).sort({ createdAt: -1 }); // Sort by createdAt DESC
+    res.status(200).json(properties);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching properties", error });
+  }
+};
 
 
 

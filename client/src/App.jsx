@@ -38,6 +38,11 @@ import Notificationadmin from "./components/admin/Notificationadmin/Notification
 import AdminMessage from "./components/admin/AdminmessageContactus/AdminMessage";
 import Terms from "./components/Terms/Terms";
 import Booking from "./components/admin/Bookings/Booking";
+import Renting from "./components/admin/Bookings/Renting";
+import BookedProperties from "./components/LikedProperties/Bookedproperties";
+import RentedProperties from "./components/LikedProperties/RentedProperties";
+import UnPaidUser from "./components/admin/UnPaiduser/UnPaidUser";
+
 
 
 
@@ -68,6 +73,9 @@ function App() {
       <Route path="/proeprties/swipe/:id" element={<Swipe/>}/>
       
       <Route path="/news" element={<NewsAll/>}/>
+      <Route path="/bookedProperties" element={<BookedProperties/>}/>
+      <Route path="/rentedProperties" element={<RentedProperties/>}/>
+
       <Route path="/Terms" element={<Terms/>}/>
       
       <Route path="/likedProperties" element={<LikedProperties/>}/>
@@ -89,6 +97,11 @@ function App() {
             <Route path="/admin/messages" element={<Notificationadmin/>} />
             <Route path="/admin/contact" element={<AdminMessage/>} />
             <Route path="/admin/bookings" element={<Booking/>} />
+            <Route path="/admin/allrentedProperties" element={<Renting/>} />
+            <Route path="/admin/unPaidUser" element={<UnPaidUser/>} />
+
+
+            
             
             <Route path="/admin/news/updatenews/:id" element={<Updatenews/>} />
       </Route>
@@ -101,7 +114,7 @@ function App() {
 
  const ConditionalNavbar=()=>{
   const location=useLocation();
-  const hideNavbarRoutes=["/admin","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty","/admin/users","/admin/news","/admin/addNews","/admin/news/updatenews/:id","/admin/bookings"];
+  const hideNavbarRoutes=["/admin","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty","/admin/users","/admin/news","/admin/addNews","/admin/news/updatenews/:id","/admin/bookings","/admin/allrentedProperties","/admin/unPaidUser"];
   // return !hideNavbarRoutes.includes(location.pathname)?<Navbar/>:null;
   const shouldHideNavbar=hideNavbarRoutes.some(route=>location.pathname.startsWith(route));
   return shouldHideNavbar?null:<Navbar/>;

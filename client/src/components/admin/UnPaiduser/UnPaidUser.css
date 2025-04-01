@@ -1,0 +1,119 @@
+/* UnPaidUser.css */
+
+/* Container for the unpaid users */
+
+.mainAllunpaid{
+  width:100%;
+  height: 100vh;
+  overflow-y: scroll;
+  padding-bottom: 4rem;
+}
+.unpaid-users-container {
+    
+    width: 100%;
+    gap: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Style for each unpaid user card */
+  .unpaid-user-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width:70%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* transition: transform 0.2s, box-shadow 0.2s; */
+  }
+  
+ 
+  
+  /* Title of the card (username) */
+  .unpaid-user-card h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  /* Paragraphs for details */
+  .unpaid-user-card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  /* Styling for the buttons */
+  .unpaid-user-card button {
+    background-color: #007bff;  /* Default blue for action buttons */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  /* Hover effect for buttons */
+  .unpaid-user-card button:hover {
+    background-color: #0056b3; /* Darker blue */
+    transform: scale(1.05);
+  }
+  
+  /* Specific style for the "Send Reminder" button */
+  .reminder-btn {
+    background-color: #28a745; /* Green for reminder button */
+    margin-right: 10px;
+  }
+  
+  .reminder-btn:hover {
+    background-color: #218838; /* Darker green for hover */
+  }
+  
+  /* Styling for the page header */
+  .htforunpaid {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  
+  /* Make sure the admin navbar stays on top */
+  .AdminNavbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
+  }
+  
+  /* Media Query for smaller screens */
+  @media (max-width: 768px) {
+    .unpaid-users-container {
+      grid-template-columns: 1fr; /* Stack cards vertically */
+    }
+  
+    .unpaid-user-card {
+      padding: 15px;
+    }
+    .htforunpaid{
+      font-size: 1.5rem;
+    }
+  
+    .unpaid-user-card h2 {
+      font-size: 1.25rem; /* Adjust title size on smaller screens */
+    }
+  
+    .unpaid-user-card p {
+      font-size: 0.9rem;
+    }
+  }
+  

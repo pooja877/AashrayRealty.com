@@ -19,7 +19,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const propertyRes = await fetch("/api/property/all");
+                const propertyRes = await fetch("/api/property/getall");
                 const userRes = await fetch("/api/user/all");
 
                 const propertyData = await propertyRes.json();

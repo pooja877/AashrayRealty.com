@@ -1,7 +1,8 @@
 
 import express from "express";
-import { cancelBooking, confirmBooking, createOrder, getAllBookings ,deleteBooking,markRented, markAsRented} from "../controller/booking.controller.js";
+import { cancelBooking, confirmBooking, createOrder, getAllBookings ,deleteBooking,markRented, markAsRented, getUserBookings} from "../controller/booking.controller.js";
 
+import { verifyToken } from '../utils/verifyUser.js'; 
 const router = express.Router();
 
 router.post("/create", createOrder);  // Create Razorpay Order
@@ -11,4 +12,5 @@ router.get("/all", getAllBookings);
 router.delete("/delete/:id", deleteBooking);
 router.patch("/rented/:id", markAsRented);
 router.patch("/rentedfalse/:id", markRented);
+router.get("/booked", verifyToken, getUserBookings);
 export default router;

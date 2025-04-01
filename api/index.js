@@ -18,7 +18,7 @@ import  notificationRoutes  from './routes/notification.route.js';
 import cron from "node-cron";
 import { sendExpiryReminders } from './controller/notification.controller.js';
 import { sendRentPaymentReminder } from './controller/renting.controller.js';
-
+import unPaidRoutes from './routes/unpaiduser.route.js';
 
 dotenv.config();
 
@@ -68,6 +68,7 @@ app.listen(3000,()=>{
      app.use("/api/book",bookRoutes );
      app.use("/api/notify", notificationRoutes);
      app.use("/api/rent",rentingRoutes);
+     app.use("/api/unpaid",unPaidRoutes);
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;
@@ -80,7 +81,10 @@ app.use((err,req,res,next)=>{
 });
 
 cron.schedule("0 9 * * *", () => {
+// cron.schedule("*/3 * * * *", () => {
+
   console.log("Running expiry reminder check...");  
   sendRentPaymentReminder();
   sendExpiryReminders(); 
 });
+// sendRentPaymentReminder();
