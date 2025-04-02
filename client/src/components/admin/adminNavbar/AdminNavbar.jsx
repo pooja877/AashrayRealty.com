@@ -83,10 +83,10 @@ export default function AdminNavbar() {
         {/* Right Side */}
         <div className="adminright">
           {/* Notification Bell with Message Count */}
-          <div className="notification-icon" onClick={handleBellClick}>
+          <div className="notificationicon" onClick={handleBellClick}>
            <Link to="/admin/messages"> <FaBell size={25} style={{ cursor: "pointer" }} /> </Link>
             {unansweredCount > 0 && (
-              <span className="notification-badge">
+              <span className="notificatiobadge">
                 {unansweredCount > 5 ? "5+" : unansweredCount}
               </span>
             )}

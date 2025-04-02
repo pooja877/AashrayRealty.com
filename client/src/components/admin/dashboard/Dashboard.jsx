@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import "./Dashboard.css";
 import AdminNavbar from "../adminNavbar/AdminNavbar";
 import { Chart, registerables } from "chart.js";
+import BookingChart from "../BookingCharts/BookingChart";
+import RentCharts from "../BookingCharts/RentCharts";
 
 Chart.register(...registerables);
 
@@ -15,6 +17,22 @@ const Dashboard = () => {
     const transactionChartRef = useRef(null);
     const propertyChartInstance = useRef(null);
     const transactionChartInstance = useRef(null);
+    const [rentStats, setRentStats] = useState(null);
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const response = await fetch("/api/rent/rent-stats");
+                const data = await response.json();
+                setRentStats(data);
+            } catch (error) {
+                console.error("Error fetching rent stats:", error);
+            }
+        };
+        fetchStats();
+    }, []);
+
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -87,6 +105,7 @@ const Dashboard = () => {
 
         fetchData();
     }, []);
+    // if (!rentStats) return <p>Loading...</p>;
 
     return (
         <>
@@ -119,7 +138,21 @@ const Dashboard = () => {
                         <canvas ref={transactionChartRef}></canvas>
                     </div>
                 </div>
+                <BookingChart/>
+                {rentStats ? (
+                        <RentCharts 
+                            monthlyRentCollection={rentStats?.monthlyRentCollection || {}} 
+                            paidRent={rentStats?.paidRent || 0} 
+                            dueRent={rentStats?.dueRent || 0} 
+                            activeRentals={rentStats?.activeRentals || 0} 
+                            expiredRentals={rentStats?.expiredRentals || 0} 
+                            topUsers={rentStats?.topUsers || []} 
+                        />
+                    ) : (
+                        <p>Loading Rent Data...</p>
+                    )}
             </div>
+          
         </div>
         </>
     );

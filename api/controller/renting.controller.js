@@ -477,3 +477,42 @@ const notifyuserRent = async (userId, propertyId) => {
     console.error("Error creating unpaid rent notification:", error);
   }
 };
+export const getRentStats = async (req, res) => {
+  try {
+      // Ensure `userId` is populated with `username`
+      const rentals = await Renting.find().populate("userId", "username"); 
+
+      let monthlyRentCollection = {};
+      let userRentPayments = {}; // Track rent payments per user
+
+      rentals.forEach(rent => {
+          rent.paymentHistory.forEach(payment => {
+              const month = new Date(payment.date).toLocaleString('default', { month: 'short' });
+              monthlyRentCollection[month] = (monthlyRentCollection[month] || 0) + rent.rentAmount;
+
+              // Ensure `userId` exists and has a `username`
+              const userName = rent.userId?.username || "Unknown";  
+              userRentPayments[userName] = (userRentPayments[userName] || 0) + rent.rentAmount;
+          });
+      });
+
+      // Sort users by total rent paid and pick the top 5
+      const topUsers = Object.entries(userRentPayments)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 5)
+          .map(([name, totalPaid]) => ({ name, totalPaid }));
+
+      res.json({
+          monthlyRentCollection,
+          paidRent: rentals.filter(rent => rent.lastPaymentDate && new Date(rent.lastPaymentDate) <= rent.dueDate).length,
+          dueRent: rentals.length - rentals.filter(rent => rent.lastPaymentDate && new Date(rent.lastPaymentDate) <= rent.dueDate).length,
+          activeRentals: rentals.filter(rent => new Date(rent.rentEndDate) > new Date()).length,
+          expiredRentals: rentals.length - rentals.filter(rent => new Date(rent.rentEndDate) > new Date()).length,
+          topUsers
+      });
+  } catch (error) {
+      res.status(500).json({ message: "Error fetching rent stats", error });
+  }
+};
+
+

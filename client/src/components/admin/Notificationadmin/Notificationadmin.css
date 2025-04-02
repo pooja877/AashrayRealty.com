@@ -122,7 +122,7 @@
   text-align: center;
   align-items: center;
   justify-content: center;
-  border: 2px solid #007bff; /* Blue border */
+  /* border: 2px solid #007bff; Blue border */
   border-radius: 8px; /* Rounded corners */
   background-color: #f8f9fa; /* Light gray background */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
@@ -152,7 +152,7 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  width: 40%;
+  width: 100%;
   margin: 0;
   gap:1rem;
 }

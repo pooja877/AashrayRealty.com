@@ -11,9 +11,7 @@
     cursor: pointer;
     font-weight: bold;
     font-size: 10px;
-    @media(max-width: 730px) {
-      display: none;
-    }
+    
 
     &:hover {
       scale: 1.05;
@@ -257,14 +255,14 @@
     
   }
 
-  .notification-icon {
+  .notificationicon {
     position: relative;
     display: flex;
     align-items: center;
     cursor: pointer;
   }
   
-  .notification-badge {
+  .notificatiobadge {
     position: absolute;
     top: -5px;
     right: -5px;
@@ -290,12 +288,7 @@
     font-size: 14px;
     font-weight: bold;
     border-left: 4px solid #ff5c5c;
-    /* animation: fadeIn 0.3s ease-in-out; */
     z-index: 999;
   }
   
-  /* @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  } */
   

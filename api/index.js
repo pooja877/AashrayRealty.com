@@ -20,7 +20,7 @@ import { sendExpiryReminders } from './controller/notification.controller.js';
 import { sendRentPaymentReminder } from './controller/renting.controller.js';
 import unPaidRoutes from './routes/unpaiduser.route.js';
 import userNotificationRoutes from './routes/userNotification.route.js'
-
+import userPropertyRoutes from './routes/userProperty.route.js'
 dotenv.config();
 
 mongoose
@@ -70,7 +70,8 @@ app.listen(3000,()=>{
      app.use("/api/notify", notificationRoutes);
      app.use("/api/rent",rentingRoutes);
      app.use("/api/unpaid",unPaidRoutes);
-     app.use("/api/user-notifications",userNotificationRoutes)
+     app.use("/api/user-notifications",userNotificationRoutes);
+     app.use("/api/user-properties", userPropertyRoutes);
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;
