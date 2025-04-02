@@ -1,4 +1,6 @@
 
+import Contact from "../models/contact.model.js";
+import UserNotification from "../models/userNotification.model.js";
 import UserProperty from "../models/userProperties.model.js";
 // Create a Property Listing (User Side)
 export const createUserProperty = async (req, res) => {
@@ -21,6 +23,12 @@ export const createUserProperty = async (req, res) => {
         });
 
         await newProperty.save();
+         await Contact.create({
+              userId,
+              category: "userUploadProperty",
+              message: `${userId} wants to upload a property !!`,
+            });
+
         res.status(201).json({ message: "Property submitted for approval", property: newProperty });
     } catch (error) {
         res.status(500).json({ message: "Error creating property", error: error.message });
@@ -60,6 +68,13 @@ export const approveProperty = async (req, res) => {
 
         property.status = "Approved";
         await property.save();
+        const newNotification = new UserNotification({
+            userId: userId,
+            message: `Your property ${id.title} approved by admin`,
+          });
+      
+          // Save the notification
+          await newNotification.save();
         res.status(200).json({ message: "Property approved", property });
     } catch (error) {
         res.status(500).json({ message: "Error approving property", error: error.message });

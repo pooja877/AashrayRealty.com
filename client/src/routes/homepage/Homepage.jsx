@@ -6,6 +6,7 @@ import Herosection from "../../components/Herosection/Herosection";
 import News from "../../components/Newssection/News";
 import PropertyList from "../../components/PropertyList/PropertyList";
 import PropertyTypes from "../../components/PropertyTypes/PropertyTypes";
+import SliderTab from "../../components/SliderTab/SliderTab";
 
 import Testimonials from "../../components/testimonialsData/Testimonials";
 import TopRated from "../../components/topratedbyarea/TopRated";
@@ -24,6 +25,7 @@ export default function Homepage() {
       <News/>
       <ContactUs/>
       <Footercompo/>
+      <SliderTab/>
       
     </div>
   )

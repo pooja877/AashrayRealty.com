@@ -88,8 +88,8 @@ function Navbar() {
             <p>Aashray<span id="realty">Realty</span></p>
           </a>
           <a href="/" className="atag">Home</a>
-          <a href="/about" className="atag">About us</a>
-          <a href="/contactus" className="atag">Contact us</a>
+          <a href="/about" className="atag">AboutUs</a>
+          <a href="/contactus" className="atag">ContactUs</a>
           <a href="/properties" className="atag">AashrayProperties </a>
           <a href="/userproperties" className="atag">UserProperties </a>
         </div>

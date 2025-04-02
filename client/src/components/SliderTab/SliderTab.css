@@ -1,0 +1,51 @@
+.taghomeslider.sidebar {
+    position: fixed;
+    left: 0; /* Left side fixed */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.taghomeslider .tab {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white; /* Text white */
+    background: rgb(4, 4, 82); /* Background blue */
+    padding: 10px;
+    width: 50px; /* Default width */
+    transition: width 0.3s ease-in-out;
+    border-radius: 0 5px 5px 0; /* Left side ke liye */
+    overflow: hidden;
+}
+
+/* 🔥 Icon ko bhi white kar diya */
+.taghomeslider .tab .icon {
+    font-size: 24px;
+    color: white; /* Icon white */
+    margin-right: 10px;
+    flex-shrink: 0;
+    opacity: 1;
+}
+
+.taghomeslider .tab span {
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.taghomeslider .tab:hover {
+    width: 150px; /* Hover pe sirf isi ki width badhegi */
+}
+
+.taghomeslider .tab:hover span {
+    opacity: 1;
+}
+
+/* Ensures others remain same */
+.taghomeslider .tab:not(:hover) {
+    width: 50px; /* Baaki same rahenge */
+}
