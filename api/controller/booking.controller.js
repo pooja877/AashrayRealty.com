@@ -8,6 +8,8 @@ import Renting from "../models/renting.model.js";
 import nodemailer from "nodemailer";
 import { notifyInterestedUsers } from "./notification.controller.js";
 import {sendRentPaymentReminder} from "./renting.controller.js"
+import Contact  from "../models/contact.model.js";
+import UserNotification from "../models/userNotification.model.js";
 
 dotenv.config();
 
@@ -63,7 +65,17 @@ export const confirmBooking = async (req, res) => {
     });
 
     await newBooking.save();
+
     await Property.findByIdAndUpdate(propertyId, { status: "Booked" });
+    
+    await notifyBooking(userId,propertyId);
+    const newNotification = new UserNotification({
+      userId,
+      message: `Your payment for booking of property ${propertyId} has been successfully processed.`,
+    });
+
+    // Save the notification
+    await newNotification.save();
     // 🔹 Send Confirmation Email
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -154,6 +166,14 @@ export const cancelBooking = async (req, res) => {
       booking.status = "Expired";
       await booking.save();
       await Property.findByIdAndUpdate(propertyId, { status: "Available" });
+      await notifyBookingCancel(userId, bookingId);
+      const newNotification = new UserNotification({
+        userId,
+        message: `Your booking for property ${propertyId} has been canceled. If you have any questions, please contact support Team.`
+      });
+  
+      // Save the notification
+      await newNotification.save();
 
       return res.json({ message: "Booking expired. Property is now available again. No refund issued." });
     }
@@ -186,6 +206,11 @@ export const cancelBooking = async (req, res) => {
     booking.refundId = refund.id;
     await booking.save();
 
+    const newNotification = new UserNotification({
+      userId,
+      message: `Your booking for property ${propertyId} has been canceled, and a refund of ₹${refundAmount}has been processed`});
+      
+    await newNotification.save();
     // Mark Property as Available Again
     // await Property.findByIdAndUpdate(propertyId, { status: "Available" });
     
@@ -196,7 +221,12 @@ export const cancelBooking = async (req, res) => {
     );
 
     if (updatedProperty.status === "Available") {
-      await notifyInterestedUsers(propertyId); // Call notification only after update
+      await notifyInterestedUsers(propertyId);
+      const newNotification = new UserNotification({
+        userId,
+        message: `The property you were interested in is now available for booking again. Don't miss this opportunity to secure it before someone else does!`
+      }); // Call notification only after update
+      await newNotification.save();
     }
     // Send Refund Confirmation Email
     const transporter = nodemailer.createTransport({
@@ -308,6 +338,12 @@ export const markAsRented = async (req, res) => {
 
     await renting.save();
 
+    const newNotification = new UserNotification({
+      userId:booking.userId,
+      message: `Your booking for ${booking.propertyId} has been marked as rented.`});
+      
+    await newNotification.save();
+
     // Update Booking status to "Rented" and isRented to true
     booking.isRented = true;
     await booking.save();
@@ -402,6 +438,11 @@ export const markRented = async (req, res) => {
     await booking.save();
 
     await sendRentedfalseemail(user.email, property);
+    const newNotification = new UserNotification({
+      userId:booking.userId,
+      message: `Your booking for ${booking.propertyId} has been canceled.`});
+      
+    await newNotification.save();
     res.json({ message: "Property marked as rented and user notified via email" });
   } catch (error) {
     console.error("Error marking as rented:", error);
@@ -469,5 +510,28 @@ export const getUserBookings = async (req, res) => {
       res.status(200).json(bookedProperties);
   } catch (error) {
       res.status(500).json({ message: 'Error fetching liked properties', error });
+  }
+};
+
+const notifyBookingCancel = async (userId, bookingId) => {
+  try {
+    await Contact.create({
+      userId,
+      category: "cancel",
+      message: `Booking ID: ${bookingId} has been cancelled.`,
+    });
+  } catch (error) {
+    console.error("Error creating cancel notification:", error);
+  }
+};
+const notifyBooking = async (userId, propertyId) => {
+  try {
+    await Contact.create({
+      userId,
+      category: "book",
+      message: `Property Id ${propertyId} is Booked by ${userId}!!`,
+    });
+  } catch (error) {
+    console.error("Error creating cancel notification:", error);
   }
 };

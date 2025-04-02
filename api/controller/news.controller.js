@@ -1,4 +1,5 @@
 import { News } from "../models/news.model.js";
+import { sendNotificationForNewProject } from "./userNotification.controller.js";
 
 
 // Fetch all news
@@ -17,6 +18,10 @@ export const addNews = async (req, res) => {
         const { title, description, content, image, category,link } = req.body;
         const newNews = new News({ title, description, content, image, category,link });
         await newNews.save();
+        if (category === "New-projects") {
+            // Call the helper function to send notifications
+            await sendNotificationForNewProject(title);
+          }
         res.status(201).json({ message: "News added successfully" });
     } catch (error) {
         res.status(500).json({ error: "Failed to add news" });

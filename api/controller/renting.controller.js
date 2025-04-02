@@ -4,6 +4,7 @@ import Renting from "../models/renting.model.js";
 import User from "../models/user.model.js";
 import UnpaidUser from "../models/unpaiduser.model.js";
 import axios from "axios";
+import UserNotification from "../models/userNotification.model.js";
 
 // Configure Razorpay
 const razorpay = new Razorpay({
@@ -94,6 +95,17 @@ export const sendPaymentReminder = async (userEmail, rentAmount, dueDate, userId
       console.error("Failed to create Razorpay payment link. Email not sent.");
       return;
     }
+    const newNotification = new UserNotification({
+      userId,
+      message: `Your rent payment of ₹${rentAmount} is due on ${dueDate}.  
+    Please make the payment at the earliest to avoid any late fees.  
+    
+    Click the button below to pay your rent:  
+    ${paymentLink}`
+    });
+
+    // Save the notification
+    await newNotification.save();
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -230,16 +242,75 @@ export const sendPaymentReminder = async (userEmail, rentAmount, dueDate, userId
 //   }
 // };
 
+// export const sendRentPaymentReminder = async () => {
+//   try {
+//     const rents = await Renting.find({}).populate("userId", "email");
+
+//     for (const rent of rents) {
+//       const userId = rent.userId._id;  // Correctly accessing _id
+//       const userEmail = rent.userId.email;
+//       const dueDate = new Date(rent.dueDate);
+
+//       // Check if payment has already been made for the current month
+//       const lastPayment = rent.paymentHistory.find(payment => {
+//         const paymentDate = new Date(payment.date);
+//         return paymentDate.getMonth() === dueDate.getMonth() && paymentDate.getFullYear() === dueDate.getFullYear();
+//       });
+
+//       if (lastPayment) {
+//         console.log(`Payment already made for ${userEmail} this month.`);
+//         continue;  // Skip reminder if payment is already made
+//       }
+
+//       // Send reminders based on the due date (5, 3, 1 day before)
+//       const today = new Date();
+//       const diffDays = Math.floor((dueDate - today) / (1000 * 60 * 60 * 24));
+
+//       // If the due date is 5, 3, or 1 days away, or it's today, send a reminder
+//       if (diffDays === 5 || diffDays === 3 || diffDays === 1 || diffDays === 0) {
+//         await sendPaymentReminder(userEmail, rent.rentAmount, dueDate.toLocaleDateString(), userId);
+//       } else if (diffDays < 0) {
+//         // Send daily reminders for overdue payments
+//         await sendPaymentReminder(userEmail, rent.rentAmount, dueDate.toLocaleDateString(), userId);
+
+//         // Add the user to the "UnpaidUser" collection if they haven't paid by the due date
+//         const unpaidUserExists = await UnpaidUser.findOne({ userId });
+
+//         if (!unpaidUserExists) {
+//           const unpaidUser = new UnpaidUser({
+//             userId: userId,
+//             rentAmount: rent.rentAmount,
+//             dueDate: dueDate,
+//           });
+
+//           await unpaidUser.save();
+//           await notifyUnpaidRent(userId, rent.propertyId);
+//           console.log(`Added user ${userEmail} to unpaid users list.`);
+//         }
+//       }
+//     }
+
+//     console.log("Payment reminders sent successfully.");
+//   } catch (error) {
+//     console.error("Error sending rent payment reminders:", error);
+//   }
+// };
+const sentReminders = new Set(); // Tracks emails sent in the current execution
+
 export const sendRentPaymentReminder = async () => {
   try {
+    console.log("Running rent payment reminder check...");
+
     const rents = await Renting.find({}).populate("userId", "email");
 
     for (const rent of rents) {
-      const userId = rent.userId._id;  // Correctly accessing _id
+      const userId = rent.userId._id;
       const userEmail = rent.userId.email;
       const dueDate = new Date(rent.dueDate);
+      const today = new Date();
+      const diffDays = Math.floor((dueDate - today) / (1000 * 60 * 60 * 24));
 
-      // Check if payment has already been made for the current month
+      // Check if payment has already been made for this month
       const lastPayment = rent.paymentHistory.find(payment => {
         const paymentDate = new Date(payment.date);
         return paymentDate.getMonth() === dueDate.getMonth() && paymentDate.getFullYear() === dueDate.getFullYear();
@@ -247,31 +318,29 @@ export const sendRentPaymentReminder = async () => {
 
       if (lastPayment) {
         console.log(`Payment already made for ${userEmail} this month.`);
-        continue;  // Skip reminder if payment is already made
+        continue; // Skip if already paid
       }
 
-      // Send reminders based on the due date (5, 3, 1 day before)
-      const today = new Date();
-      const diffDays = Math.floor((dueDate - today) / (1000 * 60 * 60 * 24));
+      // Prevent duplicate reminders for the same user in the same execution
+      if (sentReminders.has(userEmail)) {
+        console.log(`Skipping duplicate reminder for ${userEmail}`);
+        continue;
+      }
 
-      // If the due date is 5, 3, or 1 days away, or it's today, send a reminder
-      if (diffDays === 5 || diffDays === 3 || diffDays === 1 || diffDays === 0) {
+      // If the due date is 5, 3, 1 days away, or today, send a reminder
+      if ([5, 3, 1, 0].includes(diffDays) || diffDays < 0) {
+        
         await sendPaymentReminder(userEmail, rent.rentAmount, dueDate.toLocaleDateString(), userId);
-      } else if (diffDays < 0) {
-        // Send daily reminders for overdue payments
-        await sendPaymentReminder(userEmail, rent.rentAmount, dueDate.toLocaleDateString(), userId);
+        sentReminders.add(userEmail); // Mark as reminded for this execution
+      }
 
-        // Add the user to the "UnpaidUser" collection if they haven't paid by the due date
+      // If overdue, add to UnpaidUser collection and notify
+      if (diffDays < 0) {
         const unpaidUserExists = await UnpaidUser.findOne({ userId });
 
         if (!unpaidUserExists) {
-          const unpaidUser = new UnpaidUser({
-            userId: userId,
-            rentAmount: rent.rentAmount,
-            dueDate: dueDate,
-          });
-
-          await unpaidUser.save();
+          await new UnpaidUser({ userId, rentAmount: rent.rentAmount, dueDate }).save();
+          await notifyUnpaidRent(userId, rent.propertyId);
           console.log(`Added user ${userEmail} to unpaid users list.`);
         }
       }
@@ -306,6 +375,7 @@ export const razorpayCallback = async (req, res) => {
       { new: true }
     );
 
+       
     if (!rentRecord) {
       return res.status(404).send("Rent record not found.");
     }
@@ -315,7 +385,17 @@ export const razorpayCallback = async (req, res) => {
     if (!user || !user.email) {
       return res.status(404).send("User email not found.");
     }
+    await notifyuserRent(userId, rentRecord.propertyId);
+    const newNotification = new UserNotification({
+      userId,
+      message: `Your rent payment of ₹${rentRecord.rentAmount} has been successfully processed.    Payment Details:
+    - Payment ID: ${paymentId}
+    - Order ID: ${orderId}
+    - Date: ${new Date().toLocaleString()}`,
+    });
 
+    // Save the notification
+    await newNotification.save();
     // Send payment confirmation email
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -374,4 +454,26 @@ export const deleteRenting = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: "Failed to delete Booking" });
     }
+};
+const notifyUnpaidRent = async (userId, propertyId) => {
+  try {
+    await Contact.create({
+      userId,
+      category: "unpaid",
+      message: `Rent for property ID: ${propertyId} is unpaid.`,
+    });
+  } catch (error) {
+    console.error("Error creating unpaid rent notification:", error);
+  }
+};
+const notifyuserRent = async (userId, propertyId) => {
+  try {
+    await Contact.create({
+      userId,
+      category: "rentpaid",
+      message: `Rent for property ID: ${propertyId} is Paid!!`,
+    });
+  } catch (error) {
+    console.error("Error creating unpaid rent notification:", error);
+  }
 };

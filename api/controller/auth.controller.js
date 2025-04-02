@@ -3,6 +3,7 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import { errorHandler } from "../utils/error.js";
+import UserNotification from "../models/userNotification.model.js";
 
 
 
@@ -40,12 +41,23 @@ export const verifyEmail = async (req, res) => {
 };
 
 
+const notifySignup = async () => {
+  try {
+    await Contact.create({
+      category: "newUser",
+      message: `New User joined!!`,
+    });
+  } catch (error) {
+    console.error("Error creating unpaid rent notification:", error);
+  }
+};
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
-
+   
   try {
     // Hash the password
     const hashedPassword = bcryptjs.hashSync(password, 10);
+   await  notifySignup();
 
     // Generate a verification token with the user's info
     const token = jwt.sign(
@@ -272,6 +284,13 @@ export const reset=async (req,res)=>{
 
     const hashedPassword = await bcryptjs.hashSync(password, 10);
     await User.findByIdAndUpdate(decoded.id,{password:hashedPassword});
+    const newNotification = new UserNotification({
+          userId:decoded.id,
+          message: `Your Password Reset Successfully!!.`,
+        });
+    
+        // Save the notification
+        await newNotification.save();
    
     res.status(200).json({ message: 'Password reset successful' });
   

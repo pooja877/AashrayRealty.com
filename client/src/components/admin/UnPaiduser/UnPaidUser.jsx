@@ -78,6 +78,7 @@ const UnPaidUser = () => {
               <p>Email: {user.userId.email}</p> 
               <p>Rent Amount: ₹{user.rentAmount}</p>
               <p>Due Date: {new Date(user.dueDate).toLocaleDateString()}</p>
+              <p>Current Date: {new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
               <button className="reminder-btn" onClick={() => sendReminder(user.userId?._id)}>
               Send Reminder
             </button>

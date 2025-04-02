@@ -1,0 +1,77 @@
+.usernotify-container {
+    padding: 20px;
+    max-width: 60%;
+    margin: 0 auto;
+   
+    background-color: #f4f4f4;
+    border-radius: 8px;
+  }
+  .maindvfornotify{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+    background: linear-gradient(145deg, rgb(228, 228, 241), white);
+    overflow-y: scroll;
+  }
+  
+  .usernotify-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .usernotify-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .usernotify-item p {
+    margin: 0;
+    font-size: 14px;
+    flex: 1;
+  }
+  
+  .usernotify-item.read {
+    background-color: #e0e0e0;
+  }
+  
+  .usernotify-item.unread {
+    background-color: #fff7e6;
+  }
+  
+  .usernotify-delete-btn {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: #f44336;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .usernotify-delete-all-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 40%;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .usernotify-delete-btn:hover, .usernotify-delete-all-btn:hover {
+    opacity: 0.8;
+  }
+  

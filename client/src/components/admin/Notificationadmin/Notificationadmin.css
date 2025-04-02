@@ -1,18 +1,281 @@
-.contactusmessage {
-    background-color: #007bff; /* Blue background */
-    color: white; /* White text */
-    padding: 10px 20px; /* Padding for better spacing */
-    border-radius: 8px; /* Rounded corners */
-    text-align: center; /* Center align text */
-    font-size: 16px; /* Font size */
-    font-weight: bold; /* Bold text */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
-    display: inline-block; /* Prevent full-width stretching */
-    cursor: pointer; /* Pointer cursor */
+/* Main Container */
+.mainmessagecontainerr {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(145deg, rgb(228, 228, 241), white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.admin-messages {
+  width: 80%;
+  /* max-width: 1200px; */
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .admin-messages {
+    padding: 15px;
   }
-  
-  .contactusmessage:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slight scaling effect */
+
+  .category-buttons {
+    flex-direction: column;
+    align-items: center;
   }
-  
+
+  .category-buttons button {
+    margin: 5px 0;
+    width: 100%;
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+
+  .delete-all-btn, .btnadmin {
+    font-size: 12px;
+    padding: 8px 15px;
+    width: 100%;
+  }
+
+  .notification-item p {
+    font-size: 14px;
+  }
+
+  .messagearea, textarea {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-messages {
+    width: 95%;
+  }
+
+  .category-buttons button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .btnadmin, .delete-all-btn {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .notification-item p {
+    font-size: 12px;
+  }
+
+  textarea {
+    font-size: 12px;
+    height: 60px;
+  }
+
+  .messages-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .messages-header h2 {
+    margin-bottom: 10px;
+  }
+}
+
+/* Title & Buttons */
+.messages-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.messages-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.category-buttons {
+  display: flex;
+  gap:0.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* margin-bottom: 20px; */
+}
+.deleteallcontainer p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  padding: 8px 12px;
+  letter-spacing: 0.5px;
+  height: 35px; /* Adjust height */
+  width: fit-content; /* Adjust width dynamically */
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #007bff; /* Blue border */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f8f9fa; /* Light gray background */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: all 0.3s ease-in-out;
+}
+
+.deleteallcontainer p:hover {
+  background-color: #e9ecef; /* Slightly darker on hover */
+  border-color: #0056b3; /* Darker border on hover */
+}
+
+
+
+.category-buttons button {
+  background-color: #10559a;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
+  transition: background-color 0.3s;
+}
+.deleteallcontainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 40%;
+  margin: 0;
+  gap:1rem;
+}
+.category-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.category-buttons button.active-category {
+  background-color: #0f4e9f;
+}
+
+/* Notification List */
+.notification-list {
+  margin-top: 20px;
+}
+
+.notification-item {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item p {
+  font-size: 16px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.replied-text {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.messagearea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+
+/* Buttons */
+.delete-all-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 200px;
+  margin-top: 20px;
+  display: block;
+  transition: background-color 0.3s;
+}
+.btnadmin{
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 200px;
+  margin-top: 20px;
+  display: block;
+  transition: background-color 0.3s;
+}
+.btndelte{
+  background-color:red;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  /* width: 200px; */
+  margin-top: 20px;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+
+
+/* Additional Styling */
+.notification-item .btnadmin {
+  width: auto;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* Flexbox for Notifications */
+.messages-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.messages-header h2 {
+  margin: 0;
+}
+
+.messages-header .delete-all-btn {
+  font-size: 12px;
+  width: auto;
+  display: inline-block;
+}

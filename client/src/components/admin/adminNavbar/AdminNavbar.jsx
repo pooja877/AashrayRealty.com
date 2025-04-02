@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaBell } from "react-icons/fa";
 import "./AdminNavbar.css";
@@ -7,17 +7,18 @@ export default function AdminNavbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [unansweredCount, setUnansweredCount] = useState(0);
-  const [showPopup, setShowPopup] = useState(false); // Popup ke liye state
+  const [showPopup, setShowPopup] = useState(false);
 
-  // Fetch unanswered messages count
+  // Fetch unread notifications count
   useEffect(() => {
     const fetchUnansweredMessages = async () => {
       try {
-        const res = await fetch("/api/contact/unanswered", {
+        const res = await fetch("/api/contact/unread-notifications", {
           method: "GET",
           credentials: "include",
         });
         const data = await res.json();
+
         if (res.ok) {
           setUnansweredCount(data.count);
 
@@ -28,12 +29,31 @@ export default function AdminNavbar() {
           }
         }
       } catch (error) {
-        console.error("Error fetching unanswered messages", error);
+        console.error("Error fetching unread notifications", error);
       }
     };
 
     fetchUnansweredMessages();
   }, []);
+
+  // Function to handle the click on the bell icon
+  const handleBellClick = async () => {
+    try {
+      const res = await fetch("/api/contact/mark-notifications-read", {
+        method: "POST",
+        credentials: "include", // Include credentials if needed
+      });
+
+      if (res.ok) {
+        // If successful, fetch the updated count
+        const data = await res.json();
+        console.log(data.message);  // Log success message
+        setUnansweredCount(0);  // Reset the count after marking as read
+      }
+    } catch (error) {
+      console.error("Error marking notifications as read", error);
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
@@ -63,8 +83,8 @@ export default function AdminNavbar() {
         {/* Right Side */}
         <div className="adminright">
           {/* Notification Bell with Message Count */}
-          <div className="notification-icon" onClick={() => navigate("/admin/messages")}>
-            <FaBell size={25} style={{ cursor: "pointer" }} />
+          <div className="notification-icon" onClick={handleBellClick}>
+           <Link to="/admin/messages"> <FaBell size={25} style={{ cursor: "pointer" }} /> </Link>
             {unansweredCount > 0 && (
               <span className="notification-badge">
                 {unansweredCount > 5 ? "5+" : unansweredCount}

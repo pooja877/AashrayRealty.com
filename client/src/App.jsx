@@ -35,13 +35,13 @@ import FeedbackForm from "./components/FeedbackForm/FeedbackForm";
 import ReviewForm from "./components/ReviewForm/ReviewForm";
 import LikedProperties from "./components/LikedProperties/LikedProperties";
 import Notificationadmin from "./components/admin/Notificationadmin/Notificationadmin";
-import AdminMessage from "./components/admin/AdminmessageContactus/AdminMessage";
 import Terms from "./components/Terms/Terms";
 import Booking from "./components/admin/Bookings/Booking";
 import Renting from "./components/admin/Bookings/Renting";
 import BookedProperties from "./components/LikedProperties/Bookedproperties";
 import RentedProperties from "./components/LikedProperties/RentedProperties";
 import UnPaidUser from "./components/admin/UnPaiduser/UnPaidUser";
+import UserNotification from "./components/UserNotification/UserNotification";
 
 
 
@@ -80,6 +80,7 @@ function App() {
       
       <Route path="/likedProperties" element={<LikedProperties/>}/>
       <Route path="/Feedback" element={<FeedbackForm/>}/>
+      <Route path="/Notification/:id" element={<UserNotification/>}/>
       <Route path="/Review/:id" element={<ReviewForm/>}/>
 
       <Route path="/newsDetail/:id" element={<NewsDetail/>}/>
@@ -95,7 +96,6 @@ function App() {
             <Route path="/admin/news" element={<NewsTable/>} />
             <Route path="/admin/addNews" element={<AdminNews/>} />
             <Route path="/admin/messages" element={<Notificationadmin/>} />
-            <Route path="/admin/contact" element={<AdminMessage/>} />
             <Route path="/admin/bookings" element={<Booking/>} />
             <Route path="/admin/allrentedProperties" element={<Renting/>} />
             <Route path="/admin/unPaidUser" element={<UnPaidUser/>} />
@@ -114,7 +114,7 @@ function App() {
 
  const ConditionalNavbar=()=>{
   const location=useLocation();
-  const hideNavbarRoutes=["/admin","/admin/dashboard","/admin/projects","/admin/addProperty","/admin/projects/updateProperty","/admin/users","/admin/news","/admin/addNews","/admin/news/updatenews/:id","/admin/bookings","/admin/allrentedProperties","/admin/unPaidUser"];
+  const hideNavbarRoutes=["/admin","/admin/dashboard","/admin/projects","/admin/messages","/admin/addProperty","/admin/projects/updateProperty","/admin/users","/admin/news","/admin/addNews","/admin/news/updatenews/:id","/admin/bookings","/admin/contact","/admin/allrentedProperties","/admin/unPaidUser"];
   // return !hideNavbarRoutes.includes(location.pathname)?<Navbar/>:null;
   const shouldHideNavbar=hideNavbarRoutes.some(route=>location.pathname.startsWith(route));
   return shouldHideNavbar?null:<Navbar/>;

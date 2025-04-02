@@ -1,6 +1,8 @@
 import nodemailer from "nodemailer";
 import { Notification } from "../models/notification.model.js";
 import Booking from "../models/booking.model.js";
+import UserNotification from "../models/userNotification.model.js";
+import  Contact  from "../models/contact.model.js";
 
 // ✅ Setup Email Transporter (Move to Top)
 const transporter = nodemailer.createTransport({
@@ -23,6 +25,8 @@ export const sendExpiryReminders = async () => {
     const expiringBookings = await Booking.find({ expiresAt: { $lte: tomorrow }, status: "Booked" });
 
     if (expiringBookings.length === 0) return;
+
+    
 
     const emails = expiringBookings
       .filter((booking) => booking.email) // Ensure email exists
@@ -53,7 +57,7 @@ export const sendExpiryReminders = async () => {
               <strong>AashrayRealty Team</strong></p>
         
               <hr style="border: none; border-top: 1px solid #ddd;">
-              <p style="font-size: 12px; color: #666;">For any queries, reach us at ${process.env.SUPPORT_EMAIL} or call us at ${process.env.CONTACT_NUMBER}.</p>
+              <p style="font-size: 12px; color: #666;">For any queries, contactus.</p>
             </div>
           `,
         })
@@ -86,13 +90,26 @@ export const addInterestedUser = async (req, res) => {
       message: "You will be notified when the property is available." 
     });
 
+    const newNotification = new UserNotification({
+      userId: userId,
+      message: `You will be notified when the property ${propertyId} is available.`,
+    });
+
+    // Save the notification
+    await newNotification.save();
+
+    await Contact.create({
+      userId,
+      category: "clickNotify",
+      message: `User wait for the property ID: ${propertyId}. Available`,
+    });
+
     res.json({ message: "You will be notified when the property is available." });
   } catch (error) {
     console.error("Error saving notification request:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 
 

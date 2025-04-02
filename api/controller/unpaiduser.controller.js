@@ -3,6 +3,7 @@ import UnpaidUser from "../models/unpaiduser.model.js";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import { createPaymentLink } from "./renting.controller.js";
+import UserNotification from "../models/userNotification.model.js";
 
 dotenv.config();
 
@@ -31,6 +32,13 @@ export const sendPaymentReminderAPI = async (req, res) => {
     const paymentLink = await createPaymentLink(rentAmount, userEmail, userId);
     if (!paymentLink) return res.status(500).json({ message: "Failed to generate payment link" });
 
+    const newNotification = new UserNotification({
+      userId,
+      message: `Rent Payment Reminder,Pay Rent!!`,
+    });
+
+    // Save the notification
+    await newNotification.save();
     // Send email with the payment link
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -85,6 +93,7 @@ export const getAllUnpaidUsers = async (req, res) => {
     }
   };
   
+
 
 // export const getAllUnpaidUsers = async (req, res) => {
 //     try {

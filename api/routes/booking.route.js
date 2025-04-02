@@ -13,4 +13,5 @@ router.delete("/delete/:id", deleteBooking);
 router.patch("/rented/:id", markAsRented);
 router.patch("/rentedfalse/:id", markRented);
 router.get("/booked", verifyToken, getUserBookings);
+
 export default router;

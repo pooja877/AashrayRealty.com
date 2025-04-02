@@ -69,7 +69,8 @@ const FeaturedDeveloper = () => {
                                     <h3 className="developer-name">{currentProject.title}</h3>
                                    
                                         <div className="cat">Category: {currentProject.category}</div>
-                                        <span className="review-count">Date  {currentProject.date}</span>
+                                        <span className="review-count">Date:  {new Date(currentProject.date).toLocaleString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })
+                                    }</span>
                                         <p>{currentProject.description}</p>
                                 </div>
                             </div>

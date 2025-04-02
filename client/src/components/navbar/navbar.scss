@@ -147,6 +147,26 @@ nav {
   border-radius: 50%;
 }
 
+.notification-container {
+  position: relative;
+  display: inline-block;
+}
+
+.notificationbadge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  padding-bottom: 0.3rem;
+  line-height: 18px;
+}
 
 
 // .profileSlider {

@@ -19,6 +19,7 @@ import cron from "node-cron";
 import { sendExpiryReminders } from './controller/notification.controller.js';
 import { sendRentPaymentReminder } from './controller/renting.controller.js';
 import unPaidRoutes from './routes/unpaiduser.route.js';
+import userNotificationRoutes from './routes/userNotification.route.js'
 
 dotenv.config();
 
@@ -69,6 +70,7 @@ app.listen(3000,()=>{
      app.use("/api/notify", notificationRoutes);
      app.use("/api/rent",rentingRoutes);
      app.use("/api/unpaid",unPaidRoutes);
+     app.use("/api/user-notifications",userNotificationRoutes)
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;
@@ -87,4 +89,8 @@ cron.schedule("0 9 * * *", () => {
   sendRentPaymentReminder();
   sendExpiryReminders(); 
 });
-// sendRentPaymentReminder();
+// (async () => {
+//     console.log("Running manual test...");
+//     await sendRentPaymentReminder(); // Manually trigger the function
+//   })();
+  

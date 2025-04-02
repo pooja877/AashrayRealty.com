@@ -1,4 +1,5 @@
 import Review from "../models/Review.model.js";
+import UserNotification from "../models/userNotification.model.js";
 // import User from "../models/User.model.js";
 
 export const getReviews = async (req, res) => {
@@ -46,6 +47,13 @@ export const getReviews = async (req, res) => {
       // Create new review if no existing one
       const newReview = new Review({ propertyId, userId, rating, comment });
       await newReview.save();
+          const newNotification = new UserNotification({
+            userId,
+            message: `Your review for ${propertyId} send successfully!!`,
+          });
+      
+          // Save the notification
+          await newNotification.save();
   
       res.status(201).json({ message: "Review added successfully", review: newReview });
     } catch (error) {
