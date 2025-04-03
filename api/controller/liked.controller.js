@@ -15,6 +15,7 @@ export const likeProperty = async (req, res) => {
   }
 };
 
+
 // ❌ Unlike a Property
 export const unlikeProperty = async (req, res) => {
   try {

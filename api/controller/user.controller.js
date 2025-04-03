@@ -129,3 +129,14 @@ export const deleteUser=async(req,res,next)=>{
     }
 }
 
+export const getMobileNumber = async (req, res) => {
+  try {
+      const user = await User.findById(req.user.id);
+      if (!user) {
+          return res.status(404).json({ error: "User not found" });
+      }
+      res.json({ mobile: user.mobile });
+  } catch (error) {
+      res.status(500).json({ error: "Failed to fetch mobile number" });
+  }
+};

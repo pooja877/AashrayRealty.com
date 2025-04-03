@@ -1,22 +1,20 @@
 import express from "express";
-import { approveProperty, createUserProperty, deleteProperty, getAllProperties, getUserProperties } from "../controller/userProperty.controller.js";
+import {  addProperty, deleteProperty,updateProperty,getUserProperties, getAllProperties, getApprovedProperties, getPropertyStats, togglePropertyStatus, deleteImage } from "../controller/userProperty.controller.js";
 
 
 const router = express.Router();
 
-// User submits a property
-router.post("/", createUserProperty);
+router.post('/addPro', addProperty);
+router.get("/getAll", getAllProperties); 
+// router.put("/activate/:id", activateProperty);
+router.get("/stats", getPropertyStats);
+router.get("/getuser/:userId", getUserProperties);
+router.get("/update/:id", updateProperty);
+router.delete("/delete",deleteImage);
 
-// Admin gets all properties
-router.get("/", getAllProperties);
+router.put("/toggle-status/:id", togglePropertyStatus);
+router.delete("/delete/:id", deleteProperty);
 
-// Get properties by user ID
-router.get("/:userId", getUserProperties);
-
-// Admin approves a property
-router.put("/approve/:id", approveProperty);
-
-// Delete property
-router.delete("/:id", deleteProperty);
+router.get("/approved", getApprovedProperties); 
 
 export default router;

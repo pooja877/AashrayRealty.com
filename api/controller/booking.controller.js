@@ -61,7 +61,7 @@ export const confirmBooking = async (req, res) => {
       tokenAmount: amount, // ✅ Store Token Amount
       status: "Confirmed",
       transactionType,
-      expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // ✅ Expires in 10 days
+      expiresAt: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), // ✅ Expires in 15 days
     });
 
     await newBooking.save();
@@ -93,16 +93,18 @@ export const confirmBooking = async (req, res) => {
       subject: "🎉 Booking Confirmation - AashrayRealty",
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
-          <h2 style="color: #2d89ef;">Your Property Booking is Confirmed! 🎉</h2>
-          <p>Your booking has been confirmed with a token amount of ₹${sendamount}.</p>
-          <p><strong>Payment ID:</strong> ${paymentId}</p>
-          <p><strong>Order ID:</strong> ${orderId}</p>
-          <p><strong>Property ID:</strong> ${propertyId}</p>
-          <p>✔️ You can visit the property within the next <strong>10 days</strong>.</p>
-          <p>✔️ If you cancel within this period, you will receive a <strong>50% refund</strong>.</p>
-          <p>❌ If you do not visit, the booking will expire.</p>
-          <p>Best Regards,<br><strong>AashrayRealty Team</strong></p>
-        </div>
+  <h2 style="color: #2d89ef;">Your Property Booking is Confirmed! 🎉</h2>
+  <p>Your booking has been confirmed with a token amount of ₹${sendamount}.</p>
+  <p><strong>Payment ID:</strong> ${paymentId}</p>
+  <p><strong>Order ID:</strong> ${orderId}</p>
+  <p><strong>Property ID:</strong> ${propertyId}</p>
+  <p>✔️ You can visit the property within the next <strong>15 days</strong>.</p>
+  <p>✔️ Visiting hours are from <strong>12 PM to 4 PM</strong>.</p>
+  <p>✔️ If you cancel within <strong>10 days</strong>, you will receive a <strong>50% refund</strong>.</p>
+  <p>❌ If you cancel after <strong>10 days</strong>, you will not receive any refund.</p>
+  <p>❌ If you do not visit, the booking will expire.</p>
+  <p>Best Regards,<br><strong>AashrayRealty Team</strong></p>
+</div>
       `,
     };
 
@@ -141,9 +143,146 @@ export const createOrder = async (req, res) => {
 };
 
 
+// export const cancelBooking = async (req, res) => {
+//   try {
+//     const { bookingId, propertyId, userId, email,status } = req.body;
+
+//     if (!bookingId || !propertyId || !userId || !email) {
+//       return res.status(400).json({ message: "Missing required fields" });
+//     }
+
+//     // Fetch Booking Details
+//     const booking = await Booking.findById(bookingId);
+//     if (!booking) return res.status(404).json({ message: "Booking not found" });
+
+//     if (booking.status === "Cancelled") {
+//       return res.status(400).json({ message: "Booking already cancelled" });
+//     }
+
+//     // Check Expiry Date
+//     const currentDate = new Date();
+//     const isExpired = currentDate > booking.expiresAt;
+
+//     if (isExpired) {
+//       // Booking expired → No refund, mark property as available
+//       booking.status = "Expired";
+//       await booking.save();
+//       await Property.findByIdAndUpdate(propertyId, { status: "Available" });
+//       await notifyBookingCancel(userId, bookingId);
+//       const newNotification = new UserNotification({
+//         userId,
+//         message: `Your booking for property ${propertyId} has been canceled. If you have any questions, please contact support Team.`
+//       });
+  
+//       // Save the notification
+//       await newNotification.save();
+
+//       return res.json({ message: "Booking expired. Property is now available again. No refund issued." });
+//     }
+
+//     // Booking is still valid → Process 50% refund
+//     if (!booking.paymentId || !booking.tokenAmount) {
+//       return res.status(400).json({ message: "Invalid booking data: Missing payment or amount" });
+//     }
+
+//     // Fetch Payment Details from Razorpay
+//     const paymentDetails = await razorpay.payments.fetch(booking.paymentId);
+//     if (!paymentDetails.captured) {
+//       return res.status(400).json({ message: "Payment not captured. Refund not possible." });
+//     }
+
+//     const capturedAmount = paymentDetails.amount; // Captured amount in paise
+//     const refundAmount = Math.min(Math.round(booking.tokenAmount / 2), capturedAmount); // 50% refund
+
+//     // Process Refund
+//     const refund = await razorpay.payments.refund(booking.paymentId, { amount: refundAmount });
+
+//     if (!refund) {
+//       return res.status(500).json({ message: "Refund processing failed" });
+//     }
+
+//     // Update Booking Status
+//     booking.status = "Cancelled";
+//     booking.cancelledAt = new Date();
+//     booking.refundAmount = refundAmount / 100; // Convert back to INR
+//     booking.refundId = refund.id;
+//     await booking.save();
+
+//     const newNotification = new UserNotification({
+//       userId,
+//       message: `Your booking for property ${propertyId} has been canceled, and a refund of ₹${refundAmount}has been processed`});
+      
+//     await newNotification.save();
+//     // Mark Property as Available Again
+//     // await Property.findByIdAndUpdate(propertyId, { status: "Available" });
+    
+//     const updatedProperty = await Property.findByIdAndUpdate(
+//       propertyId, 
+//       { status: "Available" }, 
+//       { new: true } // Returns the updated property
+//     );
+
+//     if (updatedProperty.status === "Available") {
+//       await notifyInterestedUsers(propertyId);
+//       const newNotification = new UserNotification({
+//         userId,
+//         message: `The property you were interested in is now available for booking again. Don't miss this opportunity to secure it before someone else does!`
+//       }); // Call notification only after update
+//       await newNotification.save();
+//     }
+//     // Send Refund Confirmation Email
+//     const transporter = nodemailer.createTransport({
+//       host: "smtp.gmail.com",
+//       port: 587,
+//       secure: false,
+//       auth: {
+//         user: process.env.EMAIL_USER,
+//         pass: process.env.EMAIL_PASS,
+//       },
+//     });
+
+//     const mailOptions = {
+//       from: process.env.EMAIL_USER,
+//       to: email,
+//       subject: "AashrayRealty - Your Booking Cancelled & Refund Processed",
+//       html: ` 
+//         <div style="font-family: Arial, sans-serif; padding: 20px;">
+//           <h2 style="color: #d9534f;">Your Booking Has Been Cancelled</h2>
+//           <p>Dear Customer,</p>
+//           <p>Your booking has been successfully cancelled. A refund of <strong>₹${(booking.refundAmount).toFixed(2)}</strong> has been processed to your original payment method.</p>
+//           <h3>Refund Details:</h3>
+//           <ul>
+//             <li><strong>Booking ID:</strong> ${bookingId}</li>
+//             <li><strong>Refund Amount:</strong> ₹${(booking.refundAmount).toFixed(2)}</li>
+//             <li><strong>Refund ID:</strong> ${refund.id}</li>
+//             <li><strong>Payment ID:</strong> ${booking.paymentId}</li>
+//           </ul>
+//           <p>✔️ The amount will be credited to your bank account within 5-7 working days after the refund has been processed.</p>
+//           <p>For any queries, please contact our support team.</p>
+//           <p>Best Regards,<br><strong>AashrayRealty Team</strong></p>
+//         </div>
+//       `,
+//     };
+
+//     transporter.sendMail(mailOptions, (error, info) => {
+//       if (error) {
+//         console.error("Email Sending Error:", error);
+//         return res.status(500).json({ message: "Refund successful, but email sending failed" });
+//       }
+//       res.json({ message: "Booking cancelled & 50% refund processed! Email sent successfully." });
+//     });
+    
+      
+    
+
+//   } catch (error) {
+//     console.error("Cancellation Error:", error);
+//     res.status(500).json({ message: "Cancellation failed" });
+//   }
+// };
 export const cancelBooking = async (req, res) => {
   try {
-    const { bookingId, propertyId, userId, email,status } = req.body;
+    const { bookingId, propertyId, userId, email } = req.body;
 
     if (!bookingId || !propertyId || !userId || !email) {
       return res.status(400).json({ message: "Missing required fields" });
@@ -157,28 +296,44 @@ export const cancelBooking = async (req, res) => {
       return res.status(400).json({ message: "Booking already cancelled" });
     }
 
-    // Check Expiry Date
+    // Check Cancellation Window
     const currentDate = new Date();
-    const isExpired = currentDate > booking.expiresAt;
+    const bookingDate = new Date(booking.bookedAt); // Assuming createdAt is the booking date
+    const expiryDate = new Date(booking.expiresAt);
+    const diffDays = Math.floor((currentDate - bookingDate) / (1000 * 60 * 60 * 24)); // Days since booking
 
-    if (isExpired) {
+    if (currentDate >= expiryDate) {
       // Booking expired → No refund, mark property as available
       booking.status = "Expired";
       await booking.save();
       await Property.findByIdAndUpdate(propertyId, { status: "Available" });
       await notifyBookingCancel(userId, bookingId);
+
       const newNotification = new UserNotification({
         userId,
-        message: `Your booking for property ${propertyId} has been canceled. If you have any questions, please contact support Team.`
+        message: `Your booking for property ${propertyId} has expired. The property is now available again.`,
       });
-  
-      // Save the notification
       await newNotification.save();
 
       return res.json({ message: "Booking expired. Property is now available again. No refund issued." });
     }
 
-    // Booking is still valid → Process 50% refund
+    if (diffDays > 10) {
+      // Cancelled after 10 days but before expiry → No refund
+      booking.status = "Cancelled";
+      booking.cancelledAt = currentDate;
+      await booking.save();
+
+      const newNotification = new UserNotification({
+        userId,
+        message: `Your booking for property ${propertyId} has been canceled. No refund issued as it was canceled after 10 days.`,
+      });
+      await newNotification.save();
+
+      return res.json({ message: "Booking cancelled after 10 days. No refund issued." });
+    }
+
+    // Booking is still within 10 days → Process 50% refund
     if (!booking.paymentId || !booking.tokenAmount) {
       return res.status(400).json({ message: "Invalid booking data: Missing payment or amount" });
     }
@@ -208,26 +363,26 @@ export const cancelBooking = async (req, res) => {
 
     const newNotification = new UserNotification({
       userId,
-      message: `Your booking for property ${propertyId} has been canceled, and a refund of ₹${refundAmount}has been processed`});
-      
+      message: `Your booking for property ${propertyId} has been canceled, and a refund of ₹${refundAmount / 100} has been processed.`,
+    });
     await newNotification.save();
+
     // Mark Property as Available Again
-    // await Property.findByIdAndUpdate(propertyId, { status: "Available" });
-    
     const updatedProperty = await Property.findByIdAndUpdate(
-      propertyId, 
-      { status: "Available" }, 
-      { new: true } // Returns the updated property
+      propertyId,
+      { status: "Available" },
+      { new: true }
     );
 
     if (updatedProperty.status === "Available") {
       await notifyInterestedUsers(propertyId);
       const newNotification = new UserNotification({
         userId,
-        message: `The property you were interested in is now available for booking again. Don't miss this opportunity to secure it before someone else does!`
-      }); // Call notification only after update
+        message: `The property you were interested in is now available for booking again.`,
+      });
       await newNotification.save();
     }
+
     // Send Refund Confirmation Email
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -269,9 +424,6 @@ export const cancelBooking = async (req, res) => {
       }
       res.json({ message: "Booking cancelled & 50% refund processed! Email sent successfully." });
     });
-    
-      
-    
 
   } catch (error) {
     console.error("Cancellation Error:", error);
@@ -518,7 +670,7 @@ const notifyBookingCancel = async (userId, bookingId) => {
     await Contact.create({
       userId,
       category: "cancel",
-      message: `Booking ID: ${bookingId} has been cancelled.`,
+      message: `Booking ID: ${bookingId} has been cancled.`,
     });
   } catch (error) {
     console.error("Error creating cancel notification:", error);
@@ -535,3 +687,139 @@ const notifyBooking = async (userId, propertyId) => {
     console.error("Error creating cancel notification:", error);
   }
 };
+
+// export const cancelBooking = async (req, res) => {
+//   try {
+//     const { bookingId, propertyId, userId, email } = req.body;
+
+//     if (!bookingId || !propertyId || !userId || !email) {
+//       return res.status(400).json({ message: "Missing required fields" });
+//     }
+
+//     // Fetch Booking Details
+//     const booking = await Booking.findById(bookingId);
+//     if (!booking) return res.status(404).json({ message: "Booking not found" });
+
+//     if (booking.status === "Cancelled") {
+//       return res.status(400).json({ message: "Booking already cancelled" });
+//     }
+
+//     // Check Cancellation Window
+//     const currentDate = new Date();
+//     const bookingDate = new Date(booking.bookedAt);
+//     const expiryDate = new Date(booking.expiresAt);
+//     const diffDays = Math.floor((currentDate - bookingDate) / (1000 * 60 * 60 * 24));
+
+//     if (currentDate >= expiryDate || diffDays > 15) {
+//       // Booking expired or cancelled after 15 days → No refund, mark as expired
+//       booking.status = "Expired";
+//       await booking.save();
+//       await Property.findByIdAndUpdate(propertyId, { status: "Available" });
+
+//       await new UserNotification({
+//         userId,
+//         message: `Your booking for property ${propertyId} has expired. No refund issued.`,
+//       }).save();
+
+//       return res.json({ message: "Booking expired. Property is now available again. No refund issued." });
+//     }
+
+//     let refundPercentage = 0;
+
+//     if (diffDays <= 10) {
+//       refundPercentage = 1; // 100% refund
+//     } else if (diffDays <= 15) {
+//       refundPercentage = 0.5; // 50% refund
+//     }
+
+//     if (!booking.paymentId || !booking.tokenAmount) {
+//       return res.status(400).json({ message: "Invalid booking data: Missing payment or amount" });
+//     }
+
+//     // Fetch Payment Details from Razorpay
+//     const paymentDetails = await razorpay.payments.fetch(booking.paymentId);
+//     if (!paymentDetails.captured) {
+//       return res.status(400).json({ message: "Payment not captured. Refund not possible." });
+//     }
+
+//     const capturedAmount = paymentDetails.amount; // Captured amount in paise
+//     const refundAmount = Math.min(Math.round(booking.tokenAmount * refundPercentage), capturedAmount);
+
+//     // Process Refund
+//     const refund = await razorpay.payments.refund(booking.paymentId, { amount: refundAmount });
+
+//     if (!refund) {
+//       return res.status(500).json({ message: "Refund processing failed" });
+//     }
+
+//     // Update Booking Status
+//     booking.status = "Cancelled";
+//     booking.cancelledAt = new Date();
+//     booking.refundAmount = refundAmount / 100; // Convert to INR
+//     booking.refundId = refund.id;
+//     await booking.save();
+
+//     await new UserNotification({
+//       userId,
+//       message: `Your booking for property ${propertyId} has been canceled, and a refund of ₹${refundAmount / 100} has been processed.`,
+//     }).save();
+
+//     // Mark Property as Available Again
+//     const updatedProperty = await Property.findByIdAndUpdate(propertyId, { status: "Available" }, { new: true });
+
+//     if (updatedProperty.status === "Available") {
+//       await notifyInterestedUsers(propertyId);
+//       await new UserNotification({
+//         userId,
+//         message: `The property you were interested in is now available for booking again.`,
+//       }).save();
+//     }
+
+//     // Send Refund Confirmation Email
+//     const transporter = nodemailer.createTransport({
+//       host: "smtp.gmail.com",
+//       port: 587,
+//       secure: false,
+//       auth: {
+//         user: process.env.EMAIL_USER,
+//         pass: process.env.EMAIL_PASS,
+//       },
+//     });
+
+//     const mailOptions = {
+//       from: process.env.EMAIL_USER,
+//       to: email,
+//       subject: "AashrayRealty - Your Booking Cancelled & Refund Processed",
+//       html: ` 
+//         <div style="font-family: Arial, sans-serif; padding: 20px;">
+//           <h2 style="color: #d9534f;">Your Booking Has Been Cancelled</h2>
+//           <p>Dear Customer,</p>
+//           <p>Your booking has been successfully cancelled. A refund of <strong>₹${(booking.refundAmount).toFixed(2)}</strong> has been processed to your original payment method.</p>
+//           <h3>Refund Details:</h3>
+//           <ul>
+//             <li><strong>Booking ID:</strong> ${bookingId}</li>
+//             <li><strong>Refund Amount:</strong> ₹${(booking.refundAmount).toFixed(2)}</li>
+//             <li><strong>Refund ID:</strong> ${refund.id}</li>
+//             <li><strong>Payment ID:</strong> ${booking.paymentId}</li>
+//           </ul>
+//           <p>✔️ The amount will be credited to your bank account within 5-7 working days.</p>
+//           <p>For any queries, please contact our support team.</p>
+//           <p>Best Regards,<br><strong>AashrayRealty Team</strong></p>
+//         </div>
+//       `,
+//     };
+
+//     transporter.sendMail(mailOptions, (error, info) => {
+//       if (error) {
+//         console.error("Email Sending Error:", error);
+//         return res.status(500).json({ message: "Refund successful, but email sending failed" });
+//       }
+//       res.json({ message: `Booking cancelled & ${refundPercentage * 100}% refund processed! Email sent successfully.` });
+//     });
+
+//   } catch (error) {
+//     console.error("Cancellation Error:", error);
+//     res.status(500).json({ message: "Cancellation failed" });
+//   }
+// };
+//10 100% and 15 50%

@@ -71,7 +71,7 @@ app.listen(3000,()=>{
      app.use("/api/rent",rentingRoutes);
      app.use("/api/unpaid",unPaidRoutes);
      app.use("/api/user-notifications",userNotificationRoutes);
-     app.use("/api/user-properties", userPropertyRoutes);
+     app.use("/api/userproperties", userPropertyRoutes);
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500;

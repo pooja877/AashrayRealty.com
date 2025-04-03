@@ -3,13 +3,13 @@ import {useSelector,useDispatch } from 'react-redux';
 import {Link} from "react-router-dom";
 import { logoutUserStart ,logoutUserSuccess,logoutUserFailure} from '../../redux/user/userSlice.js';
 import Activity from '../../components/Activity/Activity.jsx';
+import UserListing from '../../components/UserListing/UserListing.jsx';
 // import Tools from '../../components/Tools&advice/Tools.jsx';
 
 
 export default function Profile() {
     const {currentUser} = useSelector((state)=>state.user);
     const dispatch=useDispatch();
-   
     const handleLogOut=async ()=>{
       try{
         dispatch(logoutUserStart());
@@ -66,7 +66,9 @@ export default function Profile() {
             <img className="image"src="logout_1.png" alt="" />
             Log Out
             </button>
+            <UserListing userId={currentUser._id}/> 
       </div>
+     
       </div>
   )
 }

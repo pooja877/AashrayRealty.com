@@ -66,7 +66,8 @@ export default function UserNotification() {
   };
 
   return (
-    <div className="maindvfornotify">
+   
+      <div className="maindvfornotify">
         <div className="usernotify-container">
       <h2>Notifications</h2>
       {notifications.length > 0 ? (
@@ -88,5 +89,6 @@ export default function UserNotification() {
       )}
     </div>
     </div>
+    
   );
 }

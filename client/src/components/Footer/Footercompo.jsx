@@ -1,6 +1,6 @@
 import './Footercompo.css'
 export default function Footercompo() {
-
+  const whatsappNumber = "9054450605"; 
   return (
    <>
     <footer className="footer">
@@ -18,16 +18,19 @@ export default function Footercompo() {
               commercial properties. Trusted by millions of users every month.
             </p>
             <div className="social-icons">
-              <a href="#" className="social-icon">
+              <a href={`https://wa.me/${whatsappNumber}`} className="social-icon">
+              <i className="fab fa-whatsapp"></i>
+              </a>
+              <a href="https://www.facebook.com/iamsrk" className="social-icon">
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="#" className="social-icon">
+              <a href="https://twitter.com/iamsrk" className="social-icon">
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="#" className="social-icon">
+              <a href="https://www.instagram.com/iamsrk/" className="social-icon">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="#" className="social-icon">
+              <a href="https://www.linkedin.com/in/sundarpichai/" className="social-icon">
                 <i className="fab fa-linkedin-in"></i>
               </a>
             </div>

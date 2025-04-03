@@ -1,0 +1,106 @@
+/* Main Container */
+.userlist-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    padding-bottom: 4rem;
+}
+
+/* Title */
+.userlist-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+/* Column Layout: Each property is stacked in a column */
+.userlist-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the cards */
+    gap: 15px;
+}
+
+/* Card: Each Property (Row Layout) */
+.userlist-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 90%;  /* ✅ Medium width */
+    /* max-width: 600px; ✅ Prevents it from being too big */
+}
+
+/* Image */
+.userlist-image {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Property Info (Remains in Row) */
+.userlist-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Text Styling */
+.userlist-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 5px 0;
+}
+
+/* Action Buttons */
+.userlist-actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.userlist-edit-btn,
+.userlist-delete-btn {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.userlist-edit-btn {
+    background: #007bff;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.userlist-delete-btn {
+    background: #dc3545;
+    color: white;
+    border-radius: 4px;
+}
+
+/* ✅ Responsive Design: Keeps Row Layout on Small Screens */
+@media (max-width: 768px) {
+    .userlist-card {
+        width: 100%; /* ✅ Slightly wider on small screens */
+        flex-direction: row; /* ✅ Ensures data always remains in a row */
+        align-items: center;
+    }
+
+    .userlist-image {
+        width: 4rem;  /* ✅ Slightly smaller on small screens */
+        height: 4rem;
+    }
+
+    .userlist-info {
+        font-size: 0.85rem;
+    }
+}

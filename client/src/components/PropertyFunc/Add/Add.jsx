@@ -253,7 +253,7 @@ const handleVideoUpload = () => {
               </select>
               
         
-          <input  type="number" id='pincode'   value={formData.pincode} onChange={handleChange} placeholder='Enter 6 digit valid Pincode ' name="pincode"required />
+          <input  type="text" id='pincode'   value={formData.pincode} onChange={handleChange} placeholder='Enter 6 digit valid Pincode ' name="pincode"required />
           <input type="text" id='address'value={formData.address} onChange={handleChange} placeholder="Enter property address (houseno,buildingname,streetname)"name="address" required />
 
           </div>

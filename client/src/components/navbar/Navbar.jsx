@@ -77,7 +77,7 @@ function Navbar() {
   return (
     <>
       {showPopup && (
-        <div className="popup-notification">
+        <div className="popupnotification">
           <p>You have {notificationCount} new notifications!</p>
         </div>
       )}
@@ -120,7 +120,8 @@ function Navbar() {
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/contactus">Contact</a>
-            <a href="/properties">Properties</a>
+            <a href="/properties">AashrayProperties</a>
+            <a href="/userproperties">UserProperties </a>
             {currentUser ? <a href="/profile">Profile</a> : <a href="/signin">Sign in</a>}
           </div>
         </div>

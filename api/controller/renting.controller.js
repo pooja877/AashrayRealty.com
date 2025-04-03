@@ -98,10 +98,7 @@ export const sendPaymentReminder = async (userEmail, rentAmount, dueDate, userId
     const newNotification = new UserNotification({
       userId,
       message: `Your rent payment of ₹${rentAmount} is due on ${dueDate}.  
-    Please make the payment at the earliest to avoid any late fees.  
-    
-    Click the button below to pay your rent:  
-    ${paymentLink}`
+    Please make the payment at the earliest. `
     });
 
     // Save the notification

@@ -25,6 +25,8 @@ import TableUser from "./components/admin/Users/TableUser";
 import Contact from "./components/ContactUs/Contact";
 import Faq from "./components/FAQ/Faq";
 import NewsTable from "./components/admin/NewsTable/NewsTable";
+import UserPropertyTable from "./components/admin/NewsTable/UserPropertyTable";
+
 import AdminNews from "./components/admin/adminNews/AdminNews";
 import Updatenews from "./components/admin/UpdateNews/Updatenews";
 import EmiCalculator from "./components/EMICalculator/EmiCalculator";
@@ -42,6 +44,10 @@ import BookedProperties from "./components/LikedProperties/Bookedproperties";
 import RentedProperties from "./components/LikedProperties/RentedProperties";
 import UnPaidUser from "./components/admin/UnPaiduser/UnPaidUser";
 import UserNotification from "./components/UserNotification/UserNotification";
+import UserPropertyForm from "./components/UserPropertyForm/UserPropertyForm";
+import UserUpdatePropertyForm from "./components/UserPropertyForm/UserUpdatePropertyForm";
+import UserApproveProperties from "./components/UserApproveProeprties/UserApproveProeprties";
+import SingleuserProeprty from "./components/Singleuserproperty/SingleuserProeprty";
 
 
 
@@ -58,12 +64,20 @@ function App() {
       <Route path="/signin" element={<Signin/>}/>
       <Route path="/contactus" element={<Contact/>}/>
       <Route path="/FAQ" element={<Faq/>}/>
+      <Route path="/userproperties" element={<UserApproveProperties/>}/>
+      <Route path="/userproperties/:id" element={<SingleuserProeprty/>}/>
+
+
       {/* <Route path="/verifyemail" element={<Verifyemail/>}/> */}
       {/* profile page and it open when user is login */}
       <Route element={<PrivateRoute/>}>
       <Route path="/profile" element={<Profile/>}/>
       <Route path="/edit" element={<Edit/>}/>
       <Route path="/setting" element={<Setting/>}/>
+      <Route path="/uploadProperty" element={<UserPropertyForm/>}/>
+      <Route path="/updateProperty/:id" element={ <UserUpdatePropertyForm/>}/>
+      
+     
       </Route>
       <Route path="/resetPassword/:token" element={<ResetPassword/>}/>
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
@@ -99,7 +113,7 @@ function App() {
             <Route path="/admin/bookings" element={<Booking/>} />
             <Route path="/admin/allrentedProperties" element={<Renting/>} />
             <Route path="/admin/unPaidUser" element={<UnPaidUser/>} />
-
+            <Route path="/admin/userProperties" element={<UserPropertyTable/>}/>
 
             
             

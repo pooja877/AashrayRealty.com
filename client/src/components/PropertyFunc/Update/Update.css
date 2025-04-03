@@ -34,7 +34,7 @@
         @media(max-width: 800px)
         {
                 width:90%;
-                height: 70vh;
+                height: 100vh;
                 /* display: flex;
                 flex-direction: column;
                 overflow-y: scroll; */
@@ -246,4 +246,12 @@
     {
             flex-direction: column;
     }
+}
+@media(max-width: 800px)
+{
+    .rightUpdate
+    {
+        display: none;
+    }
+    
 }

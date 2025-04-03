@@ -1,6 +1,6 @@
 .usernotify-container {
     padding: 20px;
-    max-width: 60%;
+    max-width: 80%;
     margin: 0 auto;
    
     background-color: #f4f4f4;
@@ -13,8 +13,8 @@
     align-items: center;
     height: 100vh;
     width: 100%;
-    padding-top: 3rem;
-    padding-bottom: 4rem;
+    padding-top: 35rem;
+    padding-bottom: 7rem;
     background: linear-gradient(145deg, rgb(228, 228, 241), white);
     overflow-y: scroll;
   }

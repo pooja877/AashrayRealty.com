@@ -6,6 +6,7 @@ const router = express.Router();
 
 
 router.post("/like", verifyToken, likeProperty);
+
 router.post("/unlike", verifyToken, unlikeProperty); 
 router.get("/liked", verifyToken, getLikedProperties);
 

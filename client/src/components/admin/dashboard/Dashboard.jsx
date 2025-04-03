@@ -5,6 +5,7 @@ import AdminNavbar from "../adminNavbar/AdminNavbar";
 import { Chart, registerables } from "chart.js";
 import BookingChart from "../BookingCharts/BookingChart";
 import RentCharts from "../BookingCharts/RentCharts";
+import PropertyStats from "../BookingCharts/PropertyStats";
 
 Chart.register(...registerables);
 
@@ -151,6 +152,7 @@ const Dashboard = () => {
                     ) : (
                         <p>Loading Rent Data...</p>
                     )}
+                    <PropertyStats/>
             </div>
           
         </div>

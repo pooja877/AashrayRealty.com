@@ -5,14 +5,15 @@ const UserPropertySchema = new mongoose.Schema({
     title: { type: String, required: true },
     bhk: { type: String, required: true },  // Example: "2 BHK"
     price: { type: Number, required: true },
-    location: {
-        city: { type: String, enum: ["Ahmedabad", "Gandhinagar"], required: true },
+        city: { type: String,required: true },
         area: { type: String, required: true },
-        pincode: { type: String, required: true }
-    },
-    images: { type: [String], required: true },
-    amenities: { type: [String], required: true },
-    propertyType: { type: String, enum: ["Rent", "Sale"], required: true },
+        pincode: { type: String, required: true },
+        address:{type:String,require:true},
+        images: [{ type: String, required: true }],
+         desc:{type:String,required:true},
+    amenities: { type: String, required: true },
+    transactionType: { type: String, required: true },
+    propertyType: { type: String, required: true },
     status: { type: String, enum: ["Pending", "Approved"], default: "Pending" },
 }, { timestamps: true });
 
