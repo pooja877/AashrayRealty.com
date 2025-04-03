@@ -48,14 +48,22 @@ export default function Properties() {
                 try {
                     const res = await fetch('/api/likes/liked', { credentials: 'include' });
                     const data = await res.json();
-                    setLikedProperties(new Set(data.map(like => like.propertyId._id)));
+    
+                    console.log("Liked Properties Response:", data); // Debugging Output
+    
+                    if (Array.isArray(data)) {
+                        setLikedProperties(new Set(data.map(like => like.propertyId?._id)));
+                    } else {
+                        console.error("Unexpected response format:", data);
+                    }
                 } catch (error) {
-                    console.error('Error fetching liked properties:', error);
+                    console.error("Error fetching liked properties:", error);
                 }
             };
             fetchLikedProperties();
         }
     }, [user]);
+    
 
     const toggleLike = async (propertyId) => {
         if (!user) {
@@ -68,7 +76,7 @@ export default function Properties() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
-                    body: JSON.stringify({ propertyId })
+                    body: JSON.stringify({ propertyId ,propertyType:"Property"})
                 });
                 setLikedProperties(prev => {
                     const newSet = new Set(prev);
@@ -80,7 +88,7 @@ export default function Properties() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
-                    body: JSON.stringify({ propertyId })
+                    body: JSON.stringify({ propertyId,propertyType:"Property" })
                 });
                 setLikedProperties(prev => new Set(prev).add(propertyId));
             }

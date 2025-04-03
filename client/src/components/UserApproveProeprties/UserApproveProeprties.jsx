@@ -52,20 +52,28 @@ const UserApproveProperties = () => {
         fetchApprovedProperties();
     }, []);
 
-    useEffect(() => {
-        if (user) {
-            const fetchLikedProperties = async () => {
-                try {
-                    const res = await fetch('/api/likes/liked', { credentials: 'include' });
-                    const data = await res.json();
-                    setLikedProperties(new Set(data.map(like => like.propertyId._id)));
-                } catch (error) {
-                    console.error('Error fetching liked properties:', error);
+  useEffect(() => {
+    if (user) {
+        const fetchLikedProperties = async () => {
+            try {
+                const res = await fetch('/api/likes/liked', { credentials: 'include' });
+                const data = await res.json();
+
+                console.log("Liked Properties Response:", data); // Debugging Output
+
+                if (Array.isArray(data)) {
+                    setLikedProperties(new Set(data.map(like => like.propertyId?._id)));
+                } else {
+                    console.error("Unexpected response format:", data);
                 }
-            };
-            fetchLikedProperties();
-        }
-    }, [user]);
+            } catch (error) {
+                console.error("Error fetching liked properties:", error);
+            }
+        };
+        fetchLikedProperties();
+    }
+}, [user]);
+
     const toggleLike = async (propertyId) => {
         if (!user) {
             alert('Please login to like properties.');
@@ -77,7 +85,7 @@ const UserApproveProperties = () => {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
-                    body: JSON.stringify({ propertyId })
+                    body: JSON.stringify({ propertyId ,propertyType:"UserProperty"})
                 });
                 setLikedProperties(prev => {
                     const newSet = new Set(prev);
@@ -89,7 +97,7 @@ const UserApproveProperties = () => {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
-                    body: JSON.stringify({ propertyId })
+                    body: JSON.stringify({ propertyId, propertyType: "UserProperty"  })
                 });
                 setLikedProperties(prev => new Set(prev).add(propertyId));
             }

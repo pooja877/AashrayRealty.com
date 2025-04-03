@@ -1,6 +1,6 @@
 import '../PropertyFunc/Update/Update.css';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import { FaRupeeSign } from "react-icons/fa";
 
 export default function UserUpdatePropertyForm() {
@@ -8,7 +8,7 @@ export default function UserUpdatePropertyForm() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const selectRef = useRef();
-    const navigate = useNavigate();
+   
     const [formData, setFormData] = useState({
         title: "",
         bhk: "",
@@ -21,13 +21,13 @@ export default function UserUpdatePropertyForm() {
         amenities: "",
         propertyType: "",
         transactionType: "",
-        mobile: ""
+       
     });
 
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const res = await fetch(`/api/userproperties/update/${propertyId}`);
+                const res = await fetch(`/api/userproperties/${propertyId}`);
                 const data = await res.json();
                 if (res.ok) {
                     setFormData(data);
@@ -83,15 +83,14 @@ export default function UserUpdatePropertyForm() {
 
             setLoading(true);
             setError(false);
-            const res = await fetch(`/api/user-properties/updateProperty/${propertyId}`, {
+            const res = await fetch(`/api/userproperties/update/${propertyId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
             });
             const data = await res.json();
             if (res.ok) {
-                alert("Property updated successfully!", data.message);
-                navigate("/admin/properties"); // Redirect back to property list
+                alert("Property updated successfully!", data.message); // Redirect back to property list
             } else {
                 alert("Failed to update property.");
             }
@@ -192,7 +191,7 @@ export default function UserUpdatePropertyForm() {
           display: "flex",
           alignItems: "center",
           gap: "10px",
-          width:"40%",
+         
           border: "1px solid #ddd",
           padding: "10px",
           borderRadius: "8px",

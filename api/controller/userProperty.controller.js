@@ -289,3 +289,15 @@ export const deleteImage=async (req,res)=>{
   }
 
 }
+
+export const getUserPropertyById = async (req, res) => {
+  try {
+      const property = await UserProperty.findById(req.params.id);
+      if (!property) return res.status(404).json({ message: "Property not found" });
+
+      res.json(property);
+  } catch (error) {
+      console.error("Error fetching property:", error);
+      res.status(500).json({ message: "Failed to fetch property" });
+  }
+};
