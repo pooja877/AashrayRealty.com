@@ -7,9 +7,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const client = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-const otpStore = {}; 
 
 
 export const getUser = (req, res) => {
@@ -140,37 +138,55 @@ export const deleteUser=async(req,res,next)=>{
 
 export const getMobileNumber = async (req, res) => {
   try {
-      const user = await User.findById(req.user.id);
-      if (!user) {
-          return res.status(404).json({ error: "User not found" });
-      }
-      res.json({ mobile: user.mobile });
-  } catch (error) {
-      res.status(500).json({ error: "Failed to fetch mobile number" });
+    const userId = req.user.id; // assuming user is authenticated
+    const user = await User.findById(userId);
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({
+      mobile: user.mobile,
+      isVerified: user.isVerified, // ✅ Send this to frontend
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
 };
 
 
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+// Debugging: Check if Twilio credentials are loaded correctly
+
+
+const otpStore = {}; // Temporary store for OTPs
+
 export const sendOTP = async (req, res) => {
   const { mobile } = req.body;
+  // console.log("Received Mobile Number:", mobile);
 
+  // Validate mobile number
   if (!mobile || !/^\d{10}$/.test(mobile)) {
     return res.status(400).json({ success: false, message: "Invalid mobile number" });
   }
 
+  // Generate 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000);
   otpStore[mobile] = otp;
-
+//  console.log(otp);
   try {
-    await client.messages.create({
+    // Send OTP via Twilio
+    const message = await client.messages.create({
       body: `Your OTP is ${otp}`,
-      from: process.env.TWILIO_PHONE_NUMBER,
+      from: process.env.TWILIO_PHONE_NUMBER, // Must be a verified Twilio number
       to: `+91${mobile}`,
     });
 
+    // console.log("Twilio Response:", message);
+
     res.json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to send OTP", error });
+    console.error("Twilio Error:", error);
+    res.status(500).json({ success: false, message: "Failed to send OTP", error: error.message });
   }
 };
 

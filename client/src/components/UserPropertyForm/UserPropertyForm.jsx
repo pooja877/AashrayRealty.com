@@ -10,17 +10,19 @@ export default function UserPropertyForm() {
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
   const [otpVerified, setOtpVerified] = useState(false);
+  const token = localStorage.getItem("token");
 
   
   const sendOTP = async () => {
     try {
-      const response = await fetch("/api/user/send-otp", {
+      const response = await fetch("/api/user/sendotp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mobile: formData.mobile }),
       });
   
       const data = await response.json();
+      console.log(data);
       if (data.success) {
         setOtpSent(true);
         setError("");
@@ -85,23 +87,34 @@ const [user, setUser] = useState(null);
   };
   
   useEffect(() => {
-    const fetchMobileNumber = async () => {
-        try {
-            const response = await fetch("/api/user/getMobile");
-            const data = await response.json();
-
-            if (response.ok && data.mobile) { 
-                setFormData(prevState => ({ ...prevState, mobile: data.mobile }));
-            } else {
-                console.error("Error: Mobile number not found or API issue.");
-            }
-        } catch (error) {
-            console.error("Error fetching mobile number:", error);
+    const fetchMobile = async () => {
+      try {
+        const res = await fetch("/api/user/getMobile", {
+          headers: {
+            Authorization: `Bearer ${token}`, // if auth required
+          },
+          body: JSON.stringify({
+            mobile: formData.mobile,
+          }),
+        });
+        const data = await res.json();
+  
+        if (res.ok) {
+          setOtpVerified(data.isVerified); // ✅ set true if verified
+          setOtp(""); // clear OTP input
+          setOtpSent(false); // hide OTP input
+          setError(""); // clear errors
+        } else {
+          setError(data.error || "OTP verification failed.");
         }
+      } catch (err) {
+        console.error("Error fetching mobile:", err);
+      }
     };
-
-    fetchMobileNumber();
-}, []);
+  
+    fetchMobile();
+  }, []);
+  
 
 useEffect(() => {
   const fetchUser = async () => {
@@ -276,15 +289,53 @@ const handleSubmit = async (e) => {
          {/* ----------------------------step2------------------------ */}
          {step === 2 && (
              <>
-             <button type="button" className="upload-btn" onClick={handleImageUpload}>
-                 Upload Images
-             </button>
-             {formData.images[0] && (
-                      <img src={formData.images[0]} alt="Property" className="preview-image" />
-                    )}
+           <button 
+  type="button" 
+  
+  onClick={handleImageUpload} 
+  style={{
+    padding: "10px 15px",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "16px",
+  }}
+>
+  Upload Images
+</button>
 
-            <button type="button" onClick={() => setStep(1)} className="back-btn">Back</button>
-            <button type="button" onClick={() => setStep(3)} className="next-btn">Next</button>
+{formData.images[0] && (
+  <div 
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      marginTop: "10px",
+      marginBottom: "1rem",
+    }}
+  >
+    <img 
+      src={formData.images[0]} 
+      alt="Property" 
+      style={{
+        width: "500px",
+        height: "300px",
+        objectFit: "fill",
+        borderRadius: "5px",
+      }}
+    />
+  </div>
+)}
+
+
+                <div className="prevnextbtn">
+                                  <button onClick={prev} className='btnadd'>Back</button>
+                          <button onClick={next} className='btnadd' >Next</button>
+                        </div>
+
               </>
                         )}
       {/* ------------------step3---------------- */}
@@ -387,34 +438,40 @@ const handleSubmit = async (e) => {
         </div>
           </div>
      )} */}
-     {step === 4 && (
-  <div className='form-step'>
-    <label>Mobile Number<span>*</span></label>
-    <input 
-      type="tel" 
-      className="innew" 
-      id='mobile' 
-      name="mobile"  
-      pattern="[0-9]{10}" 
-      value={formData.mobile || ""}  
-      onChange={handleChange}  
+   {step === 4 && (
+  <div className="form-step">
+    <label>
+      Mobile Number<span>*</span>
+    </label>
+    <input
+      type="tel"
+      className="innew"
+      id="mobile"
+      name="mobile"
+      pattern="[0-9]{10}"
+      value={formData.mobile || ""}
+      onChange={handleChange}
       placeholder="Enter mobile number"
-      disabled={otpSent} // Disable when OTP is sent
+      disabled={otpSent || otpVerified} // Disable if OTP is sent or already verified
     />
-    <button className="send-otp-btn" onClick={sendOTP} disabled={otpSent}>
-      {otpSent ? "OTP Sent" : "Send OTP"}
-    </button>
+    {!otpVerified && (
+      <button className="send-otp-btn" onClick={sendOTP} disabled={otpSent}>
+        {otpSent ? "OTP Sent" : "Send OTP"}
+      </button>
+    )}
 
-    {otpSent && (
+    {otpSent && !otpVerified && (
       <>
-        <label>Enter OTP<span>*</span></label>
-        <input 
-          type="text" 
-          className="innew" 
-          id='otp' 
-          name="otp"  
-          value={otp}  
-          onChange={(e) => setOtp(e.target.value)}  
+        <label>
+          Enter OTP<span>*</span>
+        </label>
+        <input
+          type="text"
+          className="innew"
+          id="otp"
+          name="otp"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
           placeholder="Enter OTP"
         />
         <button className="verify-otp-btn" onClick={verifyOTP}>
@@ -423,12 +480,16 @@ const handleSubmit = async (e) => {
       </>
     )}
 
-    {error && <p className='adderror'>{error}</p>}
+    {otpVerified && <p className="otp-verified-message">✅ Mobile number is verified</p>}
+
+    {error && <p className="adderror">{error}</p>}
 
     <div className="prevnextbtn">
-      <button onClick={prev} className='btnadd'>Back</button>
-      <button disabled={loading || !otpVerified} className='btnaddproperty' onClick={handleSubmit}>
-        {loading ? 'Loading...' : 'Add Property'}
+      <button onClick={prev} className="btnadd">
+        Back
+      </button>
+      <button disabled={loading || !otpVerified} className="btnaddproperty" onClick={handleSubmit}>
+        {loading ? "Loading..." : "Add Property"}
       </button>
     </div>
   </div>

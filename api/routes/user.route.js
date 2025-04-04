@@ -17,7 +17,7 @@ router.get('/all',allUsers);
 router.delete('/delete/:id',verifyToken,deleteUser);
 router.delete('/deleteuser/:id',deleteusersadmin);
 
-router.post("/send-otp", sendOTP);
+router.post("/sendotp", sendOTP);
 router.post("/verify-otp", verifyOTP);
 // router.post("/profileupload/:id",verifyToken,upload.single("image"),uploadProfilePicture);
 
