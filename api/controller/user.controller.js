@@ -2,6 +2,15 @@ import User from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
 import bcryptjs from 'bcryptjs';
 import cloudinary from "../cloudinary.js";
+import twilio from "twilio";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const client = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+const otpStore = {}; 
+
 
 export const getUser = (req, res) => {
   if (!req.user) {
@@ -138,5 +147,41 @@ export const getMobileNumber = async (req, res) => {
       res.json({ mobile: user.mobile });
   } catch (error) {
       res.status(500).json({ error: "Failed to fetch mobile number" });
+  }
+};
+
+
+export const sendOTP = async (req, res) => {
+  const { mobile } = req.body;
+
+  if (!mobile || !/^\d{10}$/.test(mobile)) {
+    return res.status(400).json({ success: false, message: "Invalid mobile number" });
+  }
+
+  const otp = Math.floor(100000 + Math.random() * 900000);
+  otpStore[mobile] = otp;
+
+  try {
+    await client.messages.create({
+      body: `Your OTP is ${otp}`,
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: `+91${mobile}`,
+    });
+
+    res.json({ success: true, message: "OTP sent successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to send OTP", error });
+  }
+};
+
+// Verify OTP
+export const verifyOTP = (req, res) => {
+  const { mobile, otp } = req.body;
+
+  if (otpStore[mobile] == otp) {
+    delete otpStore[mobile]; // Remove OTP after verification
+    res.json({ success: true, message: "OTP verified successfully" });
+  } else {
+    res.status(400).json({ success: false, message: "Invalid OTP" });
   }
 };

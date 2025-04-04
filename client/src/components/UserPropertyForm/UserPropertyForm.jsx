@@ -7,7 +7,51 @@ export default function UserPropertyForm() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const selectRef=useRef();
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpVerified, setOtpVerified] = useState(false);
 
+  
+  const sendOTP = async () => {
+    try {
+      const response = await fetch("/api/user/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mobile: formData.mobile }),
+      });
+  
+      const data = await response.json();
+      if (data.success) {
+        setOtpSent(true);
+        setError("");
+      } else {
+        setError("Failed to send OTP.");
+      }
+    } catch (err) {
+      setError("Error sending OTP.",err);
+    }
+  };
+  
+  const verifyOTP = async () => {
+    try {
+      const response = await fetch("/api/user/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mobile: formData.mobile, otp }),
+      });
+  
+      const data = await response.json();
+      if (data.success) {
+        setOtpVerified(true);
+        setError("");
+      } else {
+        setError("Invalid OTP. Try again.");
+      }
+    } catch (err) {
+      setError("Error verifying OTP.",err);
+    }
+  };
+  
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     title: "",
@@ -171,7 +215,7 @@ const handleSubmit = async (e) => {
     <>
    <div className="mainaddcom">
     <div className="addcon">
-      <h2>Add Property</h2>
+      <h2>Add Property</h2>   
        {/* Stepper UI */}
     <div className="stepper">
       <div className={`step-item ${step >= 1 ? "active" : ""}`}>
@@ -321,7 +365,7 @@ const handleSubmit = async (e) => {
         </div>
       )}
 
-      {step === 4 && (
+      {/* {step === 4 && (
          <div className='form-step'>
         <label>Mobile Number<span>*</span></label>
 <input 
@@ -342,7 +386,53 @@ const handleSubmit = async (e) => {
                   <button disabled={loading} className='btnaddproperty' onClick={handleSubmit}>{loading ? 'loading...' : 'Add Property'}</button>
         </div>
           </div>
-     )}
+     )} */}
+     {step === 4 && (
+  <div className='form-step'>
+    <label>Mobile Number<span>*</span></label>
+    <input 
+      type="tel" 
+      className="innew" 
+      id='mobile' 
+      name="mobile"  
+      pattern="[0-9]{10}" 
+      value={formData.mobile || ""}  
+      onChange={handleChange}  
+      placeholder="Enter mobile number"
+      disabled={otpSent} // Disable when OTP is sent
+    />
+    <button className="send-otp-btn" onClick={sendOTP} disabled={otpSent}>
+      {otpSent ? "OTP Sent" : "Send OTP"}
+    </button>
+
+    {otpSent && (
+      <>
+        <label>Enter OTP<span>*</span></label>
+        <input 
+          type="text" 
+          className="innew" 
+          id='otp' 
+          name="otp"  
+          value={otp}  
+          onChange={(e) => setOtp(e.target.value)}  
+          placeholder="Enter OTP"
+        />
+        <button className="verify-otp-btn" onClick={verifyOTP}>
+          Verify OTP
+        </button>
+      </>
+    )}
+
+    {error && <p className='adderror'>{error}</p>}
+
+    <div className="prevnextbtn">
+      <button onClick={prev} className='btnadd'>Back</button>
+      <button disabled={loading || !otpVerified} className='btnaddproperty' onClick={handleSubmit}>
+        {loading ? 'Loading...' : 'Add Property'}
+      </button>
+    </div>
+  </div>
+)}
 
       
     </div></div>
