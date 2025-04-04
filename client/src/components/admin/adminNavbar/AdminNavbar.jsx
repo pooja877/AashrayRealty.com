@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { FaBell } from "react-icons/fa";
+import { FaBell, FaGlobe, FaSignOutAlt } from "react-icons/fa";
 import "./AdminNavbar.css";
 
 export default function AdminNavbar() {
@@ -9,6 +9,48 @@ export default function AdminNavbar() {
   const [unansweredCount, setUnansweredCount] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
 
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const lowerQuery = query.trim().toLowerCase();
+  
+    // Smart redirects based on input
+    if (lowerQuery === "users") {
+      navigate("/admin/users");
+    } else if (lowerQuery === "userproperties") {
+      navigate("/admin/userProperties");
+    } else if (lowerQuery === "properties") {
+      navigate("/admin/properties");
+    } else if (lowerQuery === "rented" || lowerQuery === "rentedproperties") {
+      navigate("/admin/allrentedProperties");
+    } else if (lowerQuery === "news") {
+      navigate("/admin/news");
+    } else if (lowerQuery === "bookings") {
+      navigate("/admin/bookings");
+    } else if (lowerQuery === "unpaid" || lowerQuery === "unpaiduser") {
+      navigate("/admin/unPaidUser");
+    } else if (lowerQuery === "dashboard") {
+      navigate("/admin/dashboard");
+    } else if (lowerQuery === "add Property") {
+      navigate("/admin/addProperty");
+    } 
+    else if (lowerQuery === "update news") {
+      navigate("/admin/news/updatenews/:id");
+    } else if (lowerQuery === "update Property") {
+      navigate("/admin/property/updateProperty/:id");
+    } else if (lowerQuery === "add news") {
+      navigate("/admin/addNews");
+    } else if (lowerQuery === "give on rent") {
+      navigate("/admin/bookings");
+    } 
+  
+    else {
+      // fallback to search page with query param
+      navigate(`/admin/search?q=${lowerQuery}`);
+    }
+  };
+  
   // Fetch unread notifications count
   useEffect(() => {
     const fetchUnansweredMessages = async () => {
@@ -78,11 +120,23 @@ export default function AdminNavbar() {
               Aashray<span id="realty">Realty</span>
             </p>
           </a>
+          <form onSubmit={handleSearch} className="search-bar">
+      <input
+        type="text"
+        placeholder="Search..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      <button type="submit">Search</button>
+    </form>
+          
         </div>
 
         {/* Right Side */}
         <div className="adminright">
           {/* Notification Bell with Message Count */}
+           
+
           <div className="notificationicon" onClick={handleBellClick}>
            <Link to="/admin/messages"> <FaBell size={25} style={{ cursor: "pointer" }} /> </Link>
             {unansweredCount > 0 && (
@@ -91,6 +145,17 @@ export default function AdminNavbar() {
               </span>
             )}
           </div>
+          <div className="goweb-wrapper">
+  <a href="/" target="_blank" rel="noopener noreferrer">
+    <FaGlobe className="goweb-icon" />
+    <span className="goweb-tooltip">Go to Website</span>
+  </a>
+</div>
+
+          <div className="logout-wrapper">
+  <FaSignOutAlt className="logout-icon" onClick={handleLogout} />
+  <span className="logout-tooltip">Logout</span>
+</div>
 
           {/* Hamburger Menu for Small Screens */}
           <div className="menuIcon">
@@ -98,16 +163,16 @@ export default function AdminNavbar() {
           </div>
 
           <div className={open ? "menu active" : "menu"}>
-            <a href="/" className="goweb">Go to Website</a>
-            <a href="/admin/dashboard">Dashboard</a>
+            {/* <a href="/" className="goweb">Go to Website</a> */}
+            {/* <a href="/admin/dashboard">Dashboard</a> */}
             <a href="/admin/users">Users</a>
+          <a href="/admin/userProperties">UserProperties</a>
+          <a href="/admin/properties">Properties</a>
             <a href="/admin/allrentedProperties">RentedProperties</a>
-            <a href="/admin/userProperties">UserProperties</a>
-            <a href="/admin/properties">Properties</a>
             <a href="/admin/news">News</a>
             <a href="/admin/bookings">Bookings</a>
             <a href="/admin/unPaidUser">UnPaidUser</a>
-            <button className="logoutadmin" onClick={handleLogout}>Logout</button>
+            {/* <button className="logoutadmin" onClick={handleLogout}>Logout</button> */}
           </div>
         </div>
       </nav>

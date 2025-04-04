@@ -6,6 +6,8 @@ import { Chart, registerables } from "chart.js";
 import BookingChart from "../BookingCharts/BookingChart";
 import RentCharts from "../BookingCharts/RentCharts";
 import PropertyStats from "../BookingCharts/PropertyStats";
+import { FaHome } from "react-icons/fa";
+
 
 Chart.register(...registerables);
 
@@ -113,7 +115,7 @@ const Dashboard = () => {
         <AdminNavbar/>
         <div className="mainadmindashboard">
             <div className="admindas-container">
-                <h2 className="admindas-title">AashrayRealty Dashboard</h2>
+                <h2 className="admindas-title"><FaHome style={{fontSize:"30px"}}/> Dashboard</h2>
 
                 <div className="admindas-dashboard">
                     <div className="admindas-box">
