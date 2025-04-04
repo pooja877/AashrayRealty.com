@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { signInStart ,signInFailure,signInSuccess} from "../../redux/user/userSlice";
 import OAuth from "../../components/google/OAuth";
+import ForgotPassword from '../../components/forgotPassword/ForgotPassword'
 
 
 function SignIn()
@@ -13,6 +14,7 @@ function SignIn()
     const [formData,setFormData]=useState({});
     const {loading} =useSelector((state)=>state.user);
     const dispatch=useDispatch();
+    const [isOpen, setIsOpen] = useState(false);
     //const [message, setmessage] = useState('');
     const [error,setError] = useState('');
     const navigate = useNavigate();
@@ -81,9 +83,14 @@ function SignIn()
                         onClick={() => setShowPassword(!showPassword)} 
                     />
                 </div>
-            <Link to="/forgotPassword">
-            <p  className="forget">Forget password?</p>
-            </Link>
+            {/* <Link to="/forgotPassword"> */}
+            <p  className="forget" onClick={() => setIsOpen(true)}>Forget password?</p>
+            {/* </Link> */}
+               {isOpen && (
+                   <div className="modal-overlay">
+                    <ForgotPassword  />
+                   </div>
+                 )}
             <button disabled={loading} className="signin_btn">
                 {loading ?'Loading...':'Sign In'}
             </button>   

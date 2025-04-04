@@ -4,7 +4,7 @@ export default function Footercompo() {
   return (
    <>
     <footer className="footer">
-      <div className="container">
+      <div className="containfoot">
         <div className="grid">
           <div className="col-span-2">
             <div className="logo-container">

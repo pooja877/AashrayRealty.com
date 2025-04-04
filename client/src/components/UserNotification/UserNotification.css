@@ -2,7 +2,7 @@
     padding: 20px;
     max-width: 80%;
     margin: 0 auto;
-   
+   margin-top:12rem ;
     background-color: #f4f4f4;
     border-radius: 8px;
   }
@@ -13,7 +13,7 @@
     align-items: center;
     height: 100vh;
     width: 100%;
-    padding-top: 35rem;
+    padding-top: 28rem;
     padding-bottom: 7rem;
     background: linear-gradient(145deg, rgb(228, 228, 241), white);
     overflow-y: scroll;

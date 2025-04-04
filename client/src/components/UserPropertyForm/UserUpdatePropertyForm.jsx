@@ -27,7 +27,7 @@ export default function UserUpdatePropertyForm() {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const res = await fetch(`/api/userproperties/${propertyId}`);
+                const res = await fetch(`/api/userproperties/user/${propertyId}`);
                 const data = await res.json();
                 if (res.ok) {
                     setFormData(data);

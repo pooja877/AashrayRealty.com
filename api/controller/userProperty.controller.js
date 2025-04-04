@@ -4,6 +4,8 @@ import User from "../models/user.model.js";
 import UserNotification from "../models/userNotification.model.js";
 import UserProperty from "../models/userProperties.model.js";
 import nodemailer from "nodemailer";
+import mongoose from "mongoose";
+
 // Create a Property Listing (User Side)
 export const addProperty = async (req, res) => {
   try {
@@ -100,11 +102,12 @@ export const deleteProperty = async (req, res) => {
 
 export const getApprovedProperties = async (req, res) => {
   try {
-      const approvedProperties = await UserProperty.find({ status: "Approved" });
-      res.status(200).json(approvedProperties);
+      const properties = await UserProperty.find({ status: "Approved" });
+     
+      res.json(properties);
   } catch (error) {
       console.error("Error fetching approved properties:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+      res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -290,14 +293,68 @@ export const deleteImage=async (req,res)=>{
 
 }
 
-export const getUserPropertyById = async (req, res) => {
-  try {
-      const property = await UserProperty.findById(req.params.id);
-      if (!property) return res.status(404).json({ message: "Property not found" });
 
-      res.json(property);
+// export const getUserPropertyById = async (req, res) => {
+//   try {
+//       const { id } = req.params;
+
+//       // Validate if the provided ID is a valid ObjectId
+//       if (!mongoose.Types.ObjectId.isValid(id)) {
+//           return res.status(400).json({ message: "Invalid property ID" });
+//       }
+
+//       const property = await UserProperty.findById(id);
+//       if (!property) return res.status(404).json({ message: "Property not found" });
+
+//       res.json(property);
+//   } catch (error) {
+//       console.error("Error fetching property:", error);
+//       res.status(500).json({ message: "Failed to fetch property" });
+//   }
+// };
+export const getPropertyById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const property = await UserProperty.findById(id);
+
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    res.status(200).json(property);
   } catch (error) {
-      console.error("Error fetching property:", error);
-      res.status(500).json({ message: "Failed to fetch property" });
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export const getSingleProperty = async (req, res) => {
+  try {
+    const property = await UserProperty.findById(req.params.id);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    // Combine address into a full address string
+    const fullAddress = `${property.area}, ${property.city},${property.pincode}, Gujarat, India`.trim().replace(/\s+/g, " ");
+    const encodedAddress = encodeURIComponent(fullAddress);
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.length > 0) {
+      const location = data[0];
+
+      // Send property details along with lat/lon
+      return res.status(200).json({
+        ...property.toObject(),
+        latitude: parseFloat(location.lat),
+        longitude: parseFloat(location.lon),
+      });
+    }
+
+    res.status(200).json({ ...property.toObject(), latitude: null, longitude: null });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching property", error });
   }
 };

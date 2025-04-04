@@ -119,7 +119,7 @@ const handlePrevious = () => {
                         Next <i className="fas fa-chevron-right"></i>
                     </button>
                 </div>
-      <div className="container">
+      <div className="containtop">
         <div className="top-picks-header">
           
             <h2 className="top-picks-title">AashrayRealty top picks By Rating</h2>

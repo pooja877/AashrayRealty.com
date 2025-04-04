@@ -256,4 +256,45 @@
 .post-property-btn:hover {
     background-color: #e84118;
 }
+.hero-image {
+    width: 600px; /* ✅ Fix width */
+    height: 400px; /* ✅ Fix height */
+    overflow: hidden; /* ❌ No extra scroll/movement */
+    border-radius: 12px;
+ 
+  }
+  
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit:fill; /* ✅ Image perfectly fits */
+    transition: opacity 2s ease-in-out; 
+  }
+  
+  /* .fade-in {
+    opacity: 1;
+    animation: fadein 3s  ease-in-out;
+  }
+  
+  @keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+   */
+   .hero-image img.fade-in {
+    opacity: 1;
+  }
+  @keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
+.hero-subtitle,.hero-title {
+    animation: fadeSlide 3s ease-in-out; /* 2s slow animation */
+}

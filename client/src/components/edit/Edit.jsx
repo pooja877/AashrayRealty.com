@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {  useState } from 'react';
 import { updateUserStart, updateUserSuccess, updateUserFailure } from '../../redux/user/userSlice.js';
 
-export default function Edit() {
+export default function Edit({onClose}) {
   // const fileRef = useRef(null);
   const { currentUser, loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
@@ -85,20 +85,25 @@ export default function Edit() {
   return (
     <div className='mainContainer'>
       <div className="container">
+     
+      
         <form onSubmit={handleSubmit}>
+          
           {/* <input
            
             type='file'
             ref={fileRef}
             hidden
             accept='image/*'
-          /> */}
+          /> */} 
+          <button className="close-btn" onClick={onClose}>✖</button>
           <img  onClick={handleFileUpload} src={preview||currentUser.avatar} alt='profile' />
           <label>Username:</label>
           <input type="text" placeholder={currentUser.username} id="username" onChange={handleChange} />
           <label>Email:</label>
           <input type="email" placeholder={currentUser.email} id='email' onChange={handleChange} />
-          <button disabled={loading}>{loading ? 'Loading...' : 'Save Changes'}</button>
+          <button disabled={loading} className='subbutton'>{loading ? 'Loading...' : 'Save Changes'}</button>
+          
         </form>
       </div>
     </div>

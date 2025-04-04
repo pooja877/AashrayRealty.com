@@ -43,6 +43,7 @@ const UserApproveProperties = () => {
             try {
                 const response = await fetch("/api/userproperties/approved");
                 const data = await response.json();
+                console.log(data);
                 setProperties(data);
                 setFilteredProperties(data);
             } catch (error) {
@@ -58,8 +59,7 @@ const UserApproveProperties = () => {
             try {
                 const res = await fetch('/api/likes/liked', { credentials: 'include' });
                 const data = await res.json();
-
-                console.log("Liked Properties Response:", data); // Debugging Output
+ // Debugging Output
 
                 if (Array.isArray(data)) {
                     setLikedProperties(new Set(data.map(like => like.propertyId?._id)));

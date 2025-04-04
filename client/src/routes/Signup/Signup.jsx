@@ -17,6 +17,12 @@ function SignUp() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const isValidPassword = (password) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  };
+   
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -31,7 +37,15 @@ const handleSubmit = async (e) => {
     if(formData.password!=formData.confirm)
     {
       alert("Password and Confirm password should be same!!");
+      setError("Password and Confirm password should be same!!");
+
     }
+    if (!isValidPassword(formData.password)) {
+      alert("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
+      setError("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
+      
+      return;
+    }  
     try {
         setLoading(true);
         setError(null);

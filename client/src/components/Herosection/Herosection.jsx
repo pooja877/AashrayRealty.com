@@ -8,7 +8,16 @@ const Herosection = () => {
     const [selectedArea, setSelectedArea] = useState("");
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    const images = ["/heroimage.avif", "/herro2.jpeg", "/herro3.jpg", "/herro4.jpg", "/herro6.webp"];
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+        }, 4000); // ⏳ Image change every 5 seconds
+
+        return () => clearInterval(interval);
+    }, []);
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -34,6 +43,7 @@ const Herosection = () => {
             navigate("/signin");
         }
     };
+    
 
     const handleSearch = () => {
         let query = `?transactionType=${activeTab}`;
@@ -90,8 +100,15 @@ const Herosection = () => {
                             <button className="searchherobutton" onClick={handleSearch}>Search</button>
                         </div>
                     </div>
-                    <div className="hero-image">
+                    {/* <div className="hero-image">
                         <img src="/heroimage.avif" alt="Modern House" />
+                    </div> */}
+                    <div className="hero-image">
+                        <img
+                            src={images[currentImageIndex]}
+                            alt="Modern House"
+                            className="fade-in"
+                        />
                     </div>
                 </div>
             </div>

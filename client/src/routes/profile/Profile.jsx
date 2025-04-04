@@ -3,13 +3,16 @@ import {useSelector,useDispatch } from 'react-redux';
 import {Link} from "react-router-dom";
 import { logoutUserStart ,logoutUserSuccess,logoutUserFailure} from '../../redux/user/userSlice.js';
 import Activity from '../../components/Activity/Activity.jsx';
+import Edit from '../../components/edit/Edit';
 import UserListing from '../../components/UserListing/UserListing.jsx';
+import { useState } from 'react';
 // import Tools from '../../components/Tools&advice/Tools.jsx';
 
 
 export default function Profile() {
     const {currentUser} = useSelector((state)=>state.user);
     const dispatch=useDispatch();
+    const [isOpen, setIsOpen] = useState(false);
     const handleLogOut=async ()=>{
       try{
         dispatch(logoutUserStart());
@@ -41,15 +44,24 @@ export default function Profile() {
            <h2 id="username">{currentUser.username}</h2>
            <p id='email'>{currentUser.email}</p>
            </div>
-            <Link to="/edit">
-            <button className='btnEdit'>Edit</button>
-            </Link>
+            {/* <Link to="/edit"> */}
+            <button className='btnEdit' onClick={() => setIsOpen(true)}>Edit</button>
+            {/* </Link> */}
+            {isOpen && (
+        <div className="modal-overlay">
+         <Edit onClose={() => setIsOpen(false)} />
+            
+         
+        </div>
+      )}
            </div>
            <hr/>
         {/* My Activity */}
           <Activity/>
           {/* tools & advices */}
-          {/* <Tools/> */}
+    
+            <UserListing userId={currentUser._id}/> 
+                  {/* <Tools/> */}
      {/* Account Setting delete account */}
      <Link to="/setting">
         <div className="account_setting" >
@@ -66,7 +78,6 @@ export default function Profile() {
             <img className="image"src="logout_1.png" alt="" />
             Log Out
             </button>
-            <UserListing userId={currentUser._id}/> 
       </div>
      
       </div>

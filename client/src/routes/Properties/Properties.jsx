@@ -1,5 +1,5 @@
 
-import Map from '../../components/map/Map';
+// import Map from '../../components/map/Map';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
@@ -49,7 +49,7 @@ export default function Properties() {
                     const res = await fetch('/api/likes/liked', { credentials: 'include' });
                     const data = await res.json();
     
-                    console.log("Liked Properties Response:", data); // Debugging Output
+                     // Debugging Output
     
                     if (Array.isArray(data)) {
                         setLikedProperties(new Set(data.map(like => like.propertyId?._id)));
@@ -165,7 +165,7 @@ export default function Properties() {
                     <p>No properties found.</p>
                 )}
             </div>
-            <div className="mapall"><Map /></div>
+            {/* <div className="mapall"><Map /></div> */}
         </div>
     );
 }
