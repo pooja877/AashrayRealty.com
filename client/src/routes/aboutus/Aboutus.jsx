@@ -33,7 +33,21 @@ const AboutUs = () => {
             property decisions.
           </p>
         </div>
+        
       </div>
+      <div className="aboutus-mission">
+          <h2>Our Vision & Mission</h2>
+          <p>
+            Our vision is to redefine the real estate experience by combining
+            innovative technology with a human-centered approach. We aim to be
+            the most trusted real estate brand in Ahmedabad and Gandhinagar.
+          </p>
+          <p>
+            Our mission is to help individuals and families find homes that
+            perfectly match their lifestyle and budget, while providing complete
+            transparency and support throughout the journey.
+          </p>
+        </div>
 
       {/* Responsibilities Section */}
       <div className="aboutus-responsibilities">

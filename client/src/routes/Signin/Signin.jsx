@@ -88,7 +88,7 @@ function SignIn()
             {/* </Link> */}
                {isOpen && (
                    <div className="modal-overlay">
-                    <ForgotPassword  />
+                    <ForgotPassword  onClose={() => setIsOpen(false)}/>
                    </div>
                  )}
             <button disabled={loading} className="signin_btn">

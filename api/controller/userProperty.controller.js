@@ -43,7 +43,7 @@ export const addProperty = async (req, res) => {
       propertyType,
       status: "Pending",
     });
-
+  
     await newProperty.save();
  
     await Contact.create({

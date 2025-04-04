@@ -42,7 +42,7 @@ const PropertyTable = () => {
 
     const handleActivation = async (propertyId) => {
         try {
-            const response = await fetch(`/api/userproperties/toggle-status/${propertyId}`, {
+            const response = await fetch(`/api/userproperties/togglestatus/${propertyId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
             });

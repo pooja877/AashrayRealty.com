@@ -52,7 +52,7 @@ const ContactUs = () => {
 
     return (
         <section id="contact" className="contact-section">
-            <div className="container">
+            <div className="containeus">
                 <div className="contact-wrapper">
                     <div className="contact-info">
                         <h2 className="contact-title">Get in Touch</h2>

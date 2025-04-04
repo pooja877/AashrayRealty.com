@@ -56,9 +56,9 @@ export default function UserListing({ userId }) {
                             <img src={property.images[0]} alt={property.title} className="userlist-image" onClick={() => navigate(`/userproperties/${property._id}`)}/>
                             <div className="userlist-info">
                                 <h3 className="userlist-title">{property.title}</h3>
-                                <p className="userlist-description">{property.desc}</p>
+                                <p className="userlist-description">{property.propertyType}</p>
                                 <p>{property.bhk} - ₹{property.price}</p>
-                                <p>{property.area}, {property.city}</p>
+                                <p>{property.address} {property.area}, {property.city} {property.pincode}</p>
                                 <div className="userlist-actions">
                                     <Link to={`/updateProperty/${property._id}`} className="userlist-edit-btn">Edit</Link>
                                     <button className="userlist-delete-btn" onClick={() => handleDelete(property._id)}>Delete</button>

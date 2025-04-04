@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Forgot.scss'
-const ForgotPassword = () => {
+const ForgotPassword = ({onClose}) => {
   const [email, setEmail] = useState("");
 
   const navigate=useNavigate();
@@ -34,8 +34,9 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="mainforget">
-      <div className="forgot">
+    <div className="mainforget" style={{borderRadius:"1rem"}}>
+      <div className="forgot">  
+      <p style={{cursor:"pointer",textAlign:"end"}}  onClick={onClose}>✖</p>
       <h2>Forgot Password</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -45,7 +46,8 @@ const ForgotPassword = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Send Reset Link</button>
+        <button className="btnsub" type="submit">Send Reset Link</button>
+        
       </form>
     </div>
     </div>

@@ -13,7 +13,7 @@ router.put("/update/:id", updateProperty);
 
 router.delete("/delete",deleteImage);
 
-router.put("/toggle-status/:id", togglePropertyStatus);
+router.put("/togglestatus/:id", togglePropertyStatus);
 router.delete("/delete/:id", deleteProperty);
 
 router.get("/approved", getApprovedProperties); 

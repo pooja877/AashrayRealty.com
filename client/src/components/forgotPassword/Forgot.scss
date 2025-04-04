@@ -6,7 +6,7 @@
     // flex-direction: column;
     justify-content: center;
     // align-items: center;
-    background: linear-gradient(145deg,rgb(215, 229, 232),rgb(252, 252, 252));
+    background-color: white;
 }
 .forgot{
   padding: 1rem;
@@ -37,7 +37,7 @@
       border: 1px solid #d1d5db;
       padding: 0.75rem;
       border-radius: 0.5rem;
-       width:18rem;
+       width:20rem;
        @media(max-width: 600px)
        {
          width:12rem;
@@ -46,7 +46,7 @@
   }
 
   
-  button{
+  .btnsub{
       background-color:rgb(5, 40, 75);
       color:#ffffff;
       padding: 0.75rem;

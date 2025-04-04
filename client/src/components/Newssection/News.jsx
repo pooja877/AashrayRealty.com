@@ -60,7 +60,7 @@ const News = () => {
                         Next <i className="fas fa-chevron-right"></i>
                     </button>
                 </div>
-            <div className="container">
+            <div className="containnews">
                 <h2 className="section-title">Latest News</h2>
 
                 <div className="news-grid">

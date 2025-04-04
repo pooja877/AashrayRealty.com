@@ -11,7 +11,7 @@ const UserPropertySchema = new mongoose.Schema({
         address:{type:String,require:true},
         images: [{ type: String, required: true }],
          desc:{type:String,required:true},
-         floor:{type:String,required:true},
+         floor:{type:String,required:false},
     amenities: { type: String, required: true },
     transactionType: { type: String, required: true },
     propertyType: { type: String, required: true },

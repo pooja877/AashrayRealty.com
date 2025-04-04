@@ -72,7 +72,7 @@
 }
 
 /* Text Styling */
-.aboutus-text {
+.aboutus-text,.aboutus-mission {
   flex: 1;
   margin-left: 40px;
 }
