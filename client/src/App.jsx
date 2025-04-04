@@ -66,6 +66,7 @@ function App() {
       <Route path="/FAQ" element={<Faq/>}/>
       <Route path="/userproperties" element={<UserApproveProperties/>}/>
       <Route path="/userproperties/:id" element={<SingleuserProeprty/>}/>
+      
 
 
       {/* <Route path="/verifyemail" element={<Verifyemail/>}/> */}

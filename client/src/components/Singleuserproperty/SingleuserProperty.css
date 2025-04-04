@@ -1,0 +1,52 @@
+.userInfo {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+  }
+  
+  .userinfo-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  
+  .user-avatar {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #eee;
+  }
+  
+  .user-details p {
+    margin: 4px 0;
+  }
+  
+  .whatsapp-btn {
+    background-color: #25d366;
+    border: none;
+    color: white;
+    border-radius: 50%;         /* makes it round */
+    width: 60px;                /* bigger button size */
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+   margin-left: 5rem;
+  }
+  
+  .whatsapp-btn:hover {
+    background-color: #1ebe5d;
+  }
+  
+  .whatsapp-icon {
+    font-size: 30px;            /* bigger icon */
+  }
+  
+  

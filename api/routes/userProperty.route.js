@@ -1,5 +1,5 @@
 import express from "express";
-import {  addProperty, deleteProperty,getPropertyById,updateProperty,getUserProperties, getAllProperties, getApprovedProperties, getPropertyStats, togglePropertyStatus, deleteImage } from "../controller/userProperty.controller.js";
+import {  addProperty, deleteProperty,getPropertyById,updateProperty,getUserProperties, getAllProperties, getApprovedProperties, getPropertyStats, togglePropertyStatus, deleteImage, getSingleProperty } from "../controller/userProperty.controller.js";
 
 
 const router = express.Router();
@@ -10,12 +10,14 @@ router.get("/getAll", getAllProperties);
 router.get("/stats", getPropertyStats);
 router.get("/getuser/:userId", getUserProperties);
 router.put("/update/:id", updateProperty);
-router.get("/user/:id", getPropertyById);
+
 router.delete("/delete",deleteImage);
 
 router.put("/toggle-status/:id", togglePropertyStatus);
 router.delete("/delete/:id", deleteProperty);
 
 router.get("/approved", getApprovedProperties); 
+router.get("/getmapSingle/:id", getSingleProperty);
+router.get("/pro/:id", getPropertyById);
 
 export default router;

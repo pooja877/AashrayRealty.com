@@ -43,7 +43,7 @@ const UserApproveProperties = () => {
             try {
                 const response = await fetch("/api/userproperties/approved");
                 const data = await response.json();
-                console.log(data);
+              
                 setProperties(data);
                 setFilteredProperties(data);
             } catch (error) {
@@ -238,8 +238,10 @@ const UserApproveProperties = () => {
                                             </div>
                                             <p className="property-location">{property.address} {property.area},{property.city} {property.pincode}</p>
                                             <div className="property-details">
-                                              <span><i className="fas fa-bed"></i> {property.bhk}</span>
-                                              
+                                            
+        {property.propertyType === "Residential" ? <p></p>:  <span><i className="fas fa-home"></i> {property.bhk}</span> }
+
+                                              <span><i className="fas fa-layer-group"></i> {property.floor}</span>
                                              
                                             </div>
                                          

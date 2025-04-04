@@ -195,7 +195,7 @@ const toggleLike = async (propertyId) => {
   )}
 
   <div className="small-images">
-    {formData.images.slice(1, 3).map((item, index) => (
+    {formData.images.slice(1, 4).map((item, index) => (
       <div key={index} className="small-image">
         <img
           src={item.url || item}

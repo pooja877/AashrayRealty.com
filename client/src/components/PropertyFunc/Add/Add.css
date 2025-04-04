@@ -459,3 +459,24 @@
   margin-bottom: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+.send-otp-btn, .verify-otp-btn {
+  background-color: #007bff; /* Primary blue */
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.send-otp-btn:hover, .verify-otp-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.send-otp-btn:disabled, .verify-otp-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

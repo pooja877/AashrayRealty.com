@@ -67,6 +67,7 @@ export default function UserPropertyForm() {
     amenities: "",
     propertyType: "",
     transactionType:"",
+    floor:"",
     mobile:""
 });
 
@@ -347,6 +348,8 @@ const handleSubmit = async (e) => {
                 <div className="namepro">
                 <label>Title <span>*</span> </label>
                 <input type="text" id='title' value={formData.title} placeholder='Enter Property Title'onChange={handleChange} name='title' required />
+                <label>Floor <span>*</span> </label>
+                <input type="text" id='floor' value={formData.floor} placeholder='Enter Property floor'onChange={handleChange} name='floor' required />
                 </div>
                 
                 

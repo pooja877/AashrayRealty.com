@@ -4,12 +4,12 @@ import User from "../models/user.model.js";
 import UserNotification from "../models/userNotification.model.js";
 import UserProperty from "../models/userProperties.model.js";
 import nodemailer from "nodemailer";
-import mongoose from "mongoose";
+import fetch from'node-fetch';
 
 // Create a Property Listing (User Side)
 export const addProperty = async (req, res) => {
   try {
-    const { userId, title, bhk, price, city, area, pincode, address, images, desc, amenities, transactionType, propertyType, mobile } = req.body;
+    const { userId, title, bhk, price,floor, city, area, pincode, address, images, desc, amenities, transactionType, propertyType, mobile } = req.body;
     // Validate required fields
  
 
@@ -37,6 +37,7 @@ export const addProperty = async (req, res) => {
       address,
       images, // Assuming images contain { url, publicId }
       desc,
+      floor,
       amenities,
       transactionType,
       propertyType,
@@ -294,29 +295,12 @@ export const deleteImage=async (req,res)=>{
 }
 
 
-// export const getUserPropertyById = async (req, res) => {
-//   try {
-//       const { id } = req.params;
-
-//       // Validate if the provided ID is a valid ObjectId
-//       if (!mongoose.Types.ObjectId.isValid(id)) {
-//           return res.status(400).json({ message: "Invalid property ID" });
-//       }
-
-//       const property = await UserProperty.findById(id);
-//       if (!property) return res.status(404).json({ message: "Property not found" });
-
-//       res.json(property);
-//   } catch (error) {
-//       console.error("Error fetching property:", error);
-//       res.status(500).json({ message: "Failed to fetch property" });
-//   }
-// };
 export const getPropertyById = async (req, res) => {
   try {
     const { id } = req.params;
+   
     const property = await UserProperty.findById(id);
-
+ 
     if (!property) {
       return res.status(404).json({ message: "Property not found" });
     }
@@ -326,6 +310,8 @@ export const getPropertyById = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+
 
 export const getSingleProperty = async (req, res) => {
   try {

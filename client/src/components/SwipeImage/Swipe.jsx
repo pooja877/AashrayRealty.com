@@ -34,13 +34,29 @@ export default function Swipe() {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const res = await fetch(`/api/property/${propertyId}`);
-                const data = await res.json();
-                if (res.ok) {
-                    setFormData(data);
-                } else {
-                    console.error("Property not found");
-                }
+                // const res = await fetch(`/api/property/${propertyId}`);
+                // const data = await res.json();
+             
+                // if (res.ok) {
+                //     setFormData(data);
+                // } else {
+                //     console.error("Property not found");
+                // }
+                  // Try fetching from residential first
+            let res = await fetch(`/api/property/${propertyId}`);
+            let data = await res.json();
+
+            // If residential not found, try commercial
+            if (!res.ok || !data) {
+                res = await fetch(`/api/userproperties/pro/${propertyId}`);
+                data = await res.json();
+            }
+
+            if (res.ok && data) {
+                setFormData(data);
+            } else {
+                console.error("Property not found in both collections");
+            }
             } catch (error) {
                 console.error("Error fetching property:", error);
             }
@@ -53,6 +69,8 @@ export default function Swipe() {
 
         return () => window.removeEventListener("resize", handleResize);
     }, [propertyId]);
+
+    
 
     useEffect(() => {
         if (user) {

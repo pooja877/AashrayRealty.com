@@ -10,14 +10,31 @@ dotenv.config();
 
 
 
-export const getUser = (req, res) => {
-  if (!req.user) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-  res.json({ id: req.user.id, email: req.user.email });
-  // console.log(req.user.email);
-};
+// export const getUser = (req, res) => {
+//   if (!req.user) {
+//     return res.status(401).json({ message: "Unauthorized" });
+//   }
+//   res.json({ id: req.user.id, email: req.user.email });
+//   // console.log(req.user.email);
+// };
 
+export const getUser = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Fetch full user details from DB
+    const user = await User.findById(userId).select('email username mobile avatar');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 export const deleteusersadmin = async (req, res) => {
   try {
@@ -201,3 +218,4 @@ export const verifyOTP = (req, res) => {
     res.status(400).json({ success: false, message: "Invalid OTP" });
   }
 };
+

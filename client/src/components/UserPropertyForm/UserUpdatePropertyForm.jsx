@@ -1,6 +1,6 @@
 import '../PropertyFunc/Update/Update.css';
 import { useEffect, useRef, useState } from 'react';
-import {  useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { FaRupeeSign } from "react-icons/fa";
 
 export default function UserUpdatePropertyForm() {
@@ -8,7 +8,7 @@ export default function UserUpdatePropertyForm() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const selectRef = useRef();
-   
+    const navigate=useNavigate();
     const [formData, setFormData] = useState({
         title: "",
         bhk: "",
@@ -21,13 +21,14 @@ export default function UserUpdatePropertyForm() {
         amenities: "",
         propertyType: "",
         transactionType: "",
+        floor:"",
        
     });
 
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const res = await fetch(`/api/userproperties/user/${propertyId}`);
+                const res = await fetch(`/api/userproperties/pro/${propertyId}`);
                 const data = await res.json();
                 if (res.ok) {
                     setFormData(data);
@@ -90,7 +91,8 @@ export default function UserUpdatePropertyForm() {
             });
             const data = await res.json();
             if (res.ok) {
-                alert("Property updated successfully!", data.message); // Redirect back to property list
+                alert("Property updated successfully!", data.message); 
+                navigate('/profile');// Redirect back to property list
             } else {
                 alert("Failed to update property.");
             }
@@ -140,6 +142,9 @@ export default function UserUpdatePropertyForm() {
 
                         <label>Amenities</label>
                         <input id='amenities' onChange={handleChange} type="text" placeholder={formData.amenities} value={formData.amenities} name="amenities" required />
+                        
+                        <label>Floor</label>
+                        <input id='floor' onChange={handleChange} type="text" placeholder={formData.floor} value={formData.floor} name="floor" required />
 
                         <label>Price <span>*</span></label>
                         <input min='1' id='price' onChange={handleChange} type="number" placeholder={formData.price} value={formData.price} name="price" required />
