@@ -377,4 +377,12 @@
   .search-bar button:hover {
     background-color: #103870;
   }
-  
+  @media (max-width:700px) {
+    .search-bar input{
+      display: none;
+    }
+    .search-bar button{
+      display: none;
+    }
+    
+  }

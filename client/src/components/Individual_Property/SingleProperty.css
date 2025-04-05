@@ -114,6 +114,7 @@
    height:auto;
   min-height: 500px;
   max-height: 800px;
+  height: fit-content;
    padding: 1rem;
    display: flex;
    flex-direction: column;

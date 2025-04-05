@@ -29,7 +29,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
  
   gap: 1rem;
 
@@ -64,7 +64,7 @@
   height: 200px;
   border-radius: 0.5rem;
   cursor: pointer;
-  object-fit: fill;
+  object-fit: cover;
 }
 
 /* Like Button */
@@ -144,7 +144,7 @@
     box-shadow:none;
     border-radius: 0;
     width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 
   .mapall {
@@ -155,7 +155,7 @@
 @media (max-width: 768px) {
   .datapro {
     width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 
   .contain {
