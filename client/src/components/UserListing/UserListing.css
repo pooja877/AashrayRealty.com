@@ -1,10 +1,14 @@
 /* Main Container */
 .userlist-container {
-    width: 90%;
-    max-width: 1000px;
+    width: 100%;
+    /* max-width: 1000px; */
     margin: auto;
-    padding: 20px;
+    /* padding: 20px; */
+    background: linear-gradient(145deg,rgb(226, 216, 217), white);
     padding-bottom: 4rem;
+    padding-top: 1rem;
+    height:100vh;
+    overflow-y: scroll;
 }
 
 /* Title */
@@ -32,7 +36,7 @@
     padding: 10px;
     background: #fff;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    width: 90%;  /* ✅ Medium width */
+    width: 60%;  /* ✅ Medium width */
     /* max-width: 600px; ✅ Prevents it from being too big */
 }
 
@@ -90,7 +94,7 @@
 /* ✅ Responsive Design: Keeps Row Layout on Small Screens */
 @media (max-width: 768px) {
     .userlist-card {
-        width: 100%; /* ✅ Slightly wider on small screens */
+        width: 80%; /* ✅ Slightly wider on small screens */
         flex-direction: row; /* ✅ Ensures data always remains in a row */
         align-items: center;
     }

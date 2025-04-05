@@ -225,8 +225,6 @@ export const forgetPassword=async (req,res)=>{
   try{
   const user = await User.findOne({ email });
   if (!user) return res.status(404).json({ message: "User not found" });
-
-
  
 
   // const secret=process.env.JWT_SECRET+user.password;
@@ -266,7 +264,7 @@ export const forgetPassword=async (req,res)=>{
 
    await transporter.sendMail(mailOptions, (err, info) => {
     
-       
+       console.log(res);
     res.status(200).json({message:'Password reset link has been sent to your email'});
   });
   }

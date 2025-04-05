@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Forgot.scss'
-const ForgotPassword = ({onClose}) => {
+const ForgotPassword = (onClose) => {
   const [email, setEmail] = useState("");
 
   const navigate=useNavigate();
@@ -19,7 +19,7 @@ const ForgotPassword = ({onClose}) => {
         },
         body: JSON.stringify({ email }),
       });
-
+      // console.log(data);
       const data = await response.json();
       if (response.success===true) {
         alert("Password reset link sent to your email.");

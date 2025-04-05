@@ -2,6 +2,7 @@
  import '../PropertyFunc/Add/Add.css';
 import {  useEffect, useRef, useState } from 'react';
 import Locationform from '../Locationform/Locationform';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserPropertyForm() {
   const [error, setError] = useState(false);
@@ -10,8 +11,10 @@ export default function UserPropertyForm() {
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
   const [otpVerified, setOtpVerified] = useState(false);
-  const token = localStorage.getItem("token");
+  const [mob, setmob] = useState("");
 
+  const token = localStorage.getItem("token");
+  const navigate=useNavigate();
   
   const sendOTP = async () => {
     try {
@@ -22,7 +25,7 @@ export default function UserPropertyForm() {
       });
   
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       if (data.success) {
         setOtpSent(true);
         setError("");
@@ -86,25 +89,24 @@ const [user, setUser] = useState(null);
       "Sargasan", "Pethapur"
     ]
   };
-  
   useEffect(() => {
     const fetchMobile = async () => {
       try {
         const res = await fetch("/api/user/getMobile", {
+          method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`, // if auth required
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({
-            mobile: formData.mobile,
-          }),
         });
-        const data = await res.json();
   
+        const data = await res.json();
+      //  console.log("mobile",data);
         if (res.ok) {
-          setOtpVerified(data.isVerified); // ✅ set true if verified
-          setOtp(""); // clear OTP input
-          setOtpSent(false); // hide OTP input
-          setError(""); // clear errors
+          setOtpVerified(data.ismobileVerified);
+          setmob(data.mobile);
+          setOtp("");
+          setOtpSent(false);
+          setError("");
         } else {
           setError(data.error || "OTP verification failed.");
         }
@@ -196,6 +198,7 @@ const handleSubmit = async (e) => {
     }
 
     alert("Property added successfully!!");
+    navigate('/');
     setFormData({
       userId: "",
       title: "",
@@ -499,8 +502,7 @@ const next = () => {
       className="innew"
       id="mobile"
       name="mobile"
-      pattern="[0-9]{10}"
-      value={formData.mobile || ""}
+      value={formData.mobile ||mob }
       onChange={handleChange}
       placeholder="Enter mobile number"
       disabled={otpSent || otpVerified} // Disable if OTP is sent or already verified

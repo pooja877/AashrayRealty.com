@@ -25,7 +25,7 @@ export default function UserNotification() {
 
   useEffect(() => {
     if (!user) return;
-
+    console.log(user);
     const fetchNotifications = async () => {
       try {
         const res = await fetch(`/api/user-notifications/${user.id}`);

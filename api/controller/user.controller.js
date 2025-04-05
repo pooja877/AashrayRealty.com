@@ -10,31 +10,31 @@ dotenv.config();
 
 
 
-// export const getUser = (req, res) => {
-//   if (!req.user) {
-//     return res.status(401).json({ message: "Unauthorized" });
-//   }
-//   res.json({ id: req.user.id, email: req.user.email });
-//   // console.log(req.user.email);
-// };
-
-export const getUser = async (req, res) => {
-  try {
-    const userId = req.user.id;
-
-    // Fetch full user details from DB
-    const user = await User.findById(userId).select('email username mobile avatar');
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    res.json(user);
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).json({ message: 'Server error' });
+export const getUser = (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized" });
   }
+  res.json({ id: req.user.id, email: req.user.email });
+  // console.log(req.user.email);
 };
+
+// export const getUserdet = async (req, res) => {
+//   try {
+//     const userId = req.user.id;
+//     console.log(userId);
+//     // Fetch full user details from DB
+//     const user = await User.findById(userId).select('email username mobile avatar');
+
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     res.json(user);
+//   } catch (error) {
+//     console.error('Error fetching user:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
 
 export const deleteusersadmin = async (req, res) => {
   try {
@@ -162,7 +162,7 @@ export const getMobileNumber = async (req, res) => {
 
     res.status(200).json({
       mobile: user.mobile,
-      isVerified: user.isVerified, // ✅ Send this to frontend
+      ismobileVerified: user.ismobileVerified, // ✅ Send this to frontend
     });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
@@ -219,3 +219,21 @@ export const verifyOTP = (req, res) => {
   }
 };
 
+
+export const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // console.log("User ID:", id);
+
+    const user = await User.findById(id); // ✅ Correct usage
+    // console.log("User:", user);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};

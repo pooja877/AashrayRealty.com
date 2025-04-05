@@ -31,7 +31,7 @@ export const getNotifications = async (req, res) => {
     try {
       const { id } = req.params; // Get userId from request params
       const notifications = await UserNotification.find({ userId: id }).sort({ createdAt: -1 });
-  
+      console.log(notifications);
       res.status(200).json(notifications);
     } catch (error) {
       console.error("Error fetching notifications:", error);

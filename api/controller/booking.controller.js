@@ -16,7 +16,7 @@ dotenv.config();
 export const getBookingDetails = async (req, res) => {
   try {
     const { userId, propertyId } = req.query;
-
+    console.log(userId);
     if (!userId || !propertyId) {
       return res.status(400).json({ message: "Missing userId or propertyId" });
     }
@@ -40,7 +40,7 @@ export const getBookingDetails = async (req, res) => {
 export const confirmBooking = async (req, res) => {
   try {
     const { userId, propertyId, paymentId, orderId, signature, email, amount,transactionType } = req.body; // 🔹 Get Amount
-
+      console.log(userId);
     // 🔹 Verify Razorpay Signature
     const body = orderId + "|" + paymentId;
     const expectedSignature = crypto.createHmac("sha256", process.env.RAZORPAY_TEST_SECRET)
@@ -68,14 +68,7 @@ export const confirmBooking = async (req, res) => {
 
     await Property.findByIdAndUpdate(propertyId, { status: "Booked" });
     
-    await notifyBooking(userId,propertyId);
-    const newNotification = new UserNotification({
-      userId,
-      message: `Your payment for booking of property ${propertyId} has been successfully processed.`,
-    });
-
-    // Save the notification
-    await newNotification.save();
+    
     // 🔹 Send Confirmation Email
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -116,6 +109,15 @@ export const confirmBooking = async (req, res) => {
       // console.log("Email Sent:", info.response);
       res.json({ message: "Booking confirmed, token amount saved, and email sent!" });
     });
+
+    await notifyBooking(userId,propertyId);
+    const newNotification = new UserNotification({
+      userId,
+      message: `Your payment for booking of property ${propertyId} has been successfully processed.`,
+    });
+
+    // Save the notification
+    await newNotification.save();
 
   } catch (error) {
     console.error("Server Error:", error);

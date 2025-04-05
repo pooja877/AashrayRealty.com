@@ -1,6 +1,6 @@
 import express from "express";
-import {  addProperty, deleteProperty,getPropertyById,updateProperty,getUserProperties, getAllProperties, getApprovedProperties, getPropertyStats, togglePropertyStatus, deleteImage, getSingleProperty } from "../controller/userProperty.controller.js";
-
+import {  addProperty, deleteProperty,getPropertyById,updateProperty,getUserProperties, getAllProperties, getApprovedProperties, getPropertyStats, togglePropertyStatus, deleteImage, getSingleProperty, getUserlistings } from "../controller/userProperty.controller.js";
+import { verifyToken } from '../utils/verifyUser.js'; 
 
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.get("/getuser/:userId", getUserProperties);
 router.put("/update/:id", updateProperty);
 
 router.delete("/delete",deleteImage);
+router.get("/listed", verifyToken, getUserlistings);
 
 router.put("/togglestatus/:id", togglePropertyStatus);
 router.delete("/delete/:id", deleteProperty);

@@ -6,6 +6,8 @@ export default function Activity() {
   const [likedCount, setLikedCount] = useState(0);
   const [bookedCount, setbookedCount] = useState(0);
   const [rentedCount, setrentedCount] = useState(0);
+  const [listedCount, setlistedCount] = useState(0);
+
 
 
   useEffect(() => {
@@ -39,6 +41,7 @@ export default function Activity() {
         });
 
         const data = await res.json();
+        
         if (res.ok) {
           setrentedCount(data.length); // Assuming API returns array of liked properties
         }
@@ -48,6 +51,26 @@ export default function Activity() {
     };
 
     fetchRentedProperties();
+  }, []);
+  useEffect(() => {
+    // Fetch Liked Properties Count
+    const fetchListedProperties = async () => {
+      try {
+        const res = await fetch("/api/userproperties/listed", {
+          method: "GET",
+          credentials: "include", // Ensure user authentication
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          setlistedCount(data.length); // Assuming API returns array of liked properties
+        }
+      } catch (error) {
+        console.error("Error fetching rented properties:", error);
+      }
+    };
+
+    fetchListedProperties();
   }, []);
     
   useEffect(() => {
@@ -97,6 +120,16 @@ export default function Activity() {
               <span>{rentedCount}</span>
             </div>
             </Link>
+            <Link to="/mylisting">
+            <div className="activity">
+              <img className="image" src="./list.png" />
+              <p>Property Listing</p>
+              <span>{listedCount}</span>
+
+            </div>
+            </Link>
+
+            
           </div>
          
     </>

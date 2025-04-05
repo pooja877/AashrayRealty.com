@@ -22,6 +22,7 @@ export const addProperty = async (req, res) => {
     // Update mobile number if it's not already set
     if (!user.mobile) {
       user.mobile = mobile;
+      user.ismobileVerified=true;
       await user.save(); // Save updated user with mobile number
     }
 
@@ -300,7 +301,7 @@ export const getPropertyById = async (req, res) => {
     const { id } = req.params;
    
     const property = await UserProperty.findById(id);
- 
+    // console.log(property.userId);
     if (!property) {
       return res.status(404).json({ message: "Property not found" });
     }
@@ -342,5 +343,17 @@ export const getSingleProperty = async (req, res) => {
     res.status(200).json({ ...property.toObject(), latitude: null, longitude: null });
   } catch (error) {
     res.status(500).json({ message: "Error fetching property", error });
+  }
+};
+
+export const getUserlistings = async (req, res) => {
+  try {
+      const userId = req.user.id; // `verifyUser` middleware se user ID mil jayegi
+
+      const rentedProperties = await UserProperty.find({ userId }).populate('_id');
+
+      res.status(200).json(rentedProperties);
+  } catch (error) {
+      res.status(500).json({ message: 'Error fetching liked properties', error });
   }
 };

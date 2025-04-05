@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import { logoutUserStart ,logoutUserSuccess,logoutUserFailure} from '../../redux/user/userSlice.js';
 import Activity from '../../components/Activity/Activity.jsx';
 import Edit from '../../components/edit/Edit';
-import UserListing from '../../components/UserListing/UserListing.jsx';
+// import UserListing from '../../components/UserListing/UserListing.jsx';
 import { useState } from 'react';
 // import Tools from '../../components/Tools&advice/Tools.jsx';
 
@@ -13,6 +13,7 @@ export default function Profile() {
     const {currentUser} = useSelector((state)=>state.user);
     const dispatch=useDispatch();
     const [isOpen, setIsOpen] = useState(false);
+    // const navigate=useNavigate();
     const handleLogOut=async ()=>{
       try{
         dispatch(logoutUserStart());
@@ -60,7 +61,8 @@ export default function Profile() {
           <Activity/>
           {/* tools & advices */}
     
-            <UserListing userId={currentUser._id}/> 
+            {/* <UserListing userId={currentUser._id}/>  */}
+           
                   {/* <Tools/> */}
      {/* Account Setting delete account */}
      <Link to="/setting">

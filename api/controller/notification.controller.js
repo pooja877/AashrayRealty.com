@@ -3,6 +3,8 @@ import { Notification } from "../models/notification.model.js";
 import Booking from "../models/booking.model.js";
 import UserNotification from "../models/userNotification.model.js";
 import  Contact  from "../models/contact.model.js";
+import Property from "../models/property.model.js";
+
 
 // ✅ Setup Email Transporter (Move to Top)
 const transporter = nodemailer.createTransport({
@@ -118,12 +120,12 @@ export const notifyInterestedUsers = async (propertyId) => {
     // console.log("🔍 Checking notifications for Property ID:", propertyId);
 
     const interestedUsers = await Notification.find({ propertyId });
-
+   
     if (interestedUsers.length === 0) {
       console.log("⚠️ No interested users found for this property.");
       return;
     }
-
+     
     console.log("📩 Sending emails to:", interestedUsers.map(user => user.email));
 
     const emails = interestedUsers.map(user =>
@@ -140,8 +142,7 @@ export const notifyInterestedUsers = async (propertyId) => {
       
             <h3>🏡 Property Details:</h3>
             <ul>
-              <li><strong>Property Name:</strong> ${propertyName}</li>
-              <li><strong>Location:</strong> ${propertyLocation}</li>
+              <li><strong>Property Name:</strong> ${propertyId}</li>
               <li><strong>Current Status:</strong> Available</li>
             </ul>
       

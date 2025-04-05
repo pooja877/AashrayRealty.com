@@ -2,13 +2,31 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./UserListing.css";
 
-export default function UserListing({ userId }) {
+export default function UserListing() {
     const [userProperties, setUserProperties] = useState([]);
    const navigate = useNavigate();
+   const [user, setUser] = useState(null);
+   useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/user/me", {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setUser(data);
+        }
+      } catch (error) {
+        console.error("Not logged in", error);
+      }
+    };
+    fetchUser();
+  }, []);
     useEffect(() => {
         const fetchUserProperties = async () => {
             try {
-                const res = await fetch(`/api/userproperties/getuser/${userId}`);
+                const res = await fetch(`/api/userproperties/getuser/${user?.id}`);
                 const data = await res.json();
 
                 if (res.ok) {
@@ -21,10 +39,10 @@ export default function UserListing({ userId }) {
             }
         };
 
-        if (userId) {
+        if (user?.id) {
             fetchUserProperties();
         }
-    }, [userId]);
+    }, [user?.id]);
 
     const handleDelete = async (propertyId) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this property?");

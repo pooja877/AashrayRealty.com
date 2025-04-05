@@ -48,6 +48,7 @@ import UserPropertyForm from "./components/UserPropertyForm/UserPropertyForm";
 import UserUpdatePropertyForm from "./components/UserPropertyForm/UserUpdatePropertyForm";
 import UserApproveProperties from "./components/UserApproveProeprties/UserApproveProeprties";
 import SingleuserProeprty from "./components/Singleuserproperty/SingleuserProeprty";
+import UserListing from "./components/UserListing/UserListing";
 
 
 
@@ -90,6 +91,8 @@ function App() {
       <Route path="/news" element={<NewsAll/>}/>
       <Route path="/bookedProperties" element={<BookedProperties/>}/>
       <Route path="/rentedProperties" element={<RentedProperties/>}/>
+      <Route path="/mylisting" element={<UserListing/>}/>
+
 
       <Route path="/Terms" element={<Terms/>}/>
       

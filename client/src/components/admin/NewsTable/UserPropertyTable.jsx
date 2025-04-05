@@ -95,7 +95,7 @@ const PropertyTable = () => {
     return (
         <>
             <AdminNavbar />
-            <div className="mainalluseradmincontrol">
+            <div className="mainalluseradmincontrol" style={{paddingTop:"20rem"}} >
             <div className="admin-table">
                 <h2 className='headpro'>User Property List</h2>
                 <input
