@@ -222,7 +222,51 @@ const handleSubmit = async (e) => {
   
   
 
-  const next = () => {  setStep((prev) => Math.min(prev + 1, 5));}
+const next = () => {
+  if (step === 1) {
+    const { city, area, pincode, address } = formData;
+    if (!city || !area || !pincode || !address) {
+      setError('Please fill all fields.');
+      return;
+    }
+    if (pincode.length !== 6 || isNaN(pincode)) {
+      setError('Pincode must be a 6-digit number.');
+      return;
+    }
+    setError('');
+  }
+  if (step === 2) {
+    const { images } = formData;
+
+    if (!images || images.length === 0) {
+      setError('Please upload at least one image');
+      return;
+    }
+
+    setError('');
+  }
+  if (step === 3) {
+    const { propertyType, price,transactionType,floor,desc,title,bhk,amenities} = formData;
+
+    if (!propertyType || !price ||!transactionType||!floor||!desc||!title||!bhk||!amenities) {
+      setError('Please fill all fields');
+      return;
+    }
+
+    if (isNaN(price) || price <= 0) {
+      setError('Price must be a valid number');
+      return;
+    }
+
+    setError('');
+  }
+
+
+  // Increase step
+  setStep(step + 1);
+};
+
+  // const next = () => {  setStep((prev) => Math.min(prev + 1, 5));}
   const prev = () => setStep((prev) => Math.max(prev - 1, 1));
   
   return (
@@ -284,6 +328,7 @@ const handleSubmit = async (e) => {
           </div>
 
           <button onClick={next} className='btnadd'>Next</button>
+          {error && <p className="adderror">{error}</p>}
         </div>
       )}
 
@@ -331,12 +376,13 @@ const handleSubmit = async (e) => {
   </div>
 )}
 
-
+       
                 <div className="prevnextbtn">
                                   <button onClick={prev} className='btnadd'>Back</button>
                           <button onClick={next} className='btnadd' >Next</button>
                         </div>
-
+          {error && <p className="adderror">{error}</p>}
+                
               </>
                         )}
       {/* ------------------step3---------------- */}
@@ -415,7 +461,9 @@ const handleSubmit = async (e) => {
           <div className="prevnextbtn">
                   <button onClick={prev} className='btnadd'>Back</button>
           <button onClick={next} className='btnadd' >Next</button>
-        </div>
+        </div> 
+        {error && <p className="adderror">{error}</p>}
+
         </div>
       )}
 

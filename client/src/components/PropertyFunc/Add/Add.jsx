@@ -186,10 +186,67 @@ const handleVideoUpload = () => {
       setLoading(false);
     }
   };
+  const next = () => {
+    if (step === 1) {
+      const { city, area, pincode, address } = formData;
+      if (!city || !area || !pincode || !address) {
+        setError('Please fill all fields.');
+        return;
+      }
+      if (pincode.length !== 6 || isNaN(pincode)) {
+        setError('Pincode must be a 6-digit number.');
+        return;
+      }
+      setError('');
+    }
+    if (step === 2) {
+      const { images } = formData;
   
+      if (!images || images.length === 0) {
+        setError('Please upload at least one image');
+        return;
+      }
+  
+      setError('');
+    }
+    if (step === 3) {
+      const { propertyType,transactionType,floor,areaSqft,desc,propertyName} = formData;
+  
+      if (!propertyType || !areaSqft ||!transactionType||!floor||!desc||!propertyName) {
+        setError('Please fill all fields');
+        return;
+      }
+  
+      setError('');
+    }
+    if (step === 4) {
+      const {  price,bathrooms,bedrooms,furnished,bhk,amenities,discountPrice} = formData;
+  
+      if (!price || !bedrooms ||!bathrooms||!furnished||!bhk||!amenities) {
+        setError('Please fill all fields');
+        return;
+      }
+  
+      if (isNaN(price) || price <= 0) {
+        setError('Price must be a valid number');
+        return;
+      }
+      
+  if (+discountPrice > +price) {
+    setError('Discount price must be lower than regular price');
+    return;
+  }
+  
+      setError('');
+    }
+  
+  
+    // Increase step
+    setStep(step + 1);
+  };
   
 
-  const next = () => {  setStep((prev) => Math.min(prev + 1, 5));}
+  // const next = () => {  setStep((prev) => Math.min(prev + 1, 5));}
   const prev = () => setStep((prev) => Math.max(prev - 1, 1));
   
   return (
@@ -261,7 +318,8 @@ const handleVideoUpload = () => {
           <Locationform  area={formData.area} city={formData.city}/>
           </div>
           </div>
-
+          {error && <p className='adderror'>{error}</p>}
+  
           <button onClick={next} className='btnadd'>Next</button>
         </div>
       )}
@@ -281,6 +339,8 @@ const handleVideoUpload = () => {
          ):(<FaCloudUploadAlt className='iconupload'/>)}
 
          </div>
+        {error && <p className='adderror'>{error}</p>}
+
         <div className="prevnextbtn">
                   <button onClick={prev} className='btnadd'>Back</button>
           <button onClick={next} className='btnadd' disabled={!formData.images}>Next</button>
@@ -343,6 +403,7 @@ const handleVideoUpload = () => {
                 <label>Description <span>*</span> </label>
                 <textarea id='desc' onChange={handleChange} value={formData.desc} placeholder='Enter details of the property' name="desc"required />
                 </div>
+        {error && <p className='adderror'>{error}</p>}
                 
                 </div>
           <div className="prevnextbtn">
