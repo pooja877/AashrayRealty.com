@@ -22,7 +22,10 @@ const ResetPassword = () => {
     // console.log(token);
   },[token]);
   
-
+  const isValidPassword = (password) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +35,12 @@ const ResetPassword = () => {
       setmessage("Passwords do not match");
       return;
     }
-
+    if (!isValidPassword(password)) {
+      alert("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
+      setmessage("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
+      
+      return;
+    }  
     try {
       const response = await fetch("/api/auth/reset", {
         method: "POST",

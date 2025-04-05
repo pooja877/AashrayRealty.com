@@ -108,3 +108,20 @@
         font-size: 0.85rem;
     }
 }
+.userlist-image-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.tick-mark {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #fff;
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
