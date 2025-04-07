@@ -98,7 +98,7 @@ export const sendPaymentReminder = async (userEmail, rentAmount, dueDate, userId
     const newNotification = new UserNotification({
       userId,
       message: `Your rent payment of ₹${rentAmount} is due on ${dueDate}.  
-    Please make the payment at the earliest. `
+    Please make the payment at the earliest. for payment check mail. `
     });
 
     // Save the notification
@@ -447,12 +447,13 @@ export const getAllRentings = async (req, res) => {
 export const deleteRenting = async (req, res) => {
     try {
         await Renting.findByIdAndDelete(req.params.id);
-        res.json({ message: "Booking deleted successfully" });
+        res.json({ message: "Renting deleted successfully" });
     } catch (error) {
         res.status(500).json({ error: "Failed to delete Booking" });
     }
 };
 const notifyUnpaidRent = async (userId, propertyId) => {
+
   try {
     await Contact.create({
       userId,
