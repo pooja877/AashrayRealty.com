@@ -4,7 +4,7 @@ import { getMessages, replyMessage,deleteAllMessages,getUnreadNotificationsCount
 
 const router = express.Router();
 
-router.post("/", verifyToken, sendMessage); // User must be logged in to send message
+router.post("/send", verifyToken, sendMessage); // User must be logged in to send message
 router.get("/getmessage", verifyToken, getMessages); // Only admin should access this (check in frontend)
 router.post("/reply", replyMessage); // Admin replies
 router.get("/unanswered", verifyToken, getUnansweredMessages);

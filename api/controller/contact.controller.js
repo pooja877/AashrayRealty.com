@@ -5,15 +5,15 @@ import UserNotification from "../models/userNotification.model.js";
 
 export const sendMessage = async (req, res) => {
   try {
-    const { subject, message } = req.body;
-
+    const { subject, message ,userId} = req.body;
+  
     const newMessage = new Contact({
-      userId: req.user.id, // User ID from verifyToken middleware
+      userId,// User ID from verifyToken middleware
       category:"contact",
       subject,
       message,
     });
-
+ 
     await newMessage.save();
     res.status(201).json({ message: "Message sent successfully!" });
   } catch (error) {
@@ -185,8 +185,11 @@ export const getMessagesByCategory = async (req, res) => {
     const messages = await Contact.find({ category })
       .populate("userId", "email")
       .sort({ createdAt: -1 });  // Sort messages by creation date
+   
+      // console.log("Populated userId:", messages[0]?.userId);
 
     res.json(messages);
+  
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching messages." });

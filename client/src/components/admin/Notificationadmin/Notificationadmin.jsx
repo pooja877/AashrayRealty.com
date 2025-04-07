@@ -12,6 +12,7 @@ export default function Notificationadmin() {
       const res = await fetch(`/api/contact/category/${category}`, { method: "GET" });
       const data = await res.json();
       setNotifications(data);
+     console.log(data);
     } catch (error) {
       console.error("Error fetching notifications:", error);
     }
@@ -105,7 +106,7 @@ export default function Notificationadmin() {
             {notifications.length > 0 ? (
               notifications.map((msg) => (
                 <div key={msg._id} className="notification-item">
-                  <p><strong>From:</strong> {msg.userId.name} ({msg.userId.email})</p>
+                  <p><strong>User Email:</strong> {msg.userId?.email}</p>
                   <p><strong>Message:</strong> {msg.message}</p>
                   <p><strong>Category:</strong> {msg.category}</p>
                   <p><strong>Sent:</strong> {new Date(msg.createdAt).toLocaleString()}</p>

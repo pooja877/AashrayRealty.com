@@ -29,13 +29,13 @@ const ContactUs = () => {
             alert("Please log in to send a message.");
             return;
         }
-
+    console.log(user?.id);
         try {
-            const res = await fetch("/api/contact", {
+            const res = await fetch("/api/contact/send", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
-                body: JSON.stringify(formData),
+                body: JSON.stringify({...formData,userId:user?.id}),
             });
 
             const data = await res.json();
