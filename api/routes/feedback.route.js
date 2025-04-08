@@ -4,7 +4,7 @@ import { verifyToken } from "../utils/verifyUser.js";
 
 const router = express.Router();
 
-router.post("/", verifyToken, addFeedback);
+router.post("/feed", verifyToken, addFeedback);
 router.get("/get", getFeedback);
 
 export default router;

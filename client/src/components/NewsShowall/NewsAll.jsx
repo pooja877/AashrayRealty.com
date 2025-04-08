@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import './NewsAll.css'
 import  { useState, useEffect } from "react";
+import Footercompo from "../../components/Footer/Footercompo";
+
 const NewsAll = () => {
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,6 +54,7 @@ const NewsAll = () => {
         </div>
       )}
     </div>
+    <Footercompo/>
    </div>
   );
 };

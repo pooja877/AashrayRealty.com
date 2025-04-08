@@ -39,6 +39,10 @@
     cursor: pointer;
     transition: background 0.3s ease;
    margin-left: 5rem;
+
+   @media (max-width:700px) {
+       margin-left: 0rem;
+   }
   }
   
   .whatsapp-btn:hover {

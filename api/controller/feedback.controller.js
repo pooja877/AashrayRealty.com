@@ -1,25 +1,27 @@
 import Contact from "../models/contact.model.js";
 import Feedback from "../models/feedback.model.js";
+import User from "../models/user.model.js";
 import UserNotification from "../models/userNotification.model.js";
 export const addFeedback = async (req, res) => {
   try {
-    const { rating, comments } = req.body;
+    const { rating, comments,userId } = req.body;
     const newFeedback = new Feedback({
-      userId: req.user.id,
+      userId,
       rating,
       comments,
     });
     await newFeedback.save();
     const newNotification = new UserNotification({
-          userId:req.user.id,
+          userId,
           message: `Your Feedback send Successfully!!`,
         });
         await newNotification.save();
+        const user = await User.findById(userId); // Fetch logged-in user
 
         await Contact.create({
           userId,
           category: "feedback",
-          message: ` ${userId.username} gives feedback!!`,
+          message: ` ${user.username} gives feedback!!`,
         });
     res.status(201).json({ message: "Feedback submitted successfully!" });
   } catch (error) {

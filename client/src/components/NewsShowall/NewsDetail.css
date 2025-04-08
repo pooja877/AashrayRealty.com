@@ -2,7 +2,7 @@
     height: 100vh;
     width: 100%;
     overflow-y: scroll;
-   padding-bottom: 3rem;
+   /* padding-bottom: 3rem; */
    background-color: rgb(249, 251, 253);
 
 }

@@ -45,12 +45,12 @@ const FeedbackForm = () => {
       setMessage("You must be logged in to submit feedback.");
       return;
     }
-
+   console.log(user.id);
     try {
-      const res = await fetch("/api/feedback", {
+      const res = await fetch("/api/feedback/feed", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({...formData,userId:user.id}),
         credentials: "include",
       });
       const data = await res.json();

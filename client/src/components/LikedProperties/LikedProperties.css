@@ -117,3 +117,26 @@
         max-width: 350px;
     }
 }
+
+.invoice-btn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.invoice-btn:hover {
+    background-color: #45a049;
+}
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    margin-left: 10px;
+}
+.delete-btn:hover{
+    background-color: #d45d5d;
+}

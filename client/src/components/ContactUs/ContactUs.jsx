@@ -35,7 +35,7 @@ const ContactUs = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
-                body: JSON.stringify({...formData,userId:user?.id}),
+                body: JSON.stringify({...formData,userId:user.id}),
             });
 
             const data = await res.json();

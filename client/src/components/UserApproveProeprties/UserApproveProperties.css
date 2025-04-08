@@ -56,9 +56,7 @@
     transition: 0.3s;
 }
 
-.userapprove-card:hover {
-    transform: scale(1.02);
-}
+
 
 /* Property Image */
 .userapprove-image {
@@ -198,3 +196,52 @@
    
 
   } */
+
+  .filter-toggle-btn {
+    display: none;
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .filter-toggle-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    .filter-toggle-btn {
+      display: block;
+    }
+  
+    .userapprove-filters {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      background: #f3f3f3;
+    }
+  
+    .userapprove-filters.show {
+      display: flex;
+    }
+  
+    .userapprove-filters.hide {
+      display: none;
+    }
+  
+    .userapprove-select {
+      width: 100%;
+      max-width: 90%;
+      margin: 5px 0;
+    }
+  }
+  
+   

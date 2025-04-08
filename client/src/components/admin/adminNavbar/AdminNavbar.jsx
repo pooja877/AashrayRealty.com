@@ -32,7 +32,7 @@ export default function AdminNavbar() {
       navigate("/admin/unPaidUser");
     } else if (lowerQuery === "dashboard") {
       navigate("/admin/dashboard");
-    } else if (lowerQuery === "add Property") {
+    } else if (lowerQuery === "add property") {
       navigate("/admin/addProperty");
     } 
     else if (lowerQuery === "update news") {
@@ -41,7 +41,7 @@ export default function AdminNavbar() {
       navigate("/admin/property/updateProperty/:id");
     } else if (lowerQuery === "add news") {
       navigate("/admin/addNews");
-    } else if (lowerQuery === "give on rent") {
+    } else if (lowerQuery === "giverent") {
       navigate("/admin/bookings");
     } 
   
@@ -165,13 +165,26 @@ export default function AdminNavbar() {
           <div className={open ? "menu active" : "menu"}>
             {/* <a href="/" className="goweb">Go to Website</a> */}
             {/* <a href="/admin/dashboard">Dashboard</a> */}
+            <hr />
             <a href="/admin/users">Users</a>
+            <hr />
           <a href="/admin/userProperties">UserProperties</a>
+          <hr />
           <a href="/admin/properties">Properties</a>
-            <a href="/admin/allrentedProperties">RentedProperties</a>
+          <hr />
+
+            <a href="/admin/allrentedProperties">RentedProperties</a> 
+          <hr />
+
             <a href="/admin/news">News</a>
+          <hr />
+
             <a href="/admin/bookings">Bookings</a>
+          <hr />
+
             <a href="/admin/unPaidUser">UnPaidUser</a>
+          <hr />
+
             {/* <button className="logoutadmin" onClick={handleLogout}>Logout</button> */}
           </div>
         </div>

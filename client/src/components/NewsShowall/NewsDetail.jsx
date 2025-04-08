@@ -1,5 +1,7 @@
 import  { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import Footercompo from "../../components/Footer/Footercompo";
+
 import "./NewsDetail.css"; // Import CSS
 
 const NewsDetail = () => {
@@ -55,6 +57,7 @@ const NewsDetail = () => {
       {/* Back Button */}
       <Link to="/news" className="newsdetail-back">← Back to News</Link>
     </div>
+    <Footercompo/>
     </div>
   );
 };

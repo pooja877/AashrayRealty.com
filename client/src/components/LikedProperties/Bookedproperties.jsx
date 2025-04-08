@@ -1,12 +1,59 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import jsPDF from "jspdf";
 import "./LikedProperties.css";
 
 export default function BookedProperties() {
     const [bookedProperties, setBookedProperties] = useState([]);
     const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+   
 
+    useEffect(() => {
+        const fetchUser = async () => {
+          try {
+            const res = await fetch("/api/user/me", {
+              method: "GET",
+              credentials: "include",
+            });
+            const data = await res.json();
+            if (res.ok) {
+              setUser(data);
+             
+            }
+          } catch (error) {
+            console.error("Not logged in", error);
+          }
+        };
+        fetchUser();
+      }, []);
+
+      const deleteBooking = async (bookingId) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this cancelled booking?");
+        if (!confirmDelete) return;
+    
+        try {
+            const res = await fetch(`/api/book/delete/${bookingId}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+    
+            if (!res.ok) throw new Error("Failed to delete booking");
+    
+            // Remove the deleted booking from state
+            setBookedProperties(prev =>
+                prev.filter(booking => booking._id !== bookingId)
+            );
+    
+            alert("Booking deleted successfully!");
+        } catch (err) {
+            console.error("Delete failed:", err);
+            alert("Something went wrong while deleting.");
+        }
+    };
+    
     useEffect(() => {
         const fetchBookedProperties = async () => {
             try {
@@ -19,7 +66,7 @@ export default function BookedProperties() {
 
                 const data = await res.json();
                 if (Array.isArray(data)) {
-                    setBookedProperties(data.filter(item => item.propertyId)); 
+                    setBookedProperties(data.filter(item => item.propertyId));
                 } else {
                     setBookedProperties([]);
                 }
@@ -32,53 +79,125 @@ export default function BookedProperties() {
         fetchBookedProperties();
     }, []);
 
+    const generateInvoice = (booking) => {
+        const property = booking.propertyId;
+      
+      
+        const doc = new jsPDF();
+
+        doc.setFontSize(18);
+        doc.text("Property Booking Invoice", 20, 20);
+
+        doc.setFontSize(12);
+        doc.text(`Invoice Date: ${new Date().toLocaleDateString()}`, 20, 30);
+
+        // Property Info
+        doc.text("Property Details:", 20, 45);
+        doc.text(`Name: ${property.propertyName}`, 25, 55);
+        doc.text(`Address: ${property.address}, ${property.area}, ${property.city}`, 25, 65);
+        doc.text(`Transaction Type: ${property.transactionType}`, 25, 75);
+        doc.text(
+            `Price: ₹${property.discountPrice || property.price} ${property.transactionType === "Rent" ? "/month" : ""}`,
+            25,
+            85
+        );
+
+        // User Info
+        doc.text("User Details:", 20, 100);
+        doc.text(`UserId: ${user?.id}`, 25, 110);
+        doc.text(`Email: ${user?.email}`, 25, 120);
+
+        // Booking Info
+        doc.text("Booking Details:", 20, 135);
+        doc.text(`Payment ID: ${booking.paymentId}`, 25, 145);
+        doc.text(`Order ID: ${booking.orderId}`, 25, 155);
+        doc.text(`Token Amount Paid: Rs. ${booking.tokenAmount}`, 25, 165);
+        doc.text(`Booking Status: ${booking.status}`, 25, 175);
+        doc.text(`Booked At: ${new Date(booking.bookedAt).toLocaleDateString()}`, 25, 185);
+
+        // Refund Info (if cancelled)
+        if (booking.status === "Cancelled") {
+            doc.text("Refund Details:", 20, 200);
+            doc.text(`Refund Amount: Rs. ${booking.refundAmount || 0}`, 25, 210);
+            doc.text(`Refund ID: ${booking.refundId || "N/A"}`, 25, 220);
+            doc.text(`Cancelled At: ${new Date(booking.cancelledAt).toLocaleDateString()}`, 25, 230);
+        }
+        else {
+            doc.text("Booking Terms:", 20, 200);
+            doc.text("✔️ You can visit the property within the next 15 days.", 25, 210);
+            doc.text("✔️ Visiting hours are from 12 PM to 4 PM.", 25, 220);
+            doc.text("✔️ If you cancel within 10 days, you will receive a 50% refund.", 25, 230);
+            doc.text("❌ If you cancel after 10 days, you will not receive any refund.", 25, 240);
+            doc.text("❌ If you do not visit, the booking will expire.", 25, 250);
+        }
+
+        doc.save(`Invoice-${property.propertyName}.pdf`);
+    };
 
     return (
-       <div className="mainlikedd">
-         <div className="likeddis-main-user-contain">
-            <h2>Booked Properties</h2>
-            <div className="likeddis-datapro">
-                {bookedProperties.length > 0 ? (
-                    bookedProperties.map(({ propertyId }) => (
-                        <div className="likeddis-contain" key={propertyId._id}>
-                            <div className="likeddis-imageWrapper">
-                                {propertyId.images?.length > 0 && (
-                                    <img
-                                        className="likeddis-imageConatiner"
-                                        src={propertyId.images[0].url}
-                                        alt="Property"
-                                        onClick={() => navigate(`/Properties/${propertyId._id}`)}
-                                    />
-                                )}
-                            </div>
-
-                            <div className="likeddis-info" onClick={() => navigate(`/Properties/${propertyId._id}`)}>
-                                <h3>{propertyId.propertyName}</h3>
-                                <div className="likeddis-prodetails">
-                                    <FaMapMarkerAlt />
-                                    <p>{propertyId.address} {propertyId.area} {propertyId.city}</p>
-                                </div>
-                                <p className='likeddis-protype'>For {propertyId.transactionType}</p>
-                                <div className="likeddis-price">
-                                    <p className="likeddis-ind-price">
-                                        ₹{propertyId.discountPrice ? (
-                                            <>
-                                                <span className="likeddis-strike">{propertyId.price}</span> 
-                                                <span className="likeddis-discountprice">{propertyId.discountPrice} {propertyId.transactionType === "Rent" ? "/month" : ""}</span>
-                                            </>
-                                        ) : (
-                                            <span className="likeddis-originalprice">{propertyId.price} {propertyId.transactionType === "Rent" ? "/month" : ""}</span>
+        <div className="mainlikedd">
+            <div className="likeddis-main-user-contain">
+                <h2>Booked Properties</h2>
+                <div className="likeddis-datapro">
+                    {bookedProperties.length > 0 ? (
+                        bookedProperties.map((booking) => {
+                            const property = booking.propertyId;
+                            return (
+                                <div className="likeddis-contain" key={property._id}>
+                                    <div className="likeddis-imageWrapper">
+                                        {property.images?.length > 0 && (
+                                            <img
+                                                className="likeddis-imageConatiner"
+                                                src={property.images[0].url}
+                                                alt="Property"
+                                                onClick={() => navigate(`/Properties/${property._id}`)}
+                                            />
                                         )}
-                                    </p>
+                                    </div>
+
+                                    <div className="likeddis-info" >
+                                        <h3>{property.propertyName}</h3>
+                                        <div className="likeddis-prodetails">
+                                            <FaMapMarkerAlt />
+                                            <p>{property.address} {property.area} {property.city}</p>
+                                        </div>
+                                        <p className="likeddis-protype">For {property.transactionType}</p>
+                                        <div className="likeddis-price">
+                                            <p className="likeddis-ind-price">
+                                                ₹{property.discountPrice ? (
+                                                    <>
+                                                        <span className="likeddis-strike">{property.price}</span>
+                                                        <span className="likeddis-discountprice">
+                                                            {property.discountPrice} {property.transactionType === "Rent" ? "/month" : ""}
+                                                        </span>
+                                                    </>
+                                                ) : (
+                                                    <span className="likeddis-originalprice">
+                                                        {property.price} {property.transactionType === "Rent" ? "/month" : ""}
+                                                    </span>
+                                                )}
+                                            </p>
+                                        </div>
+                                        <>
+    <button className="invoice-btn" onClick={() => generateInvoice(booking)}>
+        Download Invoice
+    </button>
+
+    {booking.status === "Cancelled" && (
+        <button className="invoice-btn delete-btn" onClick={() => deleteBooking(booking._id)}>
+            Delete Booking
+        </button>
+    )}
+</>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <p>No Booked properties found.</p>
-                )}
+                            );
+                        })
+                    ) : (
+                        <p>No Booked properties found.</p>
+                    )}
+                </div>
             </div>
         </div>
-       </div>
     );
 }

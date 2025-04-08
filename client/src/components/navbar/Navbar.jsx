@@ -117,12 +117,15 @@ function Navbar() {
             <img src="/menu.png" alt="Menu" />
           </div>
           <div className={open ? "menu active" : "menu"}>
+            <hr />
             <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/contactus">Contact</a>
-            <a href="/properties">AashrayProperties</a>
-            <a href="/userproperties">UserProperties </a>
+            <hr />
+            <a href="/about">About</a><hr />
+            <a href="/contactus">Contact</a><hr />
+            <a href="/properties">AashrayProperties</a><hr />
+            <a href="/userproperties">UserProperties </a><hr />
             {currentUser ? <a href="/profile">Profile</a> : <a href="/signin">Sign in</a>}
+            <hr />
           </div>
         </div>
       </nav>
