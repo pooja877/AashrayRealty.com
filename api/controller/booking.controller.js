@@ -671,7 +671,7 @@ const notifyBookingCancel = async (userId, bookingId) => {
   try {
     await Contact.create({
       userId,
-      category: "cancel",
+      category: "cancle",
       message: `Booking ID: ${bookingId} has been cancled.`,
     });
   } catch (error) {

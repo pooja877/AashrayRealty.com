@@ -11,14 +11,15 @@
 }
 
 .admin-messages {
-  width: 80%;
+  width: 90%;
+  height: 90vh;
   /* max-width: 1200px; */
-  margin: 40px auto;
+  /* margin: 40px auto; */
   padding: 20px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-height: 80vh;
+  /* max-height: 80vh; */
   overflow-y: auto;
 }
 
@@ -278,4 +279,60 @@ textarea {
   font-size: 12px;
   width: auto;
   display: inline-block;
+}
+/* Always show toggle button */
+
+
+/* .category-buttons button {
+  padding: 8px 14px;
+  background-color: #0d47a1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+} */
+.category-toggle-container {
+  margin: 1rem 0;
+  
+}
+
+.toggle-category-btn {
+  background-color: #00070e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.toggle-category-btn:hover {
+  background-color: #052241;
+}
+.category-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+  justify-items: center;
+}
+
+.category-buttons button {
+  width: 100%;
+  max-width: 160px;  /* Prevents buttons with long text from stretching */
+  white-space: nowrap; /* Keeps text in one line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.6rem 1rem;
+  background-color: #004080;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.category-buttons button:hover {
+  background-color: #0066cc;
 }

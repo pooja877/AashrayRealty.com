@@ -81,58 +81,73 @@ export default function BookedProperties() {
 
     const generateInvoice = (booking) => {
         const property = booking.propertyId;
-      
-      
+    
         const doc = new jsPDF();
-
+    
+        // Set font to 'times' for a classic, professional look
+        doc.setFont("times", "bold");
+    
+        // AashrayRealty Heading (centered)
+        doc.setFontSize(23);
+        doc.text("AashrayRealty", doc.internal.pageSize.getWidth() / 2, 20, { align: "center" });
+    
+        // Invoice Title
+        doc.setFont("times", "normal");
         doc.setFontSize(18);
-        doc.text("Property Booking Invoice", 20, 20);
-
+        doc.text("Property Booking Invoice", 20, 35);
+    
+        // Invoice Date
         doc.setFontSize(12);
-        doc.text(`Invoice Date: ${new Date().toLocaleDateString()}`, 20, 30);
-
+        doc.text(`Invoice Date: ${new Date().toLocaleDateString()}`, 20, 45);
+    
         // Property Info
-        doc.text("Property Details:", 20, 45);
-        doc.text(`Name: ${property.propertyName}`, 25, 55);
-        doc.text(`Address: ${property.address}, ${property.area}, ${property.city}`, 25, 65);
-        doc.text(`Transaction Type: ${property.transactionType}`, 25, 75);
+        doc.text("Property Details:", 20, 60);
+        doc.text(`Name: ${property.propertyName}`, 25, 70);
+        doc.text(`Address: ${property.address}, ${property.area}, ${property.city}`, 25, 80);
+        doc.text(`Transaction Type: ${property.transactionType}`, 25, 90);
         doc.text(
-            `Price: ₹${property.discountPrice || property.price} ${property.transactionType === "Rent" ? "/month" : ""}`,
+            `Price: Rs.${property.discountPrice || property.price} ${property.transactionType === "Rent" ? "/month" : ""}`,
             25,
-            85
+            100
         );
-
+    
         // User Info
-        doc.text("User Details:", 20, 100);
-        doc.text(`UserId: ${user?.id}`, 25, 110);
-        doc.text(`Email: ${user?.email}`, 25, 120);
-
+        doc.text("User Details:", 20, 115);
+        doc.text(`User ID: ${user?.id}`, 25, 125);
+        doc.text(`Email: ${user?.email}`, 25, 135);
+    
         // Booking Info
-        doc.text("Booking Details:", 20, 135);
-        doc.text(`Payment ID: ${booking.paymentId}`, 25, 145);
-        doc.text(`Order ID: ${booking.orderId}`, 25, 155);
-        doc.text(`Token Amount Paid: Rs. ${booking.tokenAmount}`, 25, 165);
-        doc.text(`Booking Status: ${booking.status}`, 25, 175);
-        doc.text(`Booked At: ${new Date(booking.bookedAt).toLocaleDateString()}`, 25, 185);
-
-        // Refund Info (if cancelled)
+        doc.text("Booking Details:", 20, 150);
+        doc.text(`Payment ID: ${booking.paymentId}`, 25, 160);
+        doc.text(`Order ID: ${booking.orderId}`, 25, 170);
+        doc.text(`Token Amount Paid: Rs.${booking.tokenAmount}`, 25, 180);
+        doc.text(`Booking Status: ${booking.status}`, 25, 190);
+        doc.text(`Booked At: ${new Date(booking.bookedAt).toLocaleDateString()}`, 25, 200);
+    
+        // Refund Info or Booking Terms
         if (booking.status === "Cancelled") {
-            doc.text("Refund Details:", 20, 200);
-            doc.text(`Refund Amount: Rs. ${booking.refundAmount || 0}`, 25, 210);
-            doc.text(`Refund ID: ${booking.refundId || "N/A"}`, 25, 220);
-            doc.text(`Cancelled At: ${new Date(booking.cancelledAt).toLocaleDateString()}`, 25, 230);
-        }
-        else {
-            doc.text("Booking Terms:", 20, 200);
-            doc.text("✔️ You can visit the property within the next 15 days.", 25, 210);
-            doc.text("✔️ Visiting hours are from 12 PM to 4 PM.", 25, 220);
-            doc.text("✔️ If you cancel within 10 days, you will receive a 50% refund.", 25, 230);
-            doc.text("❌ If you cancel after 10 days, you will not receive any refund.", 25, 240);
-            doc.text("❌ If you do not visit, the booking will expire.", 25, 250);
-        }
+            doc.text("Refund Details:", 20, 215);
+            doc.text(`Refund Amount: ₹${booking.refundAmount || 0}`, 25, 225);
+            doc.text(`Refund ID: ${booking.refundId || "N/A"}`, 25, 235);
+            doc.text(`Cancelled At: ${new Date(booking.cancelledAt).toLocaleDateString()}`, 25, 245);
+        } else {
+            // doc.text("Booking Terms:", 20, 215);
+            doc.setFont("times", "bold"); // Make heading bold
+            doc.text("Booking Terms:", 22, 215);
 
+            doc.setFont("times", "normal"); // Make heading bold
+            doc.text("Booking Terms:", 20, 215);
+            doc.text(" You can visit the property within the next 15 days.", 25, 225);
+            doc.text(" Visiting hours are from 12 PM to 4 PM.", 25, 235);
+            doc.text(" Cancel within 10 days to receive a 50% refund.", 25, 245);
+            doc.text(" Cancel after 10 days: no refund.", 25, 255);
+            doc.text(" No visit within 15 days: booking expires.", 25, 265);
+        }
+    
+        // Save the PDF
         doc.save(`Invoice-${property.propertyName}.pdf`);
     };
+    
 
     return (
         <div className="mainlikedd">

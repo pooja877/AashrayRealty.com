@@ -357,7 +357,7 @@ export const addProperty=async (req,res,next)=>{
 export const getTopRatedPropertiesByArea = async (req, res) => {
   try {
     // List of predefined areas you want to filter by
-    const predefinedAreas = ['Navrangpura', 'nikol','Sola', 'Satellite', 'Maninagar', 'Vastrapur',"Ranip","Gota","adalaj","Randesan", "Kudasan", "Sargasan", "Raysan"];
+    const predefinedAreas = ['Navrangpura','Shahibaug','Naranpura', 'nikol','Sola', 'Satellite', 'Maninagar', 'Vastrapur',"Ranip","Gota","adalaj","Randesan", "Kudasan", "Sargasan", "Raysan"];
 
     const propertiesWithRatingAndArea = await Property.aggregate([
       {

@@ -21,7 +21,7 @@ const SliderTab = () => {
         <FaInstagram className="icon" />
         <span>Instagram</span>
       </a>
-
+   {/* https://www.instagram.com/aashrayrealty?igsh=eXphOTdnd3U5d3Vz */}
     </div>
   );
 };

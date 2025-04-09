@@ -49,7 +49,7 @@ export const getReviews = async (req, res) => {
       await newReview.save();
           const newNotification = new UserNotification({
             userId,
-            message: `Your review for ${propertyId} send successfully!!`,
+            message: `Your review for property send successfully!!`,
           });
       
           // Save the notification
