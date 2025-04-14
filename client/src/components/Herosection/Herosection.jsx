@@ -163,6 +163,7 @@ const Herosection = () => {
                 if (res.ok) {
                     setUser(data);
                 }
+               
             } catch (error) {
                 console.error("Not logged in", error);
             }

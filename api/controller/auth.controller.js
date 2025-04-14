@@ -5,6 +5,7 @@ import nodemailer from 'nodemailer';
 import { errorHandler } from "../utils/error.js";
 import UserNotification from "../models/userNotification.model.js";
 
+import  Contact  from "../models/contact.model.js";
 
 
 export const verifyEmail = async (req, res) => {

@@ -101,7 +101,7 @@ export default function Activity() {
           <Link to="/likedProperties">
           <div className="activity">
               <img className="image"src="./house-heart-fill_1.png" />
-              <p>Saved Properties</p>
+              <p>Liked Properties</p>
               <span>{likedCount}</span> 
             </div></Link>
             
