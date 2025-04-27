@@ -7,6 +7,7 @@ import BookingChart from "../BookingCharts/BookingChart";
 // import RentCharts from "../BookingCharts/RentCharts";
 import PropertyStats from "../BookingCharts/PropertyStats";
 import { FaHome } from "react-icons/fa";
+import Monthlybookingchart from "../BookingCharts/Monthlybookingchart";
 
 
 Chart.register(...registerables);
@@ -142,6 +143,7 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <BookingChart/>
+                <Monthlybookingchart/>
                 {/* {rentStats ? (
                         <RentCharts 
                             monthlyRentCollection={rentStats?.monthlyRentCollection || {}} 

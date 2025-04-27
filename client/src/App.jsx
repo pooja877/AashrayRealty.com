@@ -114,7 +114,7 @@ function App() {
             <Route path="/admin/news" element={<NewsTable/>} />
             <Route path="/admin/addNews" element={<AdminNews/>} />
             <Route path="/admin/messages" element={<Notificationadmin/>} />
-            <Route path="/admin/bookings" element={<Booking/>} />
+            <Route path="/admin/bookings/:month" element={<Booking/>} />
             <Route path="/admin/allrentedProperties" element={<Renting/>} />
             <Route path="/admin/unPaidUser" element={<UnPaidUser/>} />
             <Route path="/admin/userProperties" element={<UserPropertyTable/>}/>

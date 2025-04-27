@@ -441,6 +441,7 @@ export const getAllBookings = async (req, res) => {
         res.status(500).json({ message: "Error fetching Bookings", error });
     }
 };
+
 export const deleteBooking = async (req, res) => {
     try {
         await Booking.findByIdAndDelete(req.params.id);
@@ -825,3 +826,25 @@ const notifyBooking = async (userId, propertyId) => {
 //   }
 // };
 //10 100% and 15 50%
+
+export const getMonthlyBookingStats = async (req, res) => {
+  try {
+    const stats = await Booking.aggregate([
+      {
+        $group: {
+          _id: {
+            year: { $year: "$bookedAt" },
+            month: { $month: "$bookedAt" }
+          },
+          totalBookings: { $sum: 1 }
+        }
+      },
+      { $sort: { "_id.year": 1, "_id.month": 1 } }
+    ]);
+
+    res.status(200).json(stats);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching booking stats" });
+  }
+};
