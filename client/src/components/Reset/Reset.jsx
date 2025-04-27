@@ -69,7 +69,7 @@ const ResetPassword = () => {
    <div className="mainreset">
      <div className='reset'>
       <h2>Reset Password</h2>
-      <p style={{color:"red",marginBottom:"1rem"}}>This Link is valid for only <b>5 Minutes</b> </p>
+      <p >This Link is valid for only <b style={{color:"red",marginBottom:"1rem"}}>5 Minutes</b> </p>
       <form onSubmit={handleSubmit}>
         
         <div className="password-container"> 

@@ -81,7 +81,7 @@ const toggleLike = async (propertyId) => {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               credentials: 'include',
-              body: JSON.stringify({ propertyId })
+              body: JSON.stringify( propertyId )
           });
           setLikedProperties(prev => {
               const newSet = new Set(prev);

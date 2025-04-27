@@ -51,7 +51,7 @@ const ReviewForm = () => {
    const rating=formData.rating;
    const comment=formData.comment;
    
-    
+ 
     try {
       const res = await fetch("/api/review/add", {
         method: "POST",

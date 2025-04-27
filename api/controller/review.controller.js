@@ -28,7 +28,7 @@ export const getReviews = async (req, res) => {
   export const addReview = async (req, res) => {
     try {
       const { propertyId, userId, rating, comment } = req.body;
-  
+     
       if (!propertyId || !userId || !rating || !comment) {
         return res.status(400).json({ message: "All fields are required" });
       }

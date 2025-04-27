@@ -247,7 +247,6 @@ export default function Notificationadmin() {
                   "unpaid",
                   "rentpaid",
                   "feedback",
-                  "cancle",
                   "newUser",
                   "clickNotify",
                   "userUploadProperty",

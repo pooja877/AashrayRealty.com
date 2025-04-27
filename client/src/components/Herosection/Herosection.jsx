@@ -175,6 +175,7 @@ const Herosection = () => {
         if (user) {
             navigate(`/uploadProperty`);
         } else {
+            alert("Without login user can not upload property!!");
             navigate("/signin");
         }
     };

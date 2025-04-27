@@ -20,6 +20,7 @@ const transporter = nodemailer.createTransport({
 export const sendPaymentReminderAPI = async (req, res) => {
   try {
     const { userId } = req.params;
+    
 
     const unpaidUser = await UnpaidUser.findOne({ userId }).populate("userId", "email username");
     if (!unpaidUser) return res.status(404).json({ message: "User not found" });

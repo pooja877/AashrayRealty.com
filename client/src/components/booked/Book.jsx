@@ -119,7 +119,7 @@ export default function Book({ propertyId, status, transactionType }) {
         },
         theme: { color: "#3399cc" },
         payment_capture: 1,
-        method: { upi: true },
+        method: { card: true },
       };
 
       const rzp = new window.Razorpay(options);

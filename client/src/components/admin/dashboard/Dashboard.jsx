@@ -4,7 +4,7 @@ import "./Dashboard.css";
 import AdminNavbar from "../adminNavbar/AdminNavbar";
 import { Chart, registerables } from "chart.js";
 import BookingChart from "../BookingCharts/BookingChart";
-import RentCharts from "../BookingCharts/RentCharts";
+// import RentCharts from "../BookingCharts/RentCharts";
 import PropertyStats from "../BookingCharts/PropertyStats";
 import { FaHome } from "react-icons/fa";
 
@@ -142,7 +142,7 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <BookingChart/>
-                {rentStats ? (
+                {/* {rentStats ? (
                         <RentCharts 
                             monthlyRentCollection={rentStats?.monthlyRentCollection || {}} 
                             paidRent={rentStats?.paidRent || 0} 
@@ -153,7 +153,7 @@ const Dashboard = () => {
                         />
                     ) : (
                         <p>Loading Rent Data...</p>
-                    )}
+                    )} */}
                     <PropertyStats/>
             </div>
           

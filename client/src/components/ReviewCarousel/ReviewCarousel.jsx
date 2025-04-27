@@ -12,6 +12,7 @@ const ReviewCarousel = ({ propertyId }) => {
       try {
         const res = await fetch(`/api/review/${propertyId}`);
         const data = await res.json();
+        console.log(data);
         setReviews(data.reviews);
         setAverageRating(data.averageRating);
       } catch (error) {
