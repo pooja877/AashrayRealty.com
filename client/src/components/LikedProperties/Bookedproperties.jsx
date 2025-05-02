@@ -116,6 +116,7 @@ export default function BookedProperties() {
         doc.text(`User ID: ${user?.id}`, 25, 125);
         doc.text(`Email: ${user?.email}`, 25, 135);
     
+
         // Booking Info
         doc.text("Booking Details:", 20, 150);
         doc.text(`Payment ID: ${booking.paymentId}`, 25, 160);
@@ -136,7 +137,7 @@ export default function BookedProperties() {
             doc.text("Booking Terms:", 22, 215);
 
             doc.setFont("times", "normal"); // Make heading bold
-            doc.text("Booking Terms:", 20, 215);
+            
             doc.text(" You can visit the property within the next 15 days.", 25, 225);
             doc.text(" Visiting hours are from 12 PM to 4 PM.", 25, 235);
             doc.text(" Cancel within 10 days to receive a 50% refund.", 25, 245);

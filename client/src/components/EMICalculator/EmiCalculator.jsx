@@ -34,7 +34,7 @@ const EMICalculator = () => {
             labels: ["Principal", "Interest"],
             datasets: [
               {
-                data: [loanAmount, totalInterest],
+                data: [loanAmount, totalInterest.toFixed(2)],
                 backgroundColor: ["#36A2EB", "#FF6384"],
               },
             ],

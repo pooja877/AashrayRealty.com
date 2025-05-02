@@ -179,8 +179,8 @@ export default function AdminNavbar() {
             <a href="/admin/news">News</a>
           <hr />
 
-            <a href="/admin/bookings">Bookings</a>
-          <hr />
+            {/* <a href="/admin/bookings/all">Bookings</a> */}
+          {/* <hr /> */}
 
             <a href="/admin/unPaidUser">UnPaidUser</a>
           <hr />

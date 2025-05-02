@@ -83,7 +83,7 @@ function Navbar() {
       )}
       <nav>
         <div className="left">
-          <a href="/" className="logo" >
+          <a  className="logo" >
             <img src="/logo.jpeg" alt="Aashray Realty" />
             <p>Aashray<span id="realty">Realty</span></p>
           </a>

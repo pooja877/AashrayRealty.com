@@ -42,10 +42,7 @@ const faqs = [
     question: "What happens if a booked property is canceled?",
     answer: "If canceled within 10 days, the property becomes available for booking again.",
   },
-  {
-    question: "How will I receive notifications for my property activities?",
-    answer: "You will get real-time notifications on the website and via email for bookings, payments, and approvals.",
-  },
+ 
   {
     question: "How can I edit or update my property details?",
     answer: "You can update your property details from your profile under the property listing section.",
