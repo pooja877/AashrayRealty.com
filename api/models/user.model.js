@@ -32,6 +32,12 @@ const userSchema= new mongoose.Schema({
 },
     {timestamps:true}
 );
+userSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    const userId = this._id;
+    // Property model me userId match karke delete karo
+    await mongoose.model('UserProperty').deleteMany({ userId: userId });
+    next();
+  });
 
 const User=mongoose.model('User',userSchema);
 

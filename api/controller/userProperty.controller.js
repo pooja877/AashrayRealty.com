@@ -63,7 +63,7 @@ export const addProperty = async (req, res) => {
 // Get All Properties (Admin)
 export const getAllProperties = async (req, res) => {
   try {
-    const properties = await UserProperty.find(); // Fetch all properties
+    const properties = await UserProperty.find().sort({ createdAt: -1 }); // Fetch all properties
     res.status(200).json(properties);
   } catch (error) {
     console.error("Error fetching properties:", error);

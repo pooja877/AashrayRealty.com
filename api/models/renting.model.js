@@ -10,6 +10,8 @@ const RentingSchema = new mongoose.Schema({
     lastPaymentDate: { type: Date }, // Stores the last rent payment date
     paymentHistory: [{ paymentId: String, date: Date }], 
     
-});
+},
+
+{timestamps:true});
 
 export default mongoose.model("Renting", RentingSchema);

@@ -15,9 +15,11 @@ const UnPaidUser = () => {
           console.log(data);
         } else {
           console.error(data.message || "Failed to fetch unpaid users");
+
         }
       } catch (error) {
         console.error("Error fetching unpaid users:", error);
+        console.log(error);
       }
     };
 
@@ -75,8 +77,8 @@ const UnPaidUser = () => {
         <div className="unpaid-users-container">
           {unpaidUsers.map((user) => (
             <div key={user._id} className="unpaid-user-card">
-              <h2>{user.userId}</h2>  {/* Access populated username */}
-              {/* <p>Email: {user.userId.email}</p>  */}
+              <h2>{user.userId.username}</h2>  
+              <p>Email: {user.userId.email}</p> 
               <p>Rent Amount: ₹{user.rentAmount}</p>
               <p>Due Date: {new Date(user.dueDate).toLocaleDateString()}</p>
               <p>Current Date: {new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}</p>

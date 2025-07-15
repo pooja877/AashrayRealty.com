@@ -18,7 +18,8 @@ const unpaidUserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+},
+{timestamps:true});
 
 const UnpaidUser = mongoose.model('UnpaidUser', unpaidUserSchema);
 

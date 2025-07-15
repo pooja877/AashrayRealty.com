@@ -55,7 +55,7 @@ export const deleteusersadmin = async (req, res) => {
 
 export const allUsers= async (req, res) => {
   try {
-    const users = await User.find(); // Fetch all properties
+    const users = await User.find().sort({ createdAt: -1 }); // Fetch all properties
     res.status(200).json(users);
 } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
@@ -138,20 +138,40 @@ export const updateUser=async (req,res,next) =>{
 }
 
   
-export const deleteUser=async(req,res,next)=>{
-    if(req.user.id !== req.params.id)
-        {
-            return next(errorHandler(401,"You can only delete your own account!"));
-        }
-    try{
-        await User.findByIdAndDelete(req.params.id);
-        res.status(200).json('user has been delete');
-    }
-    catch(error)
-    {
-        next(error);
-    }
-}
+// export const deleteUser=async(req,res,next)=>{
+//     if(req.user.id !== req.params.id)
+//         {
+//             return next(errorHandler(401,"You can only delete your own account!"));
+//         }
+//     try{
+//         await User.findByIdAndDelete(req.params.id);
+//         res.status(200).json('user has been delete');
+//     }
+//     catch(error)
+//     {
+//         next(error);
+//     }
+// }
+export const deleteUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id) {
+      return next(errorHandler(401, "You can only delete your own account!"));
+  }
+
+  try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+          return next(errorHandler(404, "User not found"));
+      }
+
+      // ✅ ये लाइन middleware को trigger करेगी
+      await user.deleteOne(); 
+
+      res.status(200).json("User and their properties have been deleted.");
+  } catch (error) {
+      next(error);
+  }
+};
+
 
 export const getMobileNumber = async (req, res) => {
   try {

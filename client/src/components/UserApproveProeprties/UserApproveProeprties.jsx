@@ -434,8 +434,8 @@ const UserApproveProperties = () => {
         <div className="propertcontainer">
           {filteredProperties.length > 0 ? (
             filteredProperties.map(property => (
-              <div key={property._id} className="property-card" onClick={() => navigate(`/userproperties/${property._id}`)}>
-                <div className="property-image">
+              <div key={property._id} className="property-card" >
+                <div className="property-image" >
                   {property.images?.length > 0 && (
                     <img src={property.images[0]} alt={property.title} className="imageConatiner" />
                   )}
@@ -444,7 +444,7 @@ const UserApproveProperties = () => {
                     onClick={() => toggleLike(property._id)}
                   />
                 </div>
-                <div className="propertyproinfo">
+                <div className="propertyproinfo" onClick={() => navigate(`/userproperties/${property._id}`)}>
                   <div className="property-header">
                     <h3 className="property-title">{property.title}</h3>
                     <p className="ind-price">₹<span className="originalprice">{property.price}{property.transactionType === "Rent" ? "/month" : ""}</span></p>
